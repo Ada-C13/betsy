@@ -28,6 +28,10 @@ class OrdersController < ApplicationController
   def find_order(id)
     @order = Order.find_by(id: id)
     head :not_found if !@order
-    return @order
+    return
+  end
+
+  def order_params
+    return params.require(:order).permit(:name, :email, :mailing_address, :cc_number, :cc_exp) # TODO: Do we want to store CVV and billing zip even if we're not showing it?
   end
 end
