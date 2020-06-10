@@ -80,3 +80,4 @@ end
 
 gem "omniauth"
 gem "omniauth-github"
+gem "google-cloud-storage", "~> 1.11", require: false
