@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_192239) do
+
+ActiveRecord::Schema.define(version: 2020_06_10_204945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,12 +51,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_192239) do
     t.index ["product_id"], name: "index_categories_products_on_product_id"
   end
 
-  create_table "customers", force: :cascade do |t|
-    t.string "email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "merchants", force: :cascade do |t|
     t.string "email"
     t.string "username"
@@ -67,6 +62,8 @@ ActiveRecord::Schema.define(version: 2020_06_10_192239) do
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -81,8 +78,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_192239) do
     t.datetime "time_submitted"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "customer_id"
-    t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.string "customer_email"
   end
 
   create_table "products", force: :cascade do |t|

@@ -1,0 +1,2 @@
+id,status,credit_card_num,credit_card_exp,credit_card_cvv,address,city,state,zip,time_submitted
+1,pending,nil,nil,nil,nil,nil,nil,
