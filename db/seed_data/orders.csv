@@ -1,2 +1,5 @@
-id,status,credit_card_num,credit_card_exp,credit_card_cvv,address,city,state,zip,time_submitted
-1,pending,nil,nil,nil,nil,nil,nil,
+id,status,credit_card_num,credit_card_exp,credit_card_cvv,address,city,state,zip,time_submitted,customer_email
+1,pending,nil,nil,nil,nil,nil,nil,nil,nil,nil
+2,paid,6278,10/10,234,123 ada lane,seattle,wa,89234,2001-02-03T04:05:06+00:00,something.com
+3,cancelled,nil,nil,nil,nil,nil,nil,nil,nil,nil
+4,complete,8390,20/20,234,445 lovelace lane,seattle,wa,67984,2001-02-03T04:05:06+00:00,somethingelse.com
