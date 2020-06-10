@@ -16,3 +16,13 @@
 @import "bootstrap";
 
 @import "**/*";
+
+main {
+  padding: 2rem;
+}
+
+h2, h3{
+  padding-right: 25px;
+  margin-right: 15px;
+  color: palevioletred;
+}

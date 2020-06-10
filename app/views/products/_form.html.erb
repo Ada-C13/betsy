@@ -1,21 +1,31 @@
 
 <%= form_with model: @product do |f| %>
 
-  <%= f.label "Title:" %>
-  <%= f.text_field :title %>
+  <div class="form-group">
+    <%= f.label "Title:" %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
 
-  <%= f.label "Price:" %>
-  <%= f.text_field :price %>
+  <div class="form-group">
+    <%= f.label "Price:" %>
+    <%= f.text_field :price, class: "form-control" %>
+  </div>
 
-  <%= f.label "Photo URL:" %>
-  <%= f.text_field :photo_url %>
+  <div class="form-group">
+    <%= f.label "Photo URL:" %>
+    <%= f.text_field :photo_url, class: "form-control" %>
+  </div>
 
-  <%= f.label "Description:" %>
-  <%= f.text_area :description %>
+  <div class="form-group">
+    <%= f.label "Description:" %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
 
-  <%= f.label "Stock:" %>
-  <%= f.text_field :stock %>
+  <div class="form-group">
+    <%= f.label "Stock:" %>
+    <%= f.text_field :stock, class: "form-control" %>
+  </div>
 
-  <%= f.submit "#{action_name} Product"%>
+  <%= f.submit "#{action_name} Product", class: "btn btn-primary"%>
 
 <% end %>
