@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   delete "/logout", to: "merchants#destroy", as: "logout"
 
   # orders
-  resources :orders, except: :destroy # index action would need to be nested in myaccount/orders
+  resources :orders, except: [:index, :new] 
 
   # order_items
-  resources :order_items, except: [:index, :show] # an order item is created when the user adds a product to cart
+  resources :order_items, only: [:create, :update, :destroy] # an order item is created when the user adds a product to cart, index action would need to be nested in myaccount/orders
 end
