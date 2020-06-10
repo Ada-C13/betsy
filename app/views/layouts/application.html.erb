@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Betsy</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+
+  <header> 
+  <h1> Forever 2020 </h1>
+  
+<nav class="dropdown">
+    <li class="navbar-item"><%= link_to "Cart", root_path, class: "nav-link" %> </li> 
+    <li class="navbar-item"><%= link_to "Login", root_path, class: "nav-link" %> </li> 
+    <li class="navbar-item"><%= link_to "Add New Product", root_path, class: "nav-link" %> </li> 
+    <li class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Products<span class="caret"></span></li>
+    <ul class="dropdown-menu">
+     
+      
+      <li class="dropdown-submenu">
+        <a class="test" tabindex="-1" href="#">By Category <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a tabindex="-1" href="#">Protesting</a></li>
+          <li><a tabindex="-1" href="#">Quarantine Essentials</a></li>
+        </ul>
+      </li>
+      <li class="dropdown-submenu">
+        <a class="test" tabindex="-1" href="#">By Merchant <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a tabindex="-1" href="#">Merchant 1</a></li>
+          <li><a tabindex="-1" href="#">Merchant 2</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+
+<script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  </header>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
