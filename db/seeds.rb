@@ -10,9 +10,7 @@ CSV.foreach(MERCHANT_FILE, :headers => true) do |row|
   merchant.id = row['id']
   merchant.email = row['email']
   merchant.username = row['username']
-  p row['username']
   
-  p merchant
   successful = merchant.save
   if !successful
     merchant_failures << merchant
@@ -74,6 +72,26 @@ end
 
 puts "Added #{Order.count} order records"
 puts "#{order_failures.length} orders failed to save"
+
+# OrderItem seeds
+ORDER_ITEM_FILE = Rails.root.join('db', 'seed_data', 'order_items.csv')
+puts "Loading raw order_item data from #{ORDER_ITEM_FILE}"
+
+order_item_failures = []
+CSV.foreach(ORDER_ITEM_FILE, :headers => true) do |row|
+  order_item = OrderItem.new
+  order_item.id = row['id']
+  order_item.quantity = row['quantity']
+  order_item.order_id = row['order_id']
+
+  successful = order_item.save
+  if !successful
+    order_item_failures << order_item
+  end
+end
+
+puts "Added #{OrderItem.count} order item records"
+puts "#{order_item_failures.length} order items failed to save"
 
 # reloading postgres for the latest ID
 puts "Manually resetting PK sequence on each table"
