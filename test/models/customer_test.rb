@@ -1,7 +1,9 @@
 require "test_helper"
 
 describe Customer do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  describe 'relationships' do
+    it 'has many Orders' do
+
+    end
+  end
 end
