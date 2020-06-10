@@ -75,6 +75,7 @@ end
 group :test do
   gem 'minitest-rails'
   gem 'minitest-reporters'
+  gem 'simplecov'
 end
 
 gem "omniauth"
