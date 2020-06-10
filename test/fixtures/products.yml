@@ -1,0 +1,36 @@
+tulip: 
+  name: tulip
+  description: wowie a whole field of these babies are a sight to behold
+  photo: www.google.com/tulips
+  stock: 6
+  active: true
+  price: 12.50
+  merchant_id: 1
+
+daisy:
+  name: daisy
+  description: if you chain these flowers together you can make a crown
+  photo: www.google.com/daisies
+  stock: 2
+  active: true
+  price: 3.75
+  merchant_id: 1
+
+onion:
+  name: onion
+  description: sprouts very easily when left alone in a kitchen
+  photo: www.google.com/onions
+  stock: 10
+  active: true
+  price: .50
+  merchant_id: 2
+
+cilantro: 
+  name: cilantro
+  description: usually tasty but occasionally soapy no one knows why
+  photo: www.google.com/cilantro
+  stock: 1
+  active: false
+  price: 100
+  merchant_id: 3
+
