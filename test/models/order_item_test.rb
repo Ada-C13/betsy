@@ -2,7 +2,7 @@ require "test_helper"
 
 describe OrderItem do
   describe 'relationships' do
-    it 'must belong to a Plant' do
+    it 'must belong to a Product' do
 
     end
 
