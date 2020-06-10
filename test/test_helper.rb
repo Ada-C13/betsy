@@ -4,9 +4,8 @@ require 'rails/test_help'
 require "minitest/rails"
 require "minitest/reporters"  # for Colorized output
 require 'simplecov'
-SimpleCov.start do
-  add_filter 'test/' # Tests should not be checked for coverage.
-end
+SimpleCov.start 'rails'
+
 #  For colorful output!
 Minitest::Reporters.use!(
   Minitest::Reporters::SpecReporter.new,
