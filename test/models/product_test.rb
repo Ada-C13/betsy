@@ -72,5 +72,13 @@ describe Product do
       expect(@product.respond_to?(:merchant_id)).must_equal true
     end
 
+    it "has/responds to categories" do
+      expect(@product.respond_to?(:categories)).must_equal true
+    end
+
+    it "has/responds to reviews" do
+      expect(@product.respond_to?(:reviews)).must_equal true
+    end
+
   end
 end
