@@ -1,0 +1,71 @@
+title,price,photo_url,description,stock,merchant_id,active
+Bat-thorn,4.9,https://i.imgur.com/z9U4xd6.jpg,a plant similar to wolfsbane offering protection against vampires,10,1,false
+Biollante,4.5,https://i.imgur.com/z9U4xd6.jpg,a monster plant of titanic proportions,15,1,true
+Dyson tree,20,https://i.imgur.com/z9U4xd6.jpg,a genetically-engineered plant capable of growing on a comet,10,1,true
+Integral tree,55,https://i.imgur.com/z9U4xd6.jpg,enormous tree 100 kilometers long with a leafy tuft at each end oriented in opposite directions forming the integral symbol ∫,3,1,true
+Wolf Flower,15.99,https://i.imgur.com/z9U4xd6.jpg,an extremely rare phosphorescent plant found only in the mountains of Tibet,15,1,false
+Plant Men of Barsoom,155,https://i.imgur.com/z9U4xd6.jpg,a race of humanoid plant,5,1,true
+Re-annual plant,12.99,https://i.imgur.com/z9U4xd6.jpg,plants which due to a rare 4-dimensional twist in their genetic structure flower and grow before their seed germinates,20,1,true
+Red weed,34.5,https://i.imgur.com/z9U4xd6.jpg,a red plant from Mars brought to Earth accidentally by the invading Martians,4,1,true
+Tesla tree,450,https://i.imgur.com/z9U4xd6.jpg,large electrified tree from the planet Hyperion,10,1,true
+Tree-of-Life,45,https://i.imgur.com/z9U4xd6.jpg,the ancestor of yams with similar appearance and taste,40,1,true
+Triffid,15,https://i.imgur.com/z9U4xd6.jpg,carnivorous plant which possesses a whip-like poisonous sting as well as mobility by three foot-like appendages,1,1,true
+Athelas,5.55,https://i.imgur.com/z9U4xd6.jpg,a healing plant with long leaves,44,1,true
+Elanor,3.99,https://i.imgur.com/z9U4xd6.jpg,a small star-shaped yellow flower,20,1,false
+Gillyweed,14,https://i.imgur.com/z9U4xd6.jpg,seaweed-like plant which when you eat it allows you to breathe underwater for a short period of time,12,1,true
+Mandrake,55,https://i.imgur.com/z9U4xd6.jpg,tubers that look like babies when young. Their screams can kill when fully grown,3,1,true
+Whomping willow,34.99,https://i.imgur.com/z9U4xd6.jpg,a tree which has club-like branches which can move,4,1,true
+Firemoss,4.99,https://i.imgur.com/z9U4xd6.jpg,red-brown moss that when activated by rubbing releases wisps of smoke that create feelings of euphoria when inhaled and is used as a recreational drug,16,1,true
+Tears of Edgli,3.59,https://i.imgur.com/z9U4xd6.jpg,Vibrantly colored flowers that grow only in the temperate T’Telir climate,12,1,true
+Dorim vines,10,https://i.imgur.com/z9U4xd6.jpg,Dorim vines live under the sand that covers most of Taldain’s Dayside continent reaching down to the water table where they fill themselves with water as a defensive mechanism against predators,15,1,false
+Hangman tree,34,https://i.imgur.com/z9U4xd6.jpg,a tree that will attempt to strangle anyone who ventures under it,1,1,true
+Kelpie,12,https://i.imgur.com/z9U4xd6.jpg,a shape-shifting mass of animate seaweed that can imitate a woman or other creatures and drowns its victims,5,1,true
+Oaken defender,21,https://i.imgur.com/z9U4xd6.jpg,an enormous disk-shaped plant that lives in dryad groves and assists in their defense,2,1,true
+Oblivion moss,12,https://i.imgur.com/z9U4xd6.jpg,black moss that steals memories from intelligent creatures,1,1,true
+Phantom fungus,20,https://i.imgur.com/z9U4xd6.jpg,a dangerous subterranean plant that grapples victims with tentacles,4,1,false
+Shambling mound,30.99,https://i.imgur.com/z9U4xd6.jpg,an atrocious plant-like creature also called a shambler,3,1,true
+Tendriculos,12,https://i.imgur.com/z9U4xd6.jpg,an enormous sentient plant resembling a huge tangled shrubbery,2,1,true
+Apple wand,24,https://i.imgur.com/6lRh94a.jpg,applewood wands are powerful and best suited to an owner of high aims and ideals,4,1,true
+Ash wand,34,https://i.imgur.com/6lRh94a.jpg,an ash wand cleaves to its one true master and ought not to be passed on or gifted from the original owner because it will lose power and skill,9,1,false
+Aspen wand,22.9,https://i.imgur.com/6lRh94a.jpg,wand-quality aspen wood is white and fine-grained and highly prized by all wand-makers for its stylish resemblance to ivory and its usually outstanding charmwork,4,1,true
+Blackthorn wand,31,https://i.imgur.com/6lRh94a.jpg,blackthorn has the reputation of being best suited to a warrior,5,1,true
+Black Walnut wand,29,https://i.imgur.com/6lRh94a.jpg,less common than the standard walnut wand that of black walnut seeks a master of good instincts and powerful insight,7,1,true
+Cypress wand,15,https://i.imgur.com/6lRh94a.jpg,cypress wands are associated with nobility,10,1,false
+Elder wand,30.99,https://i.imgur.com/6lRh94a.jpg,the rarest wand wood of all and reputed to be deeply unlucky,8,1,true
+Elm wand,25,https://i.imgur.com/6lRh94a.jpg,the unfounded belief that only pure-bloods can produce magic from elm wands was undoubtedly started by some elm wand owner seeking to prove his own blood credentials,2,1,true
+English Oak wand,34,https://i.imgur.com/6lRh94a.jpg,this is a friend as loyal as the wizard who deserves it,16,1,true
+Hazel wand,21,https://i.imgur.com/6lRh94a.jpg,hazel often reflects its owner’s emotional state and works best for a master who understands and can manage their own feelings,7,1,false
+Holly wand,32.99,https://i.imgur.com/6lRh94a.jpg,holly is one of the rarer kinds of wand woods,1,1,true
+Larch wand,23.55,https://i.imgur.com/6lRh94a.jpg,larch has long been valued as an attractive and powerful wand wood,12,1,true
+Laurel wand,12,https://i.imgur.com/6lRh94a.jpg,it is said that a laurel wand cannot perform a dishonourable act,12,1,true
+Pear wand,34.99,https://i.imgur.com/6lRh94a.jpg,his golden-toned wood produces wands of splendid magical powers which give of their best in the hands of the warm-hearted and the wise,6,1,true
+Pine wand,32,https://i.imgur.com/6lRh94a.jpg,the straight-grained pine wand always chooses an independent master who may be perceived as a loner,16,1,true
+Red Oak wand,32.99,https://i.imgur.com/6lRh94a.jpg,you will often hear the ignorant say that red oak is an infallible sign of its owner’s hot temper,1,1,true
+Rowan wand,21.55,https://i.imgur.com/6lRh94a.jpg,rowan wood has always been much-favoured for wands because it is reputed to be more protective than any other,12,1,true
+Silver Lime wand,22,https://i.imgur.com/6lRh94a.jpg,this unusual and highly attractive wand wood was greatly in vogue in the nineteenth century,2,1,true
+The Standard Book of Spells Year 1,22,https://i.imgur.com/PIgUe29.jpg,by Miranda Goshawk,16,1,true
+A Beginner's Guide to Transfiguration,15,https://i.imgur.com/PIgUe29.jpg,by Emeric Switch,2,1,false
+A History of Magic,13.99,https://i.imgur.com/PIgUe29.jpg,by Bathilda Bagshott,15,1,true
+Magical Theory,10,https://i.imgur.com/PIgUe29.jpg,by Adalbert Waffling,14,1,true
+One Thousand Magical Herbs and Fungi,14,https://i.imgur.com/PIgUe29.jpg,by Phyllida Spore,1,1,false
+Magical Drafts and Potions,12,https://i.imgur.com/PIgUe29.jpg,by Arsenius Jigger,12,1,true
+Fantastic Beasts and Where to Find Them,22,https://i.imgur.com/PIgUe29.jpg,by Newt Scamander,5,1,true
+The Dark Forces: A Guide to Self-Protection,13,https://i.imgur.com/PIgUe29.jpg,by Quentin Trimble,3,1,true
+The Standard Book of Spells Year 2,23,https://i.imgur.com/PIgUe29.jpg,by Miranda Goshawk,10,1,true
+Break with a Banshee,12,https://i.imgur.com/PIgUe29.jpg,by Gilderoy Lockhart,3,1,false
+Gadding with Ghouls,16,https://i.imgur.com/PIgUe29.jpg,by Gilderoy Lockhart,6,1,true
+Holidays with Hags,10.99,https://i.imgur.com/PIgUe29.jpg,by Gilderoy Lockhart,3,1,true
+Travels with Trolls,8.99,https://i.imgur.com/PIgUe29.jpg,by Gilderoy Lockhart,12,1,false
+Voyages with Vampires,6.99,https://i.imgur.com/PIgUe29.jpg,by Gilderoy Lockhart,2,1,true
+Wandering with Werewolves,5.99,https://i.imgur.com/PIgUe29.jpg,by Gilderoy Lockhart,14,1,true
+Year with the Yeti,13,https://i.imgur.com/PIgUe29.jpg,by Gilderoy Lockhart,3,1,true
+The Standard Book of Spells Year 3,16,https://i.imgur.com/PIgUe29.jpg,by Miranda Goshawk,3,1,true
+Unfogging the Future,14,https://i.imgur.com/PIgUe29.jpg,by Cassandra Vablatsky,2,1,false
+The Essential Defence Against the Dark Arts,15,https://i.imgur.com/PIgUe29.jpg,by Arsenius Jigger,5,1,true
+The Standard Book of Spells Year 4,16,https://i.imgur.com/PIgUe29.jpg,by Miranda Goshawk,3,1,true
+The Dark Forces: A Guide to Self Protection,15.55,https://i.imgur.com/PIgUe29.jpg,by Quentin Trimble,2,1,true
+The Standard Book of Spells Year 5,20,https://i.imgur.com/PIgUe29.jpg,by Miranda Goshawk,5,1,true
+Defensive Magical Theory,15,https://i.imgur.com/PIgUe29.jpg,by Wilbert Slinkhard,1,1,false
+The Standard Book of Spells Year 6,21,https://i.imgur.com/PIgUe29.jpg,by Miranda Goshawk,6,1,true
+Advanced Potion-Making,12,https://i.imgur.com/PIgUe29.jpg,by Libatius Borage,3,1,true
+A Guide to Advanced Transfiguration,26,https://i.imgur.com/PIgUe29.jpg,by Emeric Switch,2,1,true
