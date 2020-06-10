@@ -35,3 +35,4 @@
 yarn-debug.log*
 .yarn-integrity
 coverage
+/test/test_helper.rb
