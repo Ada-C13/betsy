@@ -5,4 +5,13 @@ class Product < ApplicationRecord
   has_many :reviews
   has_many :order_items
   has_many :orders, through: :order_items
+
+  validates :title, presence: true 
+  validates :title, uniqueness: { case_sensitive: false}
+
+  validates :price, presence: true
+
+  def self.get_active_products
+    return Product.where(active: true)
+  end
 end

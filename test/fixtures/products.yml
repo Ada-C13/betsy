@@ -4,3 +4,12 @@ apple:
   photo_url: just a string
   description: red apple 
   stock: 5
+  active: true
+banana: 
+  title: banana
+  price: 4.40
+  photo_url: url info
+  description: yellow banana
+  stock: 5
+  active: false
+

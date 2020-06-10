@@ -21,9 +21,13 @@ describe ProductsController do
         }
       }
 
+      puts "PRODUCT COUNT BEFORE  = #{Product.count}"
+
       expect {
         post products_path, params: product_hash
       }.must_differ "Product.count", 1
+
+      puts "PRODUCT COUNT NOW = #{Product.count}"
 
       new_product = Product.find_by(title: product_hash[:product][:title])
       puts "NEW PRODUCT = #{new_product}"
@@ -33,7 +37,7 @@ describe ProductsController do
       expect(new_product.stock).must_equal product_hash[:product][:stock]
 
       must_respond_with :redirect 
-      # must_redirect_to product_path(new_product.id)
+      must_redirect_to product_path(new_product.id)
     end
 
     it "does not create a new product if the form data violates Product validations" do 
