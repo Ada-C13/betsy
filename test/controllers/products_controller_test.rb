@@ -1,7 +1,51 @@
 require "test_helper"
 
 describe ProductsController do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+
+  describe "new" do 
+    it "responds with success" do 
+      get new_product_path 
+      must_respond_with :success
+    end
+  end
+
+  describe "create" do 
+    it "can create a new product with valid information, and redirect" do 
+      product_hash = {
+        product: {
+          title: "banana",
+          price: 2.99,
+          description: "yellow banana",
+          photo_url: "url info",
+          stock: 5
+        }
+      }
+
+      expect {
+        post products_path, params: product_hash
+      }.must_differ "Product.count", 1
+
+      new_product = Product.find_by(title: product_hash[:product][:title])
+      puts "NEW PRODUCT = #{new_product}"
+      expect(new_product.price).must_equal product_hash[:product][:price]
+      expect(new_product.description).must_equal product_hash[:product][:description]
+      expect(new_product.photo_url).must_equal product_hash[:product][:photo_url]
+      expect(new_product.stock).must_equal product_hash[:product][:stock]
+
+      must_respond_with :redirect 
+      # must_redirect_to product_path(new_product.id)
+    end
+
+    it "does not create a new product if the form data violates Product validations" do 
+      product_hash = {
+        product: {
+          title: "banana"
+        }
+      }
+
+      expect {
+        post products_path, params: product_hash
+      }.must_differ "Product.count", 0
+    end
+  end
 end

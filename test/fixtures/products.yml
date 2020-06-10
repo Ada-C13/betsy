@@ -1,0 +1,6 @@
+apple:
+  title: apple
+  price: 5.40
+  photo_url: just a string
+  description: red apple 
+  stock: 5

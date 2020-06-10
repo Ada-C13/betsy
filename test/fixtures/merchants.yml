@@ -1,0 +1,5 @@
+merchant_one:
+  username: potter
+  uid: 12345
+  email: potter@gmail.com 
+  provider: github
