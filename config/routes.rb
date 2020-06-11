@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # products
-  resources :products
+  resources :products do
+    post "/add", to: "order_items#create" 
+  end
 
   # categories
   resources :categories, only: [:show, :new, :create]
@@ -15,7 +17,7 @@ Rails.application.routes.draw do
   delete "/logout", to: "merchants#destroy", as: "logout"
 
   # orders
-  resources :orders, except: [:index, :new] 
+  resources :orders, except: [:index] 
 
   # order_items
   resources :order_items, only: [:create, :update, :destroy] # an order item is created when the user adds a product to cart, index action would need to be nested in myaccount/orders
