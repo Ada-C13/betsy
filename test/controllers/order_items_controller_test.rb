@@ -1,11 +1,12 @@
 require "test_helper"
 
 describe OrderItemsController do
+  before do
+    @product = products(:apple)
+    @order_item = order_items(:order_item1)
+  end
+
   describe "create" do
-    before do
-      @product = products(:apple)
-    end
-    
     let (:order_item_hash) {
       {
         product: {
@@ -65,10 +66,6 @@ describe OrderItemsController do
   end
 
   describe "update" do
-    before do
-      @order_item = order_items(:order_item1)
-    end
-
     let (:edited_order_item_hash) {
       {
         order_item: {
@@ -116,5 +113,22 @@ describe OrderItemsController do
   end
 
   describe "destroy" do
+    it "destroys an existing order item, creates a flash message, then redirects" do
+      expect{
+        delete order_item_path(@order_item.id)
+      }.must_differ "OrderItem.count", -1
+
+      expect(flash[:success]).must_include "Successfully removed #{@order_item.product.title} from cart!"
+
+      must_redirect_to orders_path
+    end
+
+    it "does not destroy the order item when given an invalid id, then responds with a 404 error" do
+      expect{
+        delete order_item_path(-1)
+      }.wont_differ "OrderItem.count"
+
+      must_respond_with :not_found
+    end
   end
 end
