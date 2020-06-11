@@ -95,6 +95,26 @@ end
 puts "Added #{OrderItem.count} order item records"
 puts "#{order_item_failures.length} order items failed to save"
 
+# Category seeds
+CATEGORY_FILE = Rails.root.join('db', 'seed_data', 'categories.csv')
+puts "Loading raw category data from #{CATEGORY_FILE}"
+
+category_failures = []
+CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
+  category = Category.new
+  category.id = row['id']
+  category.name = row['name']
+  category.description = row['description']
+
+  successful = category.save
+  if !successful
+    category_failures << category
+  end
+end
+
+puts "Added #{Category.count} category records"
+puts "#{category_failures.length} categories failed to save"
+
 # reloading postgres for the latest ID
 puts "Manually resetting PK sequence on each table"
 ActiveRecord::Base.connection.tables.each do |t|
