@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   resources :products
 
   # categories
-  resources :categories, only: [:show, :new, :create]
+  resources :categories, only: [:show, :new, :create] do
+    resources :products, only: [:index]
+  end
 
   # reviews
   resources :reviews, only: [:new, :create]
