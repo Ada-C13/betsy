@@ -44,6 +44,26 @@ class ProductsController < ApplicationController
     end
   end
 
+  def index
+    if params[:merchant_id]
+      # This is the nested route, /merchants/:merchant_id/products
+      merchant = Merchant.find_by(id: params[:merchant_id])
+      @products = merchant.products
+    else
+      # This is the 'regular' route, /products
+      @products = Product.all
+    end
+  end
+
+  def show
+    @product = Product.find_by(id: params[:id])
+
+    if @product.nil?
+      redirect_to products_path
+      return
+    end
+  end
+
 
   private 
 
@@ -51,5 +71,4 @@ class ProductsController < ApplicationController
     return params.require(:product).permit(:title, :price, :description,
                                            :photo_url, :stock)
   end
-
 end

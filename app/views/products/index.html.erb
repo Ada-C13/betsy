@@ -1,0 +1,21 @@
+<h2>List of Products</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Title</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <% if product.active %>
+        <tr>
+          <td><%= link_to image_tag(product.photo_url, height: "150", :alt => "product photo"), product_path(product) %></td>
+          <td><%= link_to product.title, product_path(product) %></td>
+          <td><%= product.price %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
