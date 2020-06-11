@@ -2,6 +2,13 @@
 
 <h1>Products</h1>
 
+<div class="container">
+    <% @products.each do |group| %>
+
+    <% end %>
+
+
+</div>
 <table>
   <thead>
     <tr>
@@ -10,7 +17,7 @@
   </thead>
 
   <tbody>
-    <% @products.each do |product| %>
+    <% @products.each do |group| %>
       <tr>
         <td><%= product.name %></td>
         <td><%= image_tag product.photo, alt: "Nice plant" %></td>

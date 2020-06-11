@@ -1,0 +1,7 @@
+<div class='col-md-3'>
+  <%= image_tag(product.photo, class: "img-responsive") %>
+  <h4><%= product.name %></h4>
+  <div><%= sanitize(product.description) %></div>
+  <div><%= number_to_currency(product.price) %></div> 
+  <%= button_to 'Add to Cart', order_items_path(product_id: product), class: 'btn btn-info btn-sm', remote: true %>
+</div>
