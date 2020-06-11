@@ -8,6 +8,6 @@ class Order < ApplicationRecord
   # validates :cc_last_four, presence: true, numericality: { only_integer: true }
   # validates :cc_exp, presence: true
   # validates :cc_cvv, presence: true, numericality: { only_integer: true }
-  validates :status, inclusion: { in: %w(pending paid shipped), message: "%{value} is not a valid status" } 
+  validates :status, inclusion: { in: %w(pending paid shipped), message: "%{value} is not a valid status" }
 
 end
