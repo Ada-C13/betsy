@@ -1,0 +1,24 @@
+
+<main>
+  <h2> Add a new product </h2>
+
+  <section>
+
+    <% if @product.errors.any? %>
+
+      <div class="alert alert-warning" role="alert">
+        <strong>A problem occured: could not create a product</strong> 
+        <br>
+        <% @product.errors.each do |column, message| %>
+          <strong><%= column.capitalize %></strong> <%= message %>
+          <br>
+        <% end %>
+      </div>
+    <% end %>
+
+    
+  </section>
+
+  <%= render partial: "form", locals: { action_name: "New" } %>
+
+</main>
