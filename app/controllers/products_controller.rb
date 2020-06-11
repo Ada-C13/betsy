@@ -22,8 +22,21 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
+    if session[:user_id]
+      #create product
+      raise
+    else
+      #say you must be loged in as a merchant to create product
+      raise
+    end
 
+    @product = Product.new(product_params)
+    @product.merchant_id = session[:user_id]
+    if @product.save
+      redirect_to root_path
+    else
+      render :new, status: :bad_request
+    end
   end
 
   # PATCH/PUT /products/1
