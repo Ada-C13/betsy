@@ -21,18 +21,9 @@ class ProductsController < ApplicationController
   def edit
   end
 
-  # POST /products
-  # POST /products.json
   def create
     @product = Product.new(product_params)
 
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-      else
-        format.html { render :new }
-      end
-    end
   end
 
   # PATCH/PUT /products/1
@@ -60,13 +51,8 @@ class ProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
     def product_params
-      params.fetch(:product, {})
+      return params.require(:product).permit(:name, :description, :photo, :stock, :price, category_ids: [])
     end
 end

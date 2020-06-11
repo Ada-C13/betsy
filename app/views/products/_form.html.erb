@@ -38,6 +38,11 @@
     <%= form.text_field :stock, class: 'form-control', placeholder: "Number of products in stock" %>
   </div>
 
+  <div class='form-group'>
+    <%= form.label :categories %>
+    <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
