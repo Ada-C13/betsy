@@ -7,7 +7,7 @@ class Product < ApplicationRecord
   has_many :orders, through: :order_items
 
   validates :title, presence: true 
-  validates :title, uniqueness: { case_sensitive: false}
+  # validates :title, uniqueness: { case_sensitive: false}
 
   validates :price, presence: true
 

@@ -13,7 +13,7 @@ describe ProductsController do
     it "can create a new product with valid information, and redirect" do 
       product_hash = {
         product: {
-          title: "banana",
+          title: "kiwi",
           price: 2.99,
           description: "yellow banana",
           photo_url: "url info",
@@ -25,9 +25,10 @@ describe ProductsController do
 
       expect {
         post products_path, params: product_hash
+        puts "PRODUCT COUNT NOW = #{Product.count}"
       }.must_differ "Product.count", 1
 
-      puts "PRODUCT COUNT NOW = #{Product.count}"
+      
 
       new_product = Product.find_by(title: product_hash[:product][:title])
       puts "NEW PRODUCT = #{new_product}"
@@ -51,5 +52,18 @@ describe ProductsController do
         post products_path, params: product_hash
       }.must_differ "Product.count", 0
     end
+  end
+
+  describe "edit" do 
+    it "responds with success when getting the edit page for an existing, valid product" do
+      product = products(:apple)
+
+      get edit_product_path(product.id)
+
+      must_respond_with :success
+    end
+  end
+
+  describe "update" do 
   end
 end
