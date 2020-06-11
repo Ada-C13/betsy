@@ -3,7 +3,7 @@
 <h1>Products</h1>
 
 <div class="container">
-  <% @products.in_groups_of(4, false).each do |group| %>
+  <% @products.in_groups_of(4).each do |group| %>
   <div class="row">
     <% group.each do |product| %>
       <%= render partial: "product", locals: { product: product } %>

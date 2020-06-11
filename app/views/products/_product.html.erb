@@ -1,6 +1,9 @@
-<div class='col-sm'>
-  <%= image_tag(product.photo, class: "img-responsive") %>
-  <h4><%= product.name %></h4>
-  <div><%= number_to_currency(product.price) %></div> 
-  <%# button_to 'Edit', edit_product_path(product), class: 'btn btn-info btn-sm', remote: true %>
+<div class='col-md'>
+  <% if !product.nil? %>
+
+    <%= image_tag(product.photo, class: "img-responsive") %>
+    <h4><%= product.name %></h4>
+    <div><%= number_to_currency(product.price) %></div> 
+    <%# button_to 'Edit', edit_product_path(product), class: 'btn btn-info btn-sm', remote: true %>
+  <% end %>
 </div>
