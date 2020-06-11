@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_223531) do
+ActiveRecord::Schema.define(version: 2020_06_11_024250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,10 @@ ActiveRecord::Schema.define(version: 2020_06_10_223531) do
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "product_id"
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -50,7 +54,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_223531) do
     t.string "cc_last_four"
     t.date "cc_exp"
     t.integer "cc_cvv"
-    t.string "status"
+    t.string "status", default: "pending"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -59,11 +63,13 @@ ActiveRecord::Schema.define(version: 2020_06_10_223531) do
     t.string "name"
     t.float "price"
     t.integer "stock"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.text "description"
-    t.string "photo"
+    t.string "photo", default: "https://i.imgur.com/WSHmeuf.jpg"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "merchant_id"
+    t.index ["merchant_id"], name: "index_products_on_merchant_id"
   end
 
   create_table "reveiws", force: :cascade do |t|
