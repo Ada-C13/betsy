@@ -2,6 +2,8 @@
   <h2><%= @merchant.username %>' Dashboard</h2>
 
   <section class="merchant-products__container">
+    <%= link_to "Add product", new_product_path, class: "btn btn-primary" %>
+
     <h3>Products</h3>
 
     <table class="table">
@@ -22,7 +24,7 @@
         <tr>
           <td><%= product.title %></td>
           <td><%= product.price %></td>
-          <td><%= product.active %></td>
+          <td><%= product.active == true ? "true" : "false"%></td>
           <td><%= link_to "Edit", edit_product_path(product.id), class: "btn btn-primary" %></td>
         </tr>
       <% end %>

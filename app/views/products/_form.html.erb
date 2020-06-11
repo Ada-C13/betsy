@@ -26,11 +26,6 @@
     <%= f.text_field :stock, class: "form-control" %>
   </div>
 
-  <div class="form-group">
-    <%= f.label "Active:" %>
-    <%= f.select :category, options_for_select(["true", "false"]),{include_blank: false}, {class: "form-control"} %>
-  </div>
-
   <%= f.submit "#{action_name} Product", class: "btn btn-primary"%>
 
 <% end %>

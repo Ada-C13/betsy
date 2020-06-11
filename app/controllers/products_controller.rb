@@ -6,7 +6,8 @@ class ProductsController < ApplicationController
 
   def create 
     @product = Product.new(product_params)
-    @product.merchant_id = Merchant.first.id # temporary code before log in is implemented
+    @product.merchant_id = current_merchant.id # temporary code before log in is implemented
+    @product.active = true
 
     puts "MERCHANT ID IS = #{@product.merchant_id}"
 
