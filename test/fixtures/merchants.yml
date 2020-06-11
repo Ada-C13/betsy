@@ -10,3 +10,14 @@ melba:
   username: Melba Mouton
   email: melmou@email.com
 
+angela:
+  provider: github
+  uid: 2244
+  email: angela@adadevelopers.org
+  username: angie
+
+suely:
+  provider: github
+  uid: 6464
+  email: suely.adadevelopers.org
+  username: zuelly
