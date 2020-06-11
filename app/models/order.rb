@@ -2,12 +2,20 @@ class Order < ApplicationRecord
   has_many :order_items
   has_many :products, through: :order_items
 
-  # validates :name, presence: true
-  # validates :email, presence: true
-  # validates :address, presence: true
-  # validates :cc_last_four, presence: true, numericality: { only_integer: true }
-  # validates :cc_exp, presence: true
-  # validates :cc_cvv, presence: true, numericality: { only_integer: true }
-  validates :status, inclusion: { in: %w(pending paid shipped), message: "%{value} is not a valid status" } 
+  with_options if: :order_submitted? do |submitted|
+    submitted.validates :name, presence: true
+    submitted.validates :email, presence: true, 
+    format: { with: /[a-z0-9\+\-_\.]+@[a-z\d\-]+\.[a-z]+\z/, message: "email is not valid" }
+    submitted.validates :address, presence: true
+    submitted.validates :cc_last_four, presence: true, 
+      format: { with: /\d{4}/, message: "cc_last_four is not valid" }
+    submitted.validates :cc_exp, presence: true
+    submitted.validates :cc_cvv, presence: true, numericality: { only_integer: true }
+  end
+  validates :status, inclusion: { in: %w(pending paid shipped), message: "%{value} is not a valid status" }
+
+  def order_submitted?
+    status == "paid" || status == "shipped"
+  end
 
 end
