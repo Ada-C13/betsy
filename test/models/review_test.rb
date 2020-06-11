@@ -28,7 +28,7 @@ describe Review do
 
       expect(result).must_equal false
       expect(review.errors.messages).must_include :rating
-      expect(review.errors.messages[:rating]).must_include " should be between 0 to 5"
+      expect(review.errors.messages[:rating]).must_include "should be between 0 and 5"
 
     end
 
@@ -38,9 +38,8 @@ describe Review do
 
       expect(result).must_equal false
       expect(review.errors.messages).must_include :rating
-      expect(review.errors.messages[:rating]).must_include "is not a number"
+      expect(review.errors.messages[:rating].size).must_be :positive?
     end
-
 
   end
 

@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   belongs_to :merchant
   has_and_belongs_to_many :categories
   has_many :reviews
+  has_one_attached :photo
 
   validates :name, presence: true, uniqueness: { scope: :merchant_id, 
     message: "Merchant already has product of this name %{value} ." }

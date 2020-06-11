@@ -1,3 +1,13 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root 'homepages#index'
+
+resources :merchants # to be changed later
+
+ # Omniauth Login route
+ get "/auth/github", as: "github_login"
+
+ # Omniauth Github callback route
+ get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
+ 
+
 end
