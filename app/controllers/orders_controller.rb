@@ -3,24 +3,26 @@ class OrdersController < ApplicationController
     find_order(params[:id])
   end
   
-  def show
+  def index
+    # shows all order_items that match session[:order_id]
   end
-  
-  def create
-    # when a customer adds a product to their cart
-    # no products in cart: a new order is created, order_id stored in session?, an order_item is created and put into the cart
-    # products in cart: an order_item is created and put into the cart
+
+  def show
   end
 
   def edit
   end
 
   def update
-
+    # saves user info to order
+    # changes status to paid
+    # session[:order_id] = nil
+    # redirects to show page
   end
 
   def destroy
-
+    # destroys order (need dependent: destroy in model to also destroy associated order_items)
+    # session[:order_id] = nil
   end
 
   private
