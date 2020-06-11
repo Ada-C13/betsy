@@ -22,21 +22,24 @@ class ProductsController < ApplicationController
   end
 
   def create
+    # TODO: Set session ID to authenticated merchant
+    session[:user_id] = 1
+
+    # checking if a merchant is signed in
     if session[:user_id]
-      #create product
-      raise
+      @product = Product.new(product_params)
+      @product.merchant_id = session[:user_id]
+      if @product.save
+        redirect_to products_path
+      else
+        render :new, status: :bad_request
+      end
     else
       #say you must be loged in as a merchant to create product
-      raise
+
     end
 
-    @product = Product.new(product_params)
-    @product.merchant_id = session[:user_id]
-    if @product.save
-      redirect_to root_path
-    else
-      render :new, status: :bad_request
-    end
+
   end
 
   # PATCH/PUT /products/1
