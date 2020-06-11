@@ -10,6 +10,7 @@
   </head>
 
   <body>
+  <%= render 'layouts/header' unless action_name == "landing" %>
 
   <% flash.each do |name, message| %>
     <div class="alert alert-<%= name %>" role="alert">
@@ -17,7 +18,6 @@
     </div>
   <% end %>
 
-    <%= render 'layouts/header' unless action_name == "landing" %>
     <%= yield %>
   </body>
 </html>
