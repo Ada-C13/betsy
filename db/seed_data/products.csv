@@ -1,3 +1,3 @@
 id,name,description,photo,stock,active,price,merchant_id
-1,Rose,A rose is a woody perennial flowering plant of the genus Rosa in the family Rosaceae.,nil,5,true,100,1
-2,Aloe Vera,Aloe vera is a succulent plant species of the genus Aloe.,nil,5,true,20,1
+1,Rose,A rose is a woody perennial flowering plant of the genus Rosa in the family Rosaceae.,link_here,5,true,100,1
+2,Aloe Vera,Aloe vera is a succulent plant species of the genus Aloe.,link_here,5,true,20,1
