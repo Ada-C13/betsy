@@ -11,7 +11,6 @@
 
   <body>
 
-  <!-- flash messages container -->
   <% flash.each do |name, message| %>
     <div class="alert alert-<%= name %>" role="alert">
       <%= message.html_safe %>
