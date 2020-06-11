@@ -1,0 +1,5 @@
+merchant1: 
+  username: Test merchant
+  uid: 1234567890
+  email: test@test.com
+  provider: github

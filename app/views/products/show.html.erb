@@ -1,0 +1,11 @@
+<section>
+  <h2><%=@product.title.capitalize%></h2>
+  <p><%= image_tag(@product.photo_url, height: "350", :alt => "product photo") %></p>
+  <p><%= number_to_currency(@product.price) %></p>
+  <p><%= @product.stock > 0 ? 'In stock' : 'Out of stock' %></p>
+  <p>by <%= @product.merchant.username %></p>
+  <p>Description: <%= @product.description %></p>
+  <p>Available: <%= @product.stock %></p>
+  <p>Free Shipping & Returns</p>
+  <p>Category: </p>
+</section>

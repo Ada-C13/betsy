@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   resources :reviews, only: [:new, :create]
   
   # merchants
-  get "/merchant/:id", to: "merchants#show", as: "merchant"
+  resources :merchants, only: [:show] do
+    resources :products, only: [:index]
+  end
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create"
   delete "/logout", to: "merchants#destroy", as: "logout"
