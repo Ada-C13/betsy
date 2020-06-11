@@ -53,13 +53,10 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
-    # find order_item by id
-    # not_found if nil
-
-    # destroy order_item
-    # flash success message
-    
-    # redirect to cart
+    @order_item.destroy
+    flash[:success] = "Successfully removed #{@order_item.product.title} from cart!"
+    redirect_to orders_path
+    return
   end
 
   private
