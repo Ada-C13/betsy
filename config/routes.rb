@@ -17,8 +17,9 @@ Rails.application.routes.draw do
   delete "/logout", to: "merchants#destroy", as: "logout"
 
   # orders
-  resources :orders
+  resources :orders, only: [:index, :show, :update, :destroy]
+  get "orders/checkout", to: "orders#edit" # we can leverage session[:order_id] here
 
   # order_items
-  resources :order_items, only: [:update, :destroy] # an order item is created when the user adds a product to cart
+  resources :order_items, only: [:update, :destroy]
 end
