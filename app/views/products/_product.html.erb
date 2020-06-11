@@ -1,0 +1,10 @@
+<div class='col-md'>
+  <% if !product.nil? %>
+    <%= link_to product_url(product.id) do %>
+      <%= image_tag(product.photo, class: "img-responsive") %>
+      <h4><%= product.name %></h4>
+      <div><%= number_to_currency(product.price) %></div> 
+      <%# button_to 'Edit', edit_product_path(product), class: 'btn btn-info btn-sm', remote: true %>
+    <% end %>
+  <% end %>
+</div>

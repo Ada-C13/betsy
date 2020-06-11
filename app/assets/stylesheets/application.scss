@@ -16,3 +16,9 @@
 @import "bootstrap";
 
 @import "**/*";
+
+.app-header__nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
