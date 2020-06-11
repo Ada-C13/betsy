@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action only: [:show, :edit, :update, :destroy] do
+  before_action only: [:show, :update, :destroy] do
     find_order(params[:id])
   end
   
@@ -10,14 +10,17 @@ class OrdersController < ApplicationController
   def show
   end
 
-  def edit
+  def checkout
+    @order = Order.find_by(id: session[:order_id]) # passing in the order that matches session[:order_id], because this route does not have an id params
+    head :not_found if !@order
+    return
   end
 
   def update
     # saves user info to order
     # changes status to paid
     # session[:order_id] = nil
-    # redirects to show page
+    # redirects to order show page
   end
 
   def destroy

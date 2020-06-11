@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   # orders
   resources :orders, only: [:index, :show, :update, :destroy]
-  get "orders/checkout", to: "orders#edit" # we can leverage session[:order_id] here
+  get "orders/checkout", to: "orders#checkout" # we can leverage session[:order_id] here instead of passing in params through the route
 
   # order_items
   resources :order_items, only: [:update, :destroy]
