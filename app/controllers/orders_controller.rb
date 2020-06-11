@@ -16,11 +16,11 @@ class OrdersController < ApplicationController
   def update
     if @shopping_cart.update(order_params)
       flash[:status] = :success
-      flash[:result_text] = "Successfully updated order #{@shopping_cart.id}"
+      flash[:result_text] = "Successfully updated shopping cart."
       redirect_back fallback_location: order_path(@shopping_cart)      
     else
       flash.now[:status] = :failure
-      flash.now[:result_text] = "Could not update order"
+      flash.now[:result_text] = "Could not update shopping cart."
       flash.now[:messages] = @shopping_cart.errors.messages
       render :edit, status: :not_found
     end
@@ -30,7 +30,7 @@ class OrdersController < ApplicationController
     @shopping_cart.destroy
     session[:order_id] = nil
     flash[:status] = :success
-    flash[:result_text] = "Successfully destroyed order #{@shopping_cart.id}"
+    flash[:result_text] = "Successfully emptied shopping cart."
     redirect_to root_path
   end
 
