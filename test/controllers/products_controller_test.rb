@@ -72,9 +72,55 @@ describe ProductsController do
 
       must_respond_with :success
     end
+
+    it "responds with redirect when getting the edit page for a non-existing product" do 
+      # Act
+      get edit_product_path(-1)
+
+      # Assert
+      must_respond_with :redirect
+      must_redirect_to products_path 
+    end
   end
 
   describe "update" do 
+    it "will update existing product" do 
+
+      @product.save
+
+      puts "PRODUCT BEFORE UPDATE = #{@product.price}"
+      puts "PRODUCT ID BEFORE UPDATE = #{@product.id}"
+      
+      product_hash = {
+        product: {
+          price: 10,
+          description: "updated apple"
+        }
+      }
+
+      patch product_path(@product.id), params: product_hash
+
+      @product.save!
+      @product.reload 
+      puts "PRODUCT AFTER UPDATE = #{@product.price}"
+
+      expect(@product.price).must_equal product_hash[:product][:price]
+      expect(@product.description).must_equal product_hash[:product][:description]
+
+    end
+
+    it "will not update any product if given an invalid id, and responds with 404" do 
+      product_hash = {
+        product: {
+          price: 10,
+          description: "updated apple"
+        }
+      }
+
+      expect {
+        patch product_path(-1), params: product_hash
+      }.must_differ "Product.count", 0
+    end
   end
 
   
