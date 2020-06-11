@@ -11,7 +11,7 @@ class Product < ApplicationRecord
 
   validates :price, presence: true
 
-  def self.get_active_products
-    return Product.where(active: true)
-  end
+  # def self.get_active_products
+  #   return Product.where(active: true)
+  # end
 end
