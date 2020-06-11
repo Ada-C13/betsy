@@ -11,9 +11,9 @@ describe Order do
       new_order.save!
 
       # Assert
-      expect(new_order).must_respond_to :orderitems
+      expect(new_order).must_respond_to :order_items
 
-      new_order.orderitems.each do |orderitem|
+      new_order.order_items.each do |orderitem|
         expect(orderitem).must_be_kind_of OrderItem
       end
     end
@@ -54,7 +54,7 @@ describe Order do
       new_order.save!
 
       # Act
-      result = new_order.process_payment
+      result = new_order.process_payment!
       new_order.reload
 
       # Assert
@@ -72,7 +72,7 @@ describe Order do
       new_order.save!
 
       # Act
-      result = new_order.process_payment
+      result = new_order.process_payment!
       new_order.reload
 
       # Assert
@@ -89,7 +89,7 @@ describe Order do
       new_order.save!
 
       # Act
-      result = new_order.process_payment
+      result = new_order.process_payment!
       new_order.reload
 
       # Assert
@@ -106,7 +106,7 @@ describe Order do
       new_order.save!
 
       # Act
-      result = new_order.process_payment
+      result = new_order.process_payment!
       new_order.reload
 
       # Assert
@@ -122,7 +122,7 @@ describe Order do
       new_order.save!
 
       # Act
-      result = new_order.complete_order
+      result = new_order.complete_order!
       new_order.reload
 
       # Assert
@@ -135,7 +135,7 @@ describe Order do
       new_order.save!
 
       # Act
-      result = new_order.process_payment
+      result = new_order.complete_order!
       new_order.reload
 
       # Assert
@@ -147,10 +147,11 @@ describe Order do
   describe "cancel_order" do
     it "cancels an order" do
       # Arrange
+      new_order.status = "paid"
       new_order.save!
 
       # Act
-      result = new_order.cancel_order
+      result = new_order.cancel_order!
       new_order.reload
 
       # Assert

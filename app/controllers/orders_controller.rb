@@ -6,82 +6,68 @@ class OrdersController < ApplicationController
     @orders = Order.all.order(:status)
   end
   
-  def new
-    @order = Order.new(status: "pending")
-  end
-
-  def create
-    @order = Order.new(order_params)
-    if @order.save
-      flash[:status] = :success
-      flash[:result_text] = "Successfully created order #{@order.id}"
-      redirect_to order_path(@order)
-    else
-      flash.now[:status] = :failure
-      flash.now[:result_text] = "Could not create order"
-      flash.now[:messages] = @order.errors.messages
-      render :new, status: :bad_request
-    end
-  end
-
   def show
-    @orderitems = @order.orderitems
+    @order = Order.find_by(id: params[:id])
   end
 
   def edit
   end
 
   def update
-    if @order.update(order_params)
+    if @shopping_cart.update(order_params)
       flash[:status] = :success
-      flash[:result_text] = "Successfully updated order #{@order.id}"
-      redirect_to order_path(@order)
+      flash[:result_text] = "Successfully updated order #{@shopping_cart.id}"
+      redirect_back fallback_location: order_path(@shopping_cart)      
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Could not update order"
-      flash.now[:messages] = @order.errors.messages
+      flash.now[:messages] = @shopping_cart.errors.messages
       render :edit, status: :not_found
     end
   end
 
   def destroy
-    @order.destroy
+    @shopping_cart.destroy
+    session[:order_id] = nil
     flash[:status] = :success
-    flash[:result_text] = "Successfully destroyed order #{@order.id}"
+    flash[:result_text] = "Successfully destroyed order #{@shopping_cart.id}"
     redirect_to root_path
   end
 
   def pay
-    if @order.process_payment
+    if @shopping_cart.process_payment!
+      session[:order_id] = nil # the user went to checkout
       flash[:status] = :success
-      flash[:result_text] = "Successfully paid order #{@order.id}"
+      flash[:result_text] = "Successfully paid order #{@shopping_cart.id}"
     else
       flash[:status] = :failure
       flash[:result_text] = "Payment processing failed!"
     end
-    redirect_to order_path(@order)
+    redirect_to order_path(@shopping_cart)
   end
 
   def complete
-    if @order.complete_order
+    order = Order.find_by(id: params[:id])
+    if order.complete_order!
       flash[:status] = :success
-      flash[:result_text] = "Successfully completed order #{@order.id}"
+      flash[:result_text] = "Successfully completed order #{order.id}"
     else
       flash[:status] = :failure
       flash[:result_text] = "Failed to complete the order."
     end
-    redirect_to order_path(@order)
+    redirect_back fallback_location: order_path(order)      
   end
 
   def cancel
-    if @order.cancel_order
+    order = Order.find_by(id: params[:id])
+    if order.cancel_order!
       flash[:status] = :success
-      flash[:result_text] = "Successfully cancelled order #{@order.id}"
+      flash[:result_text] = "Successfully cancelled order #{order.id}"
     else
       flash[:status] = :failure
       flash[:result_text] = "Failed to cancel order."
     end
-    redirect_to order_path(@order)
+    redirect_back fallback_location: order_path(order)      
   end
 
   private
@@ -95,8 +81,8 @@ class OrdersController < ApplicationController
   end
 
   def get_order
-    @order = Order.find_by(id: params[:id])
-    render_404 unless @order
+    @shopping_cart = Order.find_by(id: params[:id])
+    render_404 unless @shopping_cart
   end  
 
 end
