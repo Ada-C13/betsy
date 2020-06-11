@@ -44,7 +44,7 @@ describe Order do
     end
   end # describe "validations"
 
-  describe "process_payment" do
+  describe "checkout_order" do
     it "processes a valid payment" do
       # Arrange
       new_order.credit_card_num = 1234
@@ -54,7 +54,7 @@ describe Order do
       new_order.save!
 
       # Act
-      result = new_order.process_payment!
+      result = new_order.checkout_order!
       new_order.reload
 
       # Assert
@@ -72,7 +72,7 @@ describe Order do
       new_order.save!
 
       # Act
-      result = new_order.process_payment!
+      result = new_order.checkout_order!
       new_order.reload
 
       # Assert
@@ -89,7 +89,7 @@ describe Order do
       new_order.save!
 
       # Act
-      result = new_order.process_payment!
+      result = new_order.checkout_order!
       new_order.reload
 
       # Assert
@@ -106,23 +106,23 @@ describe Order do
       new_order.save!
 
       # Act
-      result = new_order.process_payment!
+      result = new_order.checkout_order!
       new_order.reload
 
       # Assert
       expect(result).must_equal false
       expect(new_order.status).must_equal "pending"
     end
-  end # describe "process_payment"
+  end # describe "checkout_order"
 
-  describe "complete_order" do
-    it "completes a valid order" do
+  describe "ship_order" do
+    it "shipss a valid order" do
       # Arrange
       new_order.status = "paid"
       new_order.save!
 
       # Act
-      result = new_order.complete_order!
+      result = new_order.ship_order!
       new_order.reload
 
       # Assert
@@ -135,14 +135,14 @@ describe Order do
       new_order.save!
 
       # Act
-      result = new_order.complete_order!
+      result = new_order.ship_order!
       new_order.reload
 
       # Assert
       expect(result).must_equal false
       expect(new_order.status).must_equal "pending"
     end
-  end # describe "complete_order"
+  end # describe "ship_order"
 
   describe "cancel_order" do
     it "cancels an order" do
