@@ -17,13 +17,21 @@ Rails.application.routes.draw do
   post "/merchants/:id/deactivate", to: "merchants#deactivate", as: "merchant_deactivate"
   get "/merchants/:id/dashboard", to: "merchants#dashboard", as: "merchant_dashboard"
   
-  # Omniauth Login route
-  get "/auth/github", as: "github_login"
-  # Omniauth Github callback route
-  get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
+ 
   
   resources :reviews, only: [:new, :create]
 
   resources :categories, except: [:edit, :update, :destroy]
+  resources :merchants # to be changed later
+  #resources :merchants, only: [:show, :create]
+
+  # Omniauth Login route
+  get "/auth/github", as: "github_login"
+
+  # Omniauth Github callback route
+  get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
+  
+  delete "/logout", to: "merchants#destroy", as: "logout"
+
 
 end

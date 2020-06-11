@@ -4,7 +4,11 @@ class ApplicationController < ActionController::Base
 
   before_action :find_order
 
+  before_action :find_merchant
+  #before_action :require_login
+
   def render_404
+    # DPR: this will actually render a 404 page in production
     raise ActionController::RoutingError.new("Not Found")
   end
 
@@ -19,4 +23,20 @@ class ApplicationController < ActionController::Base
     end 
   end
 
+  def current_merchant
+    @current_merchant = Merchant.find(session[:merchant_id])
+  end
+
+  def require_login
+    if current_merchant.nil?
+      flash[:error] = "You must be logged in to view this section"
+      redirect_to login_path
+    end
+  end
+
+  def find_merchant
+    if session[:merchant_id]
+      @login_merchant = Merchant.find_by(id: session[:merchant_id])
+    end
+  end
 end
