@@ -1,5 +1,5 @@
 class MerchantsController < ApplicationController
-
+  
   def index
     @merchants = Merchant.all
   end
@@ -23,15 +23,17 @@ class MerchantsController < ApplicationController
       redirect_to root_path
     end
     
-    def show
-      @merchant = Merchant.find_by(id: params[:id])
-      render_404 unless @merchant
-    end
-    
     def logout
       session[:merchant_id] = nil
       flash[:status] = :success
       flash[:result_text] = 'Successfully logged out'
       redirect_to root_path
     end
+  
+  def show 
+    @merchant = Merchant.find_by(id: params[:id])
+    if @merchant.nil?
+      redirect_to products_path
+    end
   end
+end
