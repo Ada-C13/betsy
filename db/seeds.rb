@@ -69,7 +69,7 @@ counter3 = 1
 
 review_failures = []
 CSV.foreach(REVIEWS_FILE, :headers => true) do |row|
-  review = Reveiw.new
+  review = Review.new
   review.id = counter3
   counter3 += 1
   review.rating = row['rating']
@@ -83,5 +83,5 @@ CSV.foreach(REVIEWS_FILE, :headers => true) do |row|
   end
 end
 
-puts "Added #{Reveiw.count} review records"
+puts "Added #{Review.count} review records"
 puts "#{review_failures.length} reviews failed to save"
