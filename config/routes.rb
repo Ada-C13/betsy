@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   # products
-  resources :products do
-    post "/add", to: "order_items#create"
-  end
+  resources :products
+  post "/products/:id/add_to_cart", to: "products#add_to_cart", as: "add_to_cart"
 
   # categories
   resources :categories, only: [:show, :new, :create]
