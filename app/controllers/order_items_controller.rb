@@ -6,7 +6,7 @@ class OrderItemsController < ApplicationController
   def create
     # creates a new order if there is no order_id saved to session
     if !session[:order_id]
-      order = Order.create!
+      order = Order.create(status: "pending")
       session[:order_id] = order.id
     end
 
@@ -17,8 +17,8 @@ class OrderItemsController < ApplicationController
     # create new order_item
     order_item = OrderItem.new(
       product_id: product.id,
-      order_id: order.id,
-      quantity: params[:product][:quantity], # TODO: Confirm whether product is the correct key name
+      order_id: session[:order_id],
+      quantity: params[:product][:quantity], # TODO: Confirm whether product is the correct key name (if the form uses the product model, this should be right)
       shipped: false
     )
 
@@ -36,13 +36,20 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-    # find order_item by id
-    # not_found if nil
+    quantity = params[:order_item][:quantity].to_i # TODO: Confirm whether order_item is the correct key name (if the form uses the order_item model, this should be right)
+    product = @order_item.product
 
-    # if quantity is greater than product stock, flash error message, return to product show page
-    # else flash success message
-    
-    # redirect to cart
+    # if quantity is greater than product stock, don't update order_item 
+    if quantity > product.stock
+      flash[:error] = "A problem occurred: #{product.title} does not have enough quantity in stock"
+      redirect_to orders_path
+      return
+    else 
+      @order_item.update(order_item_params)
+      flash[:success] = "Successfully updated the quantity of #{product.title}"
+      redirect_to orders_path
+      return
+    end
   end
 
   def destroy
@@ -61,5 +68,9 @@ class OrderItemsController < ApplicationController
     @order_item = OrderItem.find_by(id: id)
     head :not_found if !@order_item
     return
+  end
+
+  def order_item_params
+    return params.require(:order_item).permit(:quantity)
   end
 end
