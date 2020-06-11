@@ -21,6 +21,29 @@ class ProductsController < ApplicationController
     end
   end
 
+  def edit 
+    @product = Product.find_by(id: params[:id])
+    if @product.nil?
+      redirect_to products_path
+      return
+    end
+  end
+
+  def update 
+    @product = Product.find_by(id: params[:id])
+    if @product.nil?
+      head :not_found
+      return
+    elsif @product.update(product_params)
+      flash[:success] = "Successfully updated #{@product.title}"
+      redirect_to product_path(@product.id)
+      return
+    else
+      render :edit 
+      return
+    end
+  end
+
 
   private 
 
