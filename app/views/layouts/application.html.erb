@@ -10,7 +10,16 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+
+  <!-- flash messages container -->
+  <% flash.each do |name, message| %>
+    <div class="alert alert-<%= name %>" role="alert">
+      <%= message.html_safe %>
+    </div>
+  <% end %>
+
+    <%= render 'layouts/header' unless action_name == "landing" %>
     <%= yield %>
   </body>
 </html>
+

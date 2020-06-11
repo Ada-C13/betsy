@@ -1,4 +1,4 @@
 class HomepagesController < ApplicationController
-  def index
+  def landing
   end
 end

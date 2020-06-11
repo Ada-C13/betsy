@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'homepages#index'
+  root 'homepages#landing'
 
   resources :orders, only: [:index, :show]
   # Edit only the shopping cart
