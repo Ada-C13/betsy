@@ -1,11 +1,11 @@
 require "test_helper"
 
 describe OrderItemsController do
-  before do
-    @product = products(:apple)
-  end
-
   describe "create" do
+    before do
+      @product = products(:apple)
+    end
+    
     let (:order_item_hash) {
       {
         product: {
@@ -63,6 +63,54 @@ describe OrderItemsController do
   end
 
   describe "update" do
+    before do
+      @order_item = order_items(:order_item1)
+    end
+
+    let (:edited_order_item_hash) {
+      {
+        order_item: {
+          quantity: 2,        
+        },
+      }
+    }
+
+    it "can update an existing order item with valid information accurately, flash success message, and redirect" do
+      expect {
+        patch order_item_path(@order_item.id), params: edited_order_item_hash
+      }.wont_differ "OrderItem.count"
+
+      @order_item.reload
+      expect(@order_item.quantity).must_equal edited_order_item_hash[:order_item][:quantity]
+
+      expect(flash[:success]).must_include "Successfully updated the quantity of #{@order_item.product.title}"
+
+      must_redirect_to orders_path
+    end
+
+    it "does not update an order item if given an invalid id, and responds with a 404" do
+      expect {
+        patch order_item_path(-1), params: edited_order_item_hash
+      }.wont_differ "OrderItem.count"
+
+      must_respond_with :not_found
+    end
+
+    it "does not update an order item if the quantity requested is greater than product stock, flash error message, and responds with a 400 error" do
+      invalid_order_item_hash = {
+        order_item: {
+          quantity: @order_item.product.stock + 1,
+        },
+      }
+
+      expect {
+        patch order_item_path(@order_item.id), params: invalid_order_item_hash
+      }.wont_differ "OrderItem.count"
+      
+      expect(flash[:error]).must_include "A problem occurred: #{@order_item.product.title} does not have enough quantity in stock"
+
+      must_redirect_to orders_path
+    end
   end
 
   describe "destroy" do
