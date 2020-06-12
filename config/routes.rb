@@ -1,13 +1,7 @@
 Rails.application.routes.draw do
-  get 'merchants/index'
-  get 'merchants/show'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
   resources :categories, only: [:index, :new, :create]
-
   get 'homepages/index'
-  get 'categories/index'
-  get 'categories/new'
   get 'merchants/index'
   get 'merchants/show'
 
@@ -36,7 +30,7 @@ Rails.application.routes.draw do
 
   # TODO: (Ross) I think we need a new controller for our homepage, and that will be the root path
   # as below, for now, I will set the root == products
-  root to: 'products#index'
-  get "/products", to: "products#index", as: "products"
+  # root to: 'products#index'
+  # get "/products", to: "products#index", as: "products"
   
 end

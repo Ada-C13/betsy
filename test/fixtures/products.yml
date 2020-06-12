@@ -10,7 +10,7 @@ product2:
   price: 12.00
   stock: 50
   active: true
-  descriptiproduct1on: This the is great product. This the is greate product. This the is greate product. 
+  description: This the is great product. This the is greate product. This the is greate product. 
   merchant: merchantaaa
 product3:
   name: hand wash
