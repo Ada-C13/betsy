@@ -22,7 +22,7 @@ class Order < ApplicationRecord
   end
 
   def cancel_order!
-    return false if self.status != "paid" # TODO add more tests
+    return false if self.status != "paid" 
     self.status = "cancelled"
     return self.save
   end

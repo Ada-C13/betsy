@@ -48,20 +48,18 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    p @shopping_cart
     if @shopping_cart.checkout_order!
       session[:order_id] = nil
       flash[:status] = :success
       flash[:result_text] = "Successfully checked out order #{@shopping_cart.id}"
     else
-      p @shopping_cart
       flash[:status] = :failure
       flash[:result_text] = "Checkout failed!"
     end
     redirect_to cart_path
   end
 
-  def complete # TODO add more tests
+  def complete
     order = Order.find_by(id: params[:id])
     if order.ship_order!
       flash[:status] = :success
@@ -73,7 +71,7 @@ class OrdersController < ApplicationController
     redirect_back fallback_location: order_path(order)      
   end
 
-  def cancel # TODO add more tests
+  def cancel
     order = Order.find_by(id: params[:id])
     if order.cancel_order!
       flash[:status] = :success

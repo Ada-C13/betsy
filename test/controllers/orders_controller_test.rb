@@ -213,44 +213,48 @@ describe OrdersController do
     end
   end # describe "checkout"
 
-  describe "complete" do # TODO add tests
+  describe "complete" do
+    it "successfully ships a paid order" do
+      # Act
+      post order_complete_path(paid_order)
+      paid_order.reload
+      # Assert
+      expect(paid_order.status).must_equal "complete"
+      must_respond_with :redirect 
+      must_redirect_to order_path(paid_order)
+    end
 
-    # order = Order.find_by(id: params[:id])
-    # if order.ship_order!
-    #   flash[:status] = :success
-    #   flash[:result_text] = "Successfully completed order #{order.id}"
-    # else
-    #   flash[:status] = :failure
-    #   flash[:result_text] = "Failed to complete the order."
-    # end
-    # redirect_back fallback_location: order_path(order)
-    it " " do # nominal case
-      skip
-    end    
-
-    it " " do # edge case
-      skip
-    end    
+    it "fails to ship a pending order" do
+      # Act
+      post order_complete_path(pending_order)
+      pending_order.reload
+      # Assert
+      expect(pending_order.status).must_equal "pending"
+      must_respond_with :redirect 
+      must_redirect_to order_path(pending_order)
+    end
   end # describe "complete"
 
-  describe "cancel" do  # TODO add tests
+  describe "cancel" do
+    it "successfully cancels a paid order" do
+      # Act
+      post order_cancel_path(paid_order)
+      paid_order.reload
+      # Assert
+      expect(paid_order.status).must_equal "cancelled"
+      must_respond_with :redirect 
+      must_redirect_to order_path(paid_order)
+    end
 
-    #   order = Order.find_by(id: params[:id])
-    #   if order.cancel_order!
-    #     flash[:status] = :success
-    #     flash[:result_text] = "Successfully cancelled order #{order.id}"
-    #   else
-    #     flash[:status] = :failure
-    #     flash[:result_text] = "Failed to cancel order."
-    #   end
-    #   redirect_back fallback_location: order_path(order)
-    it " " do # nominal case
-      skip
-    end    
-
-    it " " do # edge case
-      skip
-    end    
+    it "fails to cancel a complete order" do
+      # Act
+      post order_cancel_path(complete_order)
+      complete_order.reload
+      # Assert
+      expect(complete_order.status).must_equal "complete"
+      must_respond_with :redirect 
+      must_redirect_to order_path(complete_order)
+    end
   end # describe "cancel"
 
 end # describe OrdersController
