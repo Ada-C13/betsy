@@ -23,16 +23,16 @@ class ApplicationController < ActionController::Base
     end 
   end
 
+  def current_merchant
+    @current_merchant ||= session[:merchant_id] &&
+    Merchant.find_by(id: session[:merchant_id])
+  end
+
   def require_login
     if current_merchant.nil?
-      flash[:error] = "You must be logged in to view this section"
-      redirect_to login_path
+      redirect_to root_path
+      flash[:danger] = "Must be logged in as a merchant."
     end
   end
 
-  def current_merchant
-    if session[:merchant_id]
-      @current_merchant = Merchant.find_by(id: session[:merchant_id])
-    end
-  end
 end

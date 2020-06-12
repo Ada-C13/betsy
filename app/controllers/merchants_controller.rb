@@ -1,4 +1,5 @@
 class MerchantsController < ApplicationController
+  before_action :require_login, only: [:dashboard, :logout]
 
   def show
     @merchant = Merchant.find(params[:id])
@@ -8,7 +9,6 @@ class MerchantsController < ApplicationController
       return
     end
   end
-
 
   def login #create
     auth_hash = request.env["omniauth.auth"]
@@ -36,21 +36,15 @@ class MerchantsController < ApplicationController
     return redirect_to root_path
   end
 
-  def current
-  
-    unless @current_merchant
-      flash[:error] = "You must be logged in to see this page"
-      redirect_to root_path
-      return
-    end
+  def dashboard
+    
   end
 
   def logout
-    session[:merchant_id] = nil
-    flash[:success] = "Successfully logged out!"
-
+    session.delete(:merchant_id)
     redirect_to root_path
+    flash[:success] = "Successfully logged out!"
   end
 
-
+  
 end
