@@ -21,7 +21,7 @@ describe OrdersController do
     end
   end
 
-  describe "checkout" do # TODO: This test is failing because there is no simple way to set session in Rails 5.x 
+  describe "checkout" do # TODO: Test is failing, need to review testing session https://github.com/Ada-Developers-Academy/textbook-curriculum/blob/master/09-intermediate-rails/testing-session.md
     it "responds with success when getting the edit page for an existing valid order" do
       build_order # see test_helper.rb
       order = Order.find(session[:order_id])

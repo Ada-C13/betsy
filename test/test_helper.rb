@@ -20,10 +20,6 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   def build_order # this method helps us set session for the testing environment
     product = products(:apple)
-    post product_add_path(product.id), params: {
-      product: {
-        quantity: 1,
-      },
-    }
+    post add_to_cart_path(product.id), params: { quantity: 1 }
   end
 end
