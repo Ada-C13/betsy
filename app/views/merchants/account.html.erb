@@ -5,4 +5,7 @@
 <%= @merchant.email%>
 <%= @merchant.products.each do |product|%>
   <li> <%= product.name%>, <%= product.price%>, <%= product.stock%> </li>
+  
 <% end %>
+
+<a href="/categories/new">Add Category</a>
