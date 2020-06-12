@@ -61,7 +61,7 @@ class ProductsController < ApplicationController
       quantity: params[:quantity],
       shipped: false
     )
-    p order_item.quantity
+
     # if quantity is greater than product stock, don't save order_item
     if order_item.quantity > product.stock
       flash[:error] = "A problem occurred: #{product.title} does not have enough quantity in stock"

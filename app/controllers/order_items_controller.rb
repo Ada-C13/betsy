@@ -4,7 +4,7 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-    quantity = params[:order_item][:quantity].to_i # TODO: Confirm whether order_item is the correct key name (if the form uses the order_item model, this should be right)
+    quantity = order_item_params[:quantity].to_i
     product = @order_item.product
 
     # if quantity is greater than product stock, don't update order_item 
