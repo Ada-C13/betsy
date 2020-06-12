@@ -1,5 +1,5 @@
 class MerchantsController < ApplicationController
-  before_action :current_merchant, only: [:dashboard, :logout]
+  before_action :require_login, only: [:dashboard, :logout]
 
   def show
     @merchant = Merchant.find(params[:id])
@@ -9,7 +9,6 @@ class MerchantsController < ApplicationController
       return
     end
   end
-
 
   def login #create
     auth_hash = request.env["omniauth.auth"]
@@ -47,15 +46,5 @@ class MerchantsController < ApplicationController
     flash[:success] = "Successfully logged out!"
   end
 
-  private
-
-  def current_merchant
-    @_current_merchant ||= session[:merchant_id] &&
-    Merchant.find_by(id: session[:merchant_id])
-
-    if @_current_merchant.nil?
-      redirect_to root_path
-      flash[:danger] = "Not logged in as a merchant."
-    end
-  end
+  
 end
