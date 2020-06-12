@@ -1,4 +1,5 @@
 class MerchantsController < ApplicationController
+  before_action :current_merchant, only: [:dashboard, :logout]
 
   def show
     @merchant = Merchant.find(params[:id])
@@ -36,25 +37,25 @@ class MerchantsController < ApplicationController
     return redirect_to root_path
   end
 
-  def current
-  
-    unless @current_merchant
-      flash[:error] = "You must be logged in to see this page"
-      redirect_to root_path
-      return
-    end
-  end
-
   def dashboard
-
+    
   end
 
   def logout
-    session[:merchant_id] = nil
-    flash[:success] = "Successfully logged out!"
-
+    session.delete(:merchant_id)
     redirect_to root_path
+    flash[:success] = "Successfully logged out!"
   end
 
+  private
 
+  def current_merchant
+    @_current_merchant ||= session[:merchant_id] &&
+    Merchant.find_by(id: session[:merchant_id])
+
+    if @_current_merchant.nil?
+      redirect_to root_path
+      flash[:danger] = "Not logged in as a merchant."
+    end
+  end
 end
