@@ -1,20 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Products</h1>
+<h2>Products</h2>
 
-<div class="product_grid container">
+<div class="product-grid__container container">
   <% @products.in_groups_of(4).each do |group| %>
-  <div class="row">
+  <div class="product-grid__row row">
     <% group.each do |product| %>
       <%= render partial: "product", locals: { product: product } %>
     <% end %>
-
   </div>
-
-
   <% end %>
-
-
 </div>
 
 <%= link_to 'New Product', new_product_path %>
