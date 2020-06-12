@@ -171,6 +171,53 @@ describe ProductsController do
 
   describe "retire" do 
     it "will change the product status from active to inactive and redirect" do 
+      @product.save
+      expect(@product.active).must_equal true
+
+      post retire_product_path(@product.id)
+
+      @product.reload 
+
+      expect(@product.active).must_equal false 
+      must_respond_with :redirect
+      must_redirect_to product_path(@product.id)
+    end
+
+    it "will change the product status from inactive to active and redirect" do 
+      @product.active = false 
+      @product.save 
+      expect(@product.active).must_equal false
+
+      post retire_product_path(@product.id)
+      @product.reload 
+
+      expect(@product.active).must_equal true
+      must_respond_with :redirect
+      must_redirect_to product_path(@product.id)
+    end
+
+    it "will prevent toggling other merchant's product" do 
+      # Arrange
+      @product.save
+      expect(@product.active).must_equal true
+
+      other_merchant = Merchant.create(
+        username: "harry",
+        uid: 444,
+        email: "harry@gmail.com",
+        provider: "github"
+      )
+      product = products(:banana)
+      product.merchant_id = other_merchant.id 
+      product.save 
+
+      # Act
+      post retire_product_path(product.id)
+
+      # Assert
+      expect(@product.active).must_equal true
+      must_respond_with :redirect
+      must_redirect_to product_path(product.id)
     end
   end
 end
