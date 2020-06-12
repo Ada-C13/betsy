@@ -1,12 +1,18 @@
 annie:
+  provider: github
+  uid: 4455
   username: Annie Easley
   email: aeasley@email.com
 
 katherine: 
+  provider: github
+  uid: 5588
   username: Katherine Johnson
   email: kjohnson@email.com
 
 melba: 
+  provider: github
+  uid: 1234
   username: Melba Mouton
   email: melmou@email.com
 
