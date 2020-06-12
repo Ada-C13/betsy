@@ -45,7 +45,7 @@ describe Order do
     end
   end # describe "validations"
 
-  describe "checkout_order" do
+  describe "checkout_order!" do
     it "processes a valid order" do
       # Arrange
       pending_order.save!
@@ -99,9 +99,9 @@ describe Order do
       expect(result).must_equal false
       expect(pending_order.status).must_equal "pending"
     end
-  end # describe "checkout_order"
+  end # describe "checkout_order!"
 
-  describe "ship_order" do
+  describe "ship_order!" do
     it "ships a valid order" do
       # Arrange
       paid_order.save!
@@ -127,9 +127,9 @@ describe Order do
       expect(result).must_equal false
       expect(pending_order.status).must_equal "pending"
     end
-  end # describe "ship_order"
+  end # describe "ship_order!"
 
-  describe "cancel_order" do
+  describe "cancel_order!" do
     it "cancels an order" do
       # Arrange
       paid_order.save!
@@ -142,7 +142,7 @@ describe Order do
       expect(result).must_equal true
       expect(paid_order.status).must_equal "cancelled"
     end
-  end # describe "cancel_order"
+  end # describe "cancel_order!"
 
   describe "total_cost" do
     # Arrange

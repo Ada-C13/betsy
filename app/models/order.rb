@@ -2,7 +2,7 @@ class Order < ApplicationRecord
 
   has_many   :order_items, dependent: :destroy
 
-  VALID_STATUS = %w(pending paid complete cancelled) # complete means shipped
+  VALID_STATUS = %w(pending paid complete cancelled)
   validates :status, presence: true, inclusion: {in: VALID_STATUS}
 
   def checkout_order!
@@ -20,7 +20,7 @@ class Order < ApplicationRecord
   end
 
   def cancel_order!
-    return false if self.status != "paid" # add a test here!
+    return false if self.status != "paid" # TODO add more tests
     self.status = "cancelled"
     return self.save
   end
@@ -33,7 +33,7 @@ class Order < ApplicationRecord
     return total
   end
   
-  def self.by_merchant(merchant_id) # add test
+  def self.by_merchant(merchant_id) # TODO add more tests
     items = OrderItem.select { |item| item.product.merchant_id == merchant_id }
     orders = items.map { |item| item.order_id }
     return Order.select { |order| orders.include?(order.id) }

@@ -1,6 +1,7 @@
 require "test_helper"
 
 describe OrdersController do
+
   let (:pending_order) { orders(:order_pending) }
   let (:paid_order) { orders(:order_paid) }
   let (:complete_order) { orders(:order_complete) }
@@ -128,4 +129,64 @@ describe OrdersController do
       must_redirect_to root_path
     end
   end # describe "destroy"
-end
+
+  describe "pay" do # TODO add tests
+    it "successfully pays for a order" do # nominal case
+      skip
+    # if @shopping_cart.checkout_order!
+    #   session[:order_id] = nil
+    #   flash[:status] = :success
+    #   flash[:result_text] = "Successfully paid order #{@shopping_cart.id}"
+    # else
+    #   flash[:status] = :failure
+    #   flash[:result_text] = "Payment processing failed!"
+    # end
+    # redirect_to order_path(@shopping_cart)
+    end
+
+    it " " do # edge case
+      skip
+    end
+  end # describe "pay"
+
+  describe "complete" do # TODO add tests
+
+    # order = Order.find_by(id: params[:id])
+    # if order.ship_order!
+    #   flash[:status] = :success
+    #   flash[:result_text] = "Successfully completed order #{order.id}"
+    # else
+    #   flash[:status] = :failure
+    #   flash[:result_text] = "Failed to complete the order."
+    # end
+    # redirect_back fallback_location: order_path(order)
+    it " " do # nominal case
+      skip
+    end    
+
+    it " " do # edge case
+      skip
+    end    
+  end # describe "complete"
+
+  describe "cancel" do  # TODO add tests
+
+    #   order = Order.find_by(id: params[:id])
+    #   if order.cancel_order!
+    #     flash[:status] = :success
+    #     flash[:result_text] = "Successfully cancelled order #{order.id}"
+    #   else
+    #     flash[:status] = :failure
+    #     flash[:result_text] = "Failed to cancel order."
+    #   end
+    #   redirect_back fallback_location: order_path(order)
+    it " " do # nominal case
+      skip
+    end    
+
+    it " " do # edge case
+      skip
+    end    
+  end # describe "cancel"
+
+end # describe OrdersController

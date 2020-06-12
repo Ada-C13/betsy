@@ -28,7 +28,6 @@ class OrdersController < ApplicationController
 
   def update
     if @shopping_cart.update(order_params)
-      p @shopping_cart
       flash[:status] = :success
       flash[:result_text] = "Successfully updated shopping cart."
       redirect_to cart_path      
@@ -48,7 +47,7 @@ class OrdersController < ApplicationController
     redirect_to root_path
   end
 
-  def pay
+  def pay # TODO add more tests
     if @shopping_cart.checkout_order!
       session[:order_id] = nil
       flash[:status] = :success
@@ -60,7 +59,7 @@ class OrdersController < ApplicationController
     redirect_to order_path(@shopping_cart)
   end
 
-  def complete
+  def complete # TODO add more tests
     order = Order.find_by(id: params[:id])
     if order.ship_order!
       flash[:status] = :success
@@ -72,7 +71,7 @@ class OrdersController < ApplicationController
     redirect_back fallback_location: order_path(order)      
   end
 
-  def cancel
+  def cancel # TODO add more tests
     order = Order.find_by(id: params[:id])
     if order.cancel_order!
       flash[:status] = :success
