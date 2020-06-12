@@ -31,13 +31,13 @@ class ActiveSupport::TestCase
     OmniAuth.config.test_mode = true
   end
   # we will this only in our test
-  def mock_auth_hash(user)
+  def mock_auth_hash(merchant)
     return {
       provider: merchant.provider,
       uid: merchant.uid,
       info: {
         email: merchant.email,
-        username: merchant.name
+        name: merchant.username
       }
     }
   end
@@ -50,8 +50,10 @@ class ActiveSupport::TestCase
   
     OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
     # Act Try to call the calleback route
-    get auth_callback_path(:github)
-    # Verify the merchanat ID was saved - of that didn't work. this test is valid
+  
+    get omniauth_callback_path(:github)
+    merchant = Merchant.find_by(uid: merchant.uid, provider: merchant.provider)
+    # Verify the merchanat ID was saved - if that didn't work. this test is valid
     expect(session[:merchant_id].must_equal merchant.id)
 
     return merchant
