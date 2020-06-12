@@ -32,7 +32,7 @@ puts "#{category_failures.length} categories failed to save"
 
 
 # SEEDING MERCHANTS
-counter4 = 1 
+counter4 = 99999
 MERCHANT_FILE = Rails.root.join('db', 'merchants_seeds.csv')
 puts "Loading raw merchant data from #{MERCHANT_FILE}"
 
