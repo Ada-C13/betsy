@@ -32,7 +32,24 @@ class ApplicationController < ActionController::Base
     if current_merchant.nil?
       redirect_to root_path
       flash[:danger] = "Must be logged in as a merchant."
+      return
     end
+  end
+
+  def require_ownership
+
+    if params[:id].to_i != current_merchant.id
+      if request.get?
+        redirect_to dashboard_merchant_url(current_merchant.id)
+        flash[:warning] = "Tried to access a resource that isn't yours."
+        return
+      else
+        redirect_back(fallback_location: root_path)
+        flash[:danger] = "Could not post that request with invalid credentials."
+        return
+      end
+    end
+
   end
 
 end

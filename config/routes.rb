@@ -18,11 +18,14 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:new, :create]
 
- 
-  get "/merchants/current", to: "merchants#current", as: "current_merchant"
-  post "/merchants/:id/deactivate", to: "merchants#deactivate", as: "deactivate"
-  get "/merchants/:id/dashboard", to: "merchants#dashboard", as: "dashboard"
-  resources :merchants, only: [:index, :show] 
+  resources :merchants, only: [:index, :show] do
+    member do
+      get "dashboard"
+      post "deactivate"
+    end
+  end
+  get 'merchants/:id/dashboard/manage_orders', to: 'merchants#manage_orders', as: "manage_orders"
+  get 'merchants/:id/dashboard/manage_products', to: 'merchants#manage_products', as: "manage_products"
 
   # Omniauth Login route
   get "/auth/github", as: "github_login"

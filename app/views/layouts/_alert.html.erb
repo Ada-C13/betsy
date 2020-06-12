@@ -1,5 +1,6 @@
 <% flash.each do |type, message| %>
   <% next if type == 'details' %>
+  <div class="container">
   <div class="alert alert-<%= type %>">
     <strong><%= message %></strong>
     <% if flash[:details] %>
@@ -12,5 +13,6 @@
       <% end %>
       </ul>
     <% end %>
+  </div>
   </div>
 <% end %>
