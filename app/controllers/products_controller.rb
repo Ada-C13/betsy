@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
 
   def create 
     @product = Product.new(product_params)
-    @product.merchant_id = Merchant.first.id # temporary code before log in is implemented
+    @product.merchant_id = session[:merchant_id]
     @product.active = true
     if @product.save 
       flash[:success] = "Successfully created #{@product.title}"

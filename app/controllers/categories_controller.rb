@@ -1,6 +1,11 @@
 class CategoriesController < ApplicationController
   def new 
-    @category = Category.new
+   # let me see a new category page if I'm a merchant. Else show not_found page
+    if current_merchant
+      @category = Category.new
+    else
+      head :not_found
+    end
   end
 
   def create 
