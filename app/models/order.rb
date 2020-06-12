@@ -7,8 +7,10 @@ class Order < ApplicationRecord
 
   def checkout_order!
     return false if self.status != "pending"
-    return false if self.credit_card_num.nil? || self.credit_card_exp.empty? ||
-                    self.credit_card_cvv.nil? || self.customer_email.empty?
+    return false if self.credit_card_num.nil? || self.credit_card_exp.nil? ||
+                    self.credit_card_cvv.nil? || self.customer_email.nil?  ||
+                    self.address.nil? || self.city.nil? ||
+                    self.state.nil? || self.zip.nil?
     self.status = "paid"
     return self.save
   end
@@ -20,7 +22,7 @@ class Order < ApplicationRecord
   end
 
   def cancel_order!
-    return false if self.status != "paid" # TODO add more tests
+    return false if self.status != "paid" 
     self.status = "cancelled"
     return self.save
   end

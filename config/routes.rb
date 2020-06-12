@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "/cart", to: "orders#edit", as: "cart" 
   post "/cart", to: "orders#update"
   delete "/cart", to: "orders#destroy" 
-  post "/orders/:id/pay", to: "orders#pay", as: "order_pay"
+  post "/cart/checkout", to: "orders#checkout", as: "cart_checkout"
   post "/orders/:id/complete", to: "orders#complete", as: "order_complete"
   post "/orders/:id/cancel", to: "orders#cancel", as: "order_cancel"
 
