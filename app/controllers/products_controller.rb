@@ -6,9 +6,7 @@ class ProductsController < ApplicationController
 
   def create 
     @product = Product.new(product_params)
-    if @product.merchant_id.nil?
-      @product.merchant_id = session[:merchant_id]
-    end
+    @product.merchant_id = session[:merchant_id]
     if @product.save 
       flash[:success] = "Successfully created #{@product.title}"
       redirect_to product_path(@product.id)

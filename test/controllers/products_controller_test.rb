@@ -23,13 +23,14 @@ describe ProductsController do
 
   describe "create" do 
     it "can create a new product with valid information, and redirect" do 
+      merchant = perform_login(merchants(:merchant1))
       product_hash = {
         product: {
           title: "kiwi",
           price: 2.99,
           description: "yellow banana",
           photo_url: "url info",
-          merchant_id: merchants(:merchant_one).id,
+          merchant_id: merchant.id,
           stock: 5,
           category_ids: []
         }
