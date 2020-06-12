@@ -6,12 +6,12 @@ class ProductsController < ApplicationController
 
   def create 
     @product = Product.new(product_params)
-    @product.merchant_id = session[:merchant_id]
-    @product.active = true
+    if @product.merchant_id.nil?
+      @product.merchant_id = session[:merchant_id]
+    end
     if @product.save 
       flash[:success] = "Successfully created #{@product.title}"
       redirect_to product_path(@product.id)
-
       return
     else
       render :new 
@@ -69,7 +69,7 @@ class ProductsController < ApplicationController
   private 
 
   def product_params 
-    return params.require(:product).permit(:title, :price, :description,
-                                    :photo_url, :stock, category_ids: [])
+    return params.require(:product).permit(:title, :price, :description, :merchant_id,
+                                    :photo_url, :stock, active: true, category_ids: [])
   end
 end
