@@ -7,5 +7,11 @@
   <p>Description: <%= @product.description %></p>
   <p>Available: <%= @product.stock %></p>
   <p>Free Shipping & Returns</p>
-  <p>Category: </p>
+  <% if @product.categories.any?%>
+    <p>Category: 
+      <% @product.categories.each do |cat| %>
+        <%= cat.title %>
+      <% end %>
+    </p>
+  <% end %>
 </section>

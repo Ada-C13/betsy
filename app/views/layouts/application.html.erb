@@ -20,7 +20,7 @@
           <%= link_to "Products by Category", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"} %>
             <div class="dropdown-menu">
               <%Category.all.each do |cat|%>
-                <%= link_to cat.title + "s", category_products_path(cat.id), class: "dropdown-item" %>
+                <%= link_to cat.title, category_products_path(cat.id), class: "dropdown-item" %>
               <%end%>
             </div>
         </div>

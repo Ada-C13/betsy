@@ -7,11 +7,14 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
 
     if @category.save 
-      flash[:success] = "Successfully created #{@category.title}"
-      redirect_back(fallback_location: root_path)
+      flash[:status] = :success
+      flash[:result_text] = "Successfully created a new category: #{@category.title}"
+      redirect_to new_product_path
       return
     else
-      render :new 
+      flash[:status] = :failure
+      flash.now[:result_text] = "Could not create category"
+      render :new, status: :not_found
       return
     end
   end
