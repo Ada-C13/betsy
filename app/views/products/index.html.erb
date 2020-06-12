@@ -1,4 +1,10 @@
-<h2>List of Products</h2>
+<% if @merchant %>
+  <h2>Products by <%= @merchant.username %></h2>
+<% elsif @category %>
+  <h2><%= @category.title %>s</h2>
+<% else %>
+  <h2>List of Products</h2>
+<% end %>
 <table class="table">
   <thead>
     <tr>
