@@ -10,9 +10,28 @@
     
   </head>
 
-  <%= link_to "Login with GitHub", github_login_path %>
+  <header>
+    <h1>Welcome to Cop & Hope</h1>
+  </header>
+
+  <nav>
+    <% if session[:merchant_id] %>
+      <%= link_to "Log out", logout_path, method: :put %>
+      <%= link_to "My Account", account_path(id: session[:merchant_id]) %>
+    <% else %>
+      <%= link_to "Login with Github", github_login_path %>
+    <% end %>
+  </nav>
+
   <body>
-   
+    <section class="flash-msg__section">
+      <% flash.each do |name, message| %>
+        <strong class="<%= name %>">
+          <%= message %>
+        </strong>
+      <% end %>
+    </section>
+
     <%= yield %>
   </body>
 </html>
