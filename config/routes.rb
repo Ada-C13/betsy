@@ -18,7 +18,8 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:new, :create]
 
-  resources :order_items, only: [:create, :destroy]
+  post "/order_items/:id/create", to: "order_items#create", as: "create_order_items"
+  resources :order_items, only: [:destroy]
 
  
   get "/merchants/current", to: "merchants#current", as: "current_merchant"
