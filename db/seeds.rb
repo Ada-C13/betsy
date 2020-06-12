@@ -16,6 +16,7 @@ CSV.foreach(MERCHANT_FILE, :headers => true) do |row|
   successful = merchant.save
   if !successful
     merchant_failures << merchant
+    p merchant.errors
   end
 end
 
@@ -90,7 +91,6 @@ CSV.foreach(ORDER_ITEM_FILE, :headers => true) do |row|
   successful = order_item.save
   if !successful
     order_item_failures << order_item
-    p order_item
   end
 end
 
