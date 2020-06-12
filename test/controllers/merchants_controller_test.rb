@@ -1,14 +1,37 @@
 require "test_helper"
 
 describe MerchantsController do
-  it "must get index" do
-    get merchants_index_url
-    must_respond_with :success
+  describe "index" do 
+    it "responds with success when there are many merchants (without logging in)" do
+      # Arrange (we have 4 merchants in the fixtures)
+      num_of_merchants = Merchant.all.size
+      # Act
+      get merchants_path
+      # Assert
+      must_respond_with :success
+      expect(num_of_merchants).must_equal 4
+    end
+
+    it "responds with success when there are no merchants (without logging in)" do
+      # Arrange
+      Merchant.destroy_all
+      num_of_merchants = Merchant.all.size
+      # Act
+      get merchants_path
+      # Assert
+      must_respond_with :success
+      expect(num_of_merchants).must_equal 0
+    end
   end
 
-  it "must get show" do
-    get merchants_show_url
-    must_respond_with :success
+  describe "account" do
+
   end
 
+  describe "create(login as a merchant)" do
+  end
+
+  describe "logout" do
+
+  end
 end
