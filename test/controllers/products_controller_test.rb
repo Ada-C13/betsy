@@ -21,6 +21,8 @@ describe ProductsController do
 
   describe "create" do 
     it "can create a new product with valid information, and redirect" do 
+      current_merchant = perform_login(merchants(:merchant_one))
+
       product_hash = {
         product: {
           title: "kiwi",
@@ -70,9 +72,55 @@ describe ProductsController do
 
       must_respond_with :success
     end
+
+    it "responds with redirect when getting the edit page for a non-existing product" do 
+      # Act
+      get edit_product_path(-1)
+
+      # Assert
+      must_respond_with :redirect
+      must_redirect_to products_path 
+    end
   end
 
   describe "update" do 
+    it "will update existing product" do 
+
+      @product.save
+
+      puts "PRODUCT BEFORE UPDATE = #{@product.price}"
+      puts "PRODUCT ID BEFORE UPDATE = #{@product.id}"
+      
+      product_hash = {
+        product: {
+          price: 10,
+          description: "updated apple"
+        }
+      }
+
+      patch product_path(@product.id), params: product_hash
+
+      @product.save!
+      @product.reload 
+      puts "PRODUCT AFTER UPDATE = #{@product.price}"
+
+      expect(@product.price).must_equal product_hash[:product][:price]
+      expect(@product.description).must_equal product_hash[:product][:description]
+
+    end
+
+    it "will not update any product if given an invalid id, and responds with 404" do 
+      product_hash = {
+        product: {
+          price: 10,
+          description: "updated apple"
+        }
+      }
+
+      expect {
+        patch product_path(-1), params: product_hash
+      }.must_differ "Product.count", 0
+    end
   end
   
   describe "index" do
@@ -115,6 +163,59 @@ describe ProductsController do
       get product_path(-1)
       # Assert
       must_respond_with :redirect
+    end
+  end
+
+
+  describe "retire" do 
+    it "will change the product status from active to inactive and redirect" do 
+      @product.save
+      expect(@product.active).must_equal true
+
+      post retire_product_path(@product.id)
+
+      @product.reload 
+
+      expect(@product.active).must_equal false 
+      must_respond_with :redirect
+      must_redirect_to product_path(@product.id)
+    end
+
+    it "will change the product status from inactive to active and redirect" do 
+      @product.active = false 
+      @product.save 
+      expect(@product.active).must_equal false
+
+      post retire_product_path(@product.id)
+      @product.reload 
+
+      expect(@product.active).must_equal true
+      must_respond_with :redirect
+      must_redirect_to product_path(@product.id)
+    end
+
+    it "will prevent toggling other merchant's product" do 
+      # Arrange
+      @product.save
+      expect(@product.active).must_equal true
+
+      other_merchant = Merchant.create(
+        username: "harry",
+        uid: 444,
+        email: "harry@gmail.com",
+        provider: "github"
+      )
+      product = products(:banana)
+      product.merchant_id = other_merchant.id 
+      product.save 
+
+      # Act
+      post retire_product_path(product.id)
+
+      # Assert
+      expect(@product.active).must_equal true
+      must_respond_with :redirect
+      must_redirect_to product_path(product.id)
     end
   end
 
@@ -173,6 +274,7 @@ describe ProductsController do
       expect(flash[:error]).must_include "A problem occurred: #{@product_2.title} does not have enough quantity in stock"
 
       must_redirect_to product_path(@product_2.id)
+
     end
   end
 end

@@ -1,14 +1,23 @@
-<section>
-  <h2><%=@product.title.capitalize%></h2>
-  <p><%= image_tag(@product.photo_url, height: "350", :alt => "product photo") %></p>
-  <p><%= number_to_currency(@product.price) %></p>
-  <p><%= @product.stock > 0 ? 'In stock' : 'Out of stock' %></p>
-  <p>by <%= @product.merchant.username %></p>
-  <p>Description: <%= @product.description %></p>
-  <p>Available: <%= @product.stock %></p>
-  <p>Free Shipping & Returns</p>
-  <p>Category: </p>
-  <% if @product.stock > 0 %>
+
+<main>
+  <section>
+    <h2><%=@product.title.capitalize%></h2>
+    <p><%= image_tag(@product.photo_url, height: "350", :alt => "product photo") %></p>
+    <p><%= number_to_currency(@product.price) %></p>
+    <p><%= @product.stock > 0 ? 'In stock' : 'Out of stock' %></p>
+    <p>by <%= @product.merchant.username %></p>
+    <p>Description: <%= @product.description %></p>
+    <p>Available: <%= @product.stock %></p>
+    <p>Free Shipping & Returns</p>
+    <p>Category: </p>
+
+    <p>Status: <%= "#{@product.active ? "Active" : "Inactive"}" %></p>
+      
+    <% if session[:merchant_id] && @product.merchant_id == session[:merchant_id] %>
+      <%= link_to "#{@product.active ? "Retire" : "Activate"}", retire_product_path(@product.id), method: :post, class: "btn btn-primary" %>
+    <% end %>
+    
+    <% if @product.stock > 0 %>
     
     <%= form_with model: @order_item, url: {:action => "add_to_cart"} do |f| %>
 
@@ -21,4 +30,7 @@
   <% else %>
     <p>Sorry, this item is out of stock.</p>
   <% end %>
-</section>
+  
+  </section>
+</main>
+

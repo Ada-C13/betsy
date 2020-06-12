@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   
   # products
   resources :products
+
+  post "/products/retire/:id", to: "products#retire", as: "retire_product"
   post "/products/:id/add_to_cart", to: "products#add_to_cart", as: "add_to_cart"
 
   # categories

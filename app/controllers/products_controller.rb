@@ -1,13 +1,16 @@
 class ProductsController < ApplicationController
+
+  skip_before_action :current_merchant, except: [:new, :create, :edit, :update, :retire], raise: false
+
   def new 
     @product = Product.new
   end
 
   def create 
     @product = Product.new(product_params)
-    @product.merchant_id = Merchant.first.id # temporary code before log in is implemented
-
-    puts "MERCHANT ID IS = #{@product.merchant_id}"
+  
+    @product.merchant_id = session[:merchant_id] 
+    @product.active = true
 
     if @product.save 
       flash[:success] = "Successfully created #{@product.title}"
@@ -94,6 +97,20 @@ class ProductsController < ApplicationController
       return
     end
   end
+
+  def retire 
+    @current_merchant = current_merchant
+    @product = Product.find_by(id: params[:id])
+    # binding.pry
+    if @product.active
+      @product.update(active: false)
+      redirect_to product_path(@product.id)
+    else
+      @product.update(active: true)
+      redirect_to product_path(@product.id)
+    end
+  end
+
 
   private 
 
