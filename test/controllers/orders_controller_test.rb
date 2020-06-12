@@ -130,24 +130,88 @@ describe OrdersController do
     end
   end # describe "destroy"
 
-  describe "pay" do # TODO add tests
-    it "successfully pays for a order" do # nominal case
-      skip
-    # if @shopping_cart.checkout_order!
-    #   session[:order_id] = nil
-    #   flash[:status] = :success
-    #   flash[:result_text] = "Successfully paid order #{@shopping_cart.id}"
-    # else
-    #   flash[:status] = :failure
-    #   flash[:result_text] = "Payment processing failed!"
-    # end
-    # redirect_to order_path(@shopping_cart)
+  describe "checkout" do
+    it "successfully checks out an order" do
+      # Arrange
+      get cart_path
+      updates = { 
+        order: {
+          credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
+          address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001",
+          customer_email: "julia@gmail.com"
+        }
+      }
+      post cart_path, params: updates
+      order = Order.last
+      # Act
+      post cart_checkout_path
+      order.reload
+      # Assert
+      expect(order.status).must_equal "paid"
+      must_respond_with :redirect 
+      must_redirect_to cart_path
     end
 
-    it " " do # edge case
-      skip
+    it "checkout fails if payment data is missing" do
+      # Arrange
+      get cart_path
+      updates = { 
+        order: {
+          address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001",
+          customer_email: "julia@gmail.com"
+        }
+      }
+      post cart_path, params: updates
+      order = Order.last
+      # Act
+      post cart_checkout_path
+      order.reload
+      # Assert
+      expect(order.status).must_equal "pending"
+      must_respond_with :redirect 
+      must_redirect_to cart_path
     end
-  end # describe "pay"
+
+    it "checkout fails if address data is missing" do
+      # Arrange
+      get cart_path
+      updates = { 
+        order: {
+          credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
+          customer_email: "julia@gmail.com"
+        }
+      }
+      post cart_path, params: updates
+      order = Order.last
+      # Act
+      post cart_checkout_path
+      order.reload
+      # Assert
+      expect(order.status).must_equal "pending"
+      must_respond_with :redirect 
+      must_redirect_to cart_path
+    end
+
+    it "checkout fails if email data is missing" do
+      # Arrange
+      get cart_path
+      updates = { 
+        order: {
+          credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
+          address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001"
+        }
+      }
+      post cart_path, params: updates
+      order = Order.last
+      # Act
+      post cart_checkout_path
+      order.reload
+      # Assert
+      expect(order.status).must_equal "pending"
+      must_respond_with :redirect 
+      must_redirect_to cart_path
+    end
+  end # describe "checkout"
 
   describe "complete" do # TODO add tests
 

@@ -47,16 +47,18 @@ class OrdersController < ApplicationController
     redirect_to root_path
   end
 
-  def pay # TODO add more tests
+  def checkout
+    p @shopping_cart
     if @shopping_cart.checkout_order!
       session[:order_id] = nil
       flash[:status] = :success
-      flash[:result_text] = "Successfully paid order #{@shopping_cart.id}"
+      flash[:result_text] = "Successfully checked out order #{@shopping_cart.id}"
     else
+      p @shopping_cart
       flash[:status] = :failure
-      flash[:result_text] = "Payment processing failed!"
+      flash[:result_text] = "Checkout failed!"
     end
-    redirect_to order_path(@shopping_cart)
+    redirect_to cart_path
   end
 
   def complete # TODO add more tests
