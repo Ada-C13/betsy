@@ -240,7 +240,7 @@ describe ProductsController do
       expect(new_order_item.quantity).must_equal order_item_params[:quantity]
       expect(new_order_item.shipped).must_equal false
 
-      expect(flash[:success]).must_include "Successfully added #{@product_2.title} to cart!"
+      expect(flash[:result_text]).must_include "Successfully added #{@product_2.title} to cart!"
       
       must_redirect_to product_path(new_order_item.product_id)
     end
@@ -271,7 +271,7 @@ describe ProductsController do
         post add_to_cart_path(@product_2.id), params: invalid_order_item_params
       }.wont_differ "OrderItem.count"
 
-      expect(flash[:error]).must_include "A problem occurred: #{@product_2.title} does not have enough quantity in stock"
+      expect(flash[:result_text]).must_include "A problem occurred: #{@product_2.title} does not have enough quantity in stock"
 
       must_redirect_to product_path(@product_2.id)
 

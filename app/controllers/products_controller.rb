@@ -18,9 +18,9 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product.id)
       return
     else
-      flash[:status] = :failure 
-      flash[:result_text] = "Could not create a product"
-      flash[:messages] = @product.errors.messages
+      flash.now[:status] = :failure 
+      flash.now[:result_text] = "Could not create a product"
+      flash.now[:messages] = @product.errors.messages
       render :new, status: :bad_request
       return
     end
