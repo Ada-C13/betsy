@@ -56,7 +56,7 @@ class OrdersController < ApplicationController
     else
       flash[:warning] = "Payment processing failed!"
       flash[:details] = @shopping_cart.errors.full_messages
-      redirect_back fallback_location: cart_path
+      render :edit
     end
     
   end

@@ -4,6 +4,11 @@ class Order < ApplicationRecord
 
   VALID_STATUS = %w(pending paid complete cancelled) # complete means shipped
   validates :status, presence: true, inclusion: {in: VALID_STATUS}
+  validates :credit_card_num, presence: true
+  validates :credit_card_exp, presence: true
+  validates :credit_card_cvv, presence: true
+  validates :customer_email, presence: true
+
 
   def checkout_order!
     return false if self.status != "pending"
