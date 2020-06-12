@@ -15,6 +15,11 @@ class OrdersController < ApplicationController
   
   def show
     @order = Order.find_by(id: params[:id])
+    if !@order
+      flash[:status] = :failure
+      flash[:result_text] = "Could not find order."
+      render_404
+    end
   end
 
   def edit

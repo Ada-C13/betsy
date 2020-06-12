@@ -35,7 +35,6 @@ describe OrdersController do
       quantity: 4
     )
     item2.save!
-
   end
 
   valid_statuses   = %w(pending paid complete cancelled)
@@ -43,9 +42,9 @@ describe OrdersController do
 
   describe "index" do
     it "succeeds when there are orders" do
-      session[:user_id]  = merchant1.id
-      session[:order_id] = pending_order.id
-      @shopping_cart = pending_order
+      # session[:user_id]  = merchant1.id
+      # session[:order_id] = pending_order.id
+      # @shopping_cart = pending_order
   
       # Act
       get orders_path
@@ -55,9 +54,9 @@ describe OrdersController do
     end
 
     it "succeeds when there are no orders" do
-      session[:user_id]  = merchant1.id
-      session[:order_id] = pending_order.id
-      @shopping_cart = pending_order
+      # session[:user_id]  = merchant1.id
+      # session[:order_id] = pending_order.id
+      # @shopping_cart = pending_order
 
       # Arrange
       Order.all do |order|
@@ -74,10 +73,6 @@ describe OrdersController do
 
   describe "show" do
     it "succeeds for an existing order ID" do
-      session[:user_id]  = merchant1.id
-      session[:order_id] = pending_order.id
-      @shopping_cart = pending_order
-
       # Act
       get order_path(pending_order.id)
 
@@ -86,24 +81,21 @@ describe OrdersController do
     end
 
     it "renders 404 not_found for a bogus order ID" do
-            session[:user_id]  = merchant1.id
-      session[:order_id] = pending_order.id
-      @shopping_cart = pending_order
-
+      # Arrange
       destroyed_id = pending_order.id
       pending_order.destroy
       
       # Act
-      get order_path(destroyed_id)
-
+      expect {
+        get order_path(destroyed_id)
+      }.must_raise ActionController::RoutingError
       # Assert
-      must_respond_with :not_found
+      # must_respond_with :not_found
     end
   end # describe "show"
 
   describe "edit" do
     it "edits the shopping cart" do
-
       # Act
       get cart_path
 
@@ -115,11 +107,12 @@ describe OrdersController do
   describe "update" do
     it "updates the shopping cart" do
       # Arrange
+      expect(@shopping_cart).wont_be_nil
       updates = { order: {customer_email: "ada@gmail.com" } }
 
       # Act & Assert
       expect {
-        put orders_path, params: updates
+        post cart_path, params: updates
       }.wont_change "Order.count"
 
       expect(@shopping_cart.customer_email).must_equal "ada@gmail.com"
@@ -129,11 +122,12 @@ describe OrdersController do
 
     it "renders bad_request for bogus data" do
       # Arrange
+      expect(@shopping_cart).wont_be_nil
       updates = { order: { status: nil } }
 
       # Act & Assert
       expect {
-        put cart_path, params: updates
+        post cart_path, params: updates
       }.wont_change "Order.count"
 
       expect(pending_order.status).must_equal "pending"
@@ -143,18 +137,16 @@ describe OrdersController do
   describe "destroy" do
     it "empties the shopping cart" do
       # Arrange
-      updates = { order: {customer_email: "ada@gmail.com" } }
-      put cart_path, params: updates
-      old_cart_id = @shopping_cart.id
+      expect(@shopping_cart).wont_be_nil
 
       # Act
       delete cart_path
 
       # Assert
-      expect(@shopping_cart.id).wont_equal old_cart_id
+      expect(@shopping_cart).must_be_nil
       must_respond_with :redirect
       must_redirect_to root_path
     end
   end # describe "destroy"
 
- end
+end

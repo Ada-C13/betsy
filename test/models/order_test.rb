@@ -2,7 +2,6 @@ require "test_helper"
 
 describe Order do
 
-  # Arrange
   let (:pending_order) { orders(:order_pending) }
   let (:paid_order) { orders(:order_paid) }
   let (:complete_order) { orders(:order_complete) }
