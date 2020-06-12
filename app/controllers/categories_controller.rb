@@ -9,16 +9,25 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(category_params)
-    if @category.save
-      flash[:status] = :success
-      flash[:result_text] = "Successfully created #{@category.id}"
+    if find_user
+      @category = Category.new(category_params)
+      if @category.save
+        flash[:status] = :success
+        flash[:result_text] = "Successfully created #{@category.name}"
+        redirect_to categories_path
+        return
+      else
+        flash[:status] = :failure
+        flash[:result_text] = "Could not create a category"
+        flash[:messages] = @category.errors.messages
+        render :new, status: :bad_request
+        return
+      end
     else
-      flash[:status] = :failure
-      flash[:result_text] = "Could not create a category"
-      flash[:messages] = @work.errors.messages
-      render :new, status: :bad_request
-    end
+      flash[:result_text] = "You must log in to create a category"
+      redirect_to categories_path
+      return
+    end   
   end
 
   def category_params
