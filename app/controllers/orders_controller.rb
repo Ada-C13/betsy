@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
   before_action only: [:show, :checkout, :update, :destroy] do
-    find_order(params[:id])
+    find_order(session[:order_id])
   end
   
-  def index
-    # shows all order_items that match session[:order_id]
-  end
+  # def index
+  #   @order_items = OrderItems.where(id: session[:order_id])
+  # end
 
   def show
   end
@@ -18,6 +18,23 @@ class OrdersController < ApplicationController
     # changes status to paid
     # session[:order_id] = nil
     # redirects to order show page
+  end
+
+  def change_quantity
+    quantity = order_item_params[:quantity].to_i
+    product = @order_item.product
+
+    # if quantity is greater than product stock, don't update order_item 
+    if quantity > product.stock
+      flash[:error] = "A problem occurred: #{product.title} does not have enough quantity in stock"
+      redirect_to orders_path
+      return
+    else 
+      @order_item.update(order_item_params)
+      flash[:success] = "Successfully updated the quantity of #{product.title}"
+      redirect_to orders_path
+      return
+    end
   end
 
   def destroy

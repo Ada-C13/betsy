@@ -21,9 +21,10 @@ Rails.application.routes.draw do
   post "/logout", to: "merchants#logout", as: "logout"
 
   # orders
-  resources :orders, only: [:index, :show, :update, :destroy]
+  resources :orders, only: [:show, :update, :destroy]
   get "orders/:id/checkout", to: "orders#checkout", as: "order_checkout"
 
   # order_items
   resources :order_items, only: [:update, :destroy]
+  get "/cart", to: "order_items#index", as: "cart"
 end

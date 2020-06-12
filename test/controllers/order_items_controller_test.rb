@@ -5,6 +5,20 @@ describe OrderItemsController do
     @order_item = order_items(:order_item1)
   end
 
+  describe "index" do
+    it "responds with success when there is at least one order item in the cart" do
+      build_order # see test_helper.rb
+
+      get cart_path
+      must_respond_with :success
+    end
+
+    it "responds with success when there are no order items in the cart" do
+      get cart_path
+      must_respond_with :success
+    end
+  end
+
   describe "update" do
     let (:edited_order_item_hash) {
       {
@@ -24,7 +38,7 @@ describe OrderItemsController do
 
       expect(flash[:success]).must_include "Successfully updated the quantity of #{@order_item.product.title}"
 
-      must_redirect_to orders_path
+      must_redirect_to cart_path
     end
 
     it "does not update an order item if given an invalid id, and responds with a 404" do
@@ -48,7 +62,7 @@ describe OrderItemsController do
       
       expect(flash[:error]).must_include "A problem occurred: #{@order_item.product.title} does not have enough quantity in stock"
 
-      must_redirect_to orders_path
+      must_redirect_to cart_path
     end
   end
 
@@ -60,7 +74,7 @@ describe OrderItemsController do
 
       expect(flash[:success]).must_include "Successfully removed #{@order_item.product.title} from cart!"
 
-      must_redirect_to orders_path
+      must_redirect_to cart_path
     end
 
     it "does not destroy the order item when given an invalid id, then responds with a 404 error" do

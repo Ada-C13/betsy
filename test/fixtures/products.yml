@@ -1,7 +1,7 @@
 apple:
   title: apple
   price: 5.40
-  photo_url: just a string
+  photo_url: https://i.imgur.com/85wyR2x.jpg
   description: red apple 
   stock: 5
   merchant_id: merchant_one.id
@@ -9,7 +9,7 @@ apple:
 banana: 
   title: banana
   price: 4.40
-  photo_url: url info
+  photo_url: https://i.imgur.com/IgdkFBM.png
   description: yellow banana
   stock: 5
   merchant_id: merchant_one.id
