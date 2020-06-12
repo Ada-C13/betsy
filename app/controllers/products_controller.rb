@@ -29,17 +29,20 @@ class ProductsController < ApplicationController
     if session[:user_id]
       @product = Product.new(product_params)
       @product.merchant_id = session[:user_id]
+      @product.photo = 'https://i.imgur.com/OR9WgUb.png' if @product.photo = ''
       if @product.save
+        flash[:success] = "Successfully created #{@product.name}"
         redirect_to products_path
       else
+        flash.now[:warning] = 'Unable to save product'
+        flash.now[:details] = @product.errors.full_messages
         render :new, status: :bad_request
+        return
       end
     else
       #say you must be loged in as a merchant to create product
-
+      flash.now[:warning] = 'Must be logged in as Merchant to create a product'
     end
-
-
   end
 
   # PATCH/PUT /products/1

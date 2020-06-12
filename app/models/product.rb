@@ -4,8 +4,8 @@ class Product < ApplicationRecord
   has_many :reviews
 
   validates :name, presence: true, uniqueness: { scope: :merchant_id, 
-    message: "Merchant already has product of this name %{value} ." }
+    message: "%{value} has already been taken." }
   validates :price, presence: true, numericality: { greater_than: 0,
-    message: "Price of product must be a number greater than $0" }
+    message: "must be a number greater than $0" }
     
 end
