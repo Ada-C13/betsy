@@ -9,4 +9,10 @@ class OrderItemsController < ApplicationController
       flash.now[:details] = @order_item.errors.full_messages
     end
   end
+
+  def destroy
+    @order_item = OrderItem.find_by(id: params[:id])
+    @order_item.destroy
+    redirect_to cart_path
+  end
 end

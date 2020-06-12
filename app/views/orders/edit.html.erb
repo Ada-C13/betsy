@@ -12,6 +12,7 @@
         <th>Quantity</th>
         <th>Price</th>
         <th>Subtotal</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -21,10 +22,60 @@
           <td><%= order_item.quantity %></td>
           <td><%= order_item.product.price %></td>
           <td><%= order_item.subtotal %></td>
+          <th><%= link_to 'Delete', order_item_path(order_item), class: 'btn btn-danger', method: 'delete' %></th>
         </tr>
       <% end %>
     </tbody>
   </table>
+</section>
+
+<section>
+  <h3>Complete Payment</h3>
+  <%= form_with model: @shopping_cart, url: order_pay_path(@shopping_cart) do |f| %>
+    <div class='form-group'>
+      <%= f.label :credit_card_num %>
+      <%= f.text_field :credit_card_num, class: 'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :credit_card_exp %>
+      <%= f.text_field :credit_card_exp, class: 'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :credit_card_cvv %>
+      <%= f.text_field :credit_card_cvv, class: 'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :address %>
+      <%= f.text_field :address, class: 'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :city %>
+      <%= f.text_field :city, class: 'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :state %>
+      <%= f.text_field :state, class: 'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :zip %>
+      <%= f.text_field :zip, class: 'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :customer_email %>
+      <%= f.text_field :customer_email, class: 'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  <% end %>
 </section>
 
 <%= link_to "Back to Main Menu", root_path, class: "btn btn-primary" %>
