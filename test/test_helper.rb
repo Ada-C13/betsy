@@ -61,6 +61,10 @@ class ActiveSupport::TestCase
 
     return merchant
   end
+
+  def perform_logout
+    delete logout_url
+  end
   
 end
 
