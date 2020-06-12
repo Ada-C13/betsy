@@ -9,10 +9,11 @@ describe MerchantsController do
     end
 
     it "can login in a new merchant" do
-      new_merchant = Merchant.new(uid: "2244", username: "angie", provider: "github", email: "angela@adadevelopers.org")
+      new_merchant = Merchant.new(uid: "2000", username: "hobo", provider: "github", email: "hobo@adadevelopers.org")
 
       expect {
         logged_in_merchant = perform_login(new_merchant)
+        #perform_login(new_merchant)
       }.must_change "Merchant.count", 1
 
       must_respond_with :redirect
