@@ -1,8 +1,35 @@
-<h1>dashboard</h1>
+<% content_for(:title) { 'Evergreenery - Welcome' } %>
 
-<div>
-<p>session[:merchant_id] = <%= session[:merchant_id] %> <p>
-<p>@current_merchant = <%= @current_merchant %> <p>
-<p>@current_merchant username = <%= @current_merchant.username %> <p>
 
+<h2>Merchant Dashboard (id: <%= @current_merchant.id %>)</h2>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h4>Stats at a glance</h4>
+      <ul>
+        <li><span>Name:</span> <%= @current_merchant.username %> </li>
+        <li><span>Orders awaiting shipment:</span> </li>
+        <li><span>Completed orders:</span> </li>
+        <li><span>Number of product listings:</span> </li>
+        <li><span>Products out of stock:</span> </li>
+        <li><span>Total revenue:</span> </li>
+      </ul>
+    </div>  
+     <div class="col-md-4">
+
+      <%= link_to manage_orders_url do %>
+        <div class="merchant-dashboard__action">
+        <p>Manage my orders</p>
+        </div>
+      <% end %>
+
+      <%= link_to manage_products_url do %>
+        <div class="merchant-dashboard__action">
+        <p>Manage my products</p>
+        </div>
+      <% end %>
+
+    </div>  
+  </div>
 </div>
