@@ -21,6 +21,8 @@ describe ProductsController do
 
   describe "create" do 
     it "can create a new product with valid information, and redirect" do 
+      current_merchant = perform_login(merchants(:merchant_one))
+
       product_hash = {
         product: {
           title: "kiwi",
@@ -167,11 +169,8 @@ describe ProductsController do
     end
   end
 
-  # describe "retire" do 
-  #   it "will change the product status from active to inactive and redirect" do 
-  #     post retire_product_path(@product.id)
-
-  #     expect(@product.active).must_equal false 
-  #   end
-  # end
+  describe "retire" do 
+    it "will change the product status from active to inactive and redirect" do 
+    end
+  end
 end

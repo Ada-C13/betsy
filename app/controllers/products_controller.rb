@@ -1,17 +1,16 @@
 class ProductsController < ApplicationController
 
+  skip_before_action :current_merchant, except: [:new, :create, :edit, :update, :retire], raise: false
+
   def new 
     @product = Product.new
   end
 
   def create 
     @product = Product.new(product_params)
-    @current_merchant = current_merchant # current_merchant is a helper method
   
-    @product.merchant_id = @current_merchant.id 
+    @product.merchant_id = session[:merchant_id] 
     @product.active = true
-
-    puts "MERCHANT ID IS = #{@product.merchant_id}"
 
     if @product.save 
       flash[:success] = "Successfully created #{@product.title}"
