@@ -1,7 +1,16 @@
 class MerchantsController < ApplicationController
 
   def index
-    merchants = Merchant.all
+    @merchants = Merchant.all
+  end
+
+  def account
+    @merchant = Merchant.find_by(id: session[:merchant_id])
+    unless @merchant
+      flash[:error] = "We regret to inform you that accesss to this page is restricted"
+      redirect_to root_path
+      return
+    end
   end
 
   def create

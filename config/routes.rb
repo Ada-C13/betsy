@@ -6,9 +6,14 @@ Rails.application.routes.draw do
 
 
 
-  # resources :merchants, only[:show]
+  # Merchant
   resources :merchants, only: [:index]
-
+  get "merchants/:id", to: "merchants#account", as: "account"
+  # TODO: (Ross) In order to make this nested route works, we have to wait for Lak to merge her Product controller with the "index" action 
+  resources :merchants do
+    resources :products, only: [:index]
+    # TODO: add the nested route merchants/:id/orders to show all the orders
+  end
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
   put "/logout", to: "merchants#logout", as: "logout"
