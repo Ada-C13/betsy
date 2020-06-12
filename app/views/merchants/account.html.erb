@@ -1,0 +1,8 @@
+<h1>Merchants#account</h1>
+<p>Find me in app/views/merchants/account.html.erb</p>
+
+<%= @merchant.id%>
+<%= @merchant.email%>
+<%= @merchant.products.each do |product|%>
+  <li> <%= product.name%>, <%= product.price%>, <%= product.stock%> </li>
+<% end %>
