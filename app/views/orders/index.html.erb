@@ -1,4 +1,4 @@
-<h2>List of Works</h2>
+<h2>List of Orders</h2>
 
 <table class="table">
   <thead>
@@ -6,6 +6,7 @@
       <th>Id</th>
       <th>Status</th>
       <th>Email</th>
+      <th>Total Cost</th>
     </tr>
   </thead>
   <tbody>
@@ -14,9 +15,10 @@
         <td><%= link_to order.id, order_path(order) %></td>
         <td><%= order.status %></td>
         <td><%= order.customer_email %></td>
+        <td><%= order.total_cost %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to "Main Menu", root_path %>
+<%= link_to "Back to Main Menu", root_path, class: "btn btn-primary" %>

@@ -1,9 +1,16 @@
 class OrdersController < ApplicationController
-
-  before_action :get_order, except: [:index, :new, :create]
   
   def index
-    @orders = Order.all.order(:status)
+    merchant_id = session[:user_id]
+    # if not logged in, go back to root
+    if !merchant_id
+      flash[:status] = :failure
+      flash[:result_text] = "Please log in to see orders."
+      redirect_to root_path
+      return
+    end
+    # get all orders for merchant
+    @orders = Order.by_merchant(merchant_id)
   end
   
   def show
@@ -11,13 +18,14 @@ class OrdersController < ApplicationController
   end
 
   def edit
+    # shows shopping cart
   end
 
   def update
     if @shopping_cart.update(order_params)
       flash[:status] = :success
       flash[:result_text] = "Successfully updated shopping cart."
-      redirect_back fallback_location: order_path(@shopping_cart)      
+      redirect_to cart_path      
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Could not update shopping cart."
@@ -79,10 +87,5 @@ class OrdersController < ApplicationController
       :time_submitted, :customer_email
     )
   end
-
-  def get_order
-    @shopping_cart = Order.find_by(id: params[:id])
-    render_404 unless @shopping_cart
-  end  
 
 end

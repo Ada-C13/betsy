@@ -33,4 +33,10 @@ class Order < ApplicationRecord
     return total
   end
   
+  def self.by_merchant(merchant_id) # add test
+    items = OrderItem.select { |item| item.product.merchant_id == merchant_id }
+    orders = items.map { |item| item.order_id }
+    return Order.select { |order| orders.include?(order.id) }
+  end
+  
 end

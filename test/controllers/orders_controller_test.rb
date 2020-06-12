@@ -2,15 +2,51 @@ require "test_helper"
 
 describe OrdersController do
 
-  let(:existing_order) { Order.new(status: "pending") }
+  let (:pending_order) { orders(:order_pending) }
+  let (:paid_order) { orders(:order_paid) }
+  let (:complete_order) { orders(:order_complete) }
+
+  let (:merchant1) { merchants(:suely) }
+  let (:product1) { products(:tulip) }
+  let (:product2) { products(:daisy) }
+
+  before do
+    pending_order.save!
+    merchant1.save!
+
+    product1.merchant_id = merchant1.id
+    product1.price = 100
+    product1.save!
+
+    item1 = OrderItem.new(
+      order_id: pending_order.id,
+      product_id: product1.id,
+      quantity: 2
+    )
+    item1.save!
+
+    product2.merchant_id = merchant1.id
+    product2.price = 10
+    product2.save!
+
+    item2 = OrderItem.new(
+      order_id: pending_order.id,
+      product_id: product2.id,
+      quantity: 4
+    )
+    item2.save!
+
+  end
+
   valid_statuses   = %w(pending paid complete cancelled)
   invalid_statuses = ["parrot", "parakeet", "incomplete", "nope", 2021, nil]
 
   describe "index" do
     it "succeeds when there are orders" do
-      # Arrange
-      existing_order.save!
-
+      session[:user_id]  = merchant1.id
+      session[:order_id] = pending_order.id
+      @shopping_cart = pending_order
+  
       # Act
       get orders_path
 
@@ -19,6 +55,10 @@ describe OrdersController do
     end
 
     it "succeeds when there are no orders" do
+      session[:user_id]  = merchant1.id
+      session[:order_id] = pending_order.id
+      @shopping_cart = pending_order
+
       # Arrange
       Order.all do |order|
         order.destroy
@@ -34,19 +74,24 @@ describe OrdersController do
 
   describe "show" do
     it "succeeds for an existing order ID" do
-      # Arrange
-      existing_order.save!
+      session[:user_id]  = merchant1.id
+      session[:order_id] = pending_order.id
+      @shopping_cart = pending_order
 
       # Act
-      get order_path(existing_order.id)
+      get order_path(pending_order.id)
 
       # Assert
       must_respond_with :success
     end
 
     it "renders 404 not_found for a bogus order ID" do
-      destroyed_id = existing_order.id
-      existing_order.destroy
+            session[:user_id]  = merchant1.id
+      session[:order_id] = pending_order.id
+      @shopping_cart = pending_order
+
+      destroyed_id = pending_order.id
+      pending_order.destroy
       
       # Act
       get order_path(destroyed_id)
@@ -60,7 +105,7 @@ describe OrdersController do
     it "edits the shopping cart" do
 
       # Act
-      get edit_order_path
+      get cart_path
 
       # Assert
       must_respond_with :success
@@ -79,7 +124,7 @@ describe OrdersController do
 
       expect(@shopping_cart.customer_email).must_equal "ada@gmail.com"
       must_respond_with :redirect
-      must_redirect_to order_path(existing_order.id)
+      must_redirect_to cart_path
     end
 
     it "renders bad_request for bogus data" do
@@ -88,10 +133,10 @@ describe OrdersController do
 
       # Act & Assert
       expect {
-        put orders_path, params: updates
+        put cart_path, params: updates
       }.wont_change "Order.count"
 
-      expect(existing_order.status).must_equal "pending"
+      expect(pending_order.status).must_equal "pending"
     end
   end # describe "update"
 
@@ -99,11 +144,11 @@ describe OrdersController do
     it "empties the shopping cart" do
       # Arrange
       updates = { order: {customer_email: "ada@gmail.com" } }
-      put orders_path, params: updates
+      put cart_path, params: updates
       old_cart_id = @shopping_cart.id
 
       # Act
-      delete orders_path
+      delete cart_path
 
       # Assert
       expect(@shopping_cart.id).wont_equal old_cart_id

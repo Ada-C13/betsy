@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:index, :show]
   # Edit only the shopping cart
-  get "/orders/edit", to: "orders#edit", as: "order_edit" 
-  post "/orders", to: "orders#update"
-  delete "/orders", to: "orders#destroy" 
+  get "/cart", to: "orders#edit", as: "cart" 
+  post "/cart", to: "orders#update"
+  delete "/cart", to: "orders#destroy" 
   post "/orders/:id/pay", to: "orders#pay", as: "order_pay"
   post "/orders/:id/complete", to: "orders#complete", as: "order_complete"
   post "/orders/:id/cancel", to: "orders#cancel", as: "order_cancel"

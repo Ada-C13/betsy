@@ -146,7 +146,7 @@ describe Order do
   end # describe "cancel_order"
 
   describe "total_cost" do
-
+    # Arrange
     let (:merchant1) { merchants(:suely) }
     let (:product1) { products(:tulip) }
     let (:product2) { products(:daisy) }
