@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   before_action :find_order
 
-  before_action :find_merchant
+  before_action :current_merchant
   #before_action :require_login
 
   def render_404
@@ -23,9 +23,6 @@ class ApplicationController < ActionController::Base
     end 
   end
 
-  def current_merchant
-    @current_merchant = Merchant.find(session[:merchant_id])
-  end
 
   def require_login
     if current_merchant.nil?
@@ -34,9 +31,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def find_merchant
+  def current_merchant
     if session[:merchant_id]
-      @login_merchant = Merchant.find_by(id: session[:merchant_id])
+      @current_merchant = Merchant.find_by(id: session[:merchant_id])
     end
   end
 end
