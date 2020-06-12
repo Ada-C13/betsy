@@ -21,23 +21,6 @@ class OrdersController < ApplicationController
     # redirects to checkout finalize page, which needs a route
   end
 
-  def change_quantity
-    quantity = order_item_params[:quantity].to_i
-    product = @order_item.product
-
-    # if quantity is greater than product stock, don't update order_item 
-    if quantity > product.stock
-      flash[:error] = "A problem occurred: #{product.title} does not have enough quantity in stock"
-      redirect_to orders_path
-      return
-    else 
-      @order_item.update(order_item_params)
-      flash[:success] = "Successfully updated the quantity of #{product.title}"
-      redirect_to orders_path
-      return
-    end
-  end
-
   def destroy
     # destroys order (need dependent: destroy in model to also destroy associated order_items)
     # session[:order_id] = nil
