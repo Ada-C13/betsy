@@ -22,7 +22,7 @@ describe OrderItemsController do
       @order_item.reload
       expect(@order_item.quantity).must_equal edited_order_item_hash[:order_item][:quantity]
 
-      expect(flash[:success]).must_include "Successfully updated the quantity of #{@order_item.product.title}"
+      expect(flash[:result_text]).must_include "Successfully updated the quantity of #{@order_item.product.title}"
 
       must_redirect_to orders_path
     end
@@ -46,7 +46,7 @@ describe OrderItemsController do
         patch order_item_path(@order_item.id), params: invalid_order_item_hash
       }.wont_differ "OrderItem.count"
       
-      expect(flash[:error]).must_include "A problem occurred: #{@order_item.product.title} does not have enough quantity in stock"
+      expect(flash[:result_text]).must_include "A problem occurred: #{@order_item.product.title} does not have enough quantity in stock"
 
       must_redirect_to orders_path
     end
@@ -58,7 +58,7 @@ describe OrderItemsController do
         delete order_item_path(@order_item.id)
       }.must_differ "OrderItem.count", -1
 
-      expect(flash[:success]).must_include "Successfully removed #{@order_item.product.title} from cart!"
+      expect(flash[:result_text]).must_include "Successfully removed #{@order_item.product.title} from cart!"
 
       must_redirect_to orders_path
     end

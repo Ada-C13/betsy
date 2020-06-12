@@ -13,12 +13,15 @@ class ProductsController < ApplicationController
     @product.active = true
 
     if @product.save 
-      flash[:success] = "Successfully created #{@product.title}"
+      flash[:status] = :success
+      flash[:result_text] = "Successfully created #{@product.title}"
       redirect_to product_path(@product.id)
-
       return
     else
-      render :new 
+      flash.now[:status] = :failure 
+      flash.now[:result_text] = "Could not create a product"
+      flash.now[:messages] = @product.errors.messages
+      render :new, status: :bad_request
       return
     end
   end
@@ -37,11 +40,15 @@ class ProductsController < ApplicationController
       head :not_found
       return
     elsif @product.update(product_params)
-      flash[:success] = "Successfully updated #{@product.title}"
+      flash[:status] = :success
+      flash[:result_text] = "Successfully updated #{@product.title}"
       redirect_to product_path(@product.id)
       return
     else
-      render :edit 
+      flash.now[:status] = :failure 
+      flash.now[:result_text] = "Could not update #{@product.title}"
+      flash.now[:messages] = @product.errors.messages 
+      render :edit, status: :not_found
       return
     end
   end
@@ -67,12 +74,14 @@ class ProductsController < ApplicationController
 
     # if quantity is greater than product stock, don't save order_item
     if order_item.quantity > product.stock
-      flash[:error] = "A problem occurred: #{product.title} does not have enough quantity in stock"
+      flash[:status] = :failure
+      flash[:result_text] = "A problem occurred: #{product.title} does not have enough quantity in stock"
       redirect_to product_path(product.id)
       return
     else 
       order_item.save
-      flash[:success] = "Successfully added #{product.title} to cart!"
+      flash[:status] = :success
+      flash[:result_text] = "Successfully added #{product.title} to cart!"
       redirect_to product_path(product.id)
       return
     end
@@ -101,12 +110,15 @@ class ProductsController < ApplicationController
   def retire 
     @current_merchant = current_merchant
     @product = Product.find_by(id: params[:id])
-    # binding.pry
     if @product.active
       @product.update(active: false)
+      flash[:status] = :success 
+      flash[:result_text] = "Successfully retired product #{@product.title}"
       redirect_to product_path(@product.id)
     else
       @product.update(active: true)
+      flash[:status] = :success 
+      flash[:result_text] = "Successfully activated product #{@product.title}"
       redirect_to product_path(@product.id)
     end
   end
