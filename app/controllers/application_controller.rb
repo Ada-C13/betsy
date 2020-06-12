@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
     if params[:id].to_i != current_merchant.id
       if request.get?
         redirect_to dashboard_merchant_url(current_merchant.id)
-        flash[:warning] = "that's not yours. redirected accordingly."
+        flash[:warning] = "Tried to access a resource that isn't yours."
         return
       else
         redirect_back(fallback_location: root_path)
