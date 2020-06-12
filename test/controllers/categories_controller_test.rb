@@ -11,6 +11,7 @@ describe CategoriesController do
       }
     }
   }
+
   describe "index" do
     it "responds with success when there are many categories saved" do
       # Ensure that there is at least one Categoty saved
@@ -22,6 +23,13 @@ describe CategoriesController do
     it "responds with success when there are no categories saved" do
       # Ensure that there are zero Categoty saved
       get categories_path
+      must_respond_with :success
+    end
+  end
+
+  describe "new" do
+    it "responds with success" do
+      get new_category_path
       must_respond_with :success
     end
   end
