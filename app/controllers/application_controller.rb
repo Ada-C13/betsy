@@ -32,7 +32,17 @@ class ApplicationController < ActionController::Base
     if current_merchant.nil?
       redirect_to root_path
       flash[:danger] = "Must be logged in as a merchant."
+      return
     end
   end
 
+  def require_ownership
+    if params[:id].to_i != current_merchant.id
+      redirect_to root_path
+      flash[:danger] = "Wrong merchant resource, accessing #{params[:id]} but you're #{@current_merchant.id}."
+      return
+    end
+  end
+
+  
 end
