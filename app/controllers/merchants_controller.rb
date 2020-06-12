@@ -2,14 +2,14 @@ class MerchantsController < ApplicationController
   before_action :require_login, only: [:dashboard, :manage_orders, :manage_products, :logout]
   before_action :require_ownership, only: [:dashboard, :manage_orders, :manage_products]
 
-  def show
-    @merchant = Merchant.find(params[:id])
+  # def show
+  #   @merchant = Merchant.find(params[:id])
 
-    if @merchant.nil?
-      head :not_found
-      return
-    end
-  end
+  #   if @merchant.nil?
+  #     head :not_found
+  #     return
+  #   end
+  # end
 
   def login #create
     auth_hash = request.env["omniauth.auth"]

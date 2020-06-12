@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     member do
       get "dashboard"
       post "deactivate"
+      delete "logout"
     end
   end
   get 'merchants/:id/dashboard/manage_orders', to: 'merchants#manage_orders', as: "manage_orders"
@@ -33,7 +34,6 @@ Rails.application.routes.draw do
   # Omniauth Github callback route
   get "/auth/:provider/callback", to: "merchants#login", as: "omniauth_callback"
   
-  delete "/logout", to: "merchants#logout", as: "logout"
 
 
 end
