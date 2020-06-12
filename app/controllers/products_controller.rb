@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
       flash[:success] = "Successfully updated product."
       return
     else 
-      flash.now[:warning] = "Product update failed."
+      flash.now[:warning] = "Product update failed"
       flash.now[:details] = @product.errors.full_messages
       render :edit, status: :bad_request
       return
