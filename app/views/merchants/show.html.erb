@@ -1,6 +1,7 @@
 <main>
   <h2><%= @merchant.username %>' Dashboard</h2>
 
+  <% if !@merchant.products.empty? %>
   <section class="merchant-products__container">
     <h3>Products</h3>
 
@@ -17,7 +18,6 @@
       <tbody>
 
       <% products = @merchant.products %>
-
       <% products.each do |product| %>
         <tr>
           <td><%= product.title %></td>
@@ -31,4 +31,8 @@
     </table>
 
   </section>
+  <% else %>
+    <h3>There are currently no products to sell. Please add some.</h3>
+  <% end %>
+  <%= link_to "Add a new product", new_product_path, class: "btn btn-primary" %>
 </main>

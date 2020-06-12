@@ -13,9 +13,11 @@
      <nav class="app-header__nav">
       <ul class="nav app-header__user-nav-container">
           <h2><%= link_to "Spellbound", root_path %></h2>
-
+          <li class="nav-item app-header__nav_item">
+            <%= link_to "All Products", products_path, class: "nav-link"%>
+          </li>
         <div>
-          <%= link_to "All Products", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"} %>
+          <%= link_to "Products by Category", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"} %>
             <div class="dropdown-menu">
               <%Category.all.each do |cat|%>
                 <%= link_to cat.title + "s", category_products_path(cat.id), class: "dropdown-item" %>

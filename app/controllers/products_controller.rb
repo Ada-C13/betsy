@@ -8,8 +8,6 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     @product.merchant_id = Merchant.first.id # temporary code before log in is implemented
 
-    puts "MERCHANT ID IS = #{@product.merchant_id}"
-
     if @product.save 
       flash[:success] = "Successfully created #{@product.title}"
       redirect_to product_path(@product.id)
@@ -72,6 +70,6 @@ class ProductsController < ApplicationController
 
   def product_params 
     return params.require(:product).permit(:title, :price, :description,
-                                           :photo_url, :stock)
+                                    :photo_url, :stock, category_ids: [])
   end
 end
