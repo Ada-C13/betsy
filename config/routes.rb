@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   # orders
   resources :orders, only: [:show, :update, :destroy]
-  get "orders/:id/checkout", to: "orders#checkout", as: "order_checkout"
+  get "/checkout", to: "orders#checkout", as: "order_checkout"
 
   # order_items
   resources :order_items, only: [:update, :destroy]

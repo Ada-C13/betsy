@@ -15,9 +15,10 @@ class OrdersController < ApplicationController
 
   def update
     # saves user info to order
-    # changes status to paid
+    # reduces the stock of each product
+    # changes status to pending
     # session[:order_id] = nil
-    # redirects to order show page
+    # redirects to checkout finalize page, which needs a route
   end
 
   def change_quantity

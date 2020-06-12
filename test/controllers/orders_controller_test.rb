@@ -33,12 +33,12 @@ describe OrdersController do
     it "responds with success when getting the edit page for an existing valid order" do
       order = build_order # see test_helper.rb
 
-      get order_checkout_path(order.id)
+      get order_checkout_path
       must_respond_with :success
     end
 
     it "responds with 404 when getting the edit page with an invalid order id" do
-      get order_checkout_path(-1)
+      get order_checkout_path
       must_respond_with :not_found
     end
   end
