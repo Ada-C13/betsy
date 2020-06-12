@@ -48,13 +48,21 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+
+    if @product.nil?
+      head :not_found
+      return
+    elsif @product.update(product_params)
+      redirect_to @product
+      flash[:success] = "Successfully updated product."
+      return
+    else 
+      flash.now[:warning] = "Product update failed."
+      flash.now[:details] = @product.errors.full_messages
+      render :edit, status: :bad_request
+      return
     end
+
   end
 
   # DELETE /products/1
