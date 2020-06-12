@@ -166,4 +166,12 @@ describe ProductsController do
       must_respond_with :redirect
     end
   end
+
+  # describe "retire" do 
+  #   it "will change the product status from active to inactive and redirect" do 
+  #     post retire_product_path(@product.id)
+
+  #     expect(@product.active).must_equal false 
+  #   end
+  # end
 end

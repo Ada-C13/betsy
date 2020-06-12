@@ -6,7 +6,9 @@ class ProductsController < ApplicationController
 
   def create 
     @product = Product.new(product_params)
-    @product.merchant_id = current_merchant.id # temporary code before log in is implemented
+    @current_merchant = current_merchant # current_merchant is a helper method
+  
+    @product.merchant_id = @current_merchant.id 
     @product.active = true
 
     puts "MERCHANT ID IS = #{@product.merchant_id}"
@@ -62,6 +64,19 @@ class ProductsController < ApplicationController
     if @product.nil?
       redirect_to products_path
       return
+    end
+  end
+
+  def retire 
+    @current_merchant = current_merchant
+    @product = Product.find_by(id: params[:id])
+    # binding.pry
+    if @product.active
+      @product.update(active: false)
+      redirect_to product_path(@product.id)
+    else
+      @product.update(active: true)
+      redirect_to product_path(@product.id)
     end
   end
 
