@@ -35,8 +35,8 @@ class OrdersController < ApplicationController
   end
 
   def pay
-    if @shopping_cart.process_payment!
-      session[:order_id] = nil # the user went to checkout
+    if @shopping_cart.checkout_order!
+      session[:order_id] = nil
       flash[:status] = :success
       flash[:result_text] = "Successfully paid order #{@shopping_cart.id}"
     else
@@ -48,7 +48,7 @@ class OrdersController < ApplicationController
 
   def complete
     order = Order.find_by(id: params[:id])
-    if order.complete_order!
+    if order.ship_order!
       flash[:status] = :success
       flash[:result_text] = "Successfully completed order #{order.id}"
     else

@@ -2,10 +2,17 @@
 
 <h1>Products</h1>
 
-<div class="container">
-    <% @products.each do |group| %>
-
+<div class="product_grid container">
+  <% @products.in_groups_of(4).each do |group| %>
+  <div class="row">
+    <% group.each do |product| %>
+      <%= render partial: "product", locals: { product: product } %>
     <% end %>
+
+  </div>
+
+
+  <% end %>
 
 
 </div>
