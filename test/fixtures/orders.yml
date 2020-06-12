@@ -1,0 +1,39 @@
+full_cart:
+  name: 
+  email: 
+  address: 
+  cc_last_four: 
+  cc_exp: 
+  cc_cvv:
+  status: pending
+empty_cart:
+  name:
+  email:
+  address:
+  cc_last_four:
+  cc_exp:
+  cc_cvv:
+  status: pending
+paid_order:
+  name: Lak
+  email: lak@ada.org
+  address: 244 Thomas str
+  cc_last_four: 2340
+  cc_exp: 2025-10-07
+  cc_cvv: 543
+  status: paid
+shipped_order:
+  name: Yaz
+  email: yaz@ada.org
+  address: 244 Queens Bulevard
+  cc_last_four: 8698
+  cc_exp: 2024-10-07
+  cc_cvv: 586
+  status: shipped
+
+
+
+
+
+
+

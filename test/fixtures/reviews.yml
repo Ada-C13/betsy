@@ -1,0 +1,12 @@
+review1:
+  rating: 1
+  feedback: I don't love this product!
+review2:
+  rating: 3
+  feedback: ok produt! need more improvement!
+review3:
+  rating: 5
+  feedback: I love this product!
+review4:
+  rating: 5
+  feedback: Best product. I am so happy with that!
