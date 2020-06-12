@@ -74,12 +74,14 @@ class ProductsController < ApplicationController
 
     # if quantity is greater than product stock, don't save order_item
     if order_item.quantity > product.stock
-      flash[:error] = "A problem occurred: #{product.title} does not have enough quantity in stock"
+      flash[:status] = :failure
+      flash[:result_text] = "A problem occurred: #{product.title} does not have enough quantity in stock"
       redirect_to product_path(product.id)
       return
     else 
       order_item.save
-      flash[:success] = "Successfully added #{product.title} to cart!"
+      flash[:status] = :success
+      flash[:result_text] = "Successfully added #{product.title} to cart!"
       redirect_to product_path(product.id)
       return
     end
