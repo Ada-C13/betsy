@@ -1,0 +1,20 @@
+order_item1:
+  quantity: 1
+  product: product1
+  order: full_cart
+  status: pending
+order_item2:
+  quantity: 3
+  product: product1
+  order: paid_order
+  status: shipped
+order_item3:
+  quantity: 5
+  product: product3
+  order: paid_order
+  status: paid
+order_item4:
+  quantity: 5
+  product: product4
+  order: full_cart
+  status: pending

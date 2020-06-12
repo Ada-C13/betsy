@@ -5,6 +5,19 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:index, :new, :create]
 
+  get 'homepages/index'
+  get 'categories/index'
+  get 'categories/new'
+  get 'merchants/index'
+  get 'merchants/show'
+
+
+  root to: "homepages#index"
+  resources :products
+  # get 'categories/index'
+  # get 'categories/new'
+  # get 'merchants/index'
+  # get 'merchants/show'
 
 
 
@@ -13,7 +26,7 @@ Rails.application.routes.draw do
   get "merchants/:id", to: "merchants#account", as: "account"
   # TODO: (Ross) In order to make this nested route works, we have to wait for Lak to merge her Product controller with the "index" action 
   resources :merchants do
-    resources :products, only: [:index]
+    resources :products, only: [:create,:index]
     # TODO: add the nested route merchants/:id/orders to show all the orders
   end
   get "/auth/github", as: "github_login"

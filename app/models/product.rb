@@ -9,6 +9,6 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: { only_float: true, greater_than: 0 }
   validates :stock, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :active, presence: true
-  validates :description, presence: true, length: { minimum: 20, maximum: 500 }
+  validates :description, presence: true
   validates :photo, presence: true 
 end
