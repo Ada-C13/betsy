@@ -20,10 +20,6 @@ paid_order:
   address: 244 Thomas str
   cc_last_four: 2340
   cc_exp: 2025-10-07
-  
-  
-  
-
   cc_cvv: 543
   status: paid
 shipped_order:
