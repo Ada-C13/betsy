@@ -1,0 +1,13 @@
+.app-header__nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.cart {
+  text-align: right;
+  margin-left: 20px;
+  width: 80px;
+  background-image: image-url(asset_path("icons/shopping-cart.svg"));
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,15 @@
+<%# 
+This partial renders a dropdown link box to be used in navbars. 
+LOCALS: 
+label - the label for the dropdown
+items - list of items to be rendered as dropdown options 
+%>
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<%= label %>
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <% items.each do |item| %>
+  <a class="dropdown-item" href="#"><%= item.name %></a>
+  <% end %>
+</div>

@@ -1,33 +1,59 @@
-<nav class='app-header__nav'>
-  <ul class="nav app-header__site-nav-container">
-    <li class="nav-item app-header__nav_item">
-      <%= link_to 'Home', root_path, class:'nav-link'%>
-    </li>
-    <li class="nav-item app-header__nav_item">
-      <%= link_to 'All Products', products_path, class:'nav-link'%>
-    </li>
-    <li class="nav-item app-header__nav_item">
-      <%= link_to 'Categories', categories_path, class:'nav-link'%>
-    </li>
-  </ul>
-  <ul class='nav app-header__user-nav-container'>
-    <% if @login_user %>
-      <li class="nav-item app-header__nav_item">
-        <%= link_to 'Seller #', merchant_path, class:'nav-link'%>
-      </li>
-      <li class="nav-item app-header__nav_item">
-        <%= link_to 'Logout', merchant_deactivate_path, class:'nav-link'%>
-      </li>
-    <% else %>
-      <li class="nav-item app-header__nav_item">
-        <%= link_to 'Merchant Login', github_login_path, class:'nav-link'%>
-      </li>
-    <% end %>
-  </ul>
-  <ul class='nav app-header__cart-nav-container'>
-    <li class="nav-item app-header__nav_item">
-      <%= link_to 'Cart', root_path, class:'nav-link'%>
-    </li>
-  </ul>
-</nav>
+<%#
+navbar structure based on https://stackoverflow.com/questions/19733447/bootstrap-navbar-with-left-center-or-right-aligned-items
+%>
 
+<nav class="navbar navbar-expand-md navbar-light">
+
+  <%# start of LEFT nav %>
+  <div class="navbar w-100">
+    <% unless action_name == "landing" %>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item app-header__nav_item">
+          <%= link_to 'All Products', products_path, class:'nav-link'%>
+        </li>
+        
+        <%# dropdown box for Categories %>
+        <% if Category.all.length > 0 %>
+        <li class="nav-item dropdown">
+          <%= render partial: "shared/dropdown", locals: { label: "Categories", items: Category.all }%>
+        </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <%# end LEFT nav %>
+
+  <%# start CENTER nav %>
+  <div class="mx-auto">
+    <%= link_to 'Evergreenery', root_path, class:'navbar-brand mx-auto' unless action_name == "landing"%>
+  </div>
+  <%# end CENTER nav %>
+  
+
+
+  <%# start RIGHT nav %>
+  <div class="navbar w-100">
+    <ul class="navbar-nav ml-auto">
+
+      <%# merchant login button %>
+      <li class="nav-item app-header__nav_item">
+        <%= button_to 'Merchant Login', root_path, class:'btn btn-outline-primary'%>
+      </li>
+
+      <%# merchant log out button %>
+      <li class="nav-item app-header__nav_item">
+        <%= button_to 'Merchant Log Out', root_path, class:'btn btn-outline-secondary'%>
+      </li>
+      
+      <%# cart link %>
+      <% unless action_name == "landing" %>
+      <li class="nav-item app-header__nav_item cart">
+        <%= link_to 'Cart', root_path, class:'nav-link'%>
+      </li>
+      <% end %>
+
+    </ul>
+  </div>
+  <%# end RIGHT nav %>
+
+</nav>
