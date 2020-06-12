@@ -1,0 +1,6 @@
+order_item1:
+  product: banana
+  order: pending_order
+  quantity: 1
+  shipped: false
+  
