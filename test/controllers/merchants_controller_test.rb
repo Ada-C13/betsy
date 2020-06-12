@@ -2,36 +2,50 @@ require "test_helper"
 
 describe MerchantsController do
 
-  describe "auth_callback" do
-    it "logs in an existing merchant" do
-      start_count = Merchant.count
-      merchant = merchants(:angela)
-    
-      perform_login(merchant)
-      must_redirect_to root_path
-      session[:merchant_id].must_equal  merchant.id
-    
-      # Should *not* have created a new merchant
-      Merchant.count.must_equal start_count
+  describe "login" do
+    it "can log in an existing merchant" do
+      merchant = perform_login(merchants(:angela))
+      must_respond_with :redirect
     end
 
-    it "creates an account for a new user and redirects to the root route" do
-      start_count = Merchant.count
-      merchant = Merchant.new(provider: "github", uid: 2222, name: "test_user", email: "test@user.com")
-    
-      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
-      get auth_callback_path(:github)
-    
+    it "can login in a new merchant" do
+      new_merchant = Merchant.new(uid: "2000", username: "hobo", provider: "github", email: "hobo@adadevelopers.org")
+
+      expect {
+        logged_in_merchant = perform_login(new_merchant)
+        #perform_login(new_merchant)
+      }.must_change "Merchant.count", 1
+
+      must_respond_with :redirect
+    end
+  end
+
+  describe "logout" do
+    it "can logout as existing merchant" do
+      # Arrange
+      perform_login
+
+      expect(session[:merchant_id]).wont_be_nil
+
+      delete logout_path, params: {}
+
+      expect(session[:merchant_id]).must_be_nil
       must_redirect_to root_path
+    end
+  end
+
+  describe "going to the detail page of the current merchant" do
+    it "responds with success if a merchant is logged in" do
+      perform_login
     
-      # Should have created a new merchant
-      Merchant.count.must_equal start_count + 1
-    
-      # The new merchant's ID should be set in the session
-      session[:merchant_id].must_equal Merchant.last.id
+      get current_merchant_path
+
+      must_respond_with :success
     end
 
-    it "redirects to the login route if given invalid user data" do
+    it "responds with a redirect if no merchant is logged in" do
+      get current_merchant_path
+      must_respond_with :redirect
     end
   end
   

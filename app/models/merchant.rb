@@ -4,6 +4,7 @@ class Merchant < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
+  validates :uid, uniqueness: { scope: :provider}
   
   # helper method
   def self.build_from_github(auth_hash)
@@ -13,8 +14,6 @@ class Merchant < ApplicationRecord
     merchant.username = auth_hash["info"]["name"]
     merchant.email = auth_hash["info"]["email"]
 
-    # Note that the merchant has not been saved.
-    # We'll choose to do the saving outside of this method
     return merchant
   end
   
