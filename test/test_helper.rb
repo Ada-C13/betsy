@@ -18,7 +18,6 @@ class ActiveSupport::TestCase
   fixtures :all
   
   # Add more helper methods to be used by all tests here...
-  
   def setup
     OmniAuth.config.test_mode = true
   end
@@ -47,5 +46,10 @@ class ActiveSupport::TestCase
     expect(session[:merchant_id]).must_equal merchant.id
     
     return merchant
+  end
+
+  def build_order # this method helps us set session for the testing environment
+    product = products(:apple)
+    post add_to_cart_path(product.id), params: { quantity: 1 }
   end
 end

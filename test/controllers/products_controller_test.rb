@@ -38,8 +38,6 @@ describe ProductsController do
         puts "PRODUCT COUNT NOW = #{Product.count}"
       }.must_differ "Product.count", 1
 
-      
-
       new_product = Product.find_by(title: product_hash[:product][:title])
       puts "NEW PRODUCT = #{new_product}"
       expect(new_product.price).must_equal product_hash[:product][:price]
@@ -76,7 +74,6 @@ describe ProductsController do
 
   describe "update" do 
   end
-
   
   describe "index" do
     it "responds with success when there are no products saved" do
@@ -118,6 +115,64 @@ describe ProductsController do
       get product_path(-1)
       # Assert
       must_respond_with :redirect
+    end
+  end
+
+  describe "add to cart" do
+    before do 
+      @product_2 = products(:apple)
+    end
+
+    let (:order_item_params) {
+      {
+        quantity: 1,
+      }
+    }
+
+    it "can create a new order item with valid information accurately, and redirect" do
+      expect {
+        post add_to_cart_path(@product_2.id), params: order_item_params
+      }.must_differ "OrderItem.count", 1
+      
+      new_order_item = OrderItem.find_by(product_id: @product_2.id)
+      expect(new_order_item.order_id).must_equal session[:order_id]
+      expect(new_order_item.quantity).must_equal order_item_params[:quantity]
+      expect(new_order_item.shipped).must_equal false
+
+      expect(flash[:success]).must_include "Successfully added #{@product_2.title} to cart!"
+      
+      must_redirect_to product_path(new_order_item.product_id)
+    end
+
+    it "creates a new order if there is no order_id stored in session" do
+      expect {
+        post add_to_cart_path(@product_2.id), params: order_item_params
+      }.must_differ "Order.count", 1
+
+      new_order = Order.last
+      expect(session[:order_id]).must_equal new_order.id
+    end
+
+    it "does not create an order item if the product_id is invalid, and responds with a 404" do
+      expect {
+        post add_to_cart_path(-1), params: order_item_params
+      }.wont_differ "OrderItem.count"
+
+      must_respond_with :not_found
+    end
+
+    it "does not create an order item if the quantity requested is greater than the product stock" do
+      invalid_order_item_params = {
+        quantity: @product_2.stock + 1,
+      }
+
+      expect {
+        post add_to_cart_path(@product_2.id), params: invalid_order_item_params
+      }.wont_differ "OrderItem.count"
+
+      expect(flash[:error]).must_include "A problem occurred: #{@product_2.title} does not have enough quantity in stock"
+
+      must_redirect_to product_path(@product_2.id)
     end
   end
 end

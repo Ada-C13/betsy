@@ -8,4 +8,17 @@
   <p>Available: <%= @product.stock %></p>
   <p>Free Shipping & Returns</p>
   <p>Category: </p>
+  <% if @product.stock > 0 %>
+    
+    <%= form_with model: @order_item, url: {:action => "add_to_cart"} do |f| %>
+
+      <%= f.label "Quantity:" %>
+      <%= f.select(:quantity, (1..@product.stock).map(&:to_i)) %>
+
+      <%= f.submit "Add to Cart" %>
+    <% end %>
+      
+  <% else %>
+    <p>Sorry, this item is out of stock.</p>
+  <% end %>
 </section>
