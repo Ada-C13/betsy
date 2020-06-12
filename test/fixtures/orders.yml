@@ -1,4 +1,4 @@
-order01:
+order_pending:
   status: pending
   credit_card_num: 378282246310005
   credit_card_exp: 12/20
@@ -7,34 +7,9 @@ order01:
   city: Seattle
   state: WA
   zip: 98161-000
-  total: 2500
   customer_email: julia@gmail.com
 
-order02:
-  status: complete
-  credit_card_num: 371449635398431
-  credit_card_exp: 12/21
-  credit_card_cvv: 431
-  address: 635 7th Ave SW
-  city: Seattle
-  state: WA
-  zip: 98126-567
-  total: 800
-  customer_email: martha@gmail.com
-
-order03:
-  status: cancelled
-  credit_card_num: 378734493671000
-  credit_card_exp: 12/21
-  credit_card_cvv: 430
-  address: 367 Delaware Street
-  city: Sarasota
-  state: FL
-  zip: 34231-020
-  total: 0
-  customer_email: monica@gmail.com
-
-order04:
+order_paid:
   status: paid
   credit_card_num: 5610591081018250
   credit_card_exp: 12/22
@@ -43,5 +18,26 @@ order04:
   city: Casselberry
   state: FL 
   zip: 32707-237
-  total: 1000
   customer_email: barbara@gmail.com
+  
+order_complete:
+  status: complete
+  credit_card_num: 371449635398431
+  credit_card_exp: 12/21
+  credit_card_cvv: 431
+  address: 635 7th Ave SW
+  city: Seattle
+  state: WA
+  zip: 98126-567
+  customer_email: martha@gmail.com
+
+order_cancelled:
+  status: cancelled
+  credit_card_num: 378734493671000
+  credit_card_exp: 12/21
+  credit_card_cvv: 430
+  address: 367 Delaware Street
+  city: Sarasota
+  state: FL
+  zip: 34231-020
+  customer_email: monica@gmail.com
