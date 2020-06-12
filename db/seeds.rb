@@ -135,3 +135,61 @@ end
 
 puts "Added #{Review.count} review records"
 puts "#{review_failures.length} reviews failed to save"
+
+
+# SEEDING ORDERS
+counter5 = 1
+ORDERS_FILE = Rails.root.join('db', 'orders_seeds.csv')
+puts "Loading raw order data from #{ORDERS_FILE}"
+
+order_failures = []
+CSV.foreach(ORDERS_FILE, :headers => true) do |row|
+  order = Order.new
+  order.id = counter5
+  counter5 += 1
+  order.name = row['name']
+  order.email = row['email']
+  order.address = row['address']
+  order.cc_last_four = row['cc_last_four']
+  order.cc_exp = row['cc_exp']
+  order.cc_cvv = row['cc_cvv']
+  order.status = row['status']
+    successful = order.save
+  if !successful
+    order_failures << order
+    puts "Failed to save order: #{order.inspect}, #{order.errors.messages}"
+  else
+    puts "Created order: #{order.inspect}"
+  end
+end
+
+puts "Added #{Order.count} order records"
+puts "#{order_failures.length} orders failed to save"
+
+# SEEDING ORDER_ITEMS
+counter6 = 1
+ORDER_ITEMS_FILE = Rails.root.join('db', 'order_items_seeds.csv')
+puts "Loading raw order_items data from #{ORDER_ITEMS_FILE}"
+
+order_items_failures = []
+CSV.foreach(ORDER_ITEMS_FILE, :headers => true) do |row|
+  order_item = OrderItem.new
+  order_item.id = counter6
+  counter6 += 1
+  order_item.quantity = row['quantity']
+  product = Product.all.shuffle.first
+  order_item.product_id = product.id
+  order = Order.all.shuffle.first
+  order_item.order_id = order.id
+  order_item.status = row['status']
+    successful = order_item.save
+  if !successful
+    order_items_failures << order_item
+    puts "Failed to save order_items: #{order_item.inspect}, #{order_item.errors.messages}"
+  else
+    puts "Created order_items: #{order_item.inspect}"
+  end
+end
+
+puts "Added #{OrderItem.count} order_items records"
+puts "#{order_items_failures.length} order_items failed to save"
