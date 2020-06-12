@@ -60,6 +60,14 @@ describe OrdersController do
       # Assert
       must_respond_with :success
     end
+
+    it "fails if no merchant is logged in" do
+      # Act
+      get orders_path
+      # Assert
+      must_respond_with :failure
+      must_redirect_to cart_path
+    end    
   end # describe "index"
 
   describe "show" do
