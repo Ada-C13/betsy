@@ -15,6 +15,9 @@
   </header>
 
   <nav>
+    <%= link_to "Home", root_path %>
+    <%= link_to "Products", products_path %>
+    <%= link_to "Merchants", merchants_path %>
     <% if session[:merchant_id] %>
       <%= link_to "My Account", account_path(id: session[:merchant_id]) %>
       <%= link_to "Log out", logout_path, method: :put %>
