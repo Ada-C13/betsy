@@ -1,5 +1,6 @@
 class MerchantsController < ApplicationController
   before_action :require_login, only: [:dashboard, :logout]
+  before_action :ownership, only: [:dashboard, :manage_orders, :manage_products]
 
   def show
     @merchant = Merchant.find(params[:id])
@@ -40,10 +41,27 @@ class MerchantsController < ApplicationController
     
   end
 
+  def manage_orders
+
+  end
+
+  def manage_products
+
+  end
+
   def logout
     session.delete(:merchant_id)
     redirect_to root_path
     flash[:success] = "Successfully logged out!"
+  end
+
+  private 
+
+  def ownership
+    if params[:id].to_i != @current_merchant.id
+      redirect_to root_path
+      flash[:danger] = "Wrong merchant resource, accessing #{params[:id]} but you're #{@current_merchant.id}."
+    end
   end
 
   
