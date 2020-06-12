@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  root 'homepage#index'
+  
   # products
   resources :products
   post "/products/:id/add_to_cart", to: "products#add_to_cart", as: "add_to_cart"
@@ -14,8 +17,8 @@ Rails.application.routes.draw do
     resources :products, only: [:index]
   end
   get "/auth/github", as: "github_login"
-  get "/auth/:provider/callback", to: "merchants#create"
-  delete "/logout", to: "merchants#destroy", as: "logout"
+  get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
+  post "/logout", to: "merchants#logout", as: "logout"
 
   # orders
   resources :orders, only: [:index, :show, :update, :destroy]
