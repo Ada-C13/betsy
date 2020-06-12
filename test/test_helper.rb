@@ -48,8 +48,18 @@ class ActiveSupport::TestCase
     return merchant
   end
 
-  def build_order # this method helps us set session for the testing environment
-    product = products(:apple)
-    post add_to_cart_path(product.id), params: { quantity: 1 }
+  def build_order(product = nil) # test helper for setting session[:order_id]
+    product ||= Product.first
+
+    order_item_params = {
+      quantity: 1
+    }
+
+    post add_to_cart_path(product.id), params: order_item_params
+
+    order = Order.last
+    expect(session[:order_id]).must_equal order.id
+
+    return order
   end
 end
