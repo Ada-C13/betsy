@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   
   def index
-    merchant_id = session[:user_id]
+    merchant_id = session[:merchant_id]
     # if not logged in, go back to root
     if !merchant_id
       flash[:status] = :failure
@@ -28,6 +28,7 @@ class OrdersController < ApplicationController
 
   def update
     if @shopping_cart.update(order_params)
+      p @shopping_cart
       flash[:status] = :success
       flash[:result_text] = "Successfully updated shopping cart."
       redirect_to cart_path      

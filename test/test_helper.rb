@@ -18,8 +18,6 @@ Minitest::Reporters.use!(
   Minitest.backtrace_filter
 )
 
-
-
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   # parallelize(workers: :number_of_processors) # causes out of order output.
@@ -63,5 +61,6 @@ class ActiveSupport::TestCase
 
     return merchant
   end
+  
 end
 
