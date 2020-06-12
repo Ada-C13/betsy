@@ -11,13 +11,16 @@
   </head>
 
   <header>
-    <h1>Welcome to Cop & Hope</h1>
+    <h1>Welcome to Cope & Hope</h1>
   </header>
 
   <nav>
+    <%= link_to "Home", root_path %>
+    <%= link_to "Products", products_path %>
+    <%= link_to "Merchants", merchants_path %>
     <% if session[:merchant_id] %>
-      <%= link_to "Log out", logout_path, method: :put %>
       <%= link_to "My Account", account_path(id: session[:merchant_id]) %>
+      <%= link_to "Log out", logout_path, method: :put %>
     <% else %>
       <%= link_to "Login with Github", github_login_path %>
     <% end %>

@@ -36,10 +36,10 @@
     <%= f.text_field :photo, :class => "form-control" %>
   </div>
 
-<%# <div class='form-group'>
-    <%= f.label :category%>
-    <%# <%= f.select :category_ids, options_for_select(Category.all, @product.category),{} ,class: "form-control" %> 
-<%# </div> %>
+  <div>
+    <%= f.label :category %>
+    <%= f.select :categories_id, options_for_select(Category.all.map{ |cate| [cate.name, cate.id] }),{} ,class: "form-control" %>
+  </div>
 
   <%= f.submit "#{action_name} Product", class: "btn btn-primary" %>
 <% end %>

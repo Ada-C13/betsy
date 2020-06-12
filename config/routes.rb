@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "merchants/:id", to: "merchants#account", as: "account"
   # TODO: (Ross) In order to make this nested route works, we have to wait for Lak to merge her Product controller with the "index" action 
   resources :merchants do
+
     # this nested route will trigger the "index" action in products controller from Lak
     # this nested route will trigger the "index" action in orders controller from Yaz
     resources :orders, only: [:index]
@@ -20,4 +21,5 @@ Rails.application.routes.draw do
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
   put "/logout", to: "merchants#logout", as: "logout"
+  
 end
