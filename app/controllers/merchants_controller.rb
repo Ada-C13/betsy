@@ -45,6 +45,10 @@ class MerchantsController < ApplicationController
     end
   end
 
+  def dashboard
+
+  end
+
   def logout
     session[:merchant_id] = nil
     flash[:success] = "Successfully logged out!"
