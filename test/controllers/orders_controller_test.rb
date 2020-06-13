@@ -16,16 +16,20 @@ describe OrdersController do
   end
 
   describe "show" do
-    it "responds with success when showing an existing valid order" do
+    it "responds with success when showing the current session order" do
       order = build_order
 
       get order_path(order.id)
       must_respond_with :success
     end
 
-    it "responds with 404 with an invalid order id" do
+    it "flashes an error message and redirects if given an id that does not match session[:order_id]" do
       get order_path(-1)
-      must_respond_with :not_found
+      
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "cannot view"
+      
+      must_redirect_to merchants_path
     end
   end
 

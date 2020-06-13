@@ -8,6 +8,10 @@ class OrdersController < ApplicationController
   end
 
   def show
+    # find order by params
+    # if order.id is not equal to session[:order_id]
+    # flash error message saying that you can't view this page
+    # redirect to merchants path
   end
 
   def checkout
