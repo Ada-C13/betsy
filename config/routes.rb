@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post "/orders/:id/cancel", to: "orders#cancel", as: "order_cancel"
   resources :orders, only: [:index, :show, :update]
   # Edit only the shopping cart
-  get "/cart", to: "orders#edit", as: "cart" 
+  get "/cart", to: "orders#cart", as: "cart" 
   post "/cart", to: "orders#update"
   delete "/cart", to: "orders#destroy" 
 

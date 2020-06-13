@@ -23,6 +23,9 @@ class OrdersController < ApplicationController
   end
 
   def edit
+  end
+
+  def cart
     # shows shopping cart
   end
 
@@ -35,7 +38,7 @@ class OrdersController < ApplicationController
       flash.now[:status] = :failure
       flash.now[:result_text] = "Could not update shopping cart."
       flash.now[:messages] = @shopping_cart.errors.messages
-      render :edit, status: :not_found
+      render :edit
     end
   end
 
@@ -56,7 +59,8 @@ class OrdersController < ApplicationController
     else
       flash[:warning] = "Payment processing failed!"
       flash[:details] = @shopping_cart.errors.full_messages
-      render :edit
+      render :cart
+
     end
   end
 
