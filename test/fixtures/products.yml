@@ -4,7 +4,7 @@ apple:
   photo_url: https://i.imgur.com/z9U4xd6.jpg
   description: red apple 
   stock: 5
-  merchant: merchant_one
+  merchant_id: 1
   active: true
 banana: 
   title: banana
@@ -12,5 +12,5 @@ banana:
   photo_url: https://i.imgur.com/z9U4xd6.jpg
   description: yellow banana
   stock: 5
-  merchant: merchant_one
+  merchant_id: 1
   active: false
