@@ -28,13 +28,18 @@ class ActiveSupport::TestCase
       info: {
         nickname: user.name,
         email: user.email
-      }
+      },
     }
   end
 
   def perform_login(user)
-    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new( mock_merchant_hash(user))
-
+    user ||= Merchant.first
+    
+    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_merchant_hash(user))
     get omniauth_callback_path(:github)
+
+    return user
   end
+
+
 end
