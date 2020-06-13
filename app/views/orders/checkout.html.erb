@@ -1,6 +1,6 @@
 <h2>Checkout</h2>
 
-<%= form_with model: @order do |f| %>
+<%= form_with model: @order, url: {:action => "complete"} do |f| %>
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>
