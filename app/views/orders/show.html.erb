@@ -1,10 +1,29 @@
-<h2>Order #<%= @order.id %></h2>
+<h4>Order #<%= @order.id %></h4>
+<p><%= @order.purchase_date.strftime("Purchased on %m/%d/%Y at %I:%M%p")  %></p>
 
-<p>Thank you for your order, <%= @order.name %>!</p>
-<p>Date: <%= @order.purchase_date %></p>
-<p>Status: <%= @order.status %></p>
-<p>Total: <%= number_to_currency(@order.total) %>
+<div class="card-group">
+  <div class="card">
+    <div class="card-body">
+      <ul class="list-unstyled">
+        <li>Status: <%= @order.status.capitalize %></li>
+        <li>Credit Card: XXXX-XXXX-XXXX-<%= @order.cc_number %></li>
+        <li>Exp. Date: <%= @order.cc_exp %></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <ul class="list-unstyled">
+        <li>Name: <%= @order.name %></li>
+        <li>Email: <%= mail_to @order.email %></li>
+        <li>Mailing Address: <%= @order.mailing_address %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 <h4>Products</h4>
+
 <table class="table">
   <thead>
     <tr>
@@ -25,5 +44,8 @@
         <td><%= number_to_currency(item.subtotal) %></td>
       </tr>
     <% end %>
+    <tr>
+      <td colspan="5"><h5 class="text-right">Total: <%= number_to_currency(@order.total) %></h5></td>
+    <tr>
   </tbody>
 </table>
