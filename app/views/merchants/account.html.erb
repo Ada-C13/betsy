@@ -6,7 +6,6 @@
 %>
 
 <p>Joined site: <%= @merchant.created_at.strftime("%B %e, %Y") %><p>
-
 <%= link_to "Add Product", new_product_path %> |
 <%= link_to "Add Category", new_category_path %> |
 <%= link_to "Order Summary", root_path%>
@@ -35,5 +34,4 @@
   <% else %>
   <h2><%= "#{@merchant.name} does not have any products in the system." %></h2>
 <% end %>
-
 
