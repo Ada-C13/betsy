@@ -29,7 +29,7 @@ describe OrdersController do
       expect(flash[:status]).must_equal :failure
       expect(flash[:result_text]).must_include "cannot view"
       
-      must_redirect_to merchants_path
+      must_redirect_to root_path
     end
   end
 

@@ -8,10 +8,14 @@ class OrdersController < ApplicationController
   end
 
   def show
-    # find order by params
-    # if order.id is not equal to session[:order_id]
-    # flash error message saying that you can't view this page
-    # redirect to merchants path
+    @order = Order.find_by(id: params[:id])
+
+    if !@order || @order.id != session[:order_id] 
+      flash[:status] = :failure
+      flash[:result_text] = "A problem occurred: You cannot view this order!"
+      redirect_to root_path
+      return
+    end
   end
 
   def checkout
