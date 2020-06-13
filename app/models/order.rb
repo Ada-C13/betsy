@@ -41,9 +41,9 @@ class Order < ApplicationRecord
   end
   
   def self.by_merchant(merchant_id) # TODO add more tests
-    items = OrderItem.select { |item| item.product.merchant_id == merchant_id }
-    orders = items.map { |item| item.order_id }
-    return Order.select { |order| orders.include?(order.id) }
+    merchant = Merchant.find_by(id: merchant_id)
+    return [] if merchant.nil?
+    return merchant.orders
   end
   
 end

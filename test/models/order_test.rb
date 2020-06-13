@@ -74,30 +74,38 @@ describe Order do
 
     it "requires a credit card" do
       # Arrange
-      pending_order.credit_card_num = nil
-      pending_order.save!
+      incomplete_order = Order.new(
+        credit_card_num: nil, credit_card_exp: "12/20", credit_card_cvv: 432,
+        address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001",
+        customer_email: "maria@gmail.com", status: "pending"
+      )
+      incomplete_order.save!
 
       # Act
-      result = pending_order.checkout_order!
-      pending_order.reload
+      result = incomplete_order.checkout_order!
+      incomplete_order.reload
 
       # Assert
       expect(result).must_equal false
-      expect(pending_order.status).must_equal "pending"
+      expect(incomplete_order.status).must_equal "pending"
     end
 
     it "requires a customer email" do
       # Arrange
-      pending_order.customer_email  = ""
-      pending_order.save!
+      incomplete_order = Order.new(
+        credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
+        address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001",
+        customer_email: nil, status: "pending"
+      )
+      incomplete_order.save!
 
       # Act
-      result = pending_order.checkout_order!
-      pending_order.reload
+      result = incomplete_order.checkout_order!
+      incomplete_order.reload
 
       # Assert
       expect(result).must_equal false
-      expect(pending_order.status).must_equal "pending"
+      expect(incomplete_order.status).must_equal "pending"
     end
   end # describe "checkout_order!"
 
