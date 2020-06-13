@@ -27,4 +27,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def find_order
+    if session[:order_id]
+      @order = Order.find_by(id: session[:order_id])
+    end
+  end
 end

@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action only: [:index, :checkout, :complete] do
-    find_order(session[:order_id])
+    find_order
   end
   
   def index
@@ -88,10 +88,6 @@ class OrdersController < ApplicationController
   end
 
   private
-
-  def find_order(id)
-    @order = Order.find_by(id: id)
-  end
 
   def order_params
     return params.require(:order).permit(:name, :email, :mailing_address, :cc_number, :cc_exp)
