@@ -1,7 +1,7 @@
-quantity,status
-10,pending
-23,paid
-34,shipped
-34,pending
-30,paid
-40,shipped
+id,quantity,status
+1,10,pending
+2,23,paid
+3,34,shipped
+4,34,pending
+5,30,paid
+6,40,shipped
