@@ -31,6 +31,16 @@ describe OrdersController do
       
       must_redirect_to root_path
     end
+
+    it "sets the session[:order_id] to nil if the order status is paid" do
+      order = build_order
+      order.update(status: "paid")
+      order.reload 
+
+      get order_path(order.id)
+
+      expect(session[:order_id]).must_be_nil
+    end
   end
 
   describe "checkout" do
@@ -90,6 +100,7 @@ describe OrdersController do
     end
 
     it "reduces the stock of each product by the quantity purchased" do
+      # TODO: This test is failing even though the action works on the website. I tried reloading all the instances but that wasn't the issue.
       expect {
         patch order_checkout_path, params: order_hash
       }.wont_differ "Order.count"
@@ -109,17 +120,23 @@ describe OrdersController do
       expect(@order.status).must_equal "paid"
     end
 
-    it "sets session[:order_id] to nil" do
+    it "does not complete order if the form data violates order validations, creates a flash message, and responds with a 400 error" do
+      # TODO: Establish validations for Order, then come back to this test.
+      invalid_order_hash = {
+        order: {
+          name: nil
+        }
+      }
+
       expect {
-        patch order_checkout_path, params: order_hash
+        patch order_checkout_path, params: invalid_order_hash
       }.wont_differ "Order.count"
 
-      @order.reload
-      expect(session[:order_id]).must_be_nil
-    end
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include " Could not complete order"
+      expect(flash[:messages].first).must_include "Name can't be blank"
 
-    it "does not complete order if the form data violates order validations, creates a flash message, and responds with a 400 error" do
-      # TODO: Establish validations for Order, then come back to this test
+      must_respond_with :bad_request
     end
   end
 
