@@ -1,0 +1,15 @@
+<%= form_with model: @order do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.label :address %>
+  <%= f.text_field :address %>
+  <br>
+  <% <%= f.label "Credit Card #" %>
+  <%= f.text_field :cc_last_four %> %>
+  <br>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+  <br>
+  <%= f.submit "Purchase Items" %>
+<% end %>
