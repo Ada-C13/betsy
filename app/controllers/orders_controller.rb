@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
-  before_action only: [:show, :checkout, :update, :destroy] do
+  before_action only: [:index, :show, :checkout, :update, :destroy] do
     find_order(session[:order_id])
   end
   
-  # def index
-  #   @order_items = OrderItems.where(id: session[:order_id])
-  # end
+  def index
+    @order_items = @order.order_items if @order
+  end
 
   def show
   end
@@ -13,10 +13,10 @@ class OrdersController < ApplicationController
   def checkout
   end
 
-  def update
+  def confirm_order
     # saves user info to order
     # reduces the stock of each product
-    # changes status to pending
+    # changes status to paid
     # session[:order_id] = nil
     # redirects to checkout finalize page, which needs a route
   end
