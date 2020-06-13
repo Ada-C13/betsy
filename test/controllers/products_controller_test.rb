@@ -9,7 +9,9 @@ describe ProductsController do
       description: "best wand i've ever seen",
       stock: 2,
       merchant_id: merchants(:merchant1).id,
-      active: true)
+      active: true,
+      category_ids: []
+    )
   end
 
   describe "new" do 
@@ -21,7 +23,7 @@ describe ProductsController do
 
   describe "create" do 
     it "can create a new product with valid information, and redirect" do 
-      current_merchant = perform_login(merchants(:merchant_one))
+      merchant = perform_login(merchants(:merchant1))
 
       product_hash = {
         product: {
@@ -29,19 +31,16 @@ describe ProductsController do
           price: 2.99,
           description: "yellow banana",
           photo_url: "url info",
-          stock: 5
+          merchant_id: merchant.id,
+          stock: 5,
+          category_ids: []
         }
       }
-
-      puts "PRODUCT COUNT BEFORE  = #{Product.count}"
-
       expect {
         post products_path, params: product_hash
-        puts "PRODUCT COUNT NOW = #{Product.count}"
       }.must_differ "Product.count", 1
 
       new_product = Product.find_by(title: product_hash[:product][:title])
-      puts "NEW PRODUCT = #{new_product}"
       expect(new_product.price).must_equal product_hash[:product][:price]
       expect(new_product.description).must_equal product_hash[:product][:description]
       expect(new_product.photo_url).must_equal product_hash[:product][:photo_url]

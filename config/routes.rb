@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   post "/products/:id/add_to_cart", to: "products#add_to_cart", as: "add_to_cart"
 
   # categories
-  resources :categories, only: [:show, :new, :create]
+  resources :categories, only: [:show, :new, :create] do
+    resources :products, only: [:index]
+  end
 
   # reviews
   resources :reviews, only: [:new, :create]

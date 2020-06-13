@@ -8,9 +8,7 @@ class ProductsController < ApplicationController
 
   def create 
     @product = Product.new(product_params)
-  
     @product.merchant_id = session[:merchant_id] 
-    @product.active = true
 
     if @product.save 
       flash[:status] = :success
@@ -90,8 +88,11 @@ class ProductsController < ApplicationController
   def index
     if params[:merchant_id]
       # This is the nested route, /merchants/:merchant_id/products
-      merchant = Merchant.find_by(id: params[:merchant_id])
-      @products = merchant.products
+      @merchant = Merchant.find_by(id: params[:merchant_id])
+      @products = @merchant.products
+    elsif params[:category_id]
+      @category = Category.find_by(id: params[:category_id])
+      @products = @category.products
     else
       # This is the 'regular' route, /products
       @products = Product.all
@@ -100,6 +101,8 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
+    # saving product into session will allow to add a review for that product
+    session[:product] = @product
 
     if @product.nil?
       redirect_to products_path
@@ -127,7 +130,7 @@ class ProductsController < ApplicationController
   private 
 
   def product_params 
-    return params.require(:product).permit(:title, :price, :description,
-                                           :photo_url, :stock)
+    return params.require(:product).permit(:title, :price, :description, :merchant_id,
+                                    :photo_url, :stock, active: true, category_ids: [])
   end
 end
