@@ -1,6 +1,6 @@
-name,uid,email,provider
-helloworld,123451,helloworld@ada.org,github
-Foobarfoobar,123452,foobarfoobar@ada.org,github
-Ross,123453,ross@ada.org,github
-Yez,234663,yez@ada.org,github
-Lak,134663,lak@ada.org,github
+id,name,uid,email,provider
+1,helloworld,123451,helloworld@ada.org,github
+2,Foobarfoobar,123452,foobarfoobar@ada.org,github
+3,Ross,123453,ross@ada.org,github
+4,Yez,234663,yez@ada.org,github
+5,Lak,134663,lak@ada.org,github
