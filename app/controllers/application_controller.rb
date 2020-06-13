@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  before_action :find_order
+  before_action :find_cart
 
   before_action :current_merchant
   #before_action :require_login
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def find_order
+  def find_cart
     if session[:order_id]
       @shopping_cart = Order.find_by(id: session[:order_id])
     else
