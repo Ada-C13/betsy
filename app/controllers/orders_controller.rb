@@ -48,25 +48,25 @@ class OrdersController < ApplicationController
   end
 
   def checkout
+    @shopping_cart.update(order_params)
     if @shopping_cart.checkout_order!
       session[:order_id] = nil
-      flash[:status] = :success
-      flash[:result_text] = "Successfully checked out order #{@shopping_cart.id}"
+      flash[:success] = "Successfully paid order #{@shopping_cart.id}"
+      redirect_to order_path(@shopping_cart)
     else
-      flash[:status] = :failure
-      flash[:result_text] = "Checkout failed!"
+      flash[:warning] = "Payment processing failed!"
+      flash[:details] = @shopping_cart.errors.full_messages
+      render :edit
     end
-    redirect_to cart_path
   end
 
   def complete
     order = Order.find_by(id: params[:id])
     if order.ship_order!
-      flash[:status] = :success
-      flash[:result_text] = "Successfully completed order #{order.id}"
+      flash[:success] = "Successfully completed order #{order.id}"
     else
-      flash[:status] = :failure
-      flash[:result_text] = "Failed to complete the order."
+      flash[:warning] = "Failed to complete the order."
+      flash[:details] = order.errors.full_messages
     end
     redirect_back fallback_location: order_path(order)      
   end

@@ -12,6 +12,7 @@
         <th>Quantity</th>
         <th>Price</th>
         <th>Subtotal</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -21,10 +22,15 @@
           <td><%= order_item.quantity %></td>
           <td><%= order_item.product.price %></td>
           <td><%= order_item.subtotal %></td>
+          <th><%= link_to 'Delete', order_item_path(order_item), class: 'btn btn-danger', method: 'delete' %></th>
         </tr>
       <% end %>
     </tbody>
   </table>
 </section>
+
+<% if @shopping_cart.order_items.size > 0 %>
+  <%= render 'payment_form' %>
+<% end %>
 
 <%= link_to "Back to Main Menu", root_path, class: "btn btn-primary" %>
