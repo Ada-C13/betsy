@@ -106,24 +106,24 @@ describe MerchantsController do
       end
 
       it "responds with danger when retrieving dashboard" do
-        get dashboard_merchant_url()
+        get dashboard_merchant_url
         must_respond_with :redirect
         must_redirect_to root_path
-        expect(flash[:danger]).must_equal "Tried to acc"
+        expect(flash[:danger]).must_equal "Must be logged in as a merchant."
       end
 
       it "responds with danger when retrieving merchant orders" do
-        get manage_orders_url(@empty_merchant_id)
+        get manage_orders_url
         must_respond_with :redirect
         must_redirect_to root_path
-        expect(flash[:danger]).must_equal "Tried to acc"
+        expect(flash[:danger]).must_equal "Must be logged in as a merchant."
       end
 
       it "responds with danger when retrieving merchant products" do
-        get manage_products_url(@empty_merchant_id)
+        get manage_products_url
         must_respond_with :redirect
         must_redirect_to root_path
-        expect(flash[:danger]).must_equal "Tried to acc"
+        expect(flash[:danger]).must_equal "Must be logged in as a merchant."
       end
     end
 
