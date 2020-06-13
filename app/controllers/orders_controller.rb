@@ -11,9 +11,17 @@ class OrdersController < ApplicationController
   end
 
   def checkout
+    if @order
+      @order.update(status: "pending")
+    elsif !@order || @order_items.empty?
+      flash[:status] = :failure
+      flash[:result_text] = "A problem occurred: You cannot check out without any products in your cart!"
+      redirect_to cart_path
+      return
+    end
   end
 
-  def confirm_order
+  def confirm
     # saves user info to order
     # reduces the stock of each product
     # changes status to paid
@@ -30,8 +38,6 @@ class OrdersController < ApplicationController
 
   def find_order(id)
     @order = Order.find_by(id: id)
-    head :not_found if !@order
-    return
   end
 
   def order_params
