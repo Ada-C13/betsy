@@ -7,34 +7,63 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
 
   <header>
-    <h1>Welcome to Cope & Hope</h1>
+  
   </header>
 
-  <nav>
-    <%= link_to "Home", root_path %>
-    <%= link_to "Products", products_path %>
-    <%= link_to "Merchants", merchants_path %>
-    <% if session[:merchant_id] %>
-      <%= link_to "My Account", account_path(id: session[:merchant_id]) %>
-      <%= link_to "Log out", logout_path, method: :put %>
-    <% else %>
-      <%= link_to "Login with Github", github_login_path %>
-    <% end %>
+  <nav class="navbar">
+   
+      
+    <ul class = "navbar-nav">
+      <li class="nav-item">
+        <%= link_to "Home", root_path, :class => "fa fa-fw fa-home nav-link" %>
+      </li>
+      <li class = "nav-item">
+        <%= link_to "Products", products_path, :class => "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Merchants", merchants_path, :class => "nav-link" %>
+      </li>
+      
+        <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
+      
+        <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+      <li class="nav-item dropdown">
+      <% if session[:merchant_id] %>
+        
+          <%= link_to "My Account", account_path(id: session[:merchant_id]), :class => "fa fa-fw fa-user nav-link dropdown-toggle", :id => "navbardrop",:href=>"#" ,'data-toggle'=>"dropdown"%>
+          <div class="dropdown-menu">
+            <%= link_to "Log out", logout_path, method: :put, :class => "dropdown-item" %>
+            <%= link_to "Account Summary", account_path(id: session[:merchant_id]), :class => "dropdown-item" %>
+          </div>
+      <% else %>
+      <div>
+          <%= link_to "Login with Github", github_login_path, :class => "dropdown-item"  %>
+        </div>
+      </li>
+      <% end %>
+      
+      </div>
+    </ul>
   </nav>
 
   <body>
-    <section class="flash-msg__section">
-      <% flash.each do |name, message| %>
-        <strong class="<%= name %>">
-          <%= message %>
-        </strong>
-      <% end %>
-    </section>
+    <section>
+      <section class="flash-msg__section">
+        <% flash.each do |name, message| %>
+          <strong class="<%= name %>">
+            <%= message %>
+          </strong>
+        <% end %>
+      </section>
 
-    <%= yield %>
-  </body>
+      <%= yield %>
+    </section>
+    </body>
+  <footer>
+    <p><strong>Copyright Ada C13 2020</strong></p>
+  </footer>
 </html>
