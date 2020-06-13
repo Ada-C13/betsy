@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
   # before_action :require_login
-  before_action :find_user
+  before_action :find_user, :find_order
 
   def current_merchant
     return @current_merchant = Merchant.find_by(id: session[:merchant_id]) if session[:merchant_id]

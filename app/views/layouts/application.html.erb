@@ -35,9 +35,10 @@
               <%end%>
             </div>
           </li>
+        </ul>
 
-      <ul class="nav app-header__user-nav-container">
-        <% if @login_user %>
+        <ul class="nav app-header__user-nav-container">
+          <% if @login_user %>
 
             <li class="nav-item app-header__nav_item">
               <%= link_to "Logged in as #{@login_user.username}", merchant_path(@login_user), class: "btn btn-primary" %>
