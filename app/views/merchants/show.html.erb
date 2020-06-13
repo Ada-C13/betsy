@@ -20,18 +20,17 @@
 
       <tbody>
 
-      <% order_statuses = ["pending", "paid", "complete"] %>
+      <% order_statuses = ["paid", "complete", "pending", "cancelled"] %>
       <% order_statuses.each do |status| %>
         <tr>
           <td><%= status %></td>
           <td> - </td>
-          
+          <td><%= @merchant.revenue_for(status) %></td>
         </tr>
       <% end %>
 
       </tbody>
     </table>
-
 
 
     <h3>Products</h3>

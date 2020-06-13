@@ -65,10 +65,28 @@ class Merchant < ApplicationRecord
     merchant_products.each do |product|
       puts "PRODUCT = #{product.order_items.count}"
       product.order_items.each do |item|
+        if item.order.status == "cancelled"
+          next
+        end
         
         puts "PRODUCT ORDER ITEM = #{item}"
         total_revenue += item.quantity * item.product.price
       end 
+    end
+
+    return total_revenue
+  end
+
+  def revenue_for(status)
+    merchant_products = self.products 
+    total_revenue = 0.0
+
+    merchant_products.each do |product|
+      product.order_items.each do |item|
+        if item.order.status == status
+          total_revenue += item.quantity * item.product.price
+        end
+      end
     end
 
     return total_revenue
