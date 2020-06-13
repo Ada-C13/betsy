@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action only: [:index, :checkout, :complete, :destroy] do
+  before_action only: [:index, :checkout, :complete] do
     find_order(session[:order_id])
   end
   
@@ -65,8 +65,26 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    # destroys order (need dependent: destroy in model to also destroy associated order_items)
-    # session[:order_id] = nil
+    @order = Order.find_by(id: params[:id])
+    
+    if !@order
+      head :not_found 
+      return
+    else
+      # QUESTION: Should this be moved into a product model method?
+      @order.order_items.each do |item|
+        item.product.update(stock: item.product.stock + item.quantity)
+      end
+
+      # sets order status to cancelled
+      @order.update(status: "cancelled")
+
+      # display flash messages and redirect
+      flash[:status] = :success
+      flash[:result_text] = "Order ##{@order.id} has been successfully cancelled"
+      redirect_to root_path
+      return
+    end
   end
 
   private
