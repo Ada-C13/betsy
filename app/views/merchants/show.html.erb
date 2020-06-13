@@ -1,7 +1,9 @@
 <main>
   <h2><%= @merchant.username %>' Dashboard</h2>
 
+  <% if !@merchant.products.empty? %>
   <section class="merchant-products__container">
+
     <h3>Products</h3>
 
     <table class="table">
@@ -17,12 +19,11 @@
       <tbody>
 
       <% products = @merchant.products %>
-
       <% products.each do |product| %>
         <tr>
-          <td><%= product.title %></td>
+          <td><%= link_to product.title, product_path(product.id) %></td>
           <td><%= product.price %></td>
-          <td><%= product.active %></td>
+          <td><%= product.active == true ? "true" : "false"%></td>
           <td><%= link_to "Edit", edit_product_path(product.id), class: "btn btn-primary" %></td>
         </tr>
       <% end %>
@@ -31,4 +32,8 @@
     </table>
 
   </section>
+  <% else %>
+    <h3>There are currently no products to sell. Please add some.</h3>
+  <% end %>
+  <%= link_to "Add a new product", new_product_path, class: "btn btn-primary" %>
 </main>

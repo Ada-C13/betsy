@@ -1,21 +1,25 @@
 class ProductsController < ApplicationController
+
+  skip_before_action :current_merchant, except: [:new, :create, :edit, :update, :retire], raise: false
+
   def new 
     @product = Product.new
   end
 
   def create 
     @product = Product.new(product_params)
-    @product.merchant_id = Merchant.first.id # temporary code before log in is implemented
-
-    puts "MERCHANT ID IS = #{@product.merchant_id}"
+    @product.merchant_id = session[:merchant_id] 
 
     if @product.save 
-      flash[:success] = "Successfully created #{@product.title}"
+      flash[:status] = :success
+      flash[:result_text] = "Successfully created #{@product.title}"
       redirect_to product_path(@product.id)
-
       return
     else
-      render :new 
+      flash.now[:status] = :failure 
+      flash.now[:result_text] = "Could not create a product"
+      flash.now[:messages] = @product.errors.messages
+      render :new, status: :bad_request
       return
     end
   end
@@ -34,11 +38,15 @@ class ProductsController < ApplicationController
       head :not_found
       return
     elsif @product.update(product_params)
-      flash[:success] = "Successfully updated #{@product.title}"
+      flash[:status] = :success
+      flash[:result_text] = "Successfully updated #{@product.title}"
       redirect_to product_path(@product.id)
       return
     else
-      render :edit 
+      flash.now[:status] = :failure 
+      flash.now[:result_text] = "Could not update #{@product.title}"
+      flash.now[:messages] = @product.errors.messages 
+      render :edit, status: :not_found
       return
     end
   end
@@ -64,12 +72,14 @@ class ProductsController < ApplicationController
 
     # if quantity is greater than product stock, don't save order_item
     if order_item.quantity > product.stock
-      flash[:error] = "A problem occurred: #{product.title} does not have enough quantity in stock"
+      flash[:status] = :failure
+      flash[:result_text] = "A problem occurred: #{product.title} does not have enough quantity in stock"
       redirect_to product_path(product.id)
       return
     else 
       order_item.save
-      flash[:success] = "Successfully added #{product.title} to cart!"
+      flash[:status] = :success
+      flash[:result_text] = "Successfully added #{product.title} to cart!"
       redirect_to product_path(product.id)
       return
     end
@@ -78,8 +88,11 @@ class ProductsController < ApplicationController
   def index
     if params[:merchant_id]
       # This is the nested route, /merchants/:merchant_id/products
-      merchant = Merchant.find_by(id: params[:merchant_id])
-      @products = merchant.products
+      @merchant = Merchant.find_by(id: params[:merchant_id])
+      @products = @merchant.products
+    elsif params[:category_id]
+      @category = Category.find_by(id: params[:category_id])
+      @products = @category.products
     else
       # This is the 'regular' route, /products
       @products = Product.all
@@ -88,6 +101,8 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
+    # saving product into session will allow to add a review for that product
+    session[:product] = @product
 
     if @product.nil?
       redirect_to products_path
@@ -95,10 +110,27 @@ class ProductsController < ApplicationController
     end
   end
 
+  def retire 
+    @current_merchant = current_merchant
+    @product = Product.find_by(id: params[:id])
+    if @product.active
+      @product.update(active: false)
+      flash[:status] = :success 
+      flash[:result_text] = "Successfully retired product #{@product.title}"
+      redirect_to product_path(@product.id)
+    else
+      @product.update(active: true)
+      flash[:status] = :success 
+      flash[:result_text] = "Successfully activated product #{@product.title}"
+      redirect_to product_path(@product.id)
+    end
+  end
+
+
   private 
 
   def product_params 
-    return params.require(:product).permit(:title, :price, :description,
-                                           :photo_url, :stock)
+    return params.require(:product).permit(:title, :price, :description, :merchant_id,
+                                    :photo_url, :stock, active: true, category_ids: [])
   end
 end

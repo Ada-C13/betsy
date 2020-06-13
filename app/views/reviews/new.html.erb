@@ -1,0 +1,14 @@
+<%= form_with model: @review do |f| %>
+
+  <div class="form-group">
+    <%= f.label "Add your feedback for #{session[:product]["title"]} here:" %>
+    <%= f.text_field :text, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Rating:" %>
+    <%= f.select :rating, (1..5) %>
+  </div>
+  
+  <%= f.submit "Add Review", class: "btn btn-primary"%>
+<% end %>

@@ -1,4 +1,5 @@
 merchant_one:
+  id: 1
   username: potter
   uid: 12345
   email: potter@gmail.com 
