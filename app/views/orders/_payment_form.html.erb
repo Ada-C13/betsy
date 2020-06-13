@@ -1,6 +1,6 @@
 <section>
   <h3>Complete Payment</h3>
-  <%= form_with model: @shopping_cart, url: order_pay_path(@shopping_cart) do |f| %>
+  <%= form_with model: @shopping_cart, url: order_checkout_path(@shopping_cart) do |f| %>
     <div class='form-group'>
       <%= f.label :credit_card_num %>
       <%= f.text_field :credit_card_num, class: 'form-control' %>

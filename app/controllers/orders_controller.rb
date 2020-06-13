@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   
   def index
-    merchant_id = session[:user_id]
+    merchant_id = session[:merchant_id]
     # if not logged in, go back to root
     if !merchant_id
       flash[:status] = :failure
@@ -47,7 +47,7 @@ class OrdersController < ApplicationController
     redirect_to root_path
   end
 
-  def pay
+  def checkout
     @shopping_cart.update(order_params)
     if @shopping_cart.checkout_order!
       session[:order_id] = nil
@@ -58,7 +58,6 @@ class OrdersController < ApplicationController
       flash[:details] = @shopping_cart.errors.full_messages
       render :edit
     end
-    
   end
 
   def complete

@@ -1,14 +1,15 @@
 class MerchantsController < ApplicationController
+  before_action :require_login, only: [:dashboard, :manage_orders, :manage_products, :logout]
+  before_action :require_ownership, only: [:dashboard, :manage_orders, :manage_products]
 
-  def show
-    @merchant = Merchant.find(params[:id])
+  # def show
+  #   @merchant = Merchant.find(params[:id])
 
-    if @merchant.nil?
-      head :not_found
-      return
-    end
-  end
-
+  #   if @merchant.nil?
+  #     head :not_found
+  #     return
+  #   end
+  # end
 
   def login #create
     auth_hash = request.env["omniauth.auth"]
@@ -36,21 +37,26 @@ class MerchantsController < ApplicationController
     return redirect_to root_path
   end
 
-  def current
-  
-    unless @current_merchant
-      flash[:error] = "You must be logged in to see this page"
-      redirect_to root_path
-      return
-    end
+  def dashboard
+    
+  end
+
+  def manage_orders
+
+  end
+
+  def manage_products
+
   end
 
   def logout
-    session[:merchant_id] = nil
-    flash[:success] = "Successfully logged out!"
-
+    session.delete(:merchant_id)
     redirect_to root_path
+    flash[:success] = "Successfully logged out!"
   end
 
+  private 
 
+
+  
 end

@@ -2,6 +2,12 @@
 
 <h2>Products</h2>
 
+<div class="debug"><h4>debug</h4> 
+  <% session.each do |k, v| %>
+  <p>session[:<%= k %>] = <%= v %></p>
+  <% end %>
+</div>
+
 <div class="product-grid__container container">
   <% @products.in_groups_of(4).each do |group| %>
   <div class="product-grid__row row">

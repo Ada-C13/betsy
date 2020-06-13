@@ -23,16 +23,33 @@ class ApplicationController < ActionController::Base
     end 
   end
 
+  def current_merchant
+    @current_merchant ||= session[:merchant_id] &&
+    Merchant.find_by(id: session[:merchant_id])
+  end
+
   def require_login
     if current_merchant.nil?
-      flash[:error] = "You must be logged in to view this section"
-      redirect_to login_path
+      redirect_to root_path
+      flash[:danger] = "Must be logged in as a merchant."
+      return
     end
   end
 
-  def current_merchant
-    if session[:merchant_id]
-      @current_merchant = Merchant.find_by(id: session[:merchant_id])
+  def require_ownership
+
+    if params[:id].to_i != current_merchant.id
+      if request.get?
+        redirect_to dashboard_merchant_url(current_merchant.id)
+        flash[:warning] = "Tried to access a resource that isn't yours."
+        return
+      else
+        redirect_back(fallback_location: root_path)
+        flash[:danger] = "Could not post that request with invalid credentials."
+        return
+      end
     end
+
   end
+
 end
