@@ -36,16 +36,21 @@ navbar structure based on https://stackoverflow.com/questions/19733447/bootstrap
     <ul class="navbar-nav ml-auto">
 
       <%# merchant login button %>
+      <% if @current_merchant.nil? %>
       <li class="nav-item app-header__nav_item">
-        <%= button_to 'Merchant Login', root_path, class:'btn btn-outline-primary'%>
+        <%= button_to 'Merchant Login', github_login_path, class:'btn btn-outline-primary'%>
       </li>
-
+      <% else %>
       <%# merchant log out button %>
-      <li class="nav-item app-header__nav_item">
-        <%= button_to 'Merchant Log Out', root_path, class:'btn btn-outline-secondary'%>
+       <li class="nav-item app-header__nav_item">
+        <%= link_to "#{@current_merchant.username}", dashboard_merchant_url(@current_merchant.id), class:'nav-link' %>
+        </li>
+       <li class="nav-item app-header__nav_item">
+        <%= button_to 'Merchant Log Out', logout_merchant_url(@current_merchant.id), method: :post, class:'btn btn-outline-secondary'%>
       </li>
-      
+      <% end %>
       <%# cart link %>
+
       <% unless action_name == "landing" %>
       <li class="nav-item app-header__nav_item cart">
         <%= link_to 'Cart', cart_path, class:'nav-link'%>
@@ -57,3 +62,4 @@ navbar structure based on https://stackoverflow.com/questions/19733447/bootstrap
   <%# end RIGHT nav %>
 
 </nav>
+  
