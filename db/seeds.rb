@@ -183,3 +183,8 @@ end
 
 puts "Added #{OrderItem.count} order_items records"
 puts "#{order_items_failures.length} order_items failed to save"
+
+#https://stackoverflow.com/questions/11068800/rails-auto-assigning-id-that-already-exists
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
