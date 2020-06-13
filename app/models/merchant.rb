@@ -13,13 +13,7 @@ class Merchant < ApplicationRecord
   end
 
   def total_revenue
-    merchant_products = self.products 
-    merchant_orders = []
-    merchant_products.each do |product|
-      merchant_orders += product.orders
-    end
-    merchant_orders.uniq! 
-    valid_orders = merchant_orders.select { |order| order.status != "cancelled" }
+    valid_orders = get_valid_orders
 
     total_revenue = 0.0
     valid_orders.each do |order|
@@ -29,5 +23,33 @@ class Merchant < ApplicationRecord
     end
 
     return total_revenue
+  end
+
+  def revenue_for(status)
+    valid_orders = get_valid_orders
+
+    total_revenue = 0.0
+    specific_status_orders = valid_orders.select { |order| order.status == status }
+    specific_status_orders.each do |order|
+      order.order_items.each do |item|
+        total_revenue += item.quantity * item.product.price
+      end
+    end
+
+    return total_revenue
+  end
+
+
+  private 
+
+  def get_valid_orders 
+    merchant_products = self.products 
+    merchant_orders = []
+    merchant_products.each do |product|
+      merchant_orders += product.orders
+    end
+    merchant_orders.uniq! 
+    
+    return merchant_orders.select { |order| order.status != "cancelled" }
   end
 end
