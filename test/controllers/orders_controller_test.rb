@@ -66,7 +66,7 @@ describe OrdersController do
           email: "hello@wizard.com", 
           mailing_address: "12345 Wizard Way", 
           cc_number: 1234123412341234, 
-          cc_exp: "12/20"        
+          cc_exp: Date.today + 365        
         },
       }
     }
@@ -80,7 +80,7 @@ describe OrdersController do
       expect(@order.name).must_equal order_hash[:order][:name]
       expect(@order.email).must_equal order_hash[:order][:email]
       expect(@order.mailing_address).must_equal order_hash[:order][:mailing_address]
-      expect(@order.cc_number).must_equal order_hash[:order][:cc_number]
+      expect(@order.cc_number).must_equal order_hash[:order][:cc_number].to_s[-4..-1].to_i
       expect(@order.cc_exp).must_equal order_hash[:order][:cc_exp]
 
       expect(flash[:status]).must_equal :success
@@ -94,6 +94,7 @@ describe OrdersController do
         patch order_checkout_path, params: order_hash
       }.wont_differ "Order.count"
 
+      @order.reload
       @order.order_items.each do |item|
         expect(item.product.stock).must_equal (item.product.stock - item.quantity)
       end
@@ -104,6 +105,7 @@ describe OrdersController do
         patch order_checkout_path, params: order_hash
       }.wont_differ "Order.count"
 
+      @order.reload
       expect(@order.status).must_equal "paid"
     end
 
@@ -112,6 +114,7 @@ describe OrdersController do
         patch order_checkout_path, params: order_hash
       }.wont_differ "Order.count"
 
+      @order.reload
       expect(session[:order_id]).must_be_nil
     end
 
