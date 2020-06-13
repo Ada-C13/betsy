@@ -1,3 +1,4 @@
+<main>
 <section>
   <h2><%=@product.title.capitalize%></h2>
   <p><%= image_tag(@product.photo_url, height: "350", :alt => "product photo") %></p>
@@ -7,6 +8,25 @@
   <p>Description: <%= @product.description %></p>
   <p>Available: <%= @product.stock %></p>
   <p>Free Shipping & Returns</p>
+  <p>Status: <%= "#{@product.active ? "Active" : "Inactive"}" %></p>
+      
+    <% if session[:merchant_id] && @product.merchant_id == session[:merchant_id] %>
+      <%= link_to "#{@product.active ? "Retire" : "Activate"}", retire_product_path(@product.id), method: :post, class: "btn btn-primary" %>
+    <% end %>
+    
+    <% if @product.stock > 0 %>
+    
+    <%= form_with model: @order_item, url: {:action => "add_to_cart"} do |f| %>
+
+      <%= f.label "Quantity:" %>
+      <%= f.select(:quantity, (1..@product.stock).map(&:to_i)) %>
+
+      <%= f.submit "Add to Cart" %>
+    <% end %>
+  <% else %>
+    <p>Sorry, this item is out of stock.</p>
+  <% end %>
+
   <% if @product.categories.any?%>
     <p>Category: 
       <% @product.categories.each do |cat| %>
@@ -14,6 +34,7 @@
       <% end %>
     </p>
   <% end %>
+
   <% if @product.reviews.any?%>
     <h3>Reviews: </h3>
       <% @product.reviews.each do |review| %>
@@ -26,3 +47,4 @@
   <% end %>
   <%= link_to "Add a review", new_review_path, class: "btn btn-primary"%>
 </section>
+</main>

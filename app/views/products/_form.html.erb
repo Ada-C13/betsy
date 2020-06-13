@@ -36,7 +36,7 @@
     <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :title) %>
     <%= link_to "Add a new category", new_category_path, class: "btn btn-secondary" %>
   </div>
-  
+
   <%= f.submit "#{action_name} Product", class: "btn btn-primary"%>
 
 <% end %>
