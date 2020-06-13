@@ -42,7 +42,8 @@ describe OrdersController do
 
   describe "index" do
     it "succeeds when there are orders" do
-      merchant = perform_login(merchants(:angela))
+      # Arrange
+      merchant = perform_login(merchants(:suely))
       # Act
       get orders_path
       # Assert
@@ -50,8 +51,8 @@ describe OrdersController do
     end
 
     it "succeeds when there are no orders" do
-      merchant = perform_login(merchants(:angela))
       # Arrange
+      merchant = perform_login(merchants(:suely))
       Order.all do |order|
         order.destroy
       end
@@ -65,30 +66,37 @@ describe OrdersController do
       # Act
       get orders_path
       # Assert
-      must_respond_with :failure
-      must_redirect_to cart_path
+      must_redirect_to root_path
     end    
   end # describe "index"
 
   describe "show" do
     it "succeeds for an existing order ID" do
+      # Arrange
+      merchant = perform_login(merchants(:suely))
       # Act
       get order_path(pending_order.id)
       # Assert
       must_respond_with :success
     end
 
-    it "renders 404 not_found for a bogus order ID" do
+    it "redirects to order list if order not found" do
       # Arrange
+      merchant = perform_login(merchants(:suely))
       destroyed_id = pending_order.id
       pending_order.destroy
       # Act
-      expect {
-        get order_path(destroyed_id)
-      }.must_raise ActionController::RoutingError
+      get order_path(destroyed_id)
       # Assert
-      # must_respond_with :not_found
+      must_redirect_to orders_path
     end
+
+    it "redirects to root if merchant not logged in" do
+      # Act
+      get order_path(pending_order.id)
+      # Assert
+      must_redirect_to root_path
+    end    
   end # describe "show"
 
   describe "edit" do

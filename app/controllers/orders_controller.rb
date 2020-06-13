@@ -1,15 +1,9 @@
 class OrdersController < ApplicationController
   
+  before_action :require_login, only: [:index, :show]
+  
   def index
-    merchant_id = session[:merchant_id]
-    if !merchant_id
-      flash[:status] = :failure
-      flash[:result_text] = "Please log in to see orders."
-      redirect_to root_path
-      return
-    end
-    # get all orders for merchant
-    @orders = Order.by_merchant(merchant_id)
+    @orders = Order.by_merchant(current_merchant)
   end
   
   def show
@@ -17,7 +11,7 @@ class OrdersController < ApplicationController
     if !@order
       flash[:status] = :failure
       flash[:result_text] = "Could not find order."
-      render_404
+      redirect_to orders_path      
     end
   end
 
