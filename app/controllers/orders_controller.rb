@@ -2,7 +2,6 @@ class OrdersController < ApplicationController
   
   def index
     merchant_id = session[:merchant_id]
-    # if not logged in, go back to root
     if !merchant_id
       flash[:status] = :failure
       flash[:result_text] = "Please log in to see orders."
