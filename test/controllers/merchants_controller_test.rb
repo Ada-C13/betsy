@@ -20,48 +20,88 @@ describe MerchantsController do
     end
   end
 
-  describe "dashboard" do
-    it "responds with success if correct merchant is logged in" do
-      
+  describe "dashboard actions" do
+    describe "with correct merchant logged in" do
+      before do
+        perform_login
+        @correct_id = session[:merchant_id]
+      end
+
+      it "responds with success when retrieving dashboard" do
+        get dashboard_merchant_url(@correct_id)
+        must_respond_with :success
+      end
+
+      it "responds with success when retrieving merchant orders" do
+        get manage_orders_url(@correct_id)
+        must_respond_with :success
+      end
+
+      it "responds with success when retrieving merchant products" do
+        get manage_products_url(@correct_id)
+        must_respond_with :success
+      end
     end
 
-    it "responds with redirect if no merchant is logged in" do
-      
+    describe "with incorrect merchant logged in" do
+      before do
+        perform_login
+        @correct_id = session[:merchant_id]
+        @incorrect_id = session[:merchant_id] + 1
+      end
+
+      it "responds with redirect when retrieving dashboard" do
+        get dashboard_merchant_url(@incorrect_id)
+        must_respond_with :redirect
+        must_redirect_to dashboard_merchant_url(@correct_id)
+        expect(flash[:warning]).must_equal "Tried to access a resource that isn't yours."
+      end
+
+      it "responds with redirect when retrieving merchant orders" do
+        get manage_orders_url(@incorrect_id)
+        must_respond_with :redirect
+        must_redirect_to dashboard_merchant_url(@correct_id)
+        expect(flash[:warning]).must_equal "Tried to access a resource that isn't yours."
+      end
+
+      it "responds with redirect when retrieving merchant products" do
+        get manage_products_url(@incorrect_id)
+        must_respond_with :redirect
+        must_redirect_to dashboard_merchant_url(@correct_id)
+        expect(flash[:warning]).must_equal "Tried to access a resource that isn't yours."
+      end
     end
 
-    it "responds with redirect if incorrect merchant is logged in" do
-      
+    describe "with no merchant logged in" do
+      before do
+        perform_login
+        perform_logout
+      end
+
+      it "responds with danger when retrieving dashboard" do
+        get dashboard_merchant_url()
+        must_respond_with :redirect
+        must_redirect_to root_path
+        expect(flash[:danger]).must_equal "Tried to acc"
+      end
+
+      it "responds with danger when retrieving merchant orders" do
+        get manage_orders_url(@empty_merchant_id)
+        must_respond_with :redirect
+        must_redirect_to root_path
+        expect(flash[:danger]).must_equal "Tried to acc"
+      end
+
+      it "responds with danger when retrieving merchant products" do
+        get manage_products_url(@empty_merchant_id)
+        must_respond_with :redirect
+        must_redirect_to root_path
+        expect(flash[:danger]).must_equal "Tried to acc"
+      end
     end
-    
+
   end
-
-  describe "manage orders" do
-    it "responds with success if correct merchant is logged in" do
-      
-    end
-    
-    it "responds with redirect if no merchant is logged in" do
-      
-    end
-
-    it "responds with redirect if incorrect merchant is logged in" do
-      
-    end
-  end
-
-  describe "manage products" do
-    it "responds with success if correct merchant is logged in" do
-      
-    end
-    
-    it "responds with redirect if no merchant is logged in" do
-      
-    end
-
-    it "responds with redirect if incorrect merchant is logged in" do
-      
-    end
-  end
+  
 
   describe "logout" do
     it "can logout as existing merchant" do
@@ -71,7 +111,6 @@ describe MerchantsController do
       expect(session[:merchant_id]).wont_be_nil
 
       perform_logout
-
       expect(session[:merchant_id]).must_be_nil
       must_redirect_to root_path
     end
