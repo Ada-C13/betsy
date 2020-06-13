@@ -46,7 +46,7 @@ describe OrderItemsController do
         patch order_item_path(@order_item.id), params: invalid_order_item_hash
       }.wont_differ "OrderItem.count"
       
-      expect(flash[:result_text]).must_include "A problem occurred: #{@order_item.product.title} does not have enough quantity in stock"
+      expect(flash[:result_text]).must_include "#{@order_item.product.title} does not have enough quantity in stock"
 
       must_redirect_to cart_path
     end

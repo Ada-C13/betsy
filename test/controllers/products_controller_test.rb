@@ -270,7 +270,7 @@ describe ProductsController do
         post add_to_cart_path(@product_2.id), params: invalid_order_item_params
       }.wont_differ "OrderItem.count"
 
-      expect(flash[:result_text]).must_include "A problem occurred: #{@product_2.title} does not have enough quantity in stock"
+      expect(flash[:result_text]).must_include "#{@product_2.title} does not have enough quantity in stock"
 
       must_redirect_to product_path(@product_2.id)
 
