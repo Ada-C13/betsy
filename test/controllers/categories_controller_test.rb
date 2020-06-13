@@ -3,14 +3,9 @@ require "test_helper"
 describe CategoriesController do
   before do
     @categories = Category.new(name: "category")
+    @merchant = merchants(:merchantaaa)
+    perform_login(@merchant)
   end
-  # let (:category_hash) {
-  #   {
-  #     category: {
-  #       name: "pets", 
-  #     }
-  #   }
-  # }
 
   describe "index" do
     it "responds with success when there are many categories saved" do
@@ -36,29 +31,44 @@ describe CategoriesController do
 
   describe "create" do
     before do
-      @category_data = {
+      @category_hash = {
         category: {
-          name: 'test category'
+          name: 'test'
         }
       }
     end
-    it "can create a new category with valid information accurately, and redirect" do
+
+    it "can create a new category with valid information accurately if the user is logged in, and redirect" do
       # Ensure that there is a change of 1 in Category.count
       expect { 
-        post categories_path, params: @category_data
+        post categories_path, params: @category_hash
       }.must_differ "Category.count", 1
 
-       
-      # Find the newly created Category, and check that all its attributes match what was given in the form data
-      expect(Category.last.name).must_equal @category_data[:category][:name]
-   
-      # Check that the controller redirected the user
-      must_redirect_to categories_path(Category.last.id)
+      expect(Category.last.name).must_equal @category_hash[:category][:name]
+
+      must_redirect_to account_path(@merchant.id)
+    end
+
+    it "can not create category if the user is logout" do
+      put logout_path, params: {}
+
+      expect { 
+        post categories_path, params: @category_hash
+      }.wont_change "Category.count"
+
+      must_redirect_to categories_path
+    end
+
+    it "does not create a category if name is not present, and responds with a redirect" do
+      # Ensure that there is a no change of 1 in Category.count
+      @category_hash[:category][:name] = nil
+
+      expect { 
+        post categories_path, params: @category_hash
+      }.wont_change "Category.count"
+
+      assert_response :bad_request
     end
   end
-
-
-
-
-
+  
 end

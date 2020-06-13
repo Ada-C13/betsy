@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
       if @category.save
         flash[:status] = :success
         flash[:result_text] = "Successfully created #{@category.name}"
-        redirect_to categories_path
+        redirect_to account_path(find_user.id)
         return
       else
         flash[:status] = :failure
@@ -33,5 +33,4 @@ class CategoriesController < ApplicationController
   def category_params
     params.require(:category).permit(:name)
   end
-
 end
