@@ -1,6 +1,9 @@
 <h2>Shopping Cart</h2>
 
-<% if @order_items %>
+<% if !@order_items || @order_items.empty? %>
+  <p>You don't have any products in your cart!</p>
+
+<% else %>
   <table class="table">
     <thead>
       <tr>
@@ -32,7 +35,4 @@
       <% end %>
     </tbody>
   </table>
-
-<% else %>
-  <p>You don't have any products in your cart!</p>
 <% end %>
