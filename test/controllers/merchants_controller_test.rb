@@ -1,13 +1,7 @@
 require "test_helper"
 
 describe MerchantsController do
-  let(:merchant) { merchant(:angela) }
-  describe "show action" do
-    it "should show merchant" do
-      get merchants_path(@merchant)
-      must_respond_with :success
-    end 
-  end
+   
 
   # describe "can't create new merchant" do
   #   it "could not create new merchant account" do
