@@ -1,4 +1,5 @@
 class OrderItemsController < ApplicationController
+  before_action :find_order_item, only: [ :edit, :update, :destroy]
 
   def create
     qty = params[:order_item][:quantity]
@@ -30,10 +31,9 @@ class OrderItemsController < ApplicationController
     return
   end
 
-  def update
-  end
+  def edit; end
 
-  def edit
+  def update
   end
 
   def destroy
@@ -42,5 +42,9 @@ class OrderItemsController < ApplicationController
   private
   def order_item_params
     return params.require(:order_item).permit(:quantity)
+  end
+
+  def find_order_item
+    @order_item = OrderItem.find_by(id: params[:id])
   end
 end
