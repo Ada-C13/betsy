@@ -56,6 +56,8 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
+    # saving product into session will allow to add a review for that product
+    session[:product] = @product
 
     if @product.nil?
       redirect_to products_path

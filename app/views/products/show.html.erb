@@ -14,4 +14,15 @@
       <% end %>
     </p>
   <% end %>
+  <% if @product.reviews.any?%>
+    <h3>Reviews: </h3>
+      <% @product.reviews.each do |review| %>
+        <p>Stars: <%= review.rating %></p>
+        <p>Feedback: <%= review.text %></p>
+      <% end %>
+    
+  <% else %>
+    <h3>This product has no reviews yet</h3>
+  <% end %>
+  <%= link_to "Add a review", new_review_path, class: "btn btn-primary"%>
 </section>
