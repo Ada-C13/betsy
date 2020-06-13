@@ -28,7 +28,7 @@ class MerchantsController < ApplicationController
     merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
     if merchant
       # User was found in the database
-      flash[:success] = "Logged in as returning user #{merchant.username}"
+      flash[:success] = "Welome back #{merchant.username}!"
     else
       # User doesn't match anything in the DB
       # Attempt to create a new user
