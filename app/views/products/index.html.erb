@@ -1,5 +1,15 @@
 <h2> Products/All </h2>
 
 <% @products.each do |product| %>
-  <li><%= link_to product.name, product_path(product) %></li>
+  <%= image_tag 'https://source.unsplash.com/collection/4683414/300x300', 
+      alt: "Profile pic for #{product.name}", 
+      class: "profile" 
+  %>
+  <div>
+  <%= link_to product.name, product_path(product) %>
+  $<%= product.price %> |
+  <%= link_to "Add to cart", root_path %>
+  </div>
 <% end %>
+
+
