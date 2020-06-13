@@ -150,7 +150,7 @@ describe OrdersController do
       }.wont_differ "Order.count"
 
       expect(flash[:status]).must_equal :success
-      expect(flash[:result_text]).must_include @order.id
+      expect(flash[:result_text]).must_include "#{order.id}"
 
       must_redirect_to root_path
     end
@@ -164,6 +164,7 @@ describe OrdersController do
     end
 
     it "can add the quantity of each order item back to product stock" do
+      # TODO: This test is failing even though the action works on the website. I tried reloading all the instances but that wasn't the issue.
       order = build_order
 
       expect{
