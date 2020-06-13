@@ -24,7 +24,7 @@
       <% order_statuses.each do |status| %>
         <tr>
           <td><%= status %></td>
-          <td> - </td>
+          <td> <%= @merchant.number_of_orders_for(status) %> </td>
           <td><%= @merchant.revenue_for(status) %></td>
         </tr>
       <% end %>
