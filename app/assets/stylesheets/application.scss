@@ -16,3 +16,106 @@
 @import "bootstrap";
 
 @import "**/*";
+@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+
+/* Style the navigation bar */
+.navbar {
+  width: 100%;
+  background-color: #555;
+  overflow: auto;
+  font-family: 'Times New Roman', Times, serif;
+
+}
+
+/* Navbar links */
+.navbar a {
+  // float: left;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Navbar links on mouse-over */
+// .navbar a:hover {
+//   background-color: #000;
+// }
+
+/* Current/active navbar link */
+.active {
+  background-color: #4CAF50;
+}
+
+/* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
+@media screen and (max-width: 500px) {
+  .navbar a {
+    float: none;
+    display: block;
+  }
+}
+
+.profile-img {
+  border-radius: 50%;
+  border: solid lightcoral 3px;
+}
+
+
+section {
+  margin: 5em;
+  margin-left: 10em;
+  padding-right:  2em;
+  display:center;
+}
+.dropdown-item{
+  color: black;
+}
+
+
+
+footer{
+  background-color: lightgray;
+  padding: 1rem;
+  text-align: center;
+  margin-top: 20rem;
+  position: relative;
+}
+
+h1, h2{
+  font-family: 'Times New Roman', Times, serif;
+}
+
+table {
+  margin: auto;
+  margin-top: 1em;
+  border: solid 1px;
+  
+}
+
+table th {
+  border: solid 1px;
+  font-family: 'Times New Roman', Times, serif;
+  background-color: gray;
+  color: white;
+}
+
+table tr {
+  border: solid 1px;
+  text-align: center;
+}
+
+table td {
+  border: solid 1px;
+  padding: 1px;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+p {
+  margin: 1rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+h3{
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+}

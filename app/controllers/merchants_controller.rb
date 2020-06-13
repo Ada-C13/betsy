@@ -1,22 +1,22 @@
 class MerchantsController < ApplicationController
 
+  skip_before_action :require_login, except: [:account]
+
   def index
     @merchants = Merchant.all
   end
 
   def account
-    @merchant = Merchant.find_by(id: session[:merchant_id])
-    unless @merchant
-      flash[:error] = "We regret to inform you that accesss to this page is restricted"
-      redirect_to root_path
+    @merchant = Merchant.find_by(id: params[:id])
+    if @merchant.nil? || session[:merchant_id] != @merchant.id
+      flash[:error] = "You don't have access to that account!"
+      redirect_to account_path(session[:merchant_id])
       return
     end
   end
-
+  
   def create
     auth_hash = request.env["omniauth.auth"]
-    # puts auth_hash
-    # binding.pry
     merchant = Merchant.find_by(uid: auth_hash[:uid],
       provider: params[:provider])
 
@@ -40,5 +40,11 @@ class MerchantsController < ApplicationController
     flash[:notice] = "Successfully logged out. See you next time"
     redirect_to root_path
     return
+  end
+
+  private
+
+  def merchant_params
+    return params.require(:merchant).permit(:name, :email, :provider, :uid)
   end
 end
