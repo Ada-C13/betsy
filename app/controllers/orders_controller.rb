@@ -38,14 +38,17 @@ class OrdersController < ApplicationController
       # stores the last 4 digits of cc_number
       @order.update(cc_number: @order.cc_number.to_s[-4..-1].to_i) 
 
+      # change status to paid and sets purchase_date
+      @order.update(
+        status: "paid", 
+        purchase_date: Date.today
+      )
+
       # reduces the stock of each product 
       # QUESTION: Should this be moved into a product model method?
       @order.order_items.each do |item|
         item.product.update(stock: item.product.stock - item.quantity)
       end
-      
-      # change status to paid
-      @order.update(status: "paid")
 
       # display flash messages and redirect
       flash[:status] = :success

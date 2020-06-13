@@ -111,13 +111,14 @@ describe OrdersController do
       end
     end
 
-    it "changes the order status to paid" do
+    it "changes the order status to paid, and sets purchase date" do
       expect {
         patch order_checkout_path, params: order_hash
       }.wont_differ "Order.count"
 
       @order.reload
       expect(@order.status).must_equal "paid"
+      expect(@order.purchase_date).must_equal Date.today
     end
 
     it "does not complete order if the form data violates order validations, creates a flash message, and responds with a 400 error" do
