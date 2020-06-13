@@ -175,14 +175,15 @@ describe OrdersController do
       end
     end
 
-    it "sets the session[:order_id] to nil" do
+    it "sets order status to cancelled" do
       order = build_order
 
       expect{
         delete order_path(order)
       }.wont_differ "Order.count"
 
-      expect(session[:order_id]).must_be_nil
+      order.reload
+      expect(order.status).must_equal "cancelled"
     end
   end
 end
