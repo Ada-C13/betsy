@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     member do
       get "dashboard"
       post "deactivate"
-      delete "logout"
+      post "logout"
     end
   end
   get 'merchants/:id/dashboard/manage_orders', to: 'merchants#manage_orders', as: "manage_orders"
