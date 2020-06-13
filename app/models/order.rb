@@ -1,8 +1,9 @@
 class Order < ApplicationRecord
+  VALID_STATUSES = ["pending", "paid", "shipped", "cancelled"] 
   has_many :order_items
   has_many :products, through: :order_items
 
-  validates :status, presence: true, inclusion: { in: %w(pending paid shipped), message: "Status must be pending, paid, or shipped"} 
+  validates :status, presence: true, inclusion: { in: VALID_STATUSES, message: "Status must be pending, paid, or shipped"} 
   def order_submitted?
     status == "paid" || status == "shipped"
   end
@@ -17,16 +18,33 @@ class Order < ApplicationRecord
     submitted.validates :cc_cvv, presence: true, numericality: { only_integer: true }
   end
 
-  def submit_order
+  # def change_status(new_status)
+  #   if !VALID_STATUSES.include? new_status
+  #     raise ArgumentError.new("status invalid")
+  #   end
+  #   self.status = new_status
+  # end
 
+  def cancel
+    self.status = "cancelled"
+    self.order_items.each do |order_item|
+      order_item.status = "cancelled"
+    end
   end
+
   def clear_cart
+    self.order_items.each do |order_item|
+      order_item.destroy
+    end
   end 
+
   def total_price
+    total = 0.0
+    self.order_items.each do |order_item|
+      total += order_item.product.price
+    end
+    return total
+    # format method for order_item and order?
   end 
-  def update_status
-  end
   
-
-
 end

@@ -4,7 +4,7 @@ describe Order do
   describe "validations" do
     describe "status" do
       before do 
-        statuses = ["pending", "paid", "shipped", "baloney", nil]
+        statuses = ["pending", "paid", "shipped", "cancelled", "baloney", nil]
         @orders_with_only_status = []
         statuses.each do |status|
           order = Order.new
@@ -37,13 +37,20 @@ describe Order do
     end
   end
 
-
-  describe "#submit_order" do 
-  end 
   describe "#clear_cart" do 
+    it "removes order_items from cart" do
+    end
+    it "deletes existing order items" do
+    end
   end
   describe "#total_price" do 
+    it "returns total price for cart with multiple items" do
+    end
+    it "returns total price for complete order with multiple items" do
+    end
+    it "returns 0.00 when cart is empty" do
+    end
   end
-  describe "#update_status" do 
+  describe "#cancel" do 
   end
 end
