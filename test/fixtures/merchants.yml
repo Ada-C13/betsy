@@ -9,3 +9,9 @@ merchant1:
   uid: 1234567890
   email: test@test.com
   provider: github
+merchant_two:
+    id: 2
+    username: hermiona
+    uid: 33333
+    email: hermiona@gmail.com 
+    provider: github
