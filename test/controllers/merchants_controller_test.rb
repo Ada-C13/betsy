@@ -1,6 +1,40 @@
 require "test_helper"
 
 describe MerchantsController do
+  let(:merchant) { merchant(:angela) }
+  describe "show action" do
+    it "should show merchant" do
+      get merchants_path(@merchant)
+      must_respond_with :success
+    end 
+  end
+
+  # describe "can't create new merchant" do
+  #   it "could not create new merchant account" do
+  #     merchants = {
+  #       new_merchant: {
+  #         username: "new merchant username",
+  #         uid: 2333,
+  #         provider: "github",
+  #         email: "some emailaddress",
+  #       },
+  #     }
+
+  #     expect {
+  #       post merchants_path, params:  merchants
+  #     }.must_change "Merchant.count", 0
+
+  #      no_username = new_merchant[:new_merchant][:username] = nil
+  #      no_uid = new_merchant[:new_merchant][:uid] = nil
+
+  #      expect { post merchants_path, params: no_username }.must_differ "Merchant.count", 0
+  #      expect { post merchants_path, params: no_uid }.must_differ "Merchant.count", 0
+  #      must_respond_with :redirect
+  #      # must_redirect_to TODO
+
+  #   end
+  # end
+
 
   describe "login" do
     it "can log in an existing merchant" do
@@ -13,7 +47,6 @@ describe MerchantsController do
 
       expect {
         logged_in_merchant = perform_login(new_merchant)
-        #perform_login(new_merchant)
       }.must_change "Merchant.count", 1
 
       must_respond_with :redirect

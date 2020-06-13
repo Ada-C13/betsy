@@ -2,8 +2,20 @@ class MerchantsController < ApplicationController
   before_action :require_login, only: [:dashboard, :manage_orders, :manage_products, :logout]
   before_action :require_ownership, only: [:dashboard, :manage_orders, :manage_products]
 
+  # skip_before_action :require_login, except: [:current_merchant]
+  
+ 
   # def show
   #   @merchant = Merchant.find(params[:id])
+
+  #   if @merchant.nil?
+  #     head :not_found
+  #     return
+  #   end
+  # end
+  
+  # def create
+  # end
 
   #   if @merchant.nil?
   #     head :not_found
@@ -27,7 +39,7 @@ class MerchantsController < ApplicationController
     
       else
        
-        flash[:error] = "Could not create new user account: #{merchant.errors.messages}"
+        flash[:error] = "Could not create new merchant account: #{merchant.errors.messages}"
         return redirect_to root_path
       end
     end

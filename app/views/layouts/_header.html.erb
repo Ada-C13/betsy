@@ -56,4 +56,9 @@ navbar structure based on https://stackoverflow.com/questions/19733447/bootstrap
   </div>
   <%# end RIGHT nav %>
 
-</nav>
+  <% if @current_merchant.nil? %>
+    <li><%= link_to "Log In", github_login_path %></li>
+  <% else %>
+    <li><%= link_to "Log Out", logout_path, method: :post %></li>
+    <li><%= link_to "Current Merchant", current_merchant_path %></li>
+  <% end %>  
