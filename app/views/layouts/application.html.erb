@@ -46,9 +46,9 @@
 
           <li class="nav-item app-header__nav_item">
             <%= link_to cart_path do %> 
-              <i class="fa fa-shopping-cart"></i>
+              <%= image_tag("https://i.imgur.com/JtZnRAu.png", alt: "shopping cart") %>
               <% if session[:order_id] %>
-                <span class="badge badge-primary badge-pill"><%= Order.find(session[:order_id]).order_items.count %></span>
+                <span class="badge badge-primary badge-pill"><%= @order.order_items.count %></span>
               <% end %>
             <% end %>  
           </li>
