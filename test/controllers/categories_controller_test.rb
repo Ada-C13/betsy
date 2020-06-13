@@ -46,6 +46,16 @@ describe CategoriesController do
 
       expect(Category.last.name).must_equal @category_hash[:category][:name]
 
+      must_redirect_to account_path(@merchant.id)
+    end
+
+    it "can not create category if the user is logout" do
+      put logout_path, params: {}
+
+      expect { 
+        post categories_path, params: @category_hash
+      }.wont_change "Category.count"
+
       must_redirect_to categories_path
     end
 
