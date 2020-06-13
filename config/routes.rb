@@ -23,5 +23,7 @@ Rails.application.routes.draw do
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
   put "/logout", to: "merchants#logout", as: "logout"
+
+  patch '/products/:id/toggle_active', to: 'products#toggle_active', as: 'product_active'
   
 end

@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
 
   def show
     if @product.nil?
-      redirect_to proucts_path
+      redirect_to products_path
       return
     end
   end
@@ -21,15 +21,7 @@ class ProductsController < ApplicationController
     
     if session[:merchant_id]
       @product = Product.new(product_params)
-        # name: params[:name], 
-        # price: params[:price], 
-        # stock: params[:stock], 
-        # active: params[:active],
-        # description: params[:description], 
-        # photo: params[:photo], 
-        # merchant_id: session[:merchant_id])
       @product.merchant_id = session[:merchant_id]
-       
 
       if @product.save
         flash[:success] = " Successfully created #{@product.name}"
@@ -80,6 +72,25 @@ class ProductsController < ApplicationController
       return
     end
   end 
+
+  def toggle_active
+    @product = Product.find_by(id: params[:id])
+
+    if @product.nil?
+      head :not_found
+      return
+    end
+    
+    if @product.active == false
+      @product.update(active: true)
+      redirect_to merchant_path(session[:merchant_id])
+      return
+    else 
+      @product.update(active: false)
+      redirect_to merchant_path(session[:merchant_id])
+      return
+    end   
+  end
   
   private
 
