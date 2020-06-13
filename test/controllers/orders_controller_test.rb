@@ -142,6 +142,47 @@ describe OrdersController do
   end
 
   describe "destroy" do
+    it "can cancel the order when given a valid id, creates a flash message, then redirects" do
+      order = build_order
 
+      expect{
+        delete order_path(order)
+      }.wont_differ "Order.count"
+
+      expect(flash[:status]).must_equal :success
+      expect(flash[:result_text]).must_include @order.id
+
+      must_redirect_to root_path
+    end
+
+    it "does not cancel the order when given an invalid id, then responds with a 404 error" do
+      expect{
+        delete order_path(-1)
+      }.wont_differ "Order.count"
+
+      must_respond_with :not_found
+    end
+
+    it "can add the quantity of each order item back to product stock" do
+      order = build_order
+
+      expect{
+        delete order_path(order)
+      }.wont_differ "Order.count"
+
+      order.order_items.each do |item|
+        expect(item.product.stock).must_equal (item.product.stock + item.quantity)
+      end
+    end
+
+    it "sets the session[:order_id] to nil" do
+      order = build_order
+
+      expect{
+        delete order_path(order)
+      }.wont_differ "Order.count"
+
+      expect(session[:order_id]).must_be_nil
+    end
   end
 end
