@@ -48,14 +48,16 @@ class ActiveSupport::TestCase
     return merchant
   end
 
-  def build_order(product = nil) # test helper for setting session[:order_id]
-    product ||= Product.first
+  def build_order(product_1 = nil, product_2 = nil) # test helper for setting session[:order_id]
+    product_1 ||= Product.first
+    product_2 ||= Product.second
 
     order_item_params = {
       quantity: 1
     }
 
-    post add_to_cart_path(product.id), params: order_item_params
+    post add_to_cart_path(product_1.id), params: order_item_params
+    post add_to_cart_path(product_2.id), params: order_item_params
 
     order = Order.last
     expect(session[:order_id]).must_equal order.id

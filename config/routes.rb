@@ -23,8 +23,8 @@ Rails.application.routes.draw do
   # orders
   resources :orders, only: [:show, :destroy]
   get "/cart", to: "orders#index", as: "cart"
-  get "/cart/checkout", to: "orders#checkout", as: "cart_checkout"
-  patch "/cart/checkout", to: "orders#complete"
+  get "/order/checkout", to: "orders#checkout", as: "order_checkout"
+  patch "/order/checkout", to: "orders#complete"
 
   # order_items
   resources :order_items, only: [:update, :destroy]
