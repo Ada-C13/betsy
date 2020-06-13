@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def complete_order
+  def complete
     # saves user info to order
     # reduces the stock of each product
     # changes status to paid
