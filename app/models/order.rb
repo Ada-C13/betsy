@@ -45,6 +45,15 @@ class Order < ApplicationRecord
     end
     return total
     # format method for order_item and order?
-  end 
+  end
+
+  def find_order_item(product)
+    self.order_items.each do |order_item|
+      if order_item.product == product
+        return order_item
+      end
+    end
+    return nil
+  end
   
 end
