@@ -34,11 +34,14 @@ describe OrdersController do
   end
 
   describe "checkout" do
-    it "responds with success when getting the checkout page when session[:order_id] is valid" do
+    it "responds with success and sets order status to pending when session[:order_id] exists" do
       order = build_order 
 
       get cart_checkout_path
       must_respond_with :success
+
+      order.reload
+      expect(order.status).must_equal "pending"
     end
 
     it "flashes an error message and redirects to cart when session[:order_id] is nil" do
@@ -48,15 +51,6 @@ describe OrdersController do
       expect(flash[:result_text]).must_include "cannot check out"
       
       must_redirect_to cart_path
-    end
-
-    it "changes the order status to pending" do
-      order = build_order
-
-      get cart_checkout_path
-
-      order.reload
-      expect(order.status).must_equal "pending"
     end
   end
 
