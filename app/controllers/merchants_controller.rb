@@ -17,9 +17,10 @@ class MerchantsController < ApplicationController
   
   def create
     auth_hash = request.env["omniauth.auth"]
+    # binding.pry
     merchant = Merchant.find_by(uid: auth_hash[:uid],
       provider: params[:provider])
-
+    
     if merchant # merchant exists
       flash[:notice] = "Logged in as returning merchant #{merchant.name}"
     else # merchant doesn't exist yet (new merchant)
@@ -45,6 +46,6 @@ class MerchantsController < ApplicationController
   private
 
   def merchant_params
-    return params.require(:merchant).permit(:name, :email, :provider, :uid)
+    return params.require(:merchant).permit(:name, :email, :provider, :uid, :avatar)
   end
 end

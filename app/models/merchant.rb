@@ -11,6 +11,7 @@ class Merchant < ApplicationRecord
     merchant.provider = auth_hash["provider"]
     merchant.name = auth_hash["info"]["nickname"]
     merchant.email = auth_hash["info"]["email"]
+    merchant.avatar = auth_hash["info"]["image"]
 
     # Note that the merchant has not been saved.
     # We'll do the saving outside of this method
