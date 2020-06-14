@@ -44,11 +44,25 @@ describe Review do
       expect(@review.errors.messages[:text].include?("can't be blank")).must_equal true
     end
 
+    it 'is valid when rating is in 1-5 range, inslusively' do
+      @review.rating = 1
+      expect(@review.valid?).must_equal true
+      @review.rating = 5
+      expect(@review.valid?).must_equal true
+    end
+
     it 'fails validation when rating is nil' do
       @review.rating = nil
       expect(@review.valid?).must_equal false
       expect(@review.errors.messages.include?(:rating)).must_equal true
       expect(@review.errors.messages[:rating].include?("can't be blank")).must_equal true
+    end
+
+    it 'fails validation when rating is out of range 1-5' do
+      @review.rating = 10
+      expect(@review.valid?).must_equal false
+      expect(@review.errors.messages.include?(:rating)).must_equal true
+      expect(@review.errors.messages[:rating].include?("is not included in the list")).must_equal true
     end
   end
 
