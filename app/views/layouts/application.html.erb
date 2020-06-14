@@ -33,19 +33,20 @@
         <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
       <li class="nav-item dropdown">
       <% if session[:merchant_id] %>
-        
           <%= link_to "My Account", account_path(id: session[:merchant_id]), :class => "fa fa-fw fa-user nav-link dropdown-toggle", :id => "navbardrop",:href=>"#" ,'data-toggle'=>"dropdown"%>
           <div class="dropdown-menu">
             <%= link_to "Log out", logout_path, method: :put, :class => "dropdown-item" %>
             <%= link_to "Account Summary", account_path(id: session[:merchant_id]), :class => "dropdown-item" %>
           </div>
       <% else %>
-      <div>
-          <%= link_to "Login with Github", github_login_path, :class => "dropdown-item"  %>
+        <div>
+            <%= link_to "Login with Github", github_login_path, :class => "dropdown-item"  %>
         </div>
-      </li>
+        </li>
       <% end %>
-      
+      <li>
+        <%= link_to "Cart", cart_path%>
+      </li>
       </div>
     </ul>
   </nav>
