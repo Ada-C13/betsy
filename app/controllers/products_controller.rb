@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
 
   skip_before_action :current_merchant, except: [:new, :create, :edit, :update, :retire], raise: false
+  before_action :require_login, except: [:add_to_cart, :index, :show]
 
   def new 
     @product = Product.new

@@ -34,16 +34,9 @@ describe MerchantsController do
 
   end
 
-# describe "show" do
-#   it "shows individual details for valid merchant" do
-# end
-
-# it "redirects when given an invalid id" do
-# end
-# end
   describe "show" do 
     it "responds with success when showing an existing valid merchant" do 
-      merchant = merchants(:merchant_one)
+      merchant = perform_login(merchants(:merchant1))
 
       get merchant_path(merchant.id)
 
@@ -54,7 +47,7 @@ describe MerchantsController do
       get merchant_path(-1)
 
       must_respond_with :redirect 
-      must_redirect_to products_path 
+      must_redirect_to root_path 
     end
   end
 end
