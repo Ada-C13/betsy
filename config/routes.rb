@@ -6,7 +6,13 @@ Rails.application.routes.draw do
   get 'homepages/index'
 
   root to: "homepages#index"
-  resources :products
+  resources :products do
+    resources :reviews
+  end
+
+#custom route for the review creation
+ post "products/:id/reviews/new", to: "reviews#create", as: "create_review"
+  # resources :reviews , only: [:index]
 
   # Merchant
   resources :merchants, only: [:index]
@@ -24,6 +30,7 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
   put "/logout", to: "merchants#logout", as: "logout"
 
+  # toggle to product's active status
   patch '/products/:id/toggle_active', to: 'products#toggle_active', as: 'product_active'
   
 end
