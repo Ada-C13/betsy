@@ -8,7 +8,7 @@
         <ul class="list-unstyled">
           <li>Status: <%= @order.status.capitalize %></li>
           <li>Credit Card: XXXX-XXXX-XXXX-<%= @order.cc_number %></li>
-          <li>Exp. Date: <%= @order.cc_exp %></li>
+          <li>Exp. Date: <%= @order.cc_exp.strftime("%m/%y") %></li>
         </ul>
       </div>
     </div>
