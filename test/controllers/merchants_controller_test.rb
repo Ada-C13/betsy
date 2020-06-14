@@ -4,16 +4,22 @@ describe MerchantsController do
   describe "login" do
     it "can log in an existing merchant" do
       merchant = perform_login(merchants(:merchant1))
-      
+      starting_count = Merchant.count
+
       must_respond_with :redirect
+      expect Merchant.count.must_equal starting_count
     end
     
     it "can log in a new merchant" do
       new_merchant = Merchant.new(uid: "6789", username: "Anto", provider: "github", email: "anto@blahblahblah.org")
-      
+      starting_count = Merchant.count
       expect {
         logged_in_user = perform_login(new_merchant)
       }.must_change "Merchant.count", 1
+
+      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(new_merchant))
+      get auth_callback_path(:github)
+      
       
       must_respond_with :redirect
     end
