@@ -1,6 +1,11 @@
 order_item1:
   product: banana
   order: pending_order
+  quantity: 2
+  shipped: false
+order_item2:
+  product: apple
+  order: pending_order
   quantity: 1
   shipped: false
 order_item_one:

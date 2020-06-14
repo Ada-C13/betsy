@@ -8,51 +8,64 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+
   <body>
     <header>
-     <nav class="app-header__nav">
-      <ul class="nav app-header__user-nav-container">
+      <nav class="app-header__nav">
+        <ul class="nav app-header__site-nav-container">
           <h2><%= link_to "Spellbound", root_path %></h2>
           <li class="nav-item app-header__nav_item">
             <%= link_to "All Products", products_path, class: "nav-link"%>
           </li>
-        <div>
-          <%= link_to "Products by Category", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"} %>
+          
+          <li class="nav-item app-header__nav_item">
+            <%= link_to "Products by Category", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"} %>
             <div class="dropdown-menu">
               <%Category.all.each do |cat|%>
                 <%= link_to cat.title, category_products_path(cat.id), class: "dropdown-item" %>
               <%end%>
             </div>
-        </div>
+          </li>
 
-        <div>
-          <%= link_to "Merchants", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}%>
+          <li class="nav-item app-header__nav_item">
+            <%= link_to "Merchants", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}%>
             <div class="dropdown-menu">
               <%Merchant.all.each do |merchant|%>
                 <%= link_to merchant.username, merchant_products_path(merchant.id), class: "dropdown-item" %>
               <%end%>
             </div>
-        </div>
+          </li>
+        </ul>
 
-      <ul class="nav app-header__user-nav-container">
-        <% if @login_user %>
+        <ul class="nav app-header__user-nav-container">
+          <% if @login_user %>
 
-        <li class="nav-item app-header__nav_item">
-          <%= link_to "Logged in as #{@login_user.username}", merchant_path(@login_user), class: "btn btn-primary" %>
-        </li>
-        <li class="nav-item app-header__nav_item">
-          <%= link_to "Log Out", logout_path, method: :post, class: "btn btn-primary" %>
-        </li>
+            <li class="nav-item app-header__nav_item">
+              <%= link_to "Logged in as #{@login_user.username}", merchant_path(@login_user), class: "btn btn-primary" %>
+            </li>
+            <li class="nav-item app-header__nav_item">
+              <%= link_to "Log Out", logout_path, method: :post, class: "btn btn-primary" %>
+            </li>
 
-        <% else %>
+          <% else %>
 
-        <li class="nav-item app-header__nav_item">
-          <%= link_to "Log In", github_login_path, class: "btn btn-primary" %>
-        </li>
-        <% end %>
-        </nav>
+            <li class="nav-item app-header__nav_item">
+              <%= link_to "Log In", github_login_path, class: "btn btn-primary" %>
+            </li>
+          <% end %>
+
+          <li class="nav-item app-header__nav_item">
+            <%= link_to cart_path do %> 
+              <%= image_tag("https://i.imgur.com/JtZnRAu.png", alt: "shopping cart") %>
+              <% if session[:order_id] %>
+                <span class="badge badge-primary badge-pill"><%= @order.order_items.count %></span>
+              <% end %>
+            <% end %>  
+          </li>
+        </ul>
+      </nav>
     </header>
-
+    
     <% if flash[:result_text] or flash[:messages] %>
       <section class="alert__container">
         <div class="alert alert-<%= flash[:status].to_s == 'failure' ? 'warning' : flash[:status] %>">
@@ -69,7 +82,9 @@
         </div>
       </section>
     <% end %>
-    
-    <%= yield %>
+
+    <section>
+      <%= yield %>
+    </section>
   </body>
 </html>

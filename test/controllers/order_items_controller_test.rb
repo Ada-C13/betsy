@@ -24,7 +24,7 @@ describe OrderItemsController do
 
       expect(flash[:result_text]).must_include "Successfully updated the quantity of #{@order_item.product.title}"
 
-      must_redirect_to orders_path
+      must_redirect_to cart_path
     end
 
     it "does not update an order item if given an invalid id, and responds with a 404" do
@@ -46,9 +46,9 @@ describe OrderItemsController do
         patch order_item_path(@order_item.id), params: invalid_order_item_hash
       }.wont_differ "OrderItem.count"
       
-      expect(flash[:result_text]).must_include "A problem occurred: #{@order_item.product.title} does not have enough quantity in stock"
+      expect(flash[:result_text]).must_include "#{@order_item.product.title} does not have enough quantity in stock"
 
-      must_redirect_to orders_path
+      must_redirect_to cart_path
     end
   end
 
@@ -60,7 +60,7 @@ describe OrderItemsController do
 
       expect(flash[:result_text]).must_include "Successfully removed #{@order_item.product.title} from cart!"
 
-      must_redirect_to orders_path
+      must_redirect_to cart_path
     end
 
     it "does not destroy the order item when given an invalid id, then responds with a 404 error" do
