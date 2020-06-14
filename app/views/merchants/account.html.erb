@@ -27,7 +27,13 @@
         <td><%= link_to product.name, product_path(product.id) %></td>
         <td><%= product.stock%></td>
         <td><%= product.price %></td>
-        <td><%= product.active ? link_to("Active", product_active_path(product), method: :patch) : link_to("Retired", product_active_path(product), method: :patch)%> 
+        <td>
+          <% if product.active %> 
+            <%= link_to "Active", product_active_path(product.id), method: :patch %>
+          <% else %>
+            <%= link_to "Retired", product_active_path(product.id), method: :patch%> 
+          <% end %>
+        </td>
         <td><%= link_to "Edit", edit_product_path(product)%></td>
       </tr>
     <% end %>
