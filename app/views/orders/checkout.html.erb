@@ -2,41 +2,47 @@
 
 <%= form_with model: @order, url: {:action => "complete"} do |f| %>
   <div class="form-group">
-    <%= f.label :name %>
+    <%= f.label "Name:" %>
     <%= f.text_field :name, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :email %>
+    <%= f.label "Email:" %>
     <%= f.text_field :email, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :mailing_address %>
+    <%= f.label "Mailing Address:" %>
     <%= f.text_field :mailing_address, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :cc_number %>
+    <%= f.label "Credit Card Number:" %>
     <%= f.text_field :cc_number, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :cc_exp %>
-    <%= f.text_area :cc_exp, class: "form-control" %>
+    <%= f.label "Credit Card Expiration Date:" %>
+    <%= f.date_select(
+      :cc_exp, 
+      use_two_digit_numbers: true, 
+      start_year: Date.today.year, 
+      discard_day: true, 
+      order: [:month, :day, :year], 
+      class: "form-control") %>
   </div>
 
   <div class="form-group">
-    <%= f.label "CVV" %>
+    <%= f.label "CVV:" %>
     <%= f.text_area :cvv, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label "Billing Zip Code" %>
+    <%= f.label "Billing Zip Code:" %>
     <%= f.text_area :billing_zip, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.submit "Review Order", class: "btn btn-primary" %>
+    <%= f.submit "Complete Order", class: "btn btn-primary" %>
   </div>
 <% end %>
