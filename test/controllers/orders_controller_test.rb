@@ -78,7 +78,9 @@ describe OrdersController do
 
   describe "complete" do
     before do
-      @order = build_order 
+      @product_1 = products(:apple)
+      @product_2 = products(:mango)
+      @order = build_order(@product_1, @product_2) 
     end
     
     let (:order_hash) {
@@ -112,14 +114,12 @@ describe OrdersController do
     end
 
     it "reduces the stock of each product by the quantity purchased" do
-      # TODO: This test is failing even though the action works on the website. I tried reloading all the instances but that wasn't the issue.
       expect {
         patch order_checkout_path, params: order_hash
       }.wont_differ "Order.count"
-
-      @order.reload
-      @order.order_items.each do |item|
-        expect(item.product.stock).must_equal (item.product.stock - item.quantity)
+      
+      @order.products.each do |product|
+        expect(product.stock).must_equal 4
       end
     end
 
@@ -176,15 +176,14 @@ describe OrdersController do
     end
 
     it "can add the quantity of each order item back to product stock" do
-      # TODO: This test is failing even though the action works on the website. I tried reloading all the instances but that wasn't the issue.
       order = build_order
 
       expect{
         delete order_path(order)
       }.wont_differ "Order.count"
 
-      order.order_items.each do |item|
-        expect(item.product.stock).must_equal (item.product.stock + item.quantity)
+      order.products.each do |product|
+        expect(product.stock).must_equal 6
       end
     end
 
