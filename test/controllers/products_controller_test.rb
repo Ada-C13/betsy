@@ -91,10 +91,6 @@ describe ProductsController do
       it "will update existing product" do 
   
         @product.save
-  
-        puts "PRODUCT BEFORE UPDATE = #{@product.price}"
-        puts "PRODUCT ID BEFORE UPDATE = #{@product.id}"
-        
         product_hash = {
           product: {
             price: 10,
@@ -106,7 +102,6 @@ describe ProductsController do
   
         @product.save!
         @product.reload 
-        puts "PRODUCT AFTER UPDATE = #{@product.price}"
   
         expect(@product.price).must_equal product_hash[:product][:price]
         expect(@product.description).must_equal product_hash[:product][:description]
