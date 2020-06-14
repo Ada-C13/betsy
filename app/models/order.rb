@@ -18,18 +18,9 @@ class Order < ApplicationRecord
     submitted.validates :cc_cvv, presence: true, numericality: { only_integer: true }
   end
 
-  # def change_status(new_status)
-  #   if !VALID_STATUSES.include? new_status
-  #     raise ArgumentError.new("status invalid")
-  #   end
-  #   self.status = new_status
-  # end
 
   def cancel
-    self.status = "cancelled"
-    self.order_items.each do |order_item|
-      order_item.status = "cancelled"
-    end
+    change_status("cancelled")
   end
 
   def clear_cart
@@ -44,7 +35,7 @@ class Order < ApplicationRecord
       total += order_item.product.price
     end
     return total
-    # format method for order_item and order?
+    # format "$d.dd" method for order_item and order?
   end
 
   def find_order_item(product)
@@ -55,5 +46,25 @@ class Order < ApplicationRecord
     end
     return nil
   end
+
+  def submit_order
+    change_status("paid")
+  end
+
+  private
+
+  def change_status(new_status)
+    if !VALID_STATUSES.include? new_status
+      raise ArgumentError.new("status invalid")
+    end
+    self.status = new_status
+    self.save
+    self.order_items.each do |order_item|
+      order_item.status = new_status
+      order_item.save
+    end
+    return self.status
+  end
+
   
 end

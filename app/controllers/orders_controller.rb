@@ -25,19 +25,19 @@ class OrdersController < ApplicationController
 
   def checkout; end
 
-  # def submit_order
-  #   @order.submit_order
-  #   if @order.update(order_params)
-  #     session[:cart_id] = nil
-  #     flash[:success] = "Your order has been submitted!"
-  #     redirect_to complete_order_path(@order)
-  #     return
-  #   else
-  #     flash.now[:error] = "Woops, #{@order.errors.messages}"
-  #     render :checkout
-  #     return
-  #   end
-  # end
+  def submit_order
+    @order.submit_order
+    if @order.update(order_params)
+      session[:cart_id] = nil
+      flash[:success] = "Your order has been submitted!"
+      redirect_to complete_order_path(@order)
+      return
+    else
+      flash.now[:error] = "Woops, #{@order.errors.messages}"
+      render :checkout
+      return
+    end
+  end
 
   def show_complete; end
 
