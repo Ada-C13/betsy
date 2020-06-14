@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post "/orders/:id/cancel", to: "orders#cancel", as: "order_cancel"
   resources :orders, only: [:index, :show, :update]
   # Cancel – Cancels the order, changes status to “cancelled” (Merchant only)
+  get "/confirmation", to: "orders#confirmation", as: "confirmation"
 
   resources :order_items, only: [:edit, :update, :destroy]
   post "/order_items/:id/create", to: "order_items#create", as: "create_order_items"
