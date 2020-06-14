@@ -15,3 +15,9 @@ merchant_two:
     uid: 33333
     email: hermiona@gmail.com 
     provider: github
+merchant_three:
+    id: 3
+    username: ron
+    uid: 454545
+    email: ron@gmail.com 
+    provider: github

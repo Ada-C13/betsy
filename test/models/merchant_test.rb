@@ -2,40 +2,58 @@ require "test_helper"
 
 describe Merchant do
   describe "custom methods" do 
+    before do 
+      @merchant = merchants(:merchant_two)
+      @product_one = products(:crystal)
+      @product_two = products(:wand)
+    end
+
     describe "total revenue" do 
       it "correctly calculates total revenue for one specific merchant" do 
-        merchant = merchants(:merchant_two)
-        product_one = products(:crystal)
-        product_two = products(:wand)
+        order = orders(:complete_order)
+        order2 = orders(:paid_order)
 
-        order = Order.new
-        order.save 
-
-        order_item_one = OrderItem.create(product_id: product_one.id, order_id: order.id, quantity: 2)
-        expect(order_item_one.valid?).must_equal true
-        order_item_two = OrderItem.create(product_id: product_two.id, order_id: order.id, quantity: 2)
-        expect(order_item_two.valid?).must_equal true 
-
-        expect(merchant.total_revenue).must_equal 72
+        expect(@merchant.total_revenue).must_equal 82
       end
 
       it "correctly calculates revenue if order has order_items from different merchants" do 
-        merchant = merchants(:merchant_two)
-        product_one = products(:crystal)
-        product_two = products(:wand)
-        product_two.merchant_id = merchants(:merchant_one).id
-        product_two.save 
-        expect(product_two.merchant_id).must_equal merchants(:merchant_one).id 
+        @product_two.merchant_id = merchants(:merchant_one).id
+        @product_two.save 
+        expect(@product_two.merchant_id).must_equal merchants(:merchant_one).id 
 
-        order = Order.new
-        order.save 
+        order = orders(:complete_order)
+        order2 = orders(:paid_order)
 
-        order_item_one = OrderItem.create(product_id: product_one.id, order_id: order.id, quantity: 2)
-        expect(order_item_one.valid?).must_equal true
-        order_item_two = OrderItem.create(product_id: product_two.id, order_id: order.id, quantity: 2)
-        expect(order_item_two.valid?).must_equal true 
+        expect(@merchant.total_revenue).must_equal 41
+      end
+    end
 
-        expect(merchant.total_revenue).must_equal 31
+    describe "revenue_for" do 
+      it "calculates revenue separately for paid orders" do 
+        order = orders(:complete_order)
+        order2 = orders(:paid_order)
+
+        expect(@merchant.revenue_for(order2.status)).must_equal 10
+      end
+
+      it "calculates revenue separately for complete orders" do 
+        order = orders(:complete_order)
+        order2 = orders(:paid_order)
+
+        expect(@merchant.revenue_for(order.status)).must_equal 72
+      end
+
+      it "calculates revenue separately for pending orders" do 
+        @merchant = merchants(:merchant_three)
+        order = orders(:order_pending)
+
+        expect(@merchant.revenue_for(order.status)).must_equal 7
+      end
+
+      it "calculates revenue separately for cancelled orders" do 
+        order = orders(:cancelled_order)
+
+        expect(@merchant.revenue_for(order.status)).must_equal 16
       end
     end
   end
