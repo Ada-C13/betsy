@@ -25,7 +25,7 @@ mango:
 crystal:
   title: crystal
   price: 15.50
-  photo_url: photo of crystal
+  photo_url: https://i.imgur.com/CwJFjPu.png
   description: magic crystal
   stock: 5
   merchant_id: 2
