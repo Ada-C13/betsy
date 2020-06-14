@@ -5,6 +5,7 @@ class OrderItem < ApplicationRecord
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
   def subtotal
+    return 0 if !self.product
     return self.quantity * self.product.price
   end
 

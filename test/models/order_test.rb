@@ -13,7 +13,6 @@ describe Order do
 
       # Assert
       expect(pending_order).must_respond_to :order_items
-
       pending_order.order_items.each do |orderitem|
         expect(orderitem).must_be_kind_of OrderItem
       end
