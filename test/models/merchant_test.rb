@@ -19,7 +19,7 @@ describe Merchant do
       it "correctly calculates revenue if order has order_items from different merchants" do 
         @product_two.merchant_id = merchants(:merchant_one).id
         @product_two.save 
-        expect(@product_two.merchant_id).must_equal merchants(:merchant_one).id 
+        expect(@product_two.merchant_id).must_equal merchants(:merchant_one).id
 
         order = orders(:complete_order)
         order2 = orders(:paid_order)
@@ -72,6 +72,72 @@ describe Merchant do
         expect(cancelled_orders_count).must_equal 1
 
       end
+    end
+  end
+  describe "relations" do
+    it "has a list of products" do
+      merchant = merchants(:merchant1)
+      expect(merchant).must_respond_to :products
+      merchant.products.each do |product|
+        expect(product).must_be_kind_of Product
+      end
+    end
+  end
+  
+  describe "validations" do
+    it "requires a uid" do
+      merchant = Merchant.new
+      expect(merchant.valid?).must_equal false
+      expect(merchant.errors.messages).must_include :uid
+    end
+    
+    it "requires a unique uid" do
+      uid = "test uid"
+      merchant = Merchant.new(username: "username", uid: uid, email: "email" )
+      
+      merchant.save!
+      
+      merchant2 = Merchant.new(username: "otherusername", uid: uid, email: "otheremail")
+      result = merchant2.save
+      expect(result).must_equal false
+      expect(merchant2.errors.messages).must_include :uid
+    end
+    
+    it "requires a username" do
+      merchant = Merchant.new
+      expect(merchant.valid?).must_equal false
+      expect(merchant.errors.messages).must_include :username
+    end
+    
+    it "requires a unique username" do
+      username = "test username"
+      merchant = Merchant.new(username: username, uid: "87654", email: "email")
+      
+      # This must go through, so we use create!
+      merchant.save!
+      
+      merchant2 = Merchant.new(username: username, uid: "67890", email: "otheremail")
+      result = merchant2.save
+      expect(result).must_equal false
+      expect(merchant2.errors.messages).must_include :username
+    end
+    it "requires an email" do
+      merchant = Merchant.new
+      expect(merchant.valid?).must_equal false
+      expect(merchant.errors.messages).must_include :email
+    end
+    
+    it "requires a unique email" do
+      email = "testemail@email.com"
+      merchant = Merchant.new(username: "username", uid: "76543", email: email)
+      
+      # This must go through, so we use create!
+      merchant.save!
+      
+      merchant2 = Merchant.new(username: "otherusername", uid: "98754", email: email)
+      result = merchant2.save
+      expect(result).must_equal false
+      expect(merchant2.errors.messages).must_include :email
     end
   end
 end
