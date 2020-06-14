@@ -56,5 +56,22 @@ describe Merchant do
         expect(@merchant.revenue_for(order.status)).must_equal 16
       end
     end
+
+    describe "number_of_orders_for" do
+      it "will display number of orders by status" do 
+        pending_orders_count = @merchant.number_of_orders_for("pending")
+        expect(pending_orders_count).must_equal 0
+
+        complete_orders_count = @merchant.number_of_orders_for("complete")
+        expect(complete_orders_count).must_equal 1
+
+        paid_orders_count = @merchant.number_of_orders_for("paid")
+        expect(paid_orders_count).must_equal 1
+
+        cancelled_orders_count = @merchant.number_of_orders_for("cancelled")
+        expect(cancelled_orders_count).must_equal 1
+
+      end
+    end
   end
 end

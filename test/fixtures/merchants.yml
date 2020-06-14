@@ -10,14 +10,14 @@ merchant1:
   email: test@test.com
   provider: github
 merchant_two:
-    id: 2
-    username: hermiona
-    uid: 33333
-    email: hermiona@gmail.com 
-    provider: github
+  id: 2
+  username: hermiona
+  uid: 33333
+  email: hermiona@gmail.com 
+  provider: github
 merchant_three:
-    id: 3
-    username: ron
-    uid: 454545
-    email: ron@gmail.com 
-    provider: github
+  id: 3
+  username: ron
+  uid: 454545
+  email: ron@gmail.com 
+  provider: github
