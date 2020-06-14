@@ -182,3 +182,20 @@ p {
       font-size: 12px
   }
 }
+
+
+.images {
+  max-width: 30%;
+  // border: red 2px solid;
+  border-top-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  image-rendering: center;
+}
+
+.show_images {
+  max-width: 50%;
+  // border: red 2px solid;
+  border-top-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  image-rendering: center;
+}
