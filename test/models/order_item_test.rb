@@ -26,7 +26,6 @@ describe OrderItem do
     it 'must belong to a Product' do
       # Arrange & Act
       # in the before block
-
       # Assert
       expect(@item).must_respond_to :product
       expect(@item.product).must_be_kind_of Product
@@ -35,7 +34,6 @@ describe OrderItem do
     it 'must belong to an Order' do
       # Arrange & Act
       # in the before block
-      
       # Assert
       expect(@item).must_respond_to :order
       expect(@item.order).must_be_kind_of Order
@@ -46,10 +44,8 @@ describe OrderItem do
     it 'is valid if quantity is greater than 0' do
       # Arrange
       # in the before block
-
       # Act
       result = @item.valid?
-
       # Assert
       expect(result).must_equal true
     end
@@ -57,10 +53,8 @@ describe OrderItem do
     it 'is not valid if quantity is less than or equal to 0' do
       # Arrange
       @item.quantity = 0
-      
       # Act
       result = @item.valid?
-
       # Assert
       expect(result).must_equal false
       expect(@item.errors.messages).must_include :quantity
@@ -70,10 +64,8 @@ describe OrderItem do
     it 'is not valid if quantity is not present' do
       # Arrange
       @item.quantity = nil
-
       # Act
       result = @item.valid?
-
       # Assert
       expect(result).must_equal false
       expect(@item.errors.messages).must_include :quantity
@@ -83,10 +75,8 @@ describe OrderItem do
     it 'is not valid if quantity is not a number' do
       # Arrange
       @item.quantity = "not a number"
-
       # Act
       result = @item.valid?
-
       # Asssert
       expect(result).must_equal false
       expect(@item.errors.messages).must_include :quantity
@@ -98,10 +88,8 @@ describe OrderItem do
     it "calculates the subtotal" do
       # Arrange
       # in the before block
-
       # Act
       result = @item.subtotal
-
       # Assert
       expect(result).must_be_kind_of Numeric
       expect(result).must_equal 200
@@ -110,10 +98,8 @@ describe OrderItem do
     it "returns zero if quantity is zero" do
       # Arrange
       @item.quantity = 0
-
       # Act
       result = @item.subtotal
-
       # Assert
       expect(result).must_be_kind_of Numeric
       expect(result).must_equal 0
@@ -122,10 +108,8 @@ describe OrderItem do
     it "returns zero if the product is invalid" do
       # Arrange
       @item.product_id = nil
-
       # Act
       result = @item.subtotal
-
       # Assert
       expect(result).must_be_kind_of Numeric
       expect(result).must_equal 0
