@@ -9,8 +9,19 @@
   <p>Description: <%= @product.description %></p>
   <p>
     <%= link_to "Edit", edit_product_path(@product)%> |
-    <%= link_to "Delete", product_path(@product), method: "delete", data: { confirm: "Are you sure?" } %>
+    <%= link_to "Delete", product_path(@product), method: "delete", data: { confirm: "Are you sure?" } %> |
+    <%= link_to "Add to cart", root_path %>  <%# TODO: need to update route path for Add to cart %>
   </p>
+
+  <%# Display all reviews %>
+  <%# <% @reviews.each do |review| %>
+    <%# <%= review.feedback %>
+  <%# <% end %>
+
+  <%# TODO: Ask Chris! %>
+  <%= link_to "Review Now!",new_product_review_path(@product), :class => "button"%>
+
 </section>
+
 
 
