@@ -220,7 +220,7 @@ describe ProductsController do
 
   describe "add to cart" do
     before do 
-      @product_2 = products(:apple)
+      @product_2 = products(:mango)
     end
 
     let (:order_item_params) {
@@ -230,10 +230,11 @@ describe ProductsController do
     }
 
     it "can create a new order item with valid information accurately, and redirect" do
+
       expect {
         post add_to_cart_path(@product_2.id), params: order_item_params
       }.must_differ "OrderItem.count", 1
-      
+  
       new_order_item = OrderItem.find_by(product_id: @product_2.id)
       expect(new_order_item.order_id).must_equal session[:order_id]
       expect(new_order_item.quantity).must_equal order_item_params[:quantity]

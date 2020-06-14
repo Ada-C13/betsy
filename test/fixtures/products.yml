@@ -14,3 +14,11 @@ banana:
   stock: 5
   merchant_id: 1
   active: false
+mango:
+  title: mango
+  price: 6.90
+  photo_url: https://i.imgur.com/uKCyFe5.jpg
+  description: yellow mango
+  stock: 5
+  merchant_id: 1
+  active: true
