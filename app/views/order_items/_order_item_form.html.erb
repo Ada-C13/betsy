@@ -1,0 +1,9 @@
+<section>
+<p>Select Quantity</p>
+<%= form_with model: @order_item do |f| %>
+  <%= f.label :quantity %>
+  <%= f.select :quantity, [1,2,3] %>
+  <br>
+  <%= f.submit "#{action_name}" %>
+<% end %>
+</section>
