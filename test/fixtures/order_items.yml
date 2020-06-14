@@ -28,3 +28,9 @@ order_item_five:
   order: order_pending
   quantity: 2
   shipped: false
+
+order_item_too:
+  product: broom
+  order: complete_order
+  quantity: 1
+  shipped: true
