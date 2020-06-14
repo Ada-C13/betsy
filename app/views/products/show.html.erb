@@ -45,6 +45,8 @@
   <% else %>
     <h3>This product has no reviews yet</h3>
   <% end %>
-  <%= link_to "Add a review", new_review_path, class: "btn btn-primary"%>
+  <% if @product.merchant_id != session[:merchant_id]%>
+    <%= link_to "Add a review", new_review_path, class: "btn btn-primary"%>
+  <% end %>
 </section>
 </main>
