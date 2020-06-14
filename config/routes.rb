@@ -25,8 +25,10 @@ Rails.application.routes.draw do
   post "/logout", to: "merchants#logout", as: "logout"
 
   # orders
-  resources :orders, only: [:index, :show, :update, :destroy]
-  get "orders/checkout", to: "orders#checkout" # we can leverage session[:order_id] here instead of passing in params through the route
+  resources :orders, only: [:show, :destroy]
+  get "/cart", to: "orders#index", as: "cart"
+  get "/order/checkout", to: "orders#checkout", as: "order_checkout"
+  patch "/order/checkout", to: "orders#complete"
 
   # order_items
   resources :order_items, only: [:update, :destroy]

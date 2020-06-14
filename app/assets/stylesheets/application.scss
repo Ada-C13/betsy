@@ -30,3 +30,11 @@ h2, h3{
 .merchant-products__container {
   margin-top: 2rem;
 }
+
+.app-header__nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
