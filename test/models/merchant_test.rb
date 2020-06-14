@@ -19,7 +19,7 @@ describe Merchant do
       it "correctly calculates revenue if order has order_items from different merchants" do 
         @product_two.merchant_id = merchants(:merchant_one).id
         @product_two.save 
-        expect(@product_two.merchant_id).must_equal merchants(:merchant_one).id 
+        expect(@product_two.merchant_id).must_equal merchants(:merchant_one).id
 
         order = orders(:complete_order)
         order2 = orders(:paid_order)
