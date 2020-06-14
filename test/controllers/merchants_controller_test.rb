@@ -49,11 +49,11 @@ describe MerchantsController do
       must_respond_with :success
     end
 
-    it "redirects to products path when an invalid merchant id is provided" do 
-      get merchant_path(-1)
+    it "redirects to products path when an invalid merchant id is provided" do
+      merchant = perform_login(merchants(:merchant1))
+      get merchant_path(:merchant2)
 
-      must_respond_with :redirect 
-      must_redirect_to root_path 
+      must_respond_with :not_found
     end
   end
 end
