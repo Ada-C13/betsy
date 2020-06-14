@@ -1,51 +1,53 @@
-<h4>Order #<%= @order.id %></h4>
-<p><%= @order.purchase_date.strftime("Purchased on %m/%d/%Y at %I:%M%p")  %></p>
+<% unless !@order.status || @order.status == "pending" %>
+  <h4>Order #<%= @order.id %></h4>
+  <p><%= @order.purchase_date.strftime("Purchased on %m/%d/%Y at %I:%M%p")  %></p>
 
-<div class="card-group">
-  <div class="card">
-    <div class="card-body">
-      <ul class="list-unstyled">
-        <li>Status: <%= @order.status.capitalize %></li>
-        <li>Credit Card: XXXX-XXXX-XXXX-<%= @order.cc_number %></li>
-        <li>Exp. Date: <%= @order.cc_exp %></li>
-      </ul>
+  <div class="card-group">
+    <div class="card">
+      <div class="card-body">
+        <ul class="list-unstyled">
+          <li>Status: <%= @order.status.capitalize %></li>
+          <li>Credit Card: XXXX-XXXX-XXXX-<%= @order.cc_number %></li>
+          <li>Exp. Date: <%= @order.cc_exp %></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <ul class="list-unstyled">
+          <li>Name: <%= @order.name %></li>
+          <li>Email: <%= mail_to @order.email %></li>
+          <li>Mailing Address: <%= @order.mailing_address %></li>
+        </ul>
+      </div>
     </div>
   </div>
-  <div class="card">
-    <div class="card-body">
-      <ul class="list-unstyled">
-        <li>Name: <%= @order.name %></li>
-        <li>Email: <%= mail_to @order.email %></li>
-        <li>Mailing Address: <%= @order.mailing_address %></li>
-      </ul>
-    </div>
-  </div>
-</div>
 
-<h4>Products</h4>
+  <h4>Products</h4>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>Title</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Subtotal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @order.order_items.each do |item| %>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= link_to image_tag(item.product.photo_url, height: "150", :alt => "product photo"), product_path(item.product) %></td>
-        <td><%= link_to item.product.title, product_path(item.product) %></td>
-        <td><%= number_to_currency(item.product.price) %></td>
-        <td><%= item.quantity %></td>
-        <td><%= number_to_currency(item.subtotal) %></td>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
       </tr>
-    <% end %>
-    <tr>
-      <td colspan="5"><h5 class="text-right">Total: <%= number_to_currency(@order.total) %></h5></td>
-    <tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @order.order_items.each do |item| %>
+        <tr>
+          <td><%= link_to image_tag(item.product.photo_url, height: "150", :alt => "product photo"), product_path(item.product) %></td>
+          <td><%= link_to item.product.title, product_path(item.product) %></td>
+          <td><%= number_to_currency(item.product.price) %></td>
+          <td><%= item.quantity %></td>
+          <td><%= number_to_currency(item.subtotal) %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td colspan="5"><h5 class="text-right">Total: <%= number_to_currency(@order.total) %></h5></td>
+      <tr>
+    </tbody>
+  </table>
+<% end %>

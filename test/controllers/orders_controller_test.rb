@@ -34,11 +34,23 @@ describe OrdersController do
 
     it "sets the session[:order_id] to nil if the order status is paid" do
       order = build_order
-      order.update(status: "paid")
-      order.reload 
+      
+      order_hash = {
+        order: {
+          name: "Wizard", 
+          email: "hello@wizard.com", 
+          mailing_address: "12345 Wizard Way", 
+          cc_number: 1234123412341234, 
+          cc_exp: Date.today + 365        
+        },
+      }
+
+      patch order_checkout_path, params: order_hash
 
       get order_path(order.id)
 
+      order.reload
+      expect(order.status).must_equal "paid"
       expect(session[:order_id]).must_be_nil
     end
   end
