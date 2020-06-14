@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   
   before_action :require_login, only: [:index, :show]
-  before_action :find_order, only: [:show, :complete, :cancel]
+  before_action :find_order, only: [:show, :cancel]
 
   def index
     # List orders for a Merchant (Merchant only)
@@ -47,10 +47,11 @@ class OrdersController < ApplicationController
 
   def complete
     # Ships the order, changes status to “complete” (Merchant only)
+    @order = Order.find_by(id: params[:order_id])
     if @order.ship_order!
       flash[:success] = "Successfully completed order #{@order.id}"
     else
-      flash[:warning] = "Failed to complete the order."
+      flash[:warning] = "Failed to complete order #{@order.id}."
       flash[:details] = @order.errors.full_messages
     end
     redirect_back fallback_location: order_path(@order)      

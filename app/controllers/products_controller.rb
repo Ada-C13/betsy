@@ -22,13 +22,10 @@ class ProductsController < ApplicationController
   end
 
   def create
-    # TODO: Set session ID to authenticated merchant
-    session[:user_id] = 1
-
     # checking if a merchant is signed in
-    if session[:user_id]
+    if session[:merchant_id]
       @product = Product.new(product_params)
-      @product.merchant_id = session[:user_id]
+      @product.merchant_id = session[:merchant_id]
       @product.photo = 'https://i.imgur.com/OR9WgUb.png' if @product.photo = ''
       if @product.save
         flash[:success] = "Successfully created #{@product.name}"

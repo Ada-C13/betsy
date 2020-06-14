@@ -33,11 +33,12 @@ class MerchantsController < ApplicationController
   end
 
   def manage_orders
-
+    @merchant = Merchant.find(session[:merchant_id]) 
+    @orders = @merchant.find_orders
   end
 
   def manage_products
-
+    @merchant_id = session[:merchant_id]
   end
 
   def logout
