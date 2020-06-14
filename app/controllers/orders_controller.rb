@@ -1,47 +1,43 @@
 class OrdersController < ApplicationController
   
+  before_action :require_login, only: [:index, :show]
+  before_action :find_order, only: [:show, :complete, :cancel]
+
   def index
-    merchant_id = session[:merchant_id]
-    if !merchant_id
-      flash[:status] = :failure
-      flash[:result_text] = "Please log in to see orders."
-      redirect_to root_path
-      return
-    end
-    # get all orders for merchant
-    @orders = Order.by_merchant(merchant_id)
+    # List orders for a Merchant (Merchant only)
+    @orders = Order.by_merchant(current_merchant)
   end
   
   def show
-    @order = Order.find_by(id: params[:id])
-    if !@order
-      flash[:status] = :failure
-      flash[:result_text] = "Could not find order."
-      render_404
-    end
+    # Shows any orders from the Merchant (Merchant only)
   end
 
   def edit
-  end
-
-  def cart
-    # shows shopping cart
+    # Shows cart, updates credit card/address/email and confirms checkout (User)
   end
 
   def update
+    # Process checkout, changes status to “paid” (User)
     if @shopping_cart.update(order_params)
-      flash[:status] = :success
-      flash[:result_text] = "Successfully updated shopping cart."
-      redirect_to cart_path      
+      if @shopping_cart.checkout_order!
+        session[:order_id] = nil
+        flash[:success] = "Successfully checked out order #{@shopping_cart.id}"
+        redirect_to root_path
+      else
+        flash[:warning] = "Checkout has failed!"
+        flash[:details] = @shopping_cart.errors.full_messages
+        render :edit, status: :bad_request
+      end
     else
       flash.now[:status] = :failure
-      flash.now[:result_text] = "Could not update shopping cart."
-      flash.now[:messages] = @shopping_cart.errors.messages
-      render :edit
+      flash.now[:result_text] = "Please enter required info before checkout."
+      flash.now[:messages] = @shopping_cart.errors.full_messages
+      render :edit, status: :bad_request
     end
   end
 
   def destroy
+    # Destroy – Empties cart (User)
     @shopping_cart.destroy
     session[:order_id] = nil
     flash[:status] = :success
@@ -49,41 +45,27 @@ class OrdersController < ApplicationController
     redirect_to root_path
   end
 
-  def checkout
-    @shopping_cart.update(order_params)
-    if @shopping_cart.checkout_order!
-      session[:order_id] = nil
-      flash[:success] = "Successfully paid order #{@shopping_cart.id}"
-      redirect_to order_path(@shopping_cart)
-    else
-      flash[:warning] = "Payment processing failed!"
-      flash[:details] = @shopping_cart.errors.full_messages
-      render :cart
-
-    end
-  end
-
   def complete
-    order = Order.find_by(id: params[:id])
-    if order.ship_order!
-      flash[:success] = "Successfully completed order #{order.id}"
+    # Ships the order, changes status to “complete” (Merchant only)
+    if @order.ship_order!
+      flash[:success] = "Successfully completed order #{@order.id}"
     else
       flash[:warning] = "Failed to complete the order."
-      flash[:details] = order.errors.full_messages
+      flash[:details] = @order.errors.full_messages
     end
-    redirect_back fallback_location: order_path(order)      
+    redirect_back fallback_location: order_path(@order)      
   end
 
   def cancel
-    order = Order.find_by(id: params[:id])
-    if order.cancel_order!
+    # Cancels the order, changes status to “cancelled” (Merchant only)
+    if @order.cancel_order!
       flash[:status] = :success
-      flash[:result_text] = "Successfully cancelled order #{order.id}"
+      flash[:result_text] = "Successfully cancelled order #{@order.id}"
     else
       flash[:status] = :failure
       flash[:result_text] = "Failed to cancel order."
     end
-    redirect_back fallback_location: order_path(order)      
+    redirect_back fallback_location: order_path(@order)      
   end
 
   private
@@ -94,6 +76,15 @@ class OrdersController < ApplicationController
       :address, :city, :state, :zip,
       :time_submitted, :customer_email
     )
+  end
+
+  def find_order
+    @order = Order.find_by(id: params[:id])
+    if !@order
+      flash[:status] = :failure
+      flash[:result_text] = "Could not find order." 
+      redirect_to orders_path      
+    end
   end
 
 end

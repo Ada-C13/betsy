@@ -42,7 +42,8 @@ describe OrdersController do
 
   describe "index" do
     it "succeeds when there are orders" do
-      merchant = perform_login(merchants(:angela))
+      # Arrange
+      merchant = perform_login(merchants(:suely))
       # Act
       get orders_path
       # Assert
@@ -50,8 +51,8 @@ describe OrdersController do
     end
 
     it "succeeds when there are no orders" do
-      merchant = perform_login(merchants(:angela))
       # Arrange
+      merchant = perform_login(merchants(:suely))
       Order.all do |order|
         order.destroy
       end
@@ -65,34 +66,43 @@ describe OrdersController do
       # Act
       get orders_path
       # Assert
-      must_respond_with :failure
-      must_redirect_to cart_path
+      must_redirect_to root_path
     end    
   end # describe "index"
 
   describe "show" do
     it "succeeds for an existing order ID" do
+      # Arrange
+      merchant = perform_login(merchants(:suely))
       # Act
       get order_path(pending_order.id)
       # Assert
       must_respond_with :success
     end
 
-    it "renders 404 not_found for a bogus order ID" do
+    it "redirects to order list if order not found" do
       # Arrange
+      merchant = perform_login(merchants(:suely))
       destroyed_id = pending_order.id
       pending_order.destroy
       # Act
-      expect {
-        get order_path(destroyed_id)
-      }.must_raise ActionController::RoutingError
+      get order_path(destroyed_id)
       # Assert
-      # must_respond_with :not_found
+      must_redirect_to orders_path
     end
+
+    it "redirects to root if merchant not logged in" do
+      # Act
+      get order_path(pending_order.id)
+      # Assert
+      must_redirect_to root_path
+    end    
   end # describe "show"
 
   describe "edit" do
     it "edits the shopping cart" do
+      # Arrange
+      # @shopping_cart created automatically
       # Act
       get cart_path
       # Assert
@@ -101,25 +111,74 @@ describe OrdersController do
   end # describe "edit"
 
   describe "update" do
-    it "updates the shopping cart" do
+    it "successfully checks out an order" do
       # Arrange
-      updates = { order: {customer_email: "ada@gmail.com" } }
-      # Act 
-      post cart_path, params: updates
-      cart = Order.last
+      get cart_path
+      updates = { 
+        order: {
+          credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
+          address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001",
+          customer_email: "julia@gmail.com"
+        }
+      }
+      # Act
+      patch cart_path, params: updates
+      order = Order.last
       # Assert
-      expect(cart.customer_email).must_equal "ada@gmail.com"
-      must_respond_with :redirect
-      must_redirect_to cart_path
+      expect(order.status).must_equal "paid"
+      must_respond_with :redirect 
+      must_redirect_to root_path
     end
 
-    it "renders bad_request for bogus data" do
+    it "checkout fails if payment data is missing" do
       # Arrange
-      updates = { order: { status: nil } }
-      # Act & Assert
-      post cart_path, params: updates
-      cart = Order.last
-      expect(cart.status).must_equal "pending"
+      get cart_path
+      updates = { 
+        order: {
+          address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001",
+          customer_email: "julia@gmail.com"
+        }
+      }
+      # Act
+      patch cart_path, params: updates
+      order = Order.last
+      # Assert
+      expect(order.status).must_equal "pending"
+      must_respond_with :bad_request
+    end
+
+    it "checkout fails if address data is missing" do
+      # Arrange
+      get cart_path
+      updates = { 
+        order: {
+          credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
+          customer_email: "julia@gmail.com"
+        }
+      }
+      # Act
+      patch cart_path, params: updates
+      order = Order.last
+      # Assert
+      expect(order.status).must_equal "pending"
+      must_respond_with :bad_request
+    end
+
+    it "checkout fails if email data is missing" do
+      # Arrange
+      get cart_path
+      updates = { 
+        order: {
+          credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
+          address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001"
+        }
+      }
+      # Act
+      patch cart_path, params: updates
+      order = Order.last
+      # Assert
+      expect(order.status).must_equal "pending"
+      must_respond_with :bad_request
     end
   end # describe "update"
 
@@ -137,89 +196,6 @@ describe OrdersController do
       must_redirect_to root_path
     end
   end # describe "destroy"
-
-  describe "checkout" do
-    it "successfully checks out an order" do
-      # Arrange
-      get cart_path
-      updates = { 
-        order: {
-          credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
-          address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001",
-          customer_email: "julia@gmail.com"
-        }
-      }
-      post cart_path, params: updates
-      order = Order.last
-      # Act
-      post cart_checkout_path
-      order.reload
-      # Assert
-      expect(order.status).must_equal "paid"
-      must_respond_with :redirect 
-      must_redirect_to cart_path
-    end
-
-    it "checkout fails if payment data is missing" do
-      # Arrange
-      get cart_path
-      updates = { 
-        order: {
-          address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001",
-          customer_email: "julia@gmail.com"
-        }
-      }
-      post cart_path, params: updates
-      order = Order.last
-      # Act
-      post cart_checkout_path
-      order.reload
-      # Assert
-      expect(order.status).must_equal "pending"
-      must_respond_with :redirect 
-      must_redirect_to cart_path
-    end
-
-    it "checkout fails if address data is missing" do
-      # Arrange
-      get cart_path
-      updates = { 
-        order: {
-          credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
-          customer_email: "julia@gmail.com"
-        }
-      }
-      post cart_path, params: updates
-      order = Order.last
-      # Act
-      post cart_checkout_path
-      order.reload
-      # Assert
-      expect(order.status).must_equal "pending"
-      must_respond_with :redirect 
-      must_redirect_to cart_path
-    end
-
-    it "checkout fails if email data is missing" do
-      # Arrange
-      get cart_path
-      updates = { 
-        order: {
-          credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
-          address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001"
-        }
-      }
-      post cart_path, params: updates
-      order = Order.last
-      # Act
-      post cart_checkout_path
-      order.reload
-      # Assert
-      expect(order.status).must_equal "pending"
-      must_respond_with :redirect 
-      must_redirect_to cart_path
-    end
-  end # describe "checkout"
 
   describe "complete" do
     it "successfully ships a paid order" do

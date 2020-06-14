@@ -1,15 +1,13 @@
 Rails.application.routes.draw do
   root 'pages#landing'
 
-  # post "/cart/checkout", to: "orders#checkout", as: "cart_checkout"
-  patch "/orders/:id/checkout", to: "orders#checkout", as: "order_checkout"
+  resources :orders, only: [:index, :show]
+  get "/cart", to: "orders#edit", as: "cart" 
+  patch "/cart", to: "orders#update"
+  delete "/cart", to: "orders#destroy"
   post "/orders/:id/complete", to: "orders#complete", as: "order_complete"
   post "/orders/:id/cancel", to: "orders#cancel", as: "order_cancel"
   resources :orders, only: [:index, :show, :update]
-  # Edit only the shopping cart
-  get "/cart", to: "orders#cart", as: "cart" 
-  post "/cart", to: "orders#update"
-  delete "/cart", to: "orders#destroy" 
 
   resources :products
   post "/products/:id/deactivate", to: "products#deactivate", as: "product_deactivate"
