@@ -1,9 +1,31 @@
 <h2>manage orders</h2>
 
-<%= @orders.each do |order| %>
-
-  <% if order.status == 'paid' %>
-    <%= button_to "Complete Order", { controller: 'orders', action: 'complete', order_id: order.id } %>
-    <%= order.id %>
-  <% end %>
-<% end %>
+<section >
+  <h3>Manage Orders</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Order Number</th>
+        <th>Order Time</th>
+        <th>Items Count</th>
+        <th>Total $</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @merchant.orders.uniq.each do |order| %>
+        <tr>
+          <td><%= link_to order.id, orders_path(order) %></td>
+          <td><%= order.time_submitted %></td>
+          <td><%= OrderItem.where(order_id: order.id).count%></td>
+          <td><%= order.total_cost %></td>
+          <td><%= order.status %></td>
+          <% if order.status == 'paid' %>
+            <td><%= button_to "Complete Order", order_complete_path(order) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

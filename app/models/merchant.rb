@@ -19,19 +19,6 @@ class Merchant < ApplicationRecord
 
     return merchant
   end
-
-  def find_orders
-    product_list = Product.where(merchant_id: self.id)
-
-    order_items_list = product_list.map do |product|
-      product.order_items
-    end
   
-    orders = order_items_list.flatten.map do |item|
-      Order.find(item.order_id)
-    end
-
-    return orders
-  end
 end
 
