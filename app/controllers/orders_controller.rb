@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
       if @shopping_cart.checkout_order!
         session[:order_id] = nil
         flash[:success] = "Successfully checked out order #{@shopping_cart.id}"
-        redirect_to root_path
+        redirect_to confirmation_path
       else
         flash[:warning] = "Checkout has failed!"
         flash[:details] = @shopping_cart.errors.full_messages
@@ -67,6 +67,10 @@ class OrdersController < ApplicationController
       flash[:result_text] = "Failed to cancel order."
     end
     redirect_back fallback_location: order_path(@order)      
+  end
+
+  def confirmation
+
   end
 
   private
