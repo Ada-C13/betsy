@@ -36,6 +36,7 @@ class OrdersController < ApplicationController
     if @order.update(order_params)
 
       # stores the last 4 digits of cc_number
+      # TODO: Move this into an order model method, instead of storing, we want to display the last 4
       @order.update(cc_number: @order.cc_number.to_s[-4..-1].to_i) 
 
       # change status to paid and sets purchase_date
@@ -45,7 +46,7 @@ class OrdersController < ApplicationController
       )
 
       # reduces the stock of each product 
-      # QUESTION: Should this be moved into a product model method?
+      # TODO: Move this into a product model method
       @order.order_items.each do |item|
         item.product.update(stock: item.product.stock - item.quantity)
       end
@@ -71,7 +72,7 @@ class OrdersController < ApplicationController
       head :not_found 
       return
     else
-      # QUESTION: Should this be moved into a product model method?
+      # TODO: Move this into a product model method
       @order.order_items.each do |item|
         item.product.update(stock: item.product.stock + item.quantity)
       end
