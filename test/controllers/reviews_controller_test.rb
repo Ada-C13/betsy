@@ -2,6 +2,7 @@ require "test_helper"
 
 describe ReviewsController do
   before do
+    # We need to have a product in session in order to create a review
     @product = products(:apple)
     get product_path(@product.id)
   end
