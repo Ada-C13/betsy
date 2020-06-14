@@ -1,6 +1,8 @@
 class OrdersController < ApplicationController
+  skip_before_action :require_login
   before_action :find_cart, only: [ :submit_order, :checkout ]
   before_action :find_order, only: [ :show_complete, :cancel]
+
 
   def cart
     if session[:cart_id]
@@ -51,7 +53,8 @@ class OrdersController < ApplicationController
   end
 
   def find_order
-    @order = Order.find_by(id: params[:id])    if @order.nil?
+    @order = Order.find_by(id: params[:id])    
+    if @order.nil?
       head :not_found
       return
     end
