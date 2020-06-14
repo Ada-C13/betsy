@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   
-  before_action :find_product, only: [:show, :edit, :update, :destroy] # making my codes DRY
+  before_action :find_product, only: [:show, :edit, :update, :create, :destroy] # making my codes DRY
   
   def index
     @products = Product.all
@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
       @product.merchant_id = session[:merchant_id]
 
       if @product.save
-        flash[:success] = " Successfully created #{@product.name}"
+        flash[:success] = "Successfully created #{@product.name}"
         redirect_to products_path
         return
       else
@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product)
       return
     else 
-      flash.now[:error] = "A problem occurred: Could not update #{@product.name} "
+      flash.now[:error] = @edited_product_hash
       render :edit, status: :bad_request
       return
     end
