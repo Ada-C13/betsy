@@ -3,4 +3,28 @@ order_item1:
   order: pending_order
   quantity: 1
   shipped: false
-  
+order_item_one:
+  product: crystal
+  order: complete_order
+  quantity: 2
+  shipped: true
+order_item_two:
+  product: wand
+  order: complete_order
+  quantity: 2
+  shipped: true
+order_item_three:
+  product: book
+  order: paid_order
+  quantity: 1
+  shipped: false
+order_item_four:
+  product: plant
+  order: cancelled_order
+  quantity: 2
+  shipped: false
+order_item_five:
+  product: ball
+  order: order_pending
+  quantity: 2
+  shipped: false

@@ -4,6 +4,35 @@
   <% if !@merchant.products.empty? %>
   <section class="merchant-products__container">
 
+
+    <p><strong>Total Revenue: <%= number_to_currency(@merchant.total_revenue) %></strong></p>
+
+    <h3>Total Revenue Breakdown</h3>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Order Status</th>
+          <th>Number of Orders</th>
+          <th>Total Revenue</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+      <% order_statuses = ["paid", "complete", "pending", "cancelled"] %>
+      <% order_statuses.each do |status| %>
+        <tr>
+          <td><%= status %></td>
+          <td> <%= @merchant.number_of_orders_for(status) %> </td>
+          <td><%= number_to_currency(@merchant.revenue_for(status)) %></td>
+        </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+
+
     <h3>Products</h3>
 
     <table class="table">
