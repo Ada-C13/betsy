@@ -1,5 +1,7 @@
 class MerchantsController < ApplicationController
   
+  before_action :require_login, except: [:index, :create, :logout]
+
   def index
     @merchants = Merchant.all
   end
@@ -34,9 +36,11 @@ class MerchantsController < ApplicationController
     end
   
   def show 
-    @merchant = Merchant.find_by(id: params[:id])
-    if @merchant.nil?
-      redirect_to products_path
+    # Does not allow showing other merchant's dashboard
+    if session[:merchant_id].to_s != params[:id]
+      head :not_found
+      return
     end
+    @merchant = Merchant.find_by(id: params[:id])
   end
 end

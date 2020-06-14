@@ -22,3 +22,43 @@ mango:
   stock: 5
   merchant_id: 1
   active: true
+crystal:
+  title: crystal
+  price: 15.50
+  photo_url: photo of crystal
+  description: magic crystal
+  stock: 5
+  merchant_id: 2
+  active: true
+wand:
+  title: wand
+  price: 20.50
+  photo_url: photo of wand
+  description: magic wand
+  stock: 5
+  merchant_id: 2
+  active: true
+book:
+  title: book
+  price: 10
+  photo_url: photo of book
+  description: magic book
+  stock: 5
+  merchant_id: 2
+  active: true
+plant:
+  title: plant
+  price: 8
+  photo_url: photo of plant
+  description: magic plant
+  stock: 5
+  merchant_id: 2
+  active: true
+ball:
+  title: ball
+  price: 3.50
+  photo_url: photo of plant
+  description: magic ball
+  stock: 5
+  merchant_id: 3
+  active: true

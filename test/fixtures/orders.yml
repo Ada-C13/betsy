@@ -1,2 +1,10 @@
 pending_order:
   status: pending
+complete_order:
+  status: complete
+paid_order:
+  status: paid
+cancelled_order:
+  status: cancelled
+order_pending: 
+  status: pending
