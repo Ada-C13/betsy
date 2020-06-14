@@ -1,7 +1,7 @@
 
 <h1>User Summary: <%=@merchant.name%></h1>
 
-<%= image_tag @merchant.avatar, alt: @merchant.name %>
+<%= image_tag @merchant.avatar, alt: @merchant.name, class: "profile-img" %>
 
 <p>Joined site: <%= @merchant.created_at.strftime("%B %e, %Y") %><p>
 
