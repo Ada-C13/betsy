@@ -2,13 +2,23 @@ Rails.application.routes.draw do
   root 'pages#landing'
 
   resources :orders, only: [:index, :show]
+  # Index – List orders for a Merchant (Merchant only)
+  # Show  – Shows any orders from the Merchant (Merchant only)
   get "/cart", to: "orders#edit", as: "cart" 
+  # Edit – Shows cart, updates credit card/address/email and confirms checkout (User)
   patch "/cart", to: "orders#update"
+  # Update – Process checkout, change status to “paid” (User)
   delete "/cart", to: "orders#destroy"
+  # Destroy – Empties cart (User)
   post "/orders/:id/complete", to: "orders#complete", as: "order_complete"
+  # Complete – Ships the order, changes status to “complete” (Merchant only)
   post "/orders/:id/cancel", to: "orders#cancel", as: "order_cancel"
-  # post "/cart/checkout", to: "orders#checkout", as: "cart_checkout"
-  # patch "/orders/:id/checkout", to: "orders#checkout", as: "order_checkout"
+  # Cancel – Cancels the order, changes status to “cancelled” (Merchant only)
+
+  resources :order_items, only: [:edit, :update, :destroy]
+  post "/order_items/:id/create", to: "order_items#create", as: "create_order_items"
+
+  
 
   resources :products
   post "/products/:id/deactivate", to: "products#deactivate", as: "product_deactivate"
@@ -16,9 +26,6 @@ Rails.application.routes.draw do
   resources :categories, except: [:edit, :update, :destroy]
 
   resources :reviews, only: [:new, :create]
-
-  post "/order_items/:id/create", to: "order_items#create", as: "create_order_items"
-  resources :order_items, only: [:destroy]
 
   resources :merchants, only: [:index, :show] do
     member do
@@ -35,7 +42,4 @@ Rails.application.routes.draw do
 
   # Omniauth Github callback route
   get "/auth/:provider/callback", to: "merchants#login", as: "omniauth_callback"
-  
-
-
 end
