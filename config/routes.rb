@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
 #custom route for the review creation
- post "products/:id/reviews/new", to: "reviews#create", as: "create_review"
+#  post "products/:id/reviews/new", to: "reviews#create", as: "create_review"
   # resources :reviews , only: [:index]
 
   # Merchant
