@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_06_14_212237) do
+=======
+ActiveRecord::Schema.define(version: 2020_06_15_001432) do
+>>>>>>> orders_views
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,11 +58,12 @@ ActiveRecord::Schema.define(version: 2020_06_14_212237) do
     t.string "email"
     t.string "address"
     t.string "cc_last_four"
-    t.date "cc_exp"
     t.integer "cc_cvv"
     t.string "status", default: "pending"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "cc_exp_month"
+    t.string "cc_exp_year"
   end
 
   create_table "products", force: :cascade do |t|

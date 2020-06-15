@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  skip_before_action :require_login, only: [:index, :show]
   before_action :find_product, only: [:show, :edit, :update, :destroy] # making my codes DRY
   
   def index
