@@ -43,6 +43,6 @@ Rails.application.routes.draw do
   get '/cart/checkout', to: "orders#checkout", as: "checkout"
   patch '/cart/checkout', to: "orders#submit_order"
   get '/orders/:id', to: "orders#show_complete", as: "complete_order"
-  patch '/orders/:id', to: "orders#cancel"
+  post '/orders/:id', to: "orders#cancel"
 
 end
