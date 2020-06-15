@@ -68,6 +68,8 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
+    order.product.increase_quantity(@order.quantity)
+    @order.destroy
   end
 
   private
