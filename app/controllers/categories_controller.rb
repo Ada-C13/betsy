@@ -1,7 +1,15 @@
 class CategoriesController < ApplicationController
-
+  skip_before_action :require_login, only: [:index, :show]
   def index
     @categories = Category.all
+  end
+
+  def show
+    @category = Category.find_by(id: params[:id])
+    if @category.nil?
+      redirect_to categories_path
+      return
+    end
   end
 
   def new
@@ -12,7 +20,7 @@ class CategoriesController < ApplicationController
     if find_user
       @category = Category.new(category_params)
       if @category.save
-        flash[:status] = :success
+        # flash[:status] = :success
         flash[:result_text] = "Successfully created #{@category.name}"
         redirect_to account_path(find_user.id)
         return

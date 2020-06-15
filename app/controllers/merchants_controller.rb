@@ -14,10 +14,13 @@ class MerchantsController < ApplicationController
       return
     end
   end
+
+  def shop
+    @merchant = Merchant.find_by(id: params[:merchant_id])
+  end
   
   def create
     auth_hash = request.env["omniauth.auth"]
-    # binding.pry
     merchant = Merchant.find_by(uid: auth_hash[:uid],
       provider: params[:provider])
     

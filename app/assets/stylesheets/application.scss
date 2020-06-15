@@ -126,7 +126,7 @@ nav ul {
 }
 .nav > li:hover > a:first-child:nth-last-child(2):before {
   border: 5px solid transparent; 
-  border-bottom-color: purple; 
+  border-bottom-color: gray;
   margin-top:-5px
 }
 .nav li li > a:first-child:nth-last-child(2):before {  
@@ -135,20 +135,17 @@ nav ul {
 }
 .nav li li:hover > a:first-child:nth-last-child(2):before {
   border: 5px solid transparent; 
-  border-right-color:purple;
+  border-right-color:gray;
   right: 10px; 
 }
 
-
 .profile-img {
   border-radius: 50%;
-  max-width: 20%;
+  max-width: 15%;
   border: solid lightcoral 3px;
   margin-bottom: 2em;
   margin-top: 2em;
-
 }
-
 
 section {
   margin: 5em;
@@ -159,8 +156,6 @@ section {
 .dropdown-item{
   color: black;
 }
-
-
 
 footer{
   background-color: lightgray;
@@ -177,24 +172,27 @@ h1, h2{
 table {
   margin: auto;
   margin-top: 1em;
-  border: solid 1px;
+  // border: solid 1px;
+  table-layout: fixed;
+  width: 1000px;
   
 }
 
 table th {
-  border: solid 1px;
+  // border: solid 1px;
   font-family: 'Times New Roman', Times, serif;
   background-color: gray;
   color: white;
+  text-align: center;
 }
 
 table tr {
-  border: solid 1px;
+  // border: solid 1px;
   text-align: center;
 }
 
 table td {
-  border: solid 1px;
+  // border: solid 1px;
   padding: 1px;
   text-align: center;
   font-family: 'Times New Roman', Times, serif;
@@ -212,7 +210,7 @@ h3{
 .button {
   border: solid gray 1px;
   background-color: gainsboro;
-  color: white;
+  color: black;
   border-radius: 5px;
   font-family: 'Times New Roman', Times, serif;
   padding: 5px;
@@ -288,3 +286,87 @@ p {
   image-rendering: center;
   margin: 5px
 }
+
+.merchant_images {
+  max-width: 4%;
+  border:gray 2px solid;
+  image-rendering: center;
+  margin: 5px;
+  border-radius: 50%;
+}
+
+.list {
+  list-style: none;
+}
+
+//pagination
+//Resource:http://mislav.github.io/will_paginate/pagination.css
+.pagination {
+  background: white;
+  cursor: default;
+  /* self-clearing method: */ }
+  .pagination a, .pagination span, .pagination em {
+    padding: 0.2em 0.5em;
+    display: block;
+    float: left;
+    margin-right: 1px; }
+  .pagination .disabled {
+    color: #999999;
+    border: 1px solid #dddddd; }
+  .pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    background:gray;
+    color: white;
+    border: 1px solid gray; }
+  .pagination a {
+    text-decoration: none;
+    color: #105cb6;
+    border: 1px solid #9aafe5; }
+    .pagination a:hover, .pagination a:focus {
+      color: #000033;
+      border-color: #000033; }
+  .pagination .page_info {
+    background: #2e6ab1;
+    color: white;
+    padding: 0.4em 0.6em;
+    width: 22em;
+    margin-bottom: 0.3em;
+    text-align: center; }
+    .pagination .page_info b {
+      color: #000033;
+      background: #6aa6ed;
+      padding: 0.1em 0.25em; }
+  .pagination:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  * html .pagination {
+    height: 1%; }
+  *:first-child + html .pagination {
+    overflow: hidden; }
+    
+    
+    
+    .order-table {
+      border-bottom: solid 1px gray;
+      padding: 1px;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    
+    .item_images {
+      max-width: 10%;
+      border:gray 2px solid;
+      image-rendering: center;
+      margin: 5px
+    }
+
+    th, td {
+      border-bottom: 1px solid #dddddd;
+    }
+
+    tr:hover {background-color: #f5f5f5;}
+
+ 

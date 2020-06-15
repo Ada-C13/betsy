@@ -1,5 +1,6 @@
-<h2> Products/All </h2>
+<h2> All Products </h2>
 
+<div>
 <% @products.each do |product| %>
   <%if product.active%>
     <div>
@@ -9,5 +10,13 @@
     </div>
   <%end%>
 <% end %>
+<br>
+<div>
+
+<p><%= page_entries_info @product %></p> 
+
+<div class="pagination">
+  <%= will_paginate @products %>
+</div> 
 
 

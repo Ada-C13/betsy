@@ -22,7 +22,7 @@
           <% if Category.all.length >0 %>
             <% Category.all.each do |category| %>
             <li>
-              <%= link_to category.name, root_path %>
+              <%= link_to category.name, category_path(category) %>
             <% end %>
             </li>
           <% end %>
@@ -33,16 +33,19 @@
       <li><%= link_to "", root_path, :class=>"fa fa-envelope" %></li>
       <li><%= link_to "", root_path, :class => "fa fa-search" %></li>
        
-      <li class = "push"><a href="#">My Account</a>
+      
       <% if session[:merchant_id] %>
         <ul>
           <li><%= link_to "Log out", logout_path, method: :put %></li>
           <li><%= link_to "Account Summary", account_path(id: session[:merchant_id]) %></li>
         </ul> 
         <% else %>
-        <%= link_to "Login with Github", github_login_path %>  
+<<<<<<< HEAD
+          <li><%= link_to "Login with Github", github_login_path %></li> 
+=======
+        <li class = "push"><%= link_to "Login with Github", github_login_path %> </li>
+>>>>>>> merchant_rework
       <% end %>
-      </li>
       <li class = "push"><%= link_to "", cart_path, :class => "fa fa-shopping-cart" %></li>
     </ul>
   </nav>
