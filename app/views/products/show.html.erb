@@ -4,15 +4,37 @@
   <p>Price: <%= format_price(@product.price) %></p>
   <p>In Stock: <%= @product.stock %></p>
   <p>Description: <%= @product.description %></p>
+
+  <%# TODO: we have to provide feature for the product owner to edit their product %>
     <%#= link_to "Edit", edit_product_path(@product)%> 
     <%#= link_to "Delete", product_path(@product), method: "delete", data: { confirm: "Are you sure?" } %> 
   <%= render partial: "order_items/order_item_form", locals: {product: @product, action_name: "Add To Cart"} %>
  
-
-  <%# Display all reviews %>
-  <%# <% @reviews.each do |review| %>
-    <%# <%= review.feedback %>
-  <%# <% end %>
+  <br>
+  <%# Display all reviews %> 
+  <% if @product.reviews.length > 0 %>
+  
+    <% @product.reviews.each do |review| %>
+    <li class = "list">
+      <% if review.rating == 1 %>
+          <span> ⭐</span>
+      <% elsif review.rating == 2 %>
+        <span> ⭐⭐</span>
+      <% elsif review.rating == 3 %>
+        <span> ⭐⭐⭐</span>
+      <% elsif review.rating == 4 %>
+        <span> ⭐⭐⭐⭐</span>
+      <% elsif review.rating == 5 %>
+        <span> ⭐⭐⭐⭐⭐</span>
+      <% end %>
+      <%= review.feedback %> 
+    <% end %>
+    </li>
+  <% else %>
+    <p>There is no review for this product. </p>
+  <% end %>
+  
+  <br>
 
   <%# TODO: Ask Chris! %>
   <div>

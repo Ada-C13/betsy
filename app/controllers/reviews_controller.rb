@@ -5,22 +5,17 @@ class ReviewsController < ApplicationController
   def index
     @reviews = Review.all
   end
-
-  # def show
-  #   if @review.nil?
-  #     redirect_to 
-  #     return
-  #   end
-  # end
-
+  
   def new
+    @product = Product.find_by(id: params[:product_id])
     @review = Review.new
+    @review.product = @product
   end
 
   def create
-    @product = Product.find_by(id: params[:id])
+    @product = Product.find_by(id: params[:product_id])
     @review = Review.new(review_params)
-    
+    @review.product = @product
     if @product.nil?
       head :not_found
       return

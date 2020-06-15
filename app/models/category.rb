@@ -3,7 +3,7 @@ class Category < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   def self.product_by_category(category)
-    target_category = Category.find_by(name: category).products
-    retrun target_category.products
+    each_category = Category.find_by(name: category)
+    return each_category.products
   end
 end

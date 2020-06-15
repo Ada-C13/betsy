@@ -40,6 +40,6 @@
     <%= f.label :category %>
     <%= f.select :categories_id, options_for_select(Category.all.map{ |cate| [cate.name, cate.id] }),{} ,class: "form-control" %>
   </div>
-
+  <br>
   <%= f.submit "#{action_name} Product", class: "btn btn-primary" %>
 <% end %>
