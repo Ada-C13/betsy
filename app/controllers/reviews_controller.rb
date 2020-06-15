@@ -1,14 +1,21 @@
 class ReviewsController < ApplicationController
 
   def new
-    @review = Review.new
+    if params[:product_id]
+      # Nested route: /product/:product_id/reviews/new
+      product = Product.find_by(id: params[:product_id])
+      @review = product.reviews.new
+    else
+      # Else, create a new one
+      @review = Review.new
+    end
   end
+
 
   def create
     # if there is a merchant logged in
     # and that merchant ID matchs the product id
     # merchant can't review their own product
-
 
     review = Review.new(review_params)
 
