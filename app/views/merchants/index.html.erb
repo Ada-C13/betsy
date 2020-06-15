@@ -1,6 +1,7 @@
 <h1>Merchants</h1>
 <% @merchants.each do |merchant| %>
   <li>
+    <img class = "merchant_images", src="<%= merchant.avatar %>", alt="user">
     <%= link_to merchant.name, merchant_shop_path(merchant) %>
   </li>
 <% end %>
