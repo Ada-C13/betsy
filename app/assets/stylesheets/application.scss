@@ -279,9 +279,8 @@ p {
 }
 
 .show_images {
-  max-width: 50%;
-  // border: red 2px solid;
-  border-top-left-radius: 2rem;
-  border-bottom-right-radius: 2rem;
+  max-width: 30%;
+  border:gray 2px solid;
   image-rendering: center;
+  
 }
