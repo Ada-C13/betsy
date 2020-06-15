@@ -10,6 +10,7 @@ items - list of items to be rendered as dropdown options
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
   <% items.each do |item| %>
-  <a class="dropdown-item" href="#"><%= item.name %></a>
+
+  <%= link_to item.name, category_path(item), class:'dropdown-item'%>
   <% end %>
 </div>

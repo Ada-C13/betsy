@@ -1,0 +1,4 @@
+<h3>Products under category <%= @category.name.upcase %></h3>
+<% @category.products.each do |product| %>
+  <%= product.name %>
+<% end %>
