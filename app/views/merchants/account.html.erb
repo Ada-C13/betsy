@@ -23,7 +23,7 @@
       <tr>
         <td><%= link_to product.name, product_path(product.id) %></td>
         <td><%= product.stock%></td>
-        <td><%= product.price %></td>
+        <td><%= format_price(product.price) %></td>
         <td>
           <% if product.active %> 
             <%= link_to "Active", product_active_path(product.id), method: :patch %>
