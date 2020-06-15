@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2020_06_14_212237) do
-=======
 ActiveRecord::Schema.define(version: 2020_06_15_001432) do
->>>>>>> orders_views
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
