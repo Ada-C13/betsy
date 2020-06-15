@@ -2,5 +2,6 @@
 <p><%=@order.name%></p>
 <p><%=@order.email%></p>
 <p><%=@order.address%></p>
-<p><%=@order.cc_last_four%></p>
+<p>Credit card ending in <%=@order.cc_last_four%> was billed for <%=format_price(@order.total_price)%></p>
+
 <%= link_to "Cancel Order", complete_order_path(@order), method: :post, data: {confirm: "Are you sure?"}%>
