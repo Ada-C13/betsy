@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   
   before_action :require_login, only: [:index, :show]
-  before_action :find_order, only: [:show, :complete, :cancel]
+  before_action :find_order, only: [:show, :complete, :cancel, :confirmation]
 
   def index
     # List orders for a Merchant (Merchant only)
