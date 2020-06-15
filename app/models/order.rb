@@ -14,8 +14,12 @@ class Order < ApplicationRecord
     submitted.validates :address, presence: true
     submitted.validates :cc_last_four, presence: true, 
       format: { with: /\d{4}/, message: "cc_last_four is not valid" }
-    submitted.validates :cc_exp, presence: true
-    submitted.validates :cc_cvv, presence: true, numericality: { only_integer: true }
+    submitted.validates :cc_exp_month, presence: true, 
+      format: { with: /\d{2}/, message: "month exp must be in MM format" }
+    submitted.validates :cc_exp_year, presence: true, 
+      format: { with: /\d{4}/, message: "year exp must be in YYYY format" }
+    submitted.validates :cc_cvv, presence: true, 
+      format: { with: /\d{3,4}/, message: "invalid cvv" }
   end
 
 
