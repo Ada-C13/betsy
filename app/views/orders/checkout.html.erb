@@ -9,8 +9,17 @@
   <%= f.label "Credit Card #" %>
   <%= f.text_field :cc_last_four %>
   <br>
+  <p>Credit Card Exp</p>
+  <%= f.label "Month (MM)" %>
+  <%= f.text_field :cc_exp_month %>
+  <%= f.label "Year (YYYY)" %>
+  <%= f.text_field :cc_exp_year %>
+  <br>
   <%= f.label :email %>
   <%= f.text_field :email %>
+  <br>
+  <%= f.label "Card CVV"%>
+  <%= f.text_field :cc_cvv %>
   <br>
   <%= f.submit "Purchase Items" %>
 <% end %>
