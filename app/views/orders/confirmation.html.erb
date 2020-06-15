@@ -2,10 +2,8 @@
 
 <h4>Receipt for Order #</h4>
 <ul>
-  <li>Submitted on: </li>
-  <li>Status: </li>
-  <li></li>
-  <li></li>
+  <li>Submitted on: <%= @order.time_submitted %></li>
+  <li>Status: <%= @order.status %></li>
   <li>
     Item(s) bought: 
     <table class='table'>
@@ -17,14 +15,15 @@
         </tr>
       </thead>
       <tbody>
-      <%#= @order.order_items %>
+      <% @order.order_items.each do |item| %>
         <tr>
-          <td><%= link_to "Name" %></td>
-          <td>Quantity</td>
-          <td>$</td>
+          <td><%= link_to item.product.name, product_path(item.product) %></td>
+          <td><%= item.quantity %></td>
+          <td><%= number_to_currency(item.subtotal) %></td>
         </tr>
+      <% end %>
       </tbody>
     </table>
   </li>
-  <li>Total: $ <%= @order.total_cost %></li>
+  <li>Total: <%= number_to_currency(@order.total_cost) %></li>
 </ul>
