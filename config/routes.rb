@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   resources :products
   post "/products/:id/deactivate", to: "products#deactivate", as: "product_deactivate"
+  post "/products/:product_id/reviews/new", to: "reviews#new", as: "new_review"
   
   resources :categories, except: [:edit, :update, :destroy]
 
