@@ -1,0 +1,16 @@
+<ul>
+  <%@order.order_items.each do |item|%>
+    <li>
+      <%= link_to item.product.name, product_path(item.product) %>
+      <%= item.quantity%>
+      <%= link_to "Edit Quantity", order_item_path(item) %>
+      <%= link_to "Delete", order_item_path(item), method: :delete%>
+    </li>
+  <% end %>
+</ul>
+<% if !@order.order_items.empty? %>
+  <%= link_to "Clear Cart", cart_path, method: :patch%>
+  <%= link_to "Checkout", checkout_path%>
+<% else %>
+  <p>There are no items in your cart yet!</p>
+<% end %>

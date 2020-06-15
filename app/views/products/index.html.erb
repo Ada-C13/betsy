@@ -8,10 +8,9 @@
 
   <%# TODO: make sure to view only product that is active %>
   <div>
-  <img class = "images", src="<%=product.photo %>", alt="<%=product.name %>">
+  
   <%= link_to product.name, product_path(product) %>
-  $<%= product.price %> |
-  <%= link_to "Add to cart", root_path %>  <%# need to update route path for Add to cart %>
+  $<%= product.price %>
   </div>
 <% end %>
 

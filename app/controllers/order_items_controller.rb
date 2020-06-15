@@ -1,18 +1,32 @@
 class OrderItemsController < ApplicationController
+  skip_before_action :require_login
   before_action :find_order_item, only: [ :edit, :update, :destroy]
 
   def create
-    qty = params[:order_item][:quantity]
+    qty = params[:quantity].to_i
+
     product = Product.find_by(id: params[:id])
+
+    if product.stock == 0
+      flash[:error] = "#{product.zero_inventory}"
+      redirect_to product_path(product)
+      return
+    elsif product.stock < qty
+      flash[:error] = "There are only #{product.stock} #{product.name} in stock, please select another quanity."
+      redirect_to product_path(product)
+      return 
+    else
+      product.decrease_quantity(qty)
+    end
+    
     order = nil
-    order_item = OrderItem.new(order_item_params)
+    order_item = OrderItem.new(quantity: qty)
     if session[:cart_id]
       order = Order.find_by(id: session[:cart_id])
       existing_order_item = order.find_order_item(product)
       if existing_order_item
-        existing_order_item.quantity += qty
-        flash[:success] = "Added additional #{qty} to cart."
-        redirect_to product_path(product)
+        flash[:redirect] = "#{product.name} already in cart. Edit quantity here:"
+        redirect_to order_item_path(existing_order_item)
         return
       end
       order_item.order = order
@@ -20,8 +34,11 @@ class OrderItemsController < ApplicationController
       order = Order.create
       session[:cart_id] = order.id
     end
+
     order_item.product = product
     order_item.order = order
+
+
     if order_item.save
       flash[:success] = "Added #{qty} of #{product.name} to cart."
     else
@@ -34,9 +51,25 @@ class OrderItemsController < ApplicationController
   def edit; end
 
   def update
+    qty = order_item_params[:quantity].to_i
+    if @order_item.product.stock == 0
+      flash[:error] = "#{@order_item.product.zero_inventory}"
+    elsif  @order_item.product.stock < qty
+      flash[:error] = "There are only #{@order_item.product.stock} #{@order_item.product.name} in stock, please select another quanity."
+    elsif @order_item.update(order_item_params)  
+      flash[:success] = "Changed quantity to #{@order_item.product.stock}."
+    else
+      flash.now[:error] = "Couldn't change quantity."
+      render :edit
+      return
+    end
+    redirect_to product_path(@order_item.product)
+    return
   end
 
   def destroy
+    order.product.increase_quantity(@order.quantity)
+    @order.destroy
   end
 
   private

@@ -1,9 +1,7 @@
 
 <h1>User Summary: <%=@merchant.name%></h1>
-<%= image_tag 'https://source.unsplash.com/collection/4683414/200x200', 
-      alt: "Profile pic for #{@merchant.name}", 
-      class: "profile-img" 
-%>
+
+<%= image_tag @merchant.avatar, alt: @merchant.name, class: "profile-img" %>
 
 <p>Joined site: <%= @merchant.created_at.strftime("%B %e, %Y") %><p>
 
