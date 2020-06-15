@@ -1,0 +1,29 @@
+<h3>Thank you for your order!</h3>
+
+<h4>Receipt for Order #</h4>
+<ul>
+  <li>Submitted on: <%= @order.time_submitted.to_s(:long) %></li>
+  <li>Status: <%= @order.status %></li>
+  <li>
+    Item(s) bought: 
+    <table class='table'>
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @order.order_items.each do |item| %>
+        <tr>
+          <td><%= link_to item.product.name, product_path(item.product) %></td>
+          <td><%= item.quantity %></td>
+          <td><%= number_to_currency(item.subtotal) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </li>
+  <li>Total: <%= number_to_currency(@order.total_cost) %></li>
+</ul>
