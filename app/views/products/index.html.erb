@@ -1,17 +1,13 @@
 <h2> Products/All </h2>
 
 <% @products.each do |product| %>
-  <%# <%= image_tag 'https://source.unsplash.com/collection/4683414/300x300', 
-      alt: "Profile pic for #{product.name}", 
-      class: "profile" 
-  %>
-
-  <%# TODO: make sure to view only product that is active %>
-  <div>
-  
-  <%= link_to product.name, product_path(product) %>
-  $<%= product.price %>
-  </div>
+  <%if product.active%>
+    <div>
+    <img class = "show_images", src="<%= product.photo %>", alt="<%=product.name %>">
+    <%= link_to product.name, product_path(product) %>
+    <%= format_price(product.price) %>
+    </div>
+  <%end%>
 <% end %>
 
 

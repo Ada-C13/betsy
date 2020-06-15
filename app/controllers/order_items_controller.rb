@@ -57,13 +57,13 @@ class OrderItemsController < ApplicationController
     elsif  @order_item.product.stock < qty
       flash[:error] = "There are only #{@order_item.product.stock} #{@order_item.product.name} in stock, please select another quanity."
     elsif @order_item.update(order_item_params)  
-      flash[:success] = "Changed quantity to #{@order_item.product.stock}."
+      flash[:success] = "Changed quantity to #{@order_item.quantity}."
     else
       flash.now[:error] = "Couldn't change quantity."
       render :edit
       return
     end
-    redirect_to product_path(@order_item.product)
+    redirect_to cart_path
     return
   end
 
