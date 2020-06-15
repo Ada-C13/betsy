@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2020_06_15_001432) do
     t.string "email"
     t.string "address"
     t.string "cc_last_four"
-    t.integer "cc_cvv"
+    t.string "cc_cvv"
     t.string "status", default: "pending"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
