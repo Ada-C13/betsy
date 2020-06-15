@@ -116,7 +116,8 @@ describe OrdersController do
       get cart_path
       updates = { 
         order: {
-          credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
+          name: "Julia Lovelace", credit_card_num: 378282246310005,
+          credit_card_exp: "12/20", credit_card_cvv: 432,
           address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001",
           customer_email: "julia@gmail.com"
         }
@@ -127,7 +128,7 @@ describe OrdersController do
       # Assert
       expect(order.status).must_equal "paid"
       must_respond_with :redirect 
-      must_redirect_to root_path
+      must_redirect_to order_confirmation_path(order)
     end
 
     it "checkout fails if payment data is missing" do
@@ -152,7 +153,8 @@ describe OrdersController do
       get cart_path
       updates = { 
         order: {
-          credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
+          name: "Julia Lovelace", credit_card_num: 378282246310005,
+          credit_card_exp: "12/20", credit_card_cvv: 432,
           customer_email: "julia@gmail.com"
         }
       }
@@ -169,7 +171,8 @@ describe OrdersController do
       get cart_path
       updates = { 
         order: {
-          credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
+          name: "Julia Lovelace", credit_card_num: 378282246310005,
+          credit_card_exp: "12/20", credit_card_cvv: 432,
           address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001"
         }
       }
@@ -240,5 +243,26 @@ describe OrdersController do
       must_redirect_to order_path(complete_order)
     end
   end # describe "cancel"
+
+  describe "confirmation" do
+    it "succeeds for a valid order ID" do
+      # Arrange
+      # in the before block
+      # Act
+      get order_confirmation_path(paid_order.id)
+      # Assert
+      must_respond_with :success
+    end
+
+    it "redirects to order list if order not found" do
+      # Arrange
+      destroyed_id = paid_order.id
+      paid_order.destroy
+      # Act
+      get order_confirmation_path(destroyed_id)
+      # Assert
+      must_redirect_to orders_path
+    end
+  end # describe "confirmation"
 
 end # describe OrdersController

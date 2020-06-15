@@ -17,13 +17,13 @@ class OrdersController < ApplicationController
   end
 
   def update
-    # Process checkout, changes status to “paid” (User)
+    # Process checkout, changes status to “paid”, show confirmation (User)
     @shopping_cart.time_submitted = DateTime.now
     if @shopping_cart.update(order_params)
       if @shopping_cart.checkout_order!
         session[:order_id] = nil
         flash[:success] = "Successfully checked out order #{@shopping_cart.id}"
-        redirect_to confirmation_path(@shopping_cart)
+        redirect_to order_confirmation_path(@shopping_cart)
       else
         flash[:warning] = "Checkout has failed!"
         flash[:details] = @shopping_cart.errors.full_messages
@@ -70,14 +70,15 @@ class OrdersController < ApplicationController
   end
 
   def confirmation
-
+    # Shows order confirmation after checkout (User)
   end
 
   private
 
   def order_params
-    params.require(:order).permit(:status,
-      :credit_card_num, :credit_card_exp, :credit_card_cvv,
+    params.require(:order).permit(
+      :status, :name, :credit_card_num,
+      :credit_card_exp, :credit_card_cvv,
       :address, :city, :state, :zip,
       :time_submitted, :customer_email
     )

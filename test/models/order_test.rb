@@ -10,7 +10,6 @@ describe Order do
     it "has a list of order_items" do
       # Arrange & Act
       pending_order.save!
-
       # Assert
       expect(pending_order).must_respond_to :order_items
       pending_order.order_items.each do |orderitem|
@@ -48,11 +47,9 @@ describe Order do
     it "processes a valid order" do
       # Arrange
       pending_order.save!
-
       # Act
       result = pending_order.checkout_order!
       pending_order.reload
-
       # Assert
       expect(result).must_equal true
       expect(pending_order.status).must_equal "paid"
@@ -61,11 +58,9 @@ describe Order do
     it "rejects status not pending" do
       # Arrange
       complete_order.save!
-
       # Act
       result = complete_order.checkout_order!
       complete_order.reload
-
       # Assert
       expect(result).must_equal false
       expect(complete_order.status).must_equal "complete"
@@ -74,16 +69,14 @@ describe Order do
     it "requires a credit card" do
       # Arrange
       incomplete_order = Order.new(
-        credit_card_num: nil, credit_card_exp: "12/20", credit_card_cvv: 432,
+        name: "Maria Lovelace", credit_card_num: nil, credit_card_exp: "12/20", credit_card_cvv: 432,
         address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001",
         customer_email: "maria@gmail.com", status: "pending"
       )
       incomplete_order.save!
-
       # Act
       result = incomplete_order.checkout_order!
       incomplete_order.reload
-
       # Assert
       expect(result).must_equal false
       expect(incomplete_order.status).must_equal "pending"
@@ -92,16 +85,14 @@ describe Order do
     it "requires a customer email" do
       # Arrange
       incomplete_order = Order.new(
-        credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
+        name: "Maria Lovelace", credit_card_num: 378282246310005, credit_card_exp: "12/20", credit_card_cvv: 432,
         address: "1215 4th Ave - 1050", city: "Seattle", state: "WA", zip: "98161-0001",
         customer_email: nil, status: "pending"
       )
       incomplete_order.save!
-
       # Act
       result = incomplete_order.checkout_order!
       incomplete_order.reload
-
       # Assert
       expect(result).must_equal false
       expect(incomplete_order.status).must_equal "pending"
@@ -112,11 +103,9 @@ describe Order do
     it "ships a valid order" do
       # Arrange
       paid_order.save!
-
       # Act
       result = paid_order.ship_order!
       paid_order.reload
-
       # Assert
       expect(result).must_equal true
       expect(paid_order.status).must_equal "complete"
@@ -125,11 +114,9 @@ describe Order do
     it "rejects status not paid" do
       # Arrange
       pending_order.save!
-
       # Act
       result = pending_order.ship_order!
       pending_order.reload
-
       # Assert
       expect(result).must_equal false
       expect(pending_order.status).must_equal "pending"
@@ -140,11 +127,9 @@ describe Order do
     it "cancels an order" do
       # Arrange
       paid_order.save!
-
       # Act
       result = paid_order.cancel_order!
       paid_order.reload
-
       # Assert
       expect(result).must_equal true
       expect(paid_order.status).must_equal "cancelled"
@@ -152,7 +137,6 @@ describe Order do
   end # describe "cancel_order!"
 
   describe "total_cost" do
-    # Arrange
     let (:merchant1) { merchants(:suely) }
     let (:product1) { products(:tulip) }
     let (:product2) { products(:daisy) }
@@ -170,10 +154,8 @@ describe Order do
         quantity: 2
       )
       item1.save!
-
       # Act
       total = pending_order.total_cost
-
       # Assert
       expect(total).must_be_kind_of Numeric
       expect(total).must_equal 200
@@ -205,10 +187,8 @@ describe Order do
         quantity: 4
       )
       item2.save!
-
       # Act
       total = pending_order.total_cost
-
       # Assert
       expect(total).must_be_kind_of Numeric
       expect(total).must_equal 240
@@ -217,10 +197,8 @@ describe Order do
     it "calculates the cost for an empty order" do
       # Arrange
       paid_order.save!
-
       # Act
       total = paid_order.total_cost
-
       # Assert
       expect(total).must_be_kind_of Numeric
       expect(total).must_equal 0

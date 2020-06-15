@@ -1,5 +1,6 @@
 order_pending:
   status: pending
+  name: Julia Lovelace
   credit_card_num: 378282246310005
   credit_card_exp: 12/20
   credit_card_cvv: 432
@@ -11,6 +12,7 @@ order_pending:
 
 order_paid:
   status: paid
+  name: Barbara Lovelace
   credit_card_num: 5610591081018250
   credit_card_exp: 12/22
   credit_card_cvv: 429
@@ -22,6 +24,7 @@ order_paid:
   
 order_complete:
   status: complete
+  name: Martha Lovelace
   credit_card_num: 371449635398431
   credit_card_exp: 12/21
   credit_card_cvv: 431
@@ -33,6 +36,7 @@ order_complete:
 
 order_cancelled:
   status: cancelled
+  name: Monica Lovelace
   credit_card_num: 378734493671000
   credit_card_exp: 12/21
   credit_card_cvv: 430
