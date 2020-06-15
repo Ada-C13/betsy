@@ -1,7 +1,14 @@
-<h2>Order submitted at <%=@order.updated_at%></h2>
-<p><%=@order.name%></p>
-<p><%=@order.email%></p>
-<p><%=@order.address%></p>
+
+<h4>Hi <%= @order.name %>, we've recieved <%= @order.id %> and are working on it now.
+We'll email you an update when we've shipped it.</h4>
+<h2>Order Details</h2>
+
+<p>Order#: <%= @order.id%></p>
+<p>Customer name: <%= @order.name %>
+<p>Purchased On: <%=@order.updated_at.strftime("%B %e, %Y") %></p>
+<p>Purchased Status: <%=@order.status %></p>
+<p>Shipping Address: <%=@order.address %></p>
+<p>Email: <%= @order.email %>
 <p>Credit card ending in <%=@order.cc_last_four%> was billed for <%=format_price(@order.total_price)%></p>
 
 <%= link_to "Cancel Order", complete_order_path(@order), method: :post, data: {confirm: "Are you sure?"}%>
