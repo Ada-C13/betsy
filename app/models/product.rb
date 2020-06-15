@@ -11,4 +11,19 @@ class Product < ApplicationRecord
   validates :active, presence: true
   validates :description, presence: true
   validates :photo, presence: true 
+
+  
+  def decrease_quantity(quantity) # use when 
+    if self.stock > quantity 
+      self.stock -= quantity
+    end
+  end
+
+  def increase_quantity(quantity)
+    self.stock += quantity
+  end
+
+  def zero_inventory
+    return "Out of stock" if self.stock == 0
+  end
 end
