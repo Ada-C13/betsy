@@ -8,45 +8,44 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   </head>
 
   <header>
-  
   </header>
-
-  <nav class="navbar">
-   
-      
-    <ul class = "navbar-nav">
-      <li class="nav-item">
-        <%= link_to "Home", root_path, :class => "fa fa-fw fa-home nav-link" %>
+  <nav>
+    <ul class = "nav">
+      <li ><%= link_to "Home", root_path, :class => "glyphicon glyphicon-home" %></li>
+      <li><a href="#">Products</a>
+        <ul>
+          <li><%= link_to "All Product", products_path %></li>
+          <% if Category.all.length >0 %>
+            <% Category.all.each do |category| %>
+            <li>
+              <%= link_to category.name, root_path %>
+            <% end %>
+            </li>
+          <% end %>
+          </li>
+        </ul>
       </li>
-      <li class = "nav-item">
-        <%= link_to "Products", products_path, :class => "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Merchants", merchants_path, :class => "nav-link" %>
-      </li>
-      
-        <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
-      
-        <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-      <li class="nav-item dropdown">
+      <li><%= link_to "Merchants", merchants_path %></li>
+      <li><%= link_to "", root_path, :class=>"fa fa-envelope" %></li>
+      <li><%= link_to "", root_path, :class => "fa fa-search" %></li>
+       
+      <li class = "push"><a href="#">My Account</a>
       <% if session[:merchant_id] %>
-        
-          <%= link_to "My Account", account_path(id: session[:merchant_id]), :class => "fa fa-fw fa-user nav-link dropdown-toggle", :id => "navbardrop",:href=>"#" ,'data-toggle'=>"dropdown"%>
-          <div class="dropdown-menu">
-            <%= link_to "Log out", logout_path, method: :put, :class => "dropdown-item" %>
-            <%= link_to "Account Summary", account_path(id: session[:merchant_id]), :class => "dropdown-item" %>
-          </div>
-      <% else %>
-      <div>
-          <%= link_to "Login with Github", github_login_path, :class => "dropdown-item"  %>
-        </div>
-      </li>
+        <ul>
+          <li><%= link_to "Log out", logout_path, method: :put %></li>
+          <li><%= link_to "Account Summary", account_path(id: session[:merchant_id]) %></li>
+        </ul> 
+        <% else %>
+        <%= link_to "Login with Github", github_login_path %>  
       <% end %>
+      </li>
+      <li class = "push"><%= link_to "", root_path, :class => "fa fa-shopping-cart" %></li>
+
       
-      </div>
     </ul>
   </nav>
 
