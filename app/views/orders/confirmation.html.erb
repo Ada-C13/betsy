@@ -2,7 +2,7 @@
 
 <h4>Receipt for Order #</h4>
 <ul>
-  <li>Submitted on: <%= @order.time_submitted %></li>
+  <li>Submitted on: <%= @order.time_submitted.to_s(:long) %></li>
   <li>Status: <%= @order.status %></li>
   <li>
     Item(s) bought: 
