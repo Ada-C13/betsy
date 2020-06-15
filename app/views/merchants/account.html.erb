@@ -1,16 +1,13 @@
 
 <h1>User Summary: <%=@merchant.name%></h1>
-<%= image_tag 'https://source.unsplash.com/collection/4683414/200x200', 
-      alt: "Profile pic for #{@merchant.name}", 
-      class: "profile-img" 
-%>
+
+<%= image_tag @merchant.avatar, alt: @merchant.name, class: "profile-img" %>
 
 <p>Joined site: <%= @merchant.created_at.strftime("%B %e, %Y") %><p>
 
-<%= link_to "Add Product", new_product_path, :class => "nav-link" %>
-<%= link_to "Add Category", new_category_path, :class => "nav-link" %>
-<%= link_to "Order Summary", root_path%>
-
+  <%= link_to "Add Product", new_product_path, :class => "nav-link" %> 
+  <%= link_to "Add Category", new_category_path, :class => "nav-link" %> 
+  <%= link_to "Order Summary", root_path %>
 <% @products = Product.where(merchant_id: @merchant.id)%>
 <% if @products.length > 0 %> 
   <table style="width:70%">  
@@ -27,7 +24,13 @@
         <td><%= link_to product.name, product_path(product.id) %></td>
         <td><%= product.stock%></td>
         <td><%= product.price %></td>
-        <td><%= product.active ? link_to("Active", product_active_path(product), method: :patch) : link_to("Retired", product_active_path(product), method: :patch)%> 
+        <td>
+          <% if product.active %> 
+            <%= link_to "Active", product_active_path(product.id), method: :patch %>
+          <% else %>
+            <%= link_to "Retired", product_active_path(product.id), method: :patch%> 
+          <% end %>
+        </td>
         <td><%= link_to "Edit", edit_product_path(product)%></td>
       </tr>
     <% end %>

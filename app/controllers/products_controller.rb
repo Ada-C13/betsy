@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
-  
   before_action :find_product, only: [:show, :edit, :update, :create, :destroy] # making my codes DRY
+  skip_before_action :require_login, only: [:index, :show]
+
   
   def index
     @products = Product.all
@@ -81,15 +82,15 @@ class ProductsController < ApplicationController
       return
     end
     
-    if @product.active == false
-      @product.update(active: true)
-      redirect_to merchant_path(session[:merchant_id])
-      return
-    else 
+    if @product[:active]
       @product.update(active: false)
-      redirect_to merchant_path(session[:merchant_id])
-      return
-    end   
+      # redirect_to merchant_path(session[:merchant_id])
+    else 
+      @product.update(active: true)
+      # redirect_to merchant_path(session[:merchant_id])
+    end
+    redirect_to merchant_path(session[:merchant_id])
+    return
   end
   
   private
