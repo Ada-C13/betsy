@@ -9,7 +9,7 @@
 <% end %>
 
 <h2>ADD REVIEW</h2>
-<%= form_with model: @product_review , class: 'review-form' do |f| %>
+<%= form_with model: @review,url: product_reviews_path(@product.id), class: 'review-form' do |f| %>
   
 
 <%# <div class="rating"> 

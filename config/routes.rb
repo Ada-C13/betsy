@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   post "products/:id/reviews/new", to: "reviews#create", as: "create_review"
 
 
+#custom route for the review creation
+#  post "products/:id/reviews/new", to: "reviews#create", as: "create_review"
+  # resources :reviews , only: [:index]
+
+
   # Merchant
   get '/merchants', to:	'merchants#index', as: "merchants"
   get "merchants/:merchant_id", to: "merchants#account", as: "account"
