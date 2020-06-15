@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    # Destroy – Empties cart (User)
+    # Empties cart (User)
     @shopping_cart.destroy
     session[:order_id] = nil
     flash[:status] = :success

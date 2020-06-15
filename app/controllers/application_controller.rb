@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :find_cart
-
   before_action :current_merchant
   #before_action :require_login
 
