@@ -23,6 +23,26 @@ end
 puts "Added #{Merchant.count} merchant records"
 puts "#{merchant_failures.length} merchants failed to save"
 
+# Category seeds
+CATEGORY_FILE = Rails.root.join('db', 'seed_data', 'categories.csv')
+puts "Loading raw category data from #{CATEGORY_FILE}"
+
+category_failures = []
+CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
+  category = Category.new
+  category.id = row['id']
+  category.name = row['name']
+  category.description = row['description']
+
+  successful = category.save
+  if !successful
+    category_failures << category
+  end
+end
+
+puts "Added #{Category.count} category records"
+puts "#{category_failures.length} categories failed to save"
+
 # Product seeds
 PRODUCT_FILE = Rails.root.join('db', 'seed_data', 'products.csv')
 puts "Loading raw product data from #{PRODUCT_FILE}"
@@ -38,6 +58,11 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.active = row['active']
   product.price = row['price']
   product.merchant_id = row['merchant_id']
+  if !row['category_ids'].nil? 
+    row['category_ids'].each_char do |id|
+      product.categories << Category.find(id)
+    end
+  end
 
   successful = product.save
   if !successful
@@ -96,26 +121,6 @@ end
 
 puts "Added #{OrderItem.count} order item records"
 puts "#{order_item_failures.length} order items failed to save"
-
-# Category seeds
-CATEGORY_FILE = Rails.root.join('db', 'seed_data', 'categories.csv')
-puts "Loading raw category data from #{CATEGORY_FILE}"
-
-category_failures = []
-CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
-  category = Category.new
-  category.id = row['id']
-  category.name = row['name']
-  category.description = row['description']
-
-  successful = category.save
-  if !successful
-    category_failures << category
-  end
-end
-
-puts "Added #{Category.count} category records"
-puts "#{category_failures.length} categories failed to save"
 
 # reloading postgres for the latest ID
 puts "Manually resetting PK sequence on each table"
