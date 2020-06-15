@@ -15,29 +15,31 @@ Rails.application.routes.draw do
   # resources :reviews , only: [:index]
 
   # Merchant
-  resources :merchants, only: [:index]
-  get "merchants/:id", to: "merchants#account", as: "account"
-  # TODO: (Ross) In order to make this nested route works, we have to wait for Lak to merge her Product controller with the "index" action 
-  resources :merchants do
-
-    # this nested route will trigger the "index" action in products controller from Lak
-    # this nested route will trigger the "index" action in orders controller from Yaz
-    resources :orders, only: [:index]
-    resources :products, only: [:create,:index]
-    # TODO: add the nested route merchants/:id/orders to show all the orders
-  end
+  get '/merchants', to: 'merchants#index', as: 'merchants'
+  get 'merchants/:id', to: "merchants#account", as: 'account'
+  get '/merchants/:merchant_id/orders', to: 'orders#index', as:'merchant_orders'
+  get '/merchants/:merchant_id/products', to: 'merchants#shop', as: 'merchant_products'
+  # post '/merchants/:merchant_id/products', to: 'products#create'
+  # oauth
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "omniauth_callback"
   put "/logout", to: "merchants#logout", as: "logout"
 
-  # toggle to product's active status
+  # Products
+  resources :product 
+  # get    '/products', to: 'products#index', as:		'products' 
+  # get    '/products/new', to: 'products#new', as:		'new_product' 
+  # get    '/products/:id/edit', to: 'products#edit', as:		'edit_product' 
+  # get    '/products/:id', to: 'products#show', as:		'product' 
+  # patch  '/products/:id', to: 'products#update'
+  # delete '/products/:id', to: 'products#destroy'
   patch '/products/:id/toggle_active', to: 'products#toggle_active', as: 'product_active'
-  
+
+  # Cart/Order
   post 'products/:id', to: 'order_items#create', as: 'add_order_item'
   get '/cart/order_items/:id', to: 'order_items#edit', as: 'order_item'
   patch '/cart/order_items/:id', to: 'order_items#update'
   delete '/cart/order_items/:id', to: 'order_items#destroy'
-
   get '/cart', to: "orders#cart", as: "cart"
   patch '/cart', to: "orders#clear_cart"
   get '/cart/checkout', to: "orders#checkout", as: "checkout"

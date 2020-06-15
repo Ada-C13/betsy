@@ -36,7 +36,7 @@ class Order < ApplicationRecord
   def total_price
     total = 0.0
     self.order_items.each do |order_item|
-      total += order_item.product.price * order_item.quantity
+      total += order_item.product.price
     end
     return total
     # format "$d.dd" method for order_item and order?
