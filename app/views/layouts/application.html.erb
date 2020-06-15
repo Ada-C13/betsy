@@ -22,7 +22,7 @@
           <% if Category.all.length >0 %>
             <% Category.all.each do |category| %>
             <li>
-              <%= link_to category.name, root_path %>
+              <%= link_to category.name, category_path(category) %>
             <% end %>
             </li>
           <% end %>
@@ -40,7 +40,7 @@
           <li><%= link_to "Account Summary", account_path(id: session[:merchant_id]) %></li>
         </ul> 
         <% else %>
-        <%= link_to "Login with Github", github_login_path %>  
+          <li><%= link_to "Login with Github", github_login_path %></li> 
       <% end %>
       </li>
       <li class = "push"><%= link_to "", cart_path, :class => "fa fa-shopping-cart" %></li>
