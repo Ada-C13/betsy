@@ -5,14 +5,7 @@ class ReviewsController < ApplicationController
   def index
     @reviews = Review.all
   end
-
-  # def show
-  #   if @review.nil?
-  #     redirect_to 
-  #     return
-  #   end
-  # end
-
+  
   def new
     @review = Review.new
   end
