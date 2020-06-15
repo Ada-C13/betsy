@@ -1,9 +1,9 @@
 review_one:
   rating: 5
-  description: very beautiful flower
+  comment: very beautiful flower
   product_id: 2
 
 review_two:
   rating: 3
-  description: very smelly onion
+  comment: very smelly onion
   product_id: 3

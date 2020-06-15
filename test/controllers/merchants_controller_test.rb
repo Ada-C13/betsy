@@ -2,40 +2,23 @@ require "test_helper"
 
 describe MerchantsController do
    
-
-  # describe "can't create new merchant" do
-  #   it "could not create new merchant account" do
-  #     merchants = {
-  #       new_merchant: {
-  #         username: "new merchant username",
-  #         uid: 2333,
-  #         provider: "github",
-  #         email: "some emailaddress",
-  #       },
-  #     }
-
-  #     expect {
-  #       post merchants_path, params:  merchants
-  #     }.must_change "Merchant.count", 0
-
-  #      no_username = new_merchant[:new_merchant][:username] = nil
-  #      no_uid = new_merchant[:new_merchant][:uid] = nil
-
-  #      expect { post merchants_path, params: no_username }.must_differ "Merchant.count", 0
-  #      expect { post merchants_path, params: no_uid }.must_differ "Merchant.count", 0
-  #      must_respond_with :redirect
-  #      # must_redirect_to TODO
-
-  #   end
-  # end
-
+#   describe "show" do
+#     it "succeeds for an existing merchant ID" do
+#       get merchants_path(merchants(:angela))
+# ​
+#       must_respond_with :success
+#     end
+# ​
+#     it "renders 404 not_found for merchants with invalid ID" do
+#       invalid_id_merchant = -1
+     
+#       get merchant_path(invalid_id_merchant)
+# ​
+#       must_respond_with :not_found
+#     end
+#   end
 
   describe "login" do
-    it "can log in an existing merchant" do
-      merchant = perform_login(merchants(:angela))
-      must_respond_with :redirect
-    end
-
     it "can login in a new merchant" do
       new_merchant = Merchant.new(uid: "2000", username: "hobo", provider: "github", email: "hobo@adadevelopers.org")
 
@@ -45,8 +28,25 @@ describe MerchantsController do
 
       must_respond_with :redirect
     end
+
+    it "can log in an existing merchant" do
+      merchant = perform_login(merchants(:angela))
+      must_respond_with :redirect
+    end
+    
+    it "could not create new merchant " do
+      invalid_merchant = Merchant.new(uid: nil, username: nil, provider: "github", email: "something.com")
+
+      perform_login(invalid_merchant)
+      invalid_merchant.valid?
+      expect(invalid_merchant.errors.messages[:username]).must_equal ["can't be blank"]
+      expect(flash[:error]).must_equal "Could not create new merchant account: #{invalid_merchant.errors.messages}"
+      must_redirect_to root_path
+    end
   end
 
+
+    
   describe "dashboard actions" do
     describe "with correct merchant logged in" do
       before do
@@ -132,7 +132,7 @@ describe MerchantsController do
 
   describe "logout" do
     it "can logout as existing merchant" do
-      # Arrange
+    
       perform_login
 
       expect(session[:merchant_id]).wont_be_nil
