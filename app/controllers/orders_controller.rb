@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
       if @shopping_cart.checkout_order!
         session[:order_id] = nil
         flash[:success] = "Successfully checked out order #{@shopping_cart.id}"
-        redirect_to confirmation_path
+        redirect_to confirmation_path(@shopping_cart)
       else
         flash[:warning] = "Checkout has failed!"
         flash[:details] = @shopping_cart.errors.full_messages
