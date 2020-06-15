@@ -2,10 +2,14 @@
 
 <h2>Products</h2>
 
-<div class="debug"><h4>debug</h4> 
-  <% session.each do |k, v| %>
-  <p>session[:<%= k %>] = <%= v %></p>
-  <% end %>
+<div class="container">
+  <div class="alert alert-secondary">
+    <h4>Session debug panel</h4>
+    <p>[:session_id] = <%= session[:session_id] %> *****
+    [:order_id] = <%= session[:order_id] %> *****
+    [:merchant_id] = <%= session[:merchant_id] ? session[:merchant_id] : "Not logged in as merchant" %>
+    </p>
+  </div>
 </div>
 
 <div class="product-grid__container container">
