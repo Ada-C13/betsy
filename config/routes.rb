@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: "products#index"
+  resources :categories
 
   # Products + Review
   resources :products do
@@ -9,6 +10,11 @@ Rails.application.routes.draw do
   # toggle to product's active status
   patch '/products/:id/toggle_active', to: 'products#toggle_active', as: 'product_active'
   post "products/:id/reviews/new", to: "reviews#create", as: "create_review"
+
+
+#custom route for the review creation
+#  post "products/:id/reviews/new", to: "reviews#create", as: "create_review"
+  # resources :reviews , only: [:index]
 
 
   # Merchant
