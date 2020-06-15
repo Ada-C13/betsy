@@ -5,9 +5,11 @@
       <%= item.quantity%>
       <%= link_to "Edit Quantity", order_item_path(item) %>
       <%= link_to "Delete", order_item_path(item), method: :delete%>
+      <%= format_price(item.product.price)%>
     </li>
   <% end %>
 </ul>
+<p>Total Price: <%=format_price(@order.total_price)%> </p>
 <% if !@order.order_items.empty? %>
   <%= link_to "Clear Cart", cart_path, method: :patch%>
   <%= link_to "Checkout", checkout_path%>
