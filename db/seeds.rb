@@ -58,10 +58,8 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.active = row['active']
   product.price = row['price']
   product.merchant_id = row['merchant_id']
-  p "***********"
   if !row['category_ids'].nil? 
     row['category_ids'].each_char do |id|
-      p id
       product.categories << Category.find(id)
     end
   end
