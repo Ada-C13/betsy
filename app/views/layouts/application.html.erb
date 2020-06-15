@@ -40,11 +40,7 @@
           <li><%= link_to "Account Summary", account_path(id: session[:merchant_id]) %></li>
         </ul> 
         <% else %>
-<<<<<<< HEAD
-          <li><%= link_to "Login with Github", github_login_path %></li> 
-=======
         <li class = "push"><%= link_to "Login with Github", github_login_path %> </li>
->>>>>>> merchant_rework
       <% end %>
       <li class = "push"><%= link_to "", cart_path, :class => "fa fa-shopping-cart" %></li>
     </ul>
