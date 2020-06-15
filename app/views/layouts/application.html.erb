@@ -33,16 +33,15 @@
       <li><%= link_to "", root_path, :class=>"fa fa-envelope" %></li>
       <li><%= link_to "", root_path, :class => "fa fa-search" %></li>
        
-      <li class = "push"><a href="#">My Account</a>
+      
       <% if session[:merchant_id] %>
         <ul>
           <li><%= link_to "Log out", logout_path, method: :put %></li>
           <li><%= link_to "Account Summary", account_path(id: session[:merchant_id]) %></li>
         </ul> 
         <% else %>
-        <%= link_to "Login with Github", github_login_path %>  
+        <li class = "push"><%= link_to "Login with Github", github_login_path %> </li>
       <% end %>
-      </li>
       <li class = "push"><%= link_to "", cart_path, :class => "fa fa-shopping-cart" %></li>
     </ul>
   </nav>
