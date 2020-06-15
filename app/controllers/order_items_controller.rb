@@ -4,7 +4,21 @@ class OrderItemsController < ApplicationController
 
   def create
     qty = params[:quantity].to_i
+
     product = Product.find_by(id: params[:id])
+
+    if product.stock == 0
+      flash[:error] = "#{product.zero_inventory}"
+      redirect_to product_path(product)
+      return
+    elsif product.stock < qty
+      flash[:error] = "There are only #{product.stock} #{product.name} in stock, please select another quanity."
+      redirect_to product_path(product)
+      return 
+    else
+      product.decrease_quantity(qty)
+    end
+    
     order = nil
     order_item = OrderItem.new(quantity: qty)
     if session[:cart_id]
@@ -20,8 +34,11 @@ class OrderItemsController < ApplicationController
       order = Order.create
       session[:cart_id] = order.id
     end
+
     order_item.product = product
     order_item.order = order
+
+
     if order_item.save
       flash[:success] = "Added #{qty} of #{product.name} to cart."
     else
@@ -34,15 +51,20 @@ class OrderItemsController < ApplicationController
   def edit; end
 
   def update
-    if @order_item.update(order_item_params)
-      flash[:success] = "Changed quantity."
-      redirect_to product_path(@order_item.product)
-      return
+    qty = order_item_params[:quantity].to_i
+    if @order_item.product.stock == 0
+      flash[:error] = "#{@order_item.product.zero_inventory}"
+    elsif  @order_item.product.stock < qty
+      flash[:error] = "There are only #{@order_item.product.stock} #{@order_item.product.name} in stock, please select another quanity."
+    elsif @order_item.update(order_item_params)  
+      flash[:success] = "Changed quantity to #{@order_item.product.stock}."
     else
       flash.now[:error] = "Couldn't change quantity."
       render :edit
       return
     end
+    redirect_to product_path(@order_item.product)
+    return
   end
 
   def destroy
