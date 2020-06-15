@@ -22,6 +22,7 @@ class OrderItemsController < ApplicationController
     order = nil
     order_item = OrderItem.new(quantity: qty)
     if session[:cart_id]
+      raise
       order = Order.find_by(id: session[:cart_id])
       existing_order_item = order.find_order_item(product)
       if existing_order_item
