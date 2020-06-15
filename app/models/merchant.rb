@@ -62,4 +62,15 @@ class Merchant < ApplicationRecord
 
     return orders.uniq.length
   end
+
+  def existing_order_items_by_merchant
+    merchant_products = self.products
+    existing_items = [] 
+    merchant_products.each do |product|
+      product.order_items.each do |item|
+        existing_items << item
+      end
+    end
+    return existing_items
+  end
 end

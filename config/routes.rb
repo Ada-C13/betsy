@@ -32,4 +32,5 @@ Rails.application.routes.draw do
 
   # order_items
   resources :order_items, only: [:update, :destroy]
+  post "/order_items/ship/:id", to: "order_items#ship", as: "ship_item"
 end
