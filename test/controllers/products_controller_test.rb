@@ -1,9 +1,8 @@
 require "test_helper"
 
 describe ProductsController do
-
-  let (:product1) {
-    Product.create!(
+  before do
+    @product = Product.new(
       name: "XXXX", 
       price: 20.00,
       stock: 20,
@@ -12,31 +11,22 @@ describe ProductsController do
       photo: "https://i.imgur.com/WSHmeuf.jpg",
       merchant: merchants(:merchantaaa)
     )
-  }
+    @product_one = products(:product1)
+    @merchant = merchants(:merchantaaa)
+    perform_login(@merchant)
+    @merchant2 = merchants(:merchantbbb)
+  end
 
   describe "index" do
     it "responds with success when there are many products saved" do
+      @product.save
       get products_path
       must_respond_with :success
     end
 
     it "responds with success when there are no product saved" do
-      product1.destroy
-
       get products_path
       must_respond_with :success
-    end
-  end
-
-  describe "show" do
-    it "responds with success when showing an existing valid product" do
-      get product_path(product1.id)
-      must_respond_with :success
-    end
-
-    it "responds with 404 with an invalid product id" do
-      get product_path(-1)
-      must_redirect_to products_path
     end
   end
 
@@ -47,171 +37,171 @@ describe ProductsController do
     end
   end
 
-  # describe "create" do
-  #   it "can create a new work with valid information accurately, and redirect" do
-  #     # Arrange 
-  #     work_hash = {
-  #       work: {
-  #         category: "movie", 
-  #         title: "New Movie",
-  #         creator: "XXXX",
-  #         publication_year: "2016",
-  #         description: "Description for the new movie"
-  #       },
-  #     } 
+  describe "show" do
+    it "responds with success when showing an existing valid product" do
+      @product.save
+      get product_path(@product.id)
+      must_respond_with :success
+    end
 
-  #     # Act-Assert
-  #     expect {
-  #       post works_path, params: work_hash
-  #     }.must_change "Work.count", 1
+    it "responds with 404 with an invalid product id" do
+      get product_path(-1)
+      must_redirect_to products_path
+    end
+  end
+
+  describe "create" do
+    before do
+      @product_hash = {
+        product: {
+          name: "XXXX", 
+          price: 20.00,
+          stock: 20,
+          active: true,
+          description: "Description for the new movie",
+          photo: "https://i.imgur.com/WSHmeuf.jpg",
+          merchant_id: @merchant.id,
+      } 
+    }
+    end
+
+    it "can create a new product with valid information accurately if the user is logged in, and redirect" do
+      # Act-Assert
+      expect {
+        post products_path, params: @product_hash
+      }.must_differ "Product.count", 1
       
-  #     # Assert
-  #     new_work = Work.find_by(title: work_hash[:work][:title])
-  #     expect(new_work.title).must_equal work_hash[:work][:title]
-  #     expect(new_work.category).must_equal work_hash[:work][:category]
-  #     expect(new_work.creator).must_equal work_hash[:work][:creator]
-  #     expect(new_work.publication_year).must_equal work_hash[:work][:publication_year]
-  #     expect(new_work.description).must_equal work_hash[:work][:description]
-      
-  #     expect(flash[:success]).must_equal " Successfully created #{new_work.category} #{new_work.title}"
-  #     must_redirect_to works_path 
+      expect(Product.last.name).must_equal @product_hash[:product][:name]
+      expect(Product.last.price).must_equal @product_hash[:product][:price]
+      expect(Product.last.stock).must_equal @product_hash[:product][:stock]
+      expect(Product.last.active).must_equal @product_hash[:product][:active]
+      expect(Product.last.description).must_equal @product_hash[:product][:description]
+      expect(Product.last.merchant_id).must_equal @product_hash[:product][:merchant_id]
 
-  #   end
+      expect(flash[:success]).must_equal "Successfully created #{@product.name}"
+      must_redirect_to products_path
+    end
 
-  #   it "does not create a work if the form data violates Work validations, and responds with a 400 error" do
-  #     invalid_work_hash = {
-  #       work: {
-  #         category: "album", 
-  #         title: nil,
-  #         creator: "XXXX",
-  #         publication_year: "2016",
-  #         description: "Description for the new movie"
-  #       }
-  #     }
-
-  #     expect{flash.now[:error]}.must_raise "A problem occurred: Could not create #{invalid_work_hash[:work][:category]}"
-  #     # Act-Assert
-  #     expect {
-  #       post works_path, params: invalid_work_hash
-  #     }.wont_differ "Work.count"
-
-  #     # Assert
-  #     must_respond_with :bad_request
-  #   end
-  # end
-  
-  # describe "edit" do
-  #   it "responds with success when getting the edit page for an existing, valid work" do
-  #     get edit_work_path(work1.id)
-  #     must_respond_with :success
-  #   end
-
-  #   it "responds with redirect when getting the edit page for a non-existing work" do
-  #     get edit_work_path(-1)
-  #     must_redirect_to works_path
-  #   end
-  # end
-
-  # describe "update" do
-  #   let (:edited_work_hash) {
-  #     {
-  #       work: {
-  #         category: "book", 
-  #         title: "ABC",
-  #         creator: "Thomas Wison",
-  #         publication_year: "2002",
-  #         description: "Learning alphabets"
-  #       }
-  #     }
-  #   }
+    it "does not create a product if name is not present, and responds with a redirect" do
+      @product_hash[:product][:name] = nil
     
-  #   it "can update an existing work with valid information accurately, and redirect" do
-  #     id = work1.id
-
-  #     expect{
-  #       patch work_path(id), params: edited_work_hash
-  #     }.must_differ "Work.count", 0
-
-  #     work1.reload
-  #     expect(work1.category).must_equal edited_work_hash[:work][:category]
-  #     expect(work1.title).must_equal edited_work_hash[:work][:title]
-  #     expect(work1.creator).must_equal edited_work_hash[:work][:creator]
-  #     expect(work1.publication_year).must_equal edited_work_hash[:work][:publication_year]
-  #     expect(work1.description).must_equal edited_work_hash[:work][:description]
-
-  #     expect(flash[:success]).must_equal " Successfully updated #{work1.category} #{work1.title}"
-  #     must_redirect_to work_path(id)
-  #   end
-
-  #   it "does not update any work if given an invalid id, and responds with a 404" do
-  #     expect{
-  #       patch work_path(-1), params: edited_work_hash
-  #     }.wont_change "Work.count"
+      expect {
+        post products_path, params: @product_hash
+      }.wont_change "Product.count"
       
-  #     must_respond_with :not_found
-  #   end
+      assert_response :bad_request
+    end
 
-  #   it "does not create/update a work if the form data violates Driver validations, and responds with a 400 error" do
-  #     id = work1.id
-
-  #     invalid_work_hash = {
-  #       work: {
-  #         category: "book", 
-  #         title: nil,
-  #         creator: "XXXX",
-  #         publication_year: "2016",
-  #         description: "Description for the new movie"
-  #       },
-  #     }
-
-  #     expect{flash.now[:error]}.must_raise "A problem occurred: Could not update #{invalid_work_hash[:work][:category]}"
-  #     expect {
-  #       patch work_path(id), params: invalid_work_hash
-  #     }.wont_differ "Work.count"
-
-  #     must_respond_with :bad_request
-  #   end
-  # end
-
-  # describe "destroy" do
-  #   it "destroys the work instance in db, then redirects" do
-  #     id = work1.id
-
-  #     expect {
-  #       delete work_path(id)
-  #     }.must_differ "Work.count", -1
-  #     expect(flash[:success]).must_equal "Successfully deleted #{work1.category} #{work1.title}"
-  #     must_redirect_to works_path
-  #   end
-
-  #   it "destroys the work instance in db when work exists and has at least one vote, then redirects" do
-  #     id = work1.id
-
-  #     user1 = User.create!(name: "Lak Mok")
-  #     user2 = User.create!(name: "Jeta Cathy")
-
-  #     vote1 = Vote.create!(user_id: user1.id, work_id: work1.id)
-  #     vote2 = Vote.create!(user_id: user2.id, work_id: work1.id)
+    it "does not create a product if price is not present, and responds with a redirect" do
+      @product_hash[:product][:price] = nil
+    
+      expect {
+        post products_path, params: @product_hash
+      }.wont_change "Product.count"
       
-  #     expect(Vote.where(work_id: work1.id).count).must_equal 2
-  #     expect {
-  #       delete work_path(id)
-  #     }.must_differ "Work.count", -1
+      assert_response :bad_request
+    end
 
-  #     expect(Vote.where(work_id: work1.id).count).must_equal 0
-  #     expect(flash[:success]).must_equal "Successfully deleted #{work1.category} #{work1.title}"
-  #     must_redirect_to works_path
-  #   end
+    it "does not create a product if stock is not present, and responds with a redirect" do
+      @product_hash[:product][:stock] = nil
+    
+      expect {
+        post products_path, params: @product_hash
+      }.wont_change "Product.count"
+      
+      assert_response :bad_request
+    end
 
-  #   it "does not change the db when the work does not exist, then responds with a 400 error" do
-  #     id = -1
+    it "does not create a product if description is not present, and responds with a redirect" do
+      @product_hash[:product][:description] = nil
+    
+      expect {
+        post products_path, params: @product_hash
+      }.wont_change "Product.count"
+      #TODO
+      # expect{flash.now[:warning]}.must_raise "A problem occurred: Could not create product"
+      assert_response :bad_request
+    end
 
-  #     expect{
-  #       delete work_path(id)
-  #     }.wont_differ "Work.count"
-
-  #     must_respond_with :not_found
-  #   end
-  # end
+    it "does not create a product if merchant is not logedin" do
+      put logout_path, params: {}
+    
+      expect {
+        post products_path, params: @product_hash
+      }.wont_change "Product.count"
+      #TODO
+      # must_redirect_to products_path
+    end
+    
+  end
   
+  describe "edit" do
+    it "responds with success when getting the edit page for an existing, valid product" do
+      get edit_product_path(@product_one.id)
+      must_respond_with :success
+    end
+
+    it "responds with redirect when getting the edit page for a non-existing product" do
+      get edit_product_path(-1)
+      must_redirect_to products_path
+    end
+  end
+
+  describe "update" do
+    before do
+      @edited_product_hash = {
+        product: {
+          name: "XXXX", 
+          price: 20.00,
+          stock: 20,
+          active: true,
+          description: "Description for the new movie",
+          photo: "https://i.imgur.com/WSHmeuf.jpg",
+          merchant_id: @merchant.id,
+      } 
+    }
+    end
+    
+    it "can update an existing product with valid information accurately, and redirect" do
+      id = @product_one.id
+
+      expect{
+        patch product_path(id), params: @edited_product_hash
+      }.wont_change "Product.count"
+
+      @product_one.reload
+      expect(@product_one.name).must_equal @edited_product_hash[:product][:name]
+      expect(@product_one.price).must_equal @edited_product_hash[:product][:price]
+      expect(@product_one.stock).must_equal @edited_product_hash[:product][:stock]
+      expect(@product_one.active).must_equal @edited_product_hash[:product][:active]
+      expect(@product_one.description).must_equal @edited_product_hash[:product][:description]
+      expect(@product_one.merchant_id).must_equal @edited_product_hash[:product][:merchant_id]
+
+      expect(flash[:success]).must_equal " Successfully updated #{@product_one.name}"
+      must_redirect_to product_path(id)
+    end
+
+    it "does not update any product if given an invalid id, and responds with a 404" do
+      expect{
+        patch product_path(-1), params: @edited_product_hash
+      }.wont_change "Product.count"
+      
+      must_respond_with :not_found
+    end
+
+    it "does not update a product if the form data violates Product validations, and responds with a 400 error" do
+      id = @product_one.id
+
+      @edited_product_hash[:product][:price] = nil
+
+      expect{
+        patch product_path(id), params: @edited_product_hash
+      }.wont_change "Product.count"
+      
+      #TODO
+      # expect{flash.now[:error]}.must_equal "A problem occurred: Could not update #{@product_one.name} "
+      
+      assert_response :bad_request
+    end
+  end 
 end
