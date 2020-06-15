@@ -1,4 +1,4 @@
-<section>
+<div>
 <strong>Select Quantity</strong>
 <%= form_with model: @order_item do |f| %>
   <%if product.stock > 1%>
@@ -9,4 +9,4 @@
   <br>
   <%= f.submit "#{action_name}" %>
 <% end %>
-</section>
+</div>
