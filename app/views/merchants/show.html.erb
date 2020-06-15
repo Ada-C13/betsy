@@ -90,6 +90,8 @@
           <td><%= item.order.status%></td>
           <% if item.shipped %>
             <td>Shipped</td>
+          <% elsif item.order.status == "pending" || !item.order.status %>
+            <td>Should be paid first</td>
           <% else %>
             <td><%= link_to "Ship", ship_item_path(item.id), method: :post, class: "btn btn-primary" %></td>
           <% end %>
