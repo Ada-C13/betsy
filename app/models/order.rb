@@ -1,7 +1,6 @@
 class Order < ApplicationRecord
 
   has_many   :order_items, dependent: :destroy
-  belongs_to :merchant
 
   VALID_STATUS = %w(pending paid complete cancelled)
   validates :status, presence: true, inclusion: {in: VALID_STATUS}

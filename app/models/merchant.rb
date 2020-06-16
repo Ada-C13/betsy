@@ -19,13 +19,6 @@ class Merchant < ApplicationRecord
 
     return merchant
   end
-
-
-
-  #returns all products belonging to this merchant
-  # def self.all_products 
-  #   return self.products.where(merchant_id: self.id)
-  # end
   
 end
 
