@@ -96,7 +96,7 @@ class ProductsController < ApplicationController
       @products = @category.products
     else
       # This is the 'regular' route, /products
-      @products = Product.all
+      @products = Product.all.order(id: :asc)
     end
   end
 
