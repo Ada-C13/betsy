@@ -218,34 +218,50 @@ describe OrdersController do
       @order = orders(:pending_order)
     end
 
-    it "can successfully find an order given an existing id and email address, flashes a success message, and redirects" do
-      @order.update!(email: "magic@store.com")
-      @order.reload
+    let (:search_hash) {
+      {
+        order: {
+          id: @order.id,
+          email: @order.email,
+        },
+      }
+    }
 
+    it "can successfully find an order given an existing id and email address, flashes a success message, and redirects" do
       expect{
-        post search_orders_path(@order)
+        post search_orders_path, params: search_hash
       }.wont_differ "Order.count"
 
       expect(flash[:status]).must_equal :success
       expect(flash[:result_text]).must_include "Order found!"
+
+      must_redirect_to order_path(@order.id)
     end
 
     it "flashes an error message and redirects if given an invalid id" do
+      search_hash[:order][:id] = -1
+
       expect{
-        post search_orders_path(-1)
+        post search_orders_path, params: search_hash
       }.wont_differ "Order.count"
 
       expect(flash[:status]).must_equal :failure
       expect(flash[:result_text]).must_include "Order not found!"
+      
+      must_redirect_to root_path
     end
 
     it "flashes an error message and redirects if given an invalid email" do
+      search_hash[:order][:email] = nil
+      
       expect{
-        post search_orders_path(@order)
+        post search_orders_path, params: search_hash
       }.wont_differ "Order.count"
 
       expect(flash[:status]).must_equal :failure
       expect(flash[:result_text]).must_include "Order not found!"
+
+      must_redirect_to root_path
     end
   end
 end

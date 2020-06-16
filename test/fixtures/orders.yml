@@ -1,4 +1,5 @@
 pending_order:
+  email: magic@store.com
   status: pending
 complete_order:
   status: complete
