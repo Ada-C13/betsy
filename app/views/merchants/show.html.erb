@@ -61,47 +61,49 @@
     </table>
 
     <h3>Orders</h3>
+    <% if @merchant.existing_order_items_by_merchant.empty? %>
+      <h4>Sorry, no one has bought any of your products yet..</h4>
+    <% else %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Order number</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price per item</th>
+            <th>Subtotal</th>
+            <th>Placed</th>
+            <th>Order status</th>
+            <th>Shipment status</th>
+          </tr>
+        </thead>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Order number</th>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Price per item</th>
-          <th>Subtotal</th>
-          <th>Placed</th>
-          <th>Order status</th>
-          <th>Shipment status</th>
-        </tr>
-      </thead>
+        <tbody>
 
-      <tbody>
-
-      <% existing_order_items = @merchant.existing_order_items_by_merchant %>
-      <% existing_order_items.each do |item| %>
-        <tr>
-          <td><%= link_to item.order.id, order_path(item.order.id) %></td>
-          <td><%= link_to item.product.title, product_path(item.product.id) %></td>
-          <td><%= item.quantity %></td>
-          <td><%= item.product.price %></td>
-          <td><%= item.subtotal %></td>
-          <td><%= item.created_at.to_s.to_time.strftime('%B %e, %Y, %T') %></td>
-          <td><%= item.order.status%></td>
-          <% if item.shipped %>
-            <td>Shipped</td>
-          <% elsif item.order.status == "pending" || !item.order.status %>
-            <td>Should be paid first</td>
-          <% else %>
-            <td><%= link_to "Ship", ship_item_path(item.id), method: :post, class: "btn btn-primary" %></td>
-          <% end %>
-        </tr>
-      <% end %>
-
-      </tbody>
-    </table>
-
+        <% exiting_order_items = @merchant.existing_order_items_by_merchant %>
+        <% exiting_order_items.each do |item| %>
+          <tr>
+            <td><%= link_to item.order.id, order_path(item.order.id) %></td>
+            <td><%= link_to item.product.title, product_path(item.product.id) %></td>
+            <td><%= item.quantity %></td>
+            <td><%= item.product.price %></td>
+            <td><%= item.subtotal %></td>
+            <td><%= item.created_at.to_s.to_time.strftime('%B %e, %Y, %T') %></td>
+            <td><%= item.order.status%></td>
+            <% if item.shipped %>
+              <td>Shipped</td>
+            <% elsif item.order.status == "pending" || !item.order.status %>
+              <td>Should be paid first</td>
+            <% else %>
+              <td><%= link_to "Ship", ship_item_path(item.id), method: :post, class: "btn btn-primary" %></td>
+            <% end %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+  <% end %>
   </section>
+  
   <% else %>
     <h3>There are currently no products to sell. Please add some.</h3>
   <% end %>

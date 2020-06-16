@@ -19,6 +19,10 @@
           </li>
           
           <li class="nav-item app-header__nav_item">
+            <%= link_to "All Merchants", merchants_path, class: "nav-link"%>
+          </li>
+
+          <li class="nav-item app-header__nav_item">
             <%= link_to "Products by Category", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"} %>
             <div class="dropdown-menu">
               <%Category.all.each do |cat|%>
@@ -28,7 +32,7 @@
           </li>
 
           <li class="nav-item app-header__nav_item">
-            <%= link_to "Merchants", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}%>
+            <%= link_to "Products by Merchant", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}%>
             <div class="dropdown-menu">
               <%Merchant.all.each do |merchant|%>
                 <%= link_to merchant.username, merchant_products_path(merchant.id), class: "dropdown-item" %>

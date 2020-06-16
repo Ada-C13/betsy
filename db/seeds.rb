@@ -3,13 +3,15 @@
 #
 require "csv"
 media_file = Rails.root.join("db", "products.csv")
+merchants = Rails.root.join("db", "merchants.csv")
 
-Merchant.create(
-  username: "Potter",
-  uid: 12345,
-  email: "potter@gmail.com ",
-  provider: "github"
-  )
+CSV.foreach(merchants, headers: true, header_converters: :symbol, converters: :all) do |row|
+  data = Hash[row.headers.zip(row.fields)]
+  puts data
+  Merchant.create!(data)
+end
+puts "Created #{Merchant.count} merchants"
+
 
 CSV.foreach(media_file, headers: true, header_converters: :symbol, converters: :all) do |row|
   data = Hash[row.headers.zip(row.fields)]
