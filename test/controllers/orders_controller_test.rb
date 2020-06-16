@@ -255,7 +255,7 @@ describe OrdersController do
       expect(flash[:status]).must_equal :success
       expect(flash[:result_text]).must_include "Order found!"
 
-      must_redirect_to order_path(@order.id)
+      must_redirect_to orders_found_path(@order.id)
     end
 
     it "flashes an error message and redirects if given an invalid id" do
@@ -281,6 +281,20 @@ describe OrdersController do
       expect(flash[:status]).must_equal :failure
       expect(flash[:result_text]).must_include "Order not found!"
 
+      must_respond_with :not_found
+    end
+  end
+
+  describe "found" do
+    it "responds with success when showing an existing valid order" do
+      order = orders(:pending_order)
+      
+      get orders_found_path(order.id)
+      must_respond_with :success
+    end
+
+    it "responds with 404 with an invalid order id" do
+      get orders_found_path(-1)
       must_respond_with :not_found
     end
   end

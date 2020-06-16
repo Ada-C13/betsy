@@ -122,9 +122,15 @@ class OrdersController < ApplicationController
     else
       flash[:status] = :success
       flash[:result_text] = "Order found! Here are the details."
-      redirect_to order_path(@order)
+      redirect_to orders_found_path(@order)
       return
     end
+  end
+
+  def found
+    @order = Order.find_by(id: params[:id])
+    head :not_found if !@order
+    return
   end
 
   private
