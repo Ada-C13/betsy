@@ -213,6 +213,13 @@ describe OrdersController do
     end
   end
 
+  describe "search form" do
+    it "responds with success" do
+      get orders_search_new_path
+      must_respond_with :success
+    end
+  end
+  
   describe "search" do
     before do
       @order = orders(:pending_order)
@@ -220,16 +227,14 @@ describe OrdersController do
 
     let (:search_hash) {
       {
-        order: {
-          id: @order.id,
-          email: @order.email,
-        },
+        id: @order.id,
+        email: @order.email,
       }
     }
 
     it "can successfully find an order given an existing id and email address, flashes a success message, and redirects" do
       expect{
-        post search_orders_path, params: search_hash
+        post orders_search_path, params: search_hash
       }.wont_differ "Order.count"
 
       expect(flash[:status]).must_equal :success
@@ -239,10 +244,10 @@ describe OrdersController do
     end
 
     it "flashes an error message and redirects if given an invalid id" do
-      search_hash[:order][:id] = -1
+      search_hash[:id] = -1
 
       expect{
-        post search_orders_path, params: search_hash
+        post orders_search_path, params: search_hash
       }.wont_differ "Order.count"
 
       expect(flash[:status]).must_equal :failure
@@ -252,10 +257,10 @@ describe OrdersController do
     end
 
     it "flashes an error message and redirects if given an invalid email" do
-      search_hash[:order][:email] = nil
+      search_hash[:email] = nil
       
       expect{
-        post search_orders_path, params: search_hash
+        post orders_search_path, params: search_hash
       }.wont_differ "Order.count"
 
       expect(flash[:status]).must_equal :failure
