@@ -6,7 +6,7 @@ describe Product do
       @product = Product.new(
         title: "flower",
         price: 25,
-        photo_url: "some string",
+        photo_url: "https://i.imgur.com/z9U4xd6.jpg",
         description: "magic flower",
         stock: 5,
         merchant_id: 4,
@@ -100,6 +100,22 @@ describe Product do
 
       expect(result).must_equal true
     end
+
+    it "is not valid without photo_url" do 
+      @product.photo_url = nil 
+
+      result = @product.valid?
+
+      expect(result).must_equal false
+    end
+
+    it "is not valid when the url is invalid" do 
+      @product.photo_url = "just a string"
+
+      result = @product.valid?
+
+      expect(result).must_equal false
+    end
   end
 
   describe "relations" do 
@@ -114,7 +130,7 @@ describe Product do
       @product = Product.new(
         title: "tinkerbell",
         price: 40,
-        photo_url: "photo of tinkerbell",
+        photo_url: "https://i.imgur.com/z9U4xd6.jpg",
         description: "magic tinkerbell",
         stock: 5, 
         active: true

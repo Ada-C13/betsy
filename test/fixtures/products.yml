@@ -33,7 +33,7 @@ crystal:
 wand:
   title: wand
   price: 20.50
-  photo_url: photo of wand
+  photo_url: https://i.imgur.com/CwJFjPu.png
   description: magic wand
   stock: 5
   merchant_id: 2
@@ -41,7 +41,7 @@ wand:
 book:
   title: book
   price: 10
-  photo_url: photo of book
+  photo_url: https://i.imgur.com/CwJFjPu.png
   description: magic book
   stock: 5
   merchant_id: 2
@@ -49,7 +49,7 @@ book:
 plant:
   title: plant
   price: 8
-  photo_url: photo of plant
+  photo_url: https://i.imgur.com/CwJFjPu.png
   description: magic plant
   stock: 5
   merchant_id: 2
@@ -57,7 +57,7 @@ plant:
 ball:
   title: ball
   price: 3.50
-  photo_url: photo of plant
+  photo_url: https://i.imgur.com/CwJFjPu.png
   description: magic ball
   stock: 5
   merchant_id: 3
