@@ -11,8 +11,6 @@ class OrdersController < ApplicationController
       @order = Order.new
       if @order.save
         session[:cart_id] = @order.id
-      else
-        flash[:error] = "Oops, something went wrong. Product could not be added to cart."
       end
     end
   end
