@@ -21,3 +21,9 @@ merchant_three:
   uid: 454545
   email: ron@gmail.com 
   provider: github
+merchant_four:
+  id: 4
+  username: jim
+  uid: 7878787
+  email: jimn@gmail.com 
+  provider: github
