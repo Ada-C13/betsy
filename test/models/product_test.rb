@@ -7,7 +7,6 @@ describe Product do
       name: "XXXX", 
       price: 20.00,
       stock: 20,
-      active: true,
       description: "XXX XXX XXXX XXX XXXXXXXXXX XXXXXXXX XXXXXXXX XXXXXXX XXXXX XXXX XXXXX",
       photo: "https://i.imgur.com/WSHmeuf.jpg",
       merchant: merchants(:merchantaaa)
@@ -26,11 +25,15 @@ describe Product do
     # Arrange
     @new_product.save
     product = Product.first
-    [:name, :price, :stock, :active, :description, :photo, :merchant_id].each do |field|
-
+    [:name, :price, :stock, :description, :photo, :merchant_id].each do |field|
       # Assert
       expect(product).must_respond_to field
     end
+  end
+
+  it "active must be true when product created (default)" do
+    # Assert
+    expect(@new_product.active).must_equal true
   end
 
   describe "relationships" do
@@ -94,15 +97,6 @@ describe Product do
       expect(@new_product.valid?).must_equal false
       expect(@new_product.errors.messages).must_include :stock
       expect(@new_product.errors.messages[:stock]).must_equal ["must be greater than or equal to 0"]
-    end
-
-    it "must have an active" do
-      # Arrange
-      @new_product.active = nil
-      # Assert
-      expect(@new_product.valid?).must_equal false
-      expect(@new_product.errors.messages).must_include :active
-      expect(@new_product.errors.messages[:active]).must_equal ["can't be blank"]
     end
 
     it "must have an description" do

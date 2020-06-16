@@ -196,8 +196,8 @@ describe ProductsController do
         patch product_path(@product_one), params: @edited_product_hash
       }.wont_change "Product.count"
     
-      #expect(flash.now[:error]).must_equal "#{@product_one.errors.messages}"
-      # it responds with right flash message, but I"m unable to test it 
+      expect(flash.now[:error]).must_include "price"
+      expect(flash.now[:error]).must_include "can't be blank"
       assert_response :bad_request
     end
   end 
