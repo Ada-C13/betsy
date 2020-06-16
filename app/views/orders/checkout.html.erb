@@ -1,25 +1,34 @@
 
+<h3>CHECKOUT</h3>
 <%= form_with scope: :order, url: checkout_path, method: :patch do |f| %>
   <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, :class => "form-control" %>
   <br>
   <%= f.label :address %>
-  <%= f.text_field :address %>
+  <%= f.text_field :address, :class => "form-control" %>
   <br>
   <%= f.label "Credit Card #" %>
-  <%= f.text_field :cc_last_four %>
+  <%= f.text_field :cc_last_four, :class => "form-control" %>
   <br>
-  <p>Credit Card Exp</p>
-  <%= f.label "Month (MM)" %>
-  <%= f.text_field :cc_exp_month %>
-  <%= f.label "Year (YYYY)" %>
-  <%= f.text_field :cc_exp_year %>
-  <br>
+  <p><strong>Credit Card Expiration Date</strong></p>
+  <div class = "row">
+    <div class = "col">
+      <%= f.label "Month" %>
+      <%= f.text_field :cc_exp_month, :class =>"form-control", placeholder: "mm", :calss => "field" %>
+    </div>
+    <div class = "col">
+      <%= f.label "Year" %>
+      <%= f.text_field :cc_exp_year, :class =>"form-control", placeholder: "yyyy" %>
+    </div>
+    <div class = "col">
+      <%= f.label "Card CVV"%>
+      <%= f.text_field :cc_cvv, :class => "form-control", placeholder: "3 digits at the back of the card" %>
+    </div>
+  </div>
   <%= f.label :email %>
-  <%= f.text_field :email %>
+  <%= f.text_field :email, :class => "form-control" %>
   <br>
-  <%= f.label "Card CVV"%>
-  <%= f.text_field :cc_cvv %>
+  
   <br>
-  <%= f.submit "Purchase Items" %>
+  <%= f.submit "Complete Order", class: "btn btn-primary" %>
 <% end %>
