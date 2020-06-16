@@ -1,6 +1,6 @@
 class OrderItemsController < ApplicationController
-  skip_before_action :require_login
-  before_action :find_order_item, only: [ :edit, :update, :destroy]
+  skip_before_action :require_login, except: [:ship]
+  before_action :find_order_item, only: [ :edit, :update, :destroy, :ship]
 
   def create
     qty = params[:quantity].to_i
@@ -59,6 +59,12 @@ class OrderItemsController < ApplicationController
     end
     redirect_to cart_path
     return
+  end
+  
+  def ship
+    @order_item.ship
+    flash[:success] = "Notified customer that #{@order_item.product.name} has been shipped."
+    redirect_to merchant_orders_path(merchant_id: session[:merchant_id])
   end
 
   def destroy

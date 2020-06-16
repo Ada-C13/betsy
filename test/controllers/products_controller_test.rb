@@ -14,6 +14,7 @@ describe ProductsController do
     @product_one = products(:product1)
     @merchant = merchants(:merchantaaa)
     perform_login(@merchant)
+    @session_id = session[:merchant_id]
     @merchant2 = merchants(:merchantbbb)
   end
 
@@ -79,10 +80,10 @@ describe ProductsController do
       expect(Product.last.merchant_id).must_equal @product_hash[:product][:merchant_id]
 
       expect(flash[:success]).must_equal "Successfully created #{@product.name}"
-      must_redirect_to products_path
+      must_redirect_to account_path(@merchant)
     end
 
-    it "does not create a product if name is not present, and responds with a redirect" do
+    it "does not create a product if name is not present, and responds with bad_request" do
       @product_hash[:product][:name] = nil
     
       expect {
@@ -92,7 +93,7 @@ describe ProductsController do
       assert_response :bad_request
     end
 
-    it "does not create a product if price is not present, and responds with a redirect" do
+    it "does not create a product if price is not present, and responds with bad_request" do
       @product_hash[:product][:price] = nil
     
       expect {
@@ -102,7 +103,7 @@ describe ProductsController do
       assert_response :bad_request
     end
 
-    it "does not create a product if stock is not present, and responds with a redirect" do
+    it "does not create a product if stock is not present, and responds with bad_request" do
       @product_hash[:product][:stock] = nil
     
       expect {
@@ -112,14 +113,14 @@ describe ProductsController do
       assert_response :bad_request
     end
 
-    it "does not create a product if description is not present, and responds with a redirect" do
+    it "does not create a product if description is not present, and responds with bad_request" do
       @product_hash[:product][:description] = nil
     
       expect {
         post products_path, params: @product_hash
       }.wont_change "Product.count"
-      #TODO
-      # expect{flash.now[:warning]}.must_raise "A problem occurred: Could not create product"
+      
+      expect(flash.now[:error]).must_equal "A problem occurred: Could not create product"
       assert_response :bad_request
     end
 
@@ -129,8 +130,7 @@ describe ProductsController do
       expect {
         post products_path, params: @product_hash
       }.wont_change "Product.count"
-      #TODO
-      # must_redirect_to products_path
+      must_redirect_to root_path
     end
     
   end
@@ -177,7 +177,7 @@ describe ProductsController do
       expect(@product_one.description).must_equal @edited_product_hash[:product][:description]
       expect(@product_one.merchant_id).must_equal @edited_product_hash[:product][:merchant_id]
 
-      expect(flash[:success]).must_equal " Successfully updated #{@product_one.name}"
+      expect(flash[:success]).must_equal "Successfully updated #{@product_one.name}"
       must_redirect_to product_path(id)
     end
 
@@ -190,17 +190,14 @@ describe ProductsController do
     end
 
     it "does not update a product if the form data violates Product validations, and responds with a 400 error" do
-      id = @product_one.id
-
       @edited_product_hash[:product][:price] = nil
 
       expect{
-        patch product_path(id), params: @edited_product_hash
+        patch product_path(@product_one), params: @edited_product_hash
       }.wont_change "Product.count"
-      
-      #TODO
-      # expect{flash.now[:error]}.must_equal "A problem occurred: Could not update #{@product_one.name} "
-      
+    
+      #expect(flash.now[:error]).must_equal "#{@product_one.errors.messages}"
+      # it responds with right flash message, but I"m unable to test it 
       assert_response :bad_request
     end
   end 

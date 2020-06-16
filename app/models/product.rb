@@ -8,7 +8,6 @@ class Product < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :merchant }
   validates :price, presence: true, numericality: { only_float: true, greater_than: 0 }
   validates :stock, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :active, presence: true
   validates :description, presence: true
   validates :photo, presence: true 
 
@@ -22,6 +21,11 @@ class Product < ApplicationRecord
     self.stock += quantity
   end
 
+  def change_active
+    self.active = !self.active
+    self.save 
+  end
+  # this is weird
   def zero_inventory
     return "OUT OF STOCK" if self.stock == 0
   end
