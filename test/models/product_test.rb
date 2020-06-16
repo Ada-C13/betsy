@@ -6,7 +6,7 @@ describe Product do
       @product = Product.new(
         title: "flower",
         price: 25,
-        photo_url: "https://cdn.shopify.com/s/files/1/0036/2011/0406/products/product-image-793334840_2000x.jpg?v=1547252672",
+        photo_url: "https://i.imgur.com/z9U4xd6.jpg",
         description: "magic flower",
         stock: 5,
         merchant_id: 4,
@@ -130,7 +130,7 @@ describe Product do
       @product = Product.new(
         title: "tinkerbell",
         price: 40,
-        photo_url: "https://cdn.shopify.com/s/files/1/0036/2011/0406/products/product-image-793334840_2000x.jpg?v=1547252672",
+        photo_url: "https://i.imgur.com/z9U4xd6.jpg",
         description: "magic tinkerbell",
         stock: 5, 
         active: true
