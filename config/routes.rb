@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :reviews, only: [:new, :create]
   
   # merchants
-  resources :merchants, only: [:show] do
+  resources :merchants, only: [:index, :show] do
     resources :products, only: [:index]
   end
   get "/auth/github", as: "github_login"
