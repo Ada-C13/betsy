@@ -1,4 +1,8 @@
 ENV['RAILS_ENV'] ||= 'test'
+require 'simplecov'
+SimpleCov.start do
+  add_filter 'test/' # Tests should not be checked for coverage.
+end
 require_relative '../config/environment'
 require 'rails/test_help'
 require "minitest/rails"
