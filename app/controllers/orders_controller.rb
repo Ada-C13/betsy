@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   end
   
   def index
-    @order_items = @current_order.order_items if @order
+    @order_items = @current_order.order_items if @current_order
   end
 
   def show
