@@ -8,16 +8,9 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find_by(id: params[:id])
-
-    if !@order || @order.id != session[:order_id] # we need session[:order_id] in order to view the show page
-      flash[:status] = :failure
-      flash[:result_text] = "You cannot view this order!"
-      redirect_to root_path
-      return
-    elsif @order.status == "paid" # if the order has been completed, we will reset the session[:order_id]
-      session[:order_id] = nil
-    end
+    @order = Order.find_by(id: params[:id], email: params[:email])
+    head :not_found if !@order
+    return
   end
 
   def checkout
@@ -54,7 +47,7 @@ class OrdersController < ApplicationController
       # display flash messages and redirect
       flash[:status] = :success
       flash[:result_text] = "Thank you for your order, #{@order.name}!"
-      redirect_to order_path(@order)
+      redirect_to order_confirmation_path(@order)
       return
     else
       flash.now[:status] = :failure
@@ -62,6 +55,19 @@ class OrdersController < ApplicationController
       flash.now[:messages] = @order.errors.messages
       render :checkout, status: :bad_request
       return
+    end
+  end
+
+  def confirmation
+    @order = Order.find_by(id: params[:id])
+
+    if !@order || @order.id != session[:order_id] # we need session[:order_id] in order to view the show page
+      flash[:status] = :failure
+      flash[:result_text] = "You cannot view this order!"
+      redirect_to root_path
+      return
+    elsif @order.status == "paid" # if the order has been completed, we will reset the session[:order_id]
+      session[:order_id] = nil
     end
   end
 
