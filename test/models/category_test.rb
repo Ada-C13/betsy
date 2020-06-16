@@ -47,4 +47,21 @@ describe Category do
       expect(category2.errors.messages).must_include :name
     end
   end
+
+  describe "custum_methods" do
+    describe "product_by_category" do
+      category1 = categorys(:category1)
+      category = Category.product_by_category(category1.name)
+
+      category.each do |category|
+        expect(category).must_be_kind_of Category
+      end
+
+      # expect(category.length).must_equal 8
+      # category.each do |category|
+      #   expect(category).must_be_kind_of Work
+      #   expect(movie.category).must_equal "movie"
+      # end
+    end
+  end
 end
