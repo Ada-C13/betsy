@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       post "logout"
     end
   end
+  
   get "merchants/:id/dashboard/manage_orders", to: "merchants#manage_orders", as: "manage_orders"
   get "merchants/:id/dashboard/manage_products", to: "merchants#manage_products", as: "manage_products"
 
