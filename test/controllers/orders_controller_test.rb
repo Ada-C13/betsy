@@ -56,9 +56,11 @@ describe OrdersController do
         order: {
           name: "Wizard", 
           email: "hello@wizard.com", 
-          mailing_address: "12345 Wizard Way", 
+          mailing_address: "12345 Wizard Way",
           cc_number: 1234123412341234, 
-          cc_exp: Date.today + 365        
+          cc_exp: Date.today + 365,
+          cvv: 123,
+          zipcode: 12345
         },
       }
 
@@ -73,14 +75,11 @@ describe OrdersController do
   end
 
   describe "checkout" do
-    it "responds with success and sets order status to pending when session[:order_id] exists" do
+    it "responds with success when session[:order_id] exists" do
       order = build_order 
 
       get order_checkout_path
       must_respond_with :success
-
-      order.reload
-      expect(order.status).must_equal "pending"
     end
 
     it "flashes an error message and redirects to cart when session[:order_id] is nil" do
@@ -107,7 +106,9 @@ describe OrdersController do
           email: "hello@wizard.com", 
           mailing_address: "12345 Wizard Way", 
           cc_number: 1234123412341234, 
-          cc_exp: Date.today + 365        
+          cc_exp: Date.today + 365,
+          cvv: 123,
+          zipcode: 12345        
         },
       }
     }
@@ -121,8 +122,10 @@ describe OrdersController do
       expect(@order.name).must_equal order_hash[:order][:name]
       expect(@order.email).must_equal order_hash[:order][:email]
       expect(@order.mailing_address).must_equal order_hash[:order][:mailing_address]
-      expect(@order.cc_number).must_equal order_hash[:order][:cc_number].to_s[-4..-1].to_i
+      expect(@order.cc_number).must_equal order_hash[:order][:cc_number]
       expect(@order.cc_exp).must_equal order_hash[:order][:cc_exp]
+      expect(@order.cvv).must_equal order_hash[:order][:cvv]
+      expect(@order.zipcode).must_equal order_hash[:order][:zipcode]
 
       expect(flash[:status]).must_equal :success
       expect(flash[:result_text]).must_include @order.name
@@ -206,6 +209,15 @@ describe OrdersController do
 
     it "sets order status to cancelled" do
       order = build_order
+      order.update(
+        name: "Wizard", 
+        email: "hello@wizard.com", 
+        mailing_address: "12345 Wizard Way", 
+        cc_number: 1234123412341234, 
+        cc_exp: Date.today + 365,
+        cvv: 123,
+        zipcode: 12345
+      )
 
       expect{
         delete order_path(order)
