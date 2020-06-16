@@ -1,7 +1,10 @@
 
 <h1>User Summary: <%=@merchant.name%></h1>
 
-<%= image_tag @merchant.avatar, alt: @merchant.name, class: "profile-img" %>
+<%# only render the avator when there is one %>
+<% if @merchant.avatar %>
+    <%= image_tag @merchant.avatar %>
+<% end %>
 
 <p>Joined site: <%= @merchant.created_at.strftime("%B %e, %Y") %><p>
 

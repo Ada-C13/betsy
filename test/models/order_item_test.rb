@@ -69,7 +69,7 @@ describe OrderItem do
       expect(new_order_item.valid?).must_equal false
       expect(new_order_item.errors.messages).must_include :status
       expect(new_order_item.errors.messages[:status]).must_include "can't be blank"
-      expect(new_order_item.errors.messages[:status]).must_include "is not a valid status"
+      expect(new_order_item.errors.messages[:status]).must_include "Not a valid status"
     end
 
     it "it's valid when order_item has status" do
