@@ -20,7 +20,7 @@
         <th></th>
     </tr>    
     <% @products.each do |product| %>
-      <tr>
+      <tr class = "middle">
         <td><%= link_to product.name, product_path(product.id) %></td>
         <td><%= product.stock%></td>
         <td><%= format_price(product.price) %></td>
