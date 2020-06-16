@@ -1,0 +1,11 @@
+<h3>Products under merchant <%= @merchant.username.upcase %></h3>
+
+<div class="product-grid__container container">
+  <% @merchant.products.in_groups_of(4).each do |group| %>
+  <div class="product-grid__row row">
+    <% group.each do |product| %>
+      <%= render partial: "shared/product", locals: { product: product } %>
+    <% end %>
+  </div>
+  <% end %>
+</div>

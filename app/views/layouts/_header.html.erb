@@ -18,6 +18,13 @@ navbar structure based on https://stackoverflow.com/questions/19733447/bootstrap
           <%= render partial: "shared/dropdown", locals: { label: "Categories", items: Category.all }%>
         </li>
         <% end %>
+
+        <%# dropdown box for Merchants %>
+        <% if Merchant.all.length > 0 %>
+        <li class="nav-item dropdown">
+          <%= render partial: "shared/dropdown", locals: { label: "Merchants", items: Merchant.all }%>
+        </li>
+        <% end %>
       </ul>
     <% end %>
   </div>
