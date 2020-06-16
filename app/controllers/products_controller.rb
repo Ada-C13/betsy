@@ -132,6 +132,6 @@ class ProductsController < ApplicationController
 
   def product_params 
     return params.require(:product).permit(:title, :price, :description, :merchant_id,
-    :stock, category_ids: []).merge(photo_url: "https://i.imgur.com/z9U4xd6.jpg", active: true)
+    :stock, :photo_url, category_ids: []).merge(active: true)
   end
 end
