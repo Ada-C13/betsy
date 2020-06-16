@@ -5,4 +5,10 @@ class Order < ApplicationRecord
   def total
     return order_items.map{ |item| item.subtotal}.sum
   end
+
+  def self.search(search)
+    if search
+      return Order.find_by(id: search[:id], email: search[:email])
+    end
+  end
 end
