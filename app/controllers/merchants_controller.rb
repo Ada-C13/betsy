@@ -1,6 +1,6 @@
 class MerchantsController < ApplicationController
   before_action :require_login, only: [:dashboard, :manage_orders, :manage_products, :logout]
-  # before_action :require_ownership, only: [:dashboard, :manage_orders, :manage_products]
+  before_action :require_ownership, only: [:dashboard, :manage_orders, :manage_products]
 
   def login #create
     auth_hash = request.env["omniauth.auth"]

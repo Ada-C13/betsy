@@ -1,22 +1,7 @@
 require "test_helper"
 
 describe MerchantsController do
-   
-#   describe "show" do
-#     it "succeeds for an existing merchant ID" do
-#       get merchants_path(merchants(:angela))
-# ​
-#       must_respond_with :success
-#     end
-# ​
-#     it "renders 404 not_found for merchants with invalid ID" do
-#       invalid_id_merchant = -1
-     
-#       get merchant_path(invalid_id_merchant)
-# ​
-#       must_respond_with :not_found
-#     end
-#   end
+  
 
   describe "login" do
     it "can login in a new merchant" do
