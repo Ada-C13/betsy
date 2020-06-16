@@ -81,7 +81,7 @@
       <% exiting_order_items = @merchant.existing_order_items_by_merchant %>
       <% exiting_order_items.each do |item| %>
         <tr>
-          <td><%= item.order.id %></td>
+          <td><%= link_to item.order.id, order_path(item.order.id) %></td>
           <td><%= link_to item.product.title, product_path(item.product.id) %></td>
           <td><%= item.quantity %></td>
           <td><%= item.product.price %></td>

@@ -37,13 +37,23 @@
     </thead>
     <tbody>
       <% @order.order_items.each do |item| %>
-        <tr>
-          <td><%= link_to image_tag(item.product.photo_url, height: "150", :alt => "product photo"), product_path(item.product) %></td>
-          <td><%= link_to item.product.title, product_path(item.product) %></td>
-          <td><%= number_to_currency(item.product.price) %></td>
-          <td><%= item.quantity %></td>
-          <td><%= number_to_currency(item.subtotal) %></td>
-        </tr>
+        <% if session[:merchant_id] && session[:merchant_id] == item.product.merchant.id %>
+          <tr>
+            <td><%= link_to image_tag(item.product.photo_url, height: "150", :alt => "product photo"), product_path(item.product) %></td>
+            <td><%= link_to item.product.title, product_path(item.product) %></td>
+            <td><%= number_to_currency(item.product.price) %></td>
+            <td><%= item.quantity %></td>
+            <td><%= number_to_currency(item.subtotal) %></td>
+          </tr>
+        <% else %>
+          <tr>
+            <td><%= link_to image_tag(item.product.photo_url, height: "150", :alt => "product photo"), product_path(item.product) %></td>
+            <td><%= link_to item.product.title, product_path(item.product) %></td>
+            <td><%= number_to_currency(item.product.price) %></td>
+            <td><%= item.quantity %></td>
+            <td><%= number_to_currency(item.subtotal) %></td>
+          </tr>
+        <% end %>
       <% end %>
       <tr>
         <td colspan="5"><h5 class="text-right">Total: <%= number_to_currency(@order.total) %></h5></td>

@@ -27,7 +27,7 @@ describe OrdersController do
       get order_path(-1)
       
       expect(flash[:status]).must_equal :failure
-      expect(flash[:result_text]).must_include "cannot view"
+      expect(flash[:result_text]).must_include "Sorry, there is no such order"
       
       must_redirect_to root_path
     end
