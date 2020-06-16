@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   # Merchant
   get '/merchants', to:	'merchants#index', as: "merchants"
   get "merchants/:merchant_id", to: "merchants#account", as: "account"
-  get '/merchants/:merchant_id/orders', to:  'orders#index', as: 'merchant_orders' 
+  get '/merchants/:merchant_id/orders', to:  'merchant#orders', as: 'merchant_orders' 
   get '/merchants/:merchant_id/products', to: 'merchants#shop', as: 'merchant_shop'
   # currently this action is being routes to /products/:id/new:
   # post '/merchants/:merchant_id/products', to: 'products#create'

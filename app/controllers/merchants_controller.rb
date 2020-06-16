@@ -1,6 +1,6 @@
 class MerchantsController < ApplicationController
-  before_action :find_merchant, [:account, :shop, :my_orders]
-  skip_before_action :require_login, except: [:account, :my_orders]
+  before_action :find_merchant, [:account, :shop, :orders]
+  skip_before_action :require_login, except: [:account, :orders]
 
   def index
     @merchants = Merchant.all
@@ -16,7 +16,7 @@ class MerchantsController < ApplicationController
 
   def shop; end
   
-  def my_orders
+  def orders
   end
 
   def create
