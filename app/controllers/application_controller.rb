@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     end
     @shopping_cart = Order.create(status: "pending")
     session[:order_id] = @shopping_cart.id
-end
+  end
 
   def current_merchant
     @current_merchant ||= session[:merchant_id] &&
