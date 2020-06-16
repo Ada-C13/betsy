@@ -16,42 +16,16 @@ describe OrdersController do
   end
 
   describe "show" do
-    it "responds with success when showing the current session order" do
-      order = build_order
-
+    it "responds with success when showing an existing valid order" do
+      order = orders(:pending_order)
+      
       get order_path(order.id)
       must_respond_with :success
     end
 
-    it "flashes an error message and redirects if given an id that does not match session[:order_id]" do
+    it "responds with 404 with an invalid order id" do
       get order_path(-1)
-      
-      expect(flash[:status]).must_equal :failure
-      expect(flash[:result_text]).must_include "cannot view"
-      
-      must_redirect_to root_path
-    end
-
-    it "sets the session[:order_id] to nil if the order status is paid" do
-      order = build_order
-      
-      order_hash = {
-        order: {
-          name: "Wizard", 
-          email: "hello@wizard.com", 
-          mailing_address: "12345 Wizard Way", 
-          cc_number: 1234123412341234, 
-          cc_exp: Date.today + 365        
-        },
-      }
-
-      patch order_checkout_path, params: order_hash
-
-      get order_path(order.id)
-
-      order.reload
-      expect(order.status).must_equal "paid"
-      expect(session[:order_id]).must_be_nil
+      must_respond_with :not_found
     end
   end
 
@@ -110,7 +84,7 @@ describe OrdersController do
       expect(flash[:status]).must_equal :success
       expect(flash[:result_text]).must_include @order.name
 
-      must_redirect_to order_path(@order.id)
+      must_redirect_to order_confirmation_path(@order.id)
     end
 
     it "reduces the stock of each product by the quantity purchased" do
@@ -151,6 +125,46 @@ describe OrdersController do
 
     #   must_respond_with :bad_request
     # end
+  end
+
+  describe "confirmation" do
+    it "responds with success when showing the current session order" do
+      order = build_order
+
+      get order_confirmation_path(order.id)
+      must_respond_with :success
+    end
+
+    it "flashes an error message and redirects if given an id that does not match session[:order_id]" do
+      get order_confirmation_path(-1)
+      
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "cannot view"
+      
+      must_redirect_to root_path
+    end
+
+    it "sets the session[:order_id] to nil if the order status is paid" do
+      order = build_order
+      
+      order_hash = {
+        order: {
+          name: "Wizard", 
+          email: "hello@wizard.com", 
+          mailing_address: "12345 Wizard Way", 
+          cc_number: 1234123412341234, 
+          cc_exp: Date.today + 365        
+        },
+      }
+
+      patch order_checkout_path, params: order_hash
+
+      get order_confirmation_path(order.id)
+
+      order.reload
+      expect(order.status).must_equal "paid"
+      expect(session[:order_id]).must_be_nil
+    end
   end
 
   describe "destroy" do
