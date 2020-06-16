@@ -3,7 +3,8 @@ full_cart:
   email: 
   address: 
   cc_last_four: 
-  cc_exp: 
+  cc_exp_month:
+  cc_exp_year:
   cc_cvv:
   status: pending
 empty_cart:
@@ -11,7 +12,8 @@ empty_cart:
   email:
   address:
   cc_last_four:
-  cc_exp:
+  cc_exp_month:
+  cc_exp_year:
   cc_cvv:
   status: pending
 paid_order:
@@ -19,7 +21,8 @@ paid_order:
   email: lak@ada.org
   address: 244 Thomas str
   cc_last_four: 2340
-  cc_exp: 2025-10-07
+  cc_exp_month: 11
+  cc_exp_year: 2021
   cc_cvv: 543
   status: paid
 shipped_order:
@@ -27,7 +30,8 @@ shipped_order:
   email: yaz@ada.org
   address: 244 Queens Bulevard
   cc_last_four: 8698
-  cc_exp: 2024-10-07
+  cc_exp_month: 12
+  cc_exp_year: 2021
   cc_cvv: 586
   status: shipped
 
