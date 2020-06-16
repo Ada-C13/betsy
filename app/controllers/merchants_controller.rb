@@ -7,7 +7,7 @@ class MerchantsController < ApplicationController
   end
 
   def account
-    @merchant = Merchant.find_by(id: params[:id])
+    @merchant = Merchant.find_by(id: params[:merchant_id])
     if @merchant.nil? || session[:merchant_id] != @merchant.id
       flash[:error] = "You don't have access to that account!"
       redirect_to account_path(session[:merchant_id])
