@@ -156,8 +156,9 @@ describe OrdersController do
         order = Order.find_by(id: session[:cart_id])
         patch checkout_path, params: bad_submit
         expect(session[:cart_id]).must_equal order.id
-        #expect(flash[:error]).must_equal "Woops, #{order.errors.messages}"
-        # test for render??
+        expect(flash[:error]).must_include "address"
+        expect(flash[:error]).must_include "cc_exp_month"
+        expect(flash[:error]).must_include "can't be blank"
       end
     end
 
@@ -173,7 +174,7 @@ describe OrdersController do
       it "flashes user if order has already been shipped" do
         shipped = orders(:shipped_order)
         post complete_order_path(shipped)
-        #expect(flash[:error]).must_equal 'Order has already been shipped'
+        expect(flash[:error]).must_equal 'Order has already been shipped'
         must_redirect_to complete_order_path(shipped)
       end
     end
