@@ -253,7 +253,7 @@ describe OrdersController do
       expect(flash[:status]).must_equal :failure
       expect(flash[:result_text]).must_include "Order not found!"
       
-      must_redirect_to root_path
+      must_respond_with :not_found
     end
 
     it "flashes an error message and redirects if given an invalid email" do
@@ -266,7 +266,7 @@ describe OrdersController do
       expect(flash[:status]).must_equal :failure
       expect(flash[:result_text]).must_include "Order not found!"
 
-      must_redirect_to root_path
+      must_respond_with :not_found
     end
   end
 end

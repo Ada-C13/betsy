@@ -102,9 +102,9 @@ class OrdersController < ApplicationController
     @order = Order.search(params)
 
     if !@order
-      flash[:status] = :failure
-      flash[:result_text] = "Order not found! Please confirm your order number and email, then try again."
-      redirect_to root_path
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Order not found! Please confirm your order number and email, then try again."
+      render :search_form, status: :not_found
       return
     else
       flash[:status] = :success
