@@ -31,10 +31,16 @@ h2, h3{
   margin-top: 2rem;
 }
 
-.app-header__nav {
+.app-header__nav, .app-footer__nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
+.app-footer__nav {
+  justify-content: center;
+}
 
+.footer {
+  margin-top: 10em;
+}

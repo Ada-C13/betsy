@@ -39,10 +39,6 @@
               <%end%>
             </div>
           </li>
-
-           <li class="nav-item app-header__nav_item">
-            <%= link_to "Order Status", orders_search_new_path, class: "nav-link"%>
-          </li>
         </ul>
 
         <ul class="nav app-header__user-nav-container">
@@ -94,5 +90,16 @@
     <section>
       <%= yield %>
     </section>
+
+    <footer>
+      <hr />
+      <nav class="app-footer__nav">
+        <ul class="nav app-footer__site-nav-container">
+          <li class="nav-item app-footer__nav_item">
+            <%= link_to "Order Status", orders_search_new_path, class: "nav-link"%>
+          </li>
+        </ul>
+      </nav>
+    </footer>
   </body>
 </html>
