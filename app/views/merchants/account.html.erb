@@ -16,7 +16,7 @@
       <th>Name</th>
       <th>Stock</th>
       <th>Price</th>
-      <th>Active</th>
+      <th>Active?</th>
       <th></th>
     </tr>    
     <% @products.each do |product| %>
@@ -25,9 +25,9 @@
         <td><%= product.stock%></td>
         <td><%= format_price(product.price) %></td>
         <td>
-          <%= button_to "status", product_active_path(product), method: :patch}
+          <%= link_to "#{show_active_action(product)}", product_active_path(product), method: :patch%>
         </td>
-        <td><%= link_to "Edit", edit_product_path(product)%></td>
+        <td><%= button_to "Edit", edit_product_path(product), method: :get%></td>
       </tr>
     <% end %>
   </table>
