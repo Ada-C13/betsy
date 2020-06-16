@@ -13,13 +13,18 @@ class ReviewsController < ApplicationController
 
 
   def create
+    
     # if there is a merchant logged in
-    # and that merchant ID matchs the product id
-    # merchant can't review their own product
+    # if session[:merchant_id]?
+      
+    # # and that merchant ID matchs the product id
+    #   if @product_id == session[:merchant_id]
+    # # merchant can't review their own product
+    #   end
+    # end
+  @review = Review.new(review_params)
 
-    review = Review.new(review_params)
-
-    if review.save
+    if @review.save
       flash[:success] = "Thank you! Your review has been successfully added"
       redirect_to product_path(review_params[:product_id])
       return
@@ -34,7 +39,7 @@ class ReviewsController < ApplicationController
   private
  
   def review_params
-    return params.require(:review).permit(:rating, :comment)
+   return params.permit(:rating, :comment)
   end
 
 end

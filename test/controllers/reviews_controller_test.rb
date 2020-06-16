@@ -3,10 +3,23 @@ require "test_helper"
 describe ReviewsController do
   let(:product) { products(:daisy) }
 
-  it "should get new" do
-    get new_review_url
-    must_respond_with :success
+
+  describe "new" do
+    it "can get the review_path" do
+      get review_path
+
+      must_respond_with :success
+    end
+
+    it "can get the roduct_review_path" do
+      get product_review_path(Product.first.id)
+
+      must_respond_with :success
+    end
   end
+
+
+
 
   it "should create new review" do
     assert_difference("Review.count") do
