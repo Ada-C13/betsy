@@ -20,21 +20,22 @@ class ProductsController < ApplicationController
 
   def create
     if session[:merchant_id]
+      merchant = Merchant.find_by(id: session[:merchant_id])
       @product = Product.new(product_params)
-      @product.merchant_id = session[:merchant_id]
+      @product.merchant = merchant
 
       if @product.save
         flash[:success] = "Successfully created #{@product.name}"
-        redirect_to products_path
+        redirect_to account_path(merchant)
         return
       else
-        flash.now[:warning] = "A problem occurred: Could not create product"
+        flash.now[:error] = "A problem occurred: Could not create product"
         render :new, status: :bad_request
         return
       end
     else
       flash[:error] = "A problem occurred: You must log in to do that"
-      redirect_to products_path
+      redirect_to root_path
       return
     end
   end
@@ -55,7 +56,7 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product)
       return
     else 
-      flash.now[:error] = @edited_product_hash
+      flash.now[:error] = "#{@product.errors.messages}"
       render :edit, status: :bad_request
       return
     end
