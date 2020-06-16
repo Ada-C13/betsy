@@ -123,10 +123,12 @@ describe Product do
         name: "test order",
         email: "hello@gmail.com",
         mailing_address: "1234 Main st.",
-        cc_number: 12345,
-        cc_exp: "12/23/20",
-        purchase_date: "09/09/20",
-        status: "paid"
+        cc_number: 1234567890123456,
+        cc_exp: Date.today,
+        purchase_date: Date.today,
+        status: "paid",
+        cvv: 123,
+        zipcode: 12345
       )
       @category = Category.create!(
         title: "books"
