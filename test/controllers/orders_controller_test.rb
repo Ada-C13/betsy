@@ -16,37 +16,37 @@ describe OrdersController do
   end
 
   describe "show" do
-    it "responds with success when showing an existing valid order" do
-      order = orders(:pending_order)
-      
+    it "responds with success when showing the current session order" do
+      order = build_order
+
       get order_path(order.id)
       must_respond_with :success
     end
 
-    it "responds with 404 with an invalid order id" do
-      get order_path(-1)
-      must_respond_with :not_found
-    end
-  end
-
-  describe "checkout" do
-    it "responds with success and sets order status to pending when session[:order_id] exists" do
-      order = build_order 
-
-      get order_checkout_path
-      must_respond_with :success
-
-      order.reload
-      expect(order.status).must_equal "pending"
-    end
-
-    it "flashes an error message and redirects to cart when session[:order_id] is nil" do
-      get order_checkout_path
-
+    it "flashes an error message and redirects if given a merchant that does not match session[:merchant_id]" do
+      merchant = perform_login
+      order = orders(:complete_order)
+      get order_path(order.id)
       expect(flash[:status]).must_equal :failure
-      expect(flash[:result_text]).must_include "cannot check out"
+      expect(flash[:result_text]).must_include "This order does not have your products"
+      must_redirect_to root_path
+    end
+
+    it "flashes an error message and redirects if given the order does not exist" do
+      get order_path(-1)
       
-      must_redirect_to cart_path
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "Sorry, there is no such order"
+      
+      must_redirect_to root_path
+    end
+
+    it "flashes an error message and redirects if given an id that does not match session[:order_id]" do
+      order = build_order
+      get order_path(orders(:paid_order))
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "You cannot view this order!"
+      must_redirect_to root_path
     end
   end
 
@@ -64,7 +64,9 @@ describe OrdersController do
           email: "hello@wizard.com", 
           mailing_address: "12345 Wizard Way", 
           cc_number: 1234123412341234, 
-          cc_exp: Date.today + 365        
+          cc_exp: Date.today + 365,
+          cvv: 123,
+          zipcode: 12345        
         },
       }
     }
@@ -78,8 +80,10 @@ describe OrdersController do
       expect(@order.name).must_equal order_hash[:order][:name]
       expect(@order.email).must_equal order_hash[:order][:email]
       expect(@order.mailing_address).must_equal order_hash[:order][:mailing_address]
-      expect(@order.cc_number).must_equal order_hash[:order][:cc_number].to_s[-4..-1].to_i
+      expect(@order.cc_number).must_equal order_hash[:order][:cc_number]
       expect(@order.cc_exp).must_equal order_hash[:order][:cc_exp]
+      expect(@order.cvv).must_equal order_hash[:order][:cvv]
+      expect(@order.zipcode).must_equal order_hash[:order][:zipcode]
 
       expect(flash[:status]).must_equal :success
       expect(flash[:result_text]).must_include @order.name
@@ -153,10 +157,12 @@ describe OrdersController do
           email: "hello@wizard.com", 
           mailing_address: "12345 Wizard Way", 
           cc_number: 1234123412341234, 
-          cc_exp: Date.today + 365        
+          cc_exp: Date.today + 365,
+          cvv: 123,
+          zipcode: 12345      
         },
       }
-
+      
       patch order_checkout_path, params: order_hash
 
       get order_confirmation_path(order.id)
@@ -203,6 +209,15 @@ describe OrdersController do
 
     it "sets order status to cancelled" do
       order = build_order
+      order.update(
+        name: "Wizard", 
+        email: "hello@wizard.com", 
+        mailing_address: "12345 Wizard Way", 
+        cc_number: 1234123412341234, 
+        cc_exp: Date.today + 365,
+        cvv: 123,
+        zipcode: 12345
+      )
 
       expect{
         delete order_path(order)

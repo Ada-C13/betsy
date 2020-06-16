@@ -9,14 +9,32 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by(id: params[:id])
-    head :not_found if !@order
-    return
+  
+    if !@order  
+      flash[:status] = :failure
+      flash[:result_text] = "Sorry, there is no such order"
+      redirect_to root_path
+      return
+    else
+      # User can't see the order if any item or the order does not belong to this logged-in user's products 
+      # or if there is no logged-in merchant and it's not their order
+      # we need session[:order_id] or session[:merchant_id] in order to view the show page
+      if session[:merchant_id] && !@order.find_merchants_ids.include?(session[:merchant_id])
+        flash[:status] = :failure
+        flash[:result_text] = "This order does not have your products"
+        redirect_to root_path
+        return
+      elsif !session[:merchant_id] && session[:order_id] != @order.id
+        flash[:status] = :failure
+        flash[:result_text] = "You cannot view this order!"
+        redirect_to root_path
+        return
+      end
+    end
   end
 
   def checkout
-    if @current_order
-      @current_order.update(status: "pending")
-    elsif !@current_order || @order_items.empty?
+    if !@current_order || @current_order.order_items.empty?
       flash[:status] = :failure
       flash[:result_text] = "You cannot check out without any products in your cart!"
       redirect_to cart_path
@@ -28,16 +46,12 @@ class OrdersController < ApplicationController
     # saves user info to order
     if @current_order.update(order_params)
 
-      # stores the last 4 digits of cc_number
-      # TODO: Move this into an order model method, instead of storing, we want to display the last 4
-      @current_order.update(cc_number: @current_order.cc_number.to_s[-4..-1].to_i) 
-
       # change status to paid and sets purchase_date
       @current_order.update(
         status: "paid", 
         purchase_date: Date.today
       )
-
+      
       # reduces the stock of each product 
       # TODO: Move this into a product model method
       @current_order.order_items.each do |item|
@@ -85,7 +99,6 @@ class OrdersController < ApplicationController
 
       # sets order status to cancelled
       @order.update(status: "cancelled")
-
       # display flash messages and redirect
       flash[:status] = :success
       flash[:result_text] = "Order ##{@order.id} has been successfully cancelled"
@@ -117,6 +130,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    return params.require(:order).permit(:name, :email, :mailing_address, :cc_number, :cc_exp)
+    return params.require(:order).permit(:name, :email, :mailing_address, :cc_number, :cc_exp, :cvv, :zipcode)
   end
 end

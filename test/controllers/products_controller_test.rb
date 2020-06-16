@@ -35,7 +35,7 @@ describe ProductsController do
             title: "kiwi",
             price: 2.99,
             description: "yellow banana",
-            photo_url: "url info",
+            photo_url: "https://i.imgur.com/z9U4xd6.jpg",
             merchant_id: merchant.id,
             stock: 5,
             category_ids: []
@@ -245,13 +245,14 @@ describe ProductsController do
         must_redirect_to product_path(new_order_item.product_id)
       end
   
-      it "creates a new order if there is no order_id stored in session" do
+      it "creates a new order and sets status to pending if there is no order_id stored in session" do
         expect {
           post add_to_cart_path(@product_2.id), params: order_item_params
         }.must_differ "Order.count", 1
   
         new_order = Order.last
         expect(session[:order_id]).must_equal new_order.id
+        expect(new_order.status).must_equal "pending"
       end
   
       it "does not create an order item if the product_id is invalid, and responds with a 404" do

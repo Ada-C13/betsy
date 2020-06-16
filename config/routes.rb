@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :reviews, only: [:new, :create]
   
   # merchants
-  resources :merchants, only: [:show] do
+  resources :merchants, only: [:index, :show] do
     resources :products, only: [:index]
   end
   get "/auth/github", as: "github_login"
@@ -35,4 +35,5 @@ Rails.application.routes.draw do
 
   # order_items
   resources :order_items, only: [:update, :destroy]
+  post "/order_items/ship/:id", to: "order_items#ship", as: "ship_item"
 end
