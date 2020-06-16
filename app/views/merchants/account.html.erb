@@ -10,31 +10,27 @@
 
   <%= link_to "Add Product", new_product_path, :class => "nav-link" %> 
   <%= link_to "Add Category", new_category_path, :class => "nav-link" %> 
-  <%= link_to "Order Summary", root_path %>
+  <%= link_to "Order Summary", merchant_orders_path, :class => "nav-link"  %>
 <% @products = Product.where(merchant_id: @merchant.id)%>
 <% if @products.length > 0 %> 
   <table style="width:70%">  
   <h3><%= "#{@merchant.name}\'s Products"%></h3> 
     <tr>
-        <th>Name</th>
-        <th>Stock</th>
-        <th>Price</th>
-        <th>Active</th>
-        <th></th>
+      <th>Name</th>
+      <th>Stock</th>
+      <th>Price</th>
+      <th>Active?</th>
+      <th></th>
     </tr>    
     <% @products.each do |product| %>
-      <tr class = "middle">
-        <td><%= link_to product.name, product_path(product.id) %></td>
+        <tr class = "middle">
+        <td><%= link_to product.name, product_path(product) %></td>
         <td><%= product.stock%></td>
         <td><%= format_price(product.price) %></td>
         <td>
-          <% if product.active %> 
-            <%= link_to "Active", product_active_path(product.id), method: :patch %>
-          <% else %>
-            <%= link_to "Retired", product_active_path(product.id), method: :patch%> 
-          <% end %>
+          <%= link_to "#{show_active_action(product)}", product_active_path(product), method: :patch%>
         </td>
-        <td><%= link_to "Edit", edit_product_path(product)%></td>
+        <td><%= button_to "Edit", edit_product_path(product), method: :get%></td>
       </tr>
     <% end %>
   </table>

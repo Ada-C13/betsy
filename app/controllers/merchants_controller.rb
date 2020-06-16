@@ -1,13 +1,12 @@
 class MerchantsController < ApplicationController
-
-  skip_before_action :require_login, except: [:account]
+  before_action :find_merchant, only: [:account, :shop, :orders]
+  skip_before_action :require_login, except: [:account, :orders]
 
   def index
     @merchants = Merchant.all
   end
 
   def account
-    @merchant = Merchant.find_by(id: params[:merchant_id])
     if @merchant.nil? || session[:merchant_id] != @merchant.id
       flash[:error] = "You don't have access to that account!"
       redirect_to account_path(session[:merchant_id])
@@ -15,10 +14,11 @@ class MerchantsController < ApplicationController
     end
   end
 
-  def shop
-    @merchant = Merchant.find_by(id: params[:merchant_id])
-  end
+  def shop; end
   
+  def orders
+  end
+
   def create
     auth_hash = request.env["omniauth.auth"]
     merchant = Merchant.find_by(uid: auth_hash[:uid],
@@ -47,8 +47,11 @@ class MerchantsController < ApplicationController
   end
 
   private
-
   def merchant_params
     return params.require(:merchant).permit(:name, :email, :provider, :uid, :avatar)
+  end
+
+  def find_merchant
+    @merchant = Merchant.find_by(id: params[:merchant_id])
   end
 end
