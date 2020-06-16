@@ -21,9 +21,7 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    if @order
-      @order.update(status: "pending")
-    elsif !@order || @order_items.empty?
+    if !@order || @order.order_items.empty?
       flash[:status] = :failure
       flash[:result_text] = "You cannot check out without any products in your cart!"
       redirect_to cart_path
@@ -79,7 +77,6 @@ class OrdersController < ApplicationController
 
       # sets order status to cancelled
       @order.update(status: "cancelled")
-
       # display flash messages and redirect
       flash[:status] = :success
       flash[:result_text] = "Order ##{@order.id} has been successfully cancelled"
