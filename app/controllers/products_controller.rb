@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :create, :destroy] # making my codes DRY
+  before_action :find_product, except: [:index, :new]
   skip_before_action :require_login, only: [:index, :show]
 
   
@@ -19,7 +19,6 @@ class ProductsController < ApplicationController
   end
 
   def create
-    
     if session[:merchant_id]
       @product = Product.new(product_params)
       @product.merchant_id = session[:merchant_id]
@@ -52,7 +51,7 @@ class ProductsController < ApplicationController
       head :not_found
       return
     elsif @product.update(product_params)
-      flash[:success] = " Successfully updated #{@product.name}"
+      flash[:success] = "Successfully updated #{@product.name}"
       redirect_to product_path(@product)
       return
     else 
@@ -75,28 +74,20 @@ class ProductsController < ApplicationController
   end 
 
   def toggle_active
-    @product = Product.find_by(id: params[:id])
-
     if @product.nil?
       head :not_found
       return
     end
-    
-    if @product[:active]
-      @product.update(active: false)
-      # redirect_to merchant_path(session[:merchant_id])
-    else 
-      @product.update(active: true)
-      # redirect_to merchant_path(session[:merchant_id])
-    end
-    redirect_to merchant_path(session[:merchant_id])
+    @product.change_active
+    flash[:success] = "#{@product.name} active status changed."
+    redirect_to account_path(session[:merchant_id])
     return
   end
   
   private
 
   def product_params
-    return params.require(:product).permit(:name, :price, :stock, :active, :description, :photo, :merchant_id)
+    return params.require(:product).permit(:name, :price, :stock, :description, :photo)
   end
 
   def find_product

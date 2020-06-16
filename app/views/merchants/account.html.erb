@@ -13,23 +13,19 @@
   <table style="width:70%">  
   <h3><%= "#{@merchant.name}\'s Products"%></h3> 
     <tr>
-        <th>Name</th>
-        <th>Stock</th>
-        <th>Price</th>
-        <th>Active</th>
-        <th></th>
+      <th>Name</th>
+      <th>Stock</th>
+      <th>Price</th>
+      <th>Active</th>
+      <th></th>
     </tr>    
     <% @products.each do |product| %>
       <tr>
-        <td><%= link_to product.name, product_path(product.id) %></td>
+        <td><%= link_to product.name, product_path(product) %></td>
         <td><%= product.stock%></td>
         <td><%= format_price(product.price) %></td>
         <td>
-          <% if product.active %> 
-            <%= link_to "Active", product_active_path(product.id), method: :patch %>
-          <% else %>
-            <%= link_to "Retired", product_active_path(product.id), method: :patch%> 
-          <% end %>
+          <%= button_to "status", product_active_path(product), method: :patch}
         </td>
         <td><%= link_to "Edit", edit_product_path(product)%></td>
       </tr>

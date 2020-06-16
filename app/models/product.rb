@@ -22,6 +22,10 @@ class Product < ApplicationRecord
     self.stock += quantity
   end
 
+  def change_active
+    self.active = !self.active
+    self.save 
+  end
   def zero_inventory
     return "OUT OF STOCK" if self.stock == 0
   end
