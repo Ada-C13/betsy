@@ -63,7 +63,7 @@ class ActiveSupport::TestCase
   end
 
   def perform_logout
-    delete logout_merchant_url(session[:merchant_id])
+    post logout_merchant_url(session[:merchant_id])
   end
   
 end
