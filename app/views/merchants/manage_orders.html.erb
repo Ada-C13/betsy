@@ -19,7 +19,7 @@
         <tr>
           <td><%= link_to order.id, orders_path(order) %></td>
           <td><%= order.time_submitted %></td>
-          <td><%= OrderItem.where(order_id: order.id).count%></td>
+          <td><%= order.order_items.count %>
           <td><%= order.total_cost %></td>
           <td><%= order.status %></td>
           <% if order.status == 'paid' %>
