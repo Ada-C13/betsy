@@ -1,9 +1,9 @@
 <h3> YOUR ORDER </h3>
-<table>
+<br>
+<table class="table table-hover">
   <%@order.order_items.each do |item|%>
     <tr >
-      
-      <td><%= image_tag item.product.photo, alt:"image", class: "item_images" %></td>
+      <td class = "left"><%= image_tag item.product.photo, alt:"image", class: "item_images" %></td>
       <td><%= link_to item.product.name, product_path(item.product) %> |
         <%= link_to "Edit Quantity", order_item_path(item) %> | 
         <%= link_to "🗑Remove", order_item_path(item), method: :delete%>
@@ -15,16 +15,16 @@
     </tr>
   <% end %>
 
-<tr class = "order-table">
-<td> </td>
-<td><strong>Total Price</strong> </td>
-<td> <%=format_price(@order.total_price)%> </td>
-</tr>
-
+  <tr class = "order-table">
+    <td> </td>
+    <td><strong>Total Price</strong> </td>
+    <td> <%=format_price(@order.total_price)%> </td>
+  </tr>
 </table>
+<br>
 <% if !@order.order_items.empty? %>
-  <%= link_to "Clear Cart", cart_path, method: :patch, :class=> "btn btn-primary center" %>
-  <%= link_to "Checkout", checkout_path, :class=> "btn btn-primary center" %>
+  <%= link_to "Clear Cart", cart_path, method: :patch, class: "btn btn-danger btn pull-right" %>
+  <%= link_to "Checkout", checkout_path, :class=> "btn btn-primary btn pull-right" %>
 <% else %>
   <p>There are no items in your cart yet!</p>
 <% end %>

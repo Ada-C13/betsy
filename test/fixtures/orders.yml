@@ -21,8 +21,8 @@ paid_order:
   email: lak@ada.org
   address: 244 Thomas str
   cc_last_four: 2340
-  cc_exp_month: 10
-  cc_exp_year: 2024
+  cc_exp_month: 11
+  cc_exp_year: 2021
   cc_cvv: 543
   status: paid
 shipped_order:
@@ -30,8 +30,8 @@ shipped_order:
   email: yaz@ada.org
   address: 244 Queens Bulevard
   cc_last_four: 8698
-  cc_exp_month: 11
-  cc_exp_year: 2020
+  cc_exp_month: 12
+  cc_exp_year: 2021
   cc_cvv: 586
   status: shipped
 
