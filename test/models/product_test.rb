@@ -119,6 +119,18 @@ describe Product do
         stock: 5, 
         active: true
       )
+      @order = Order.create!(
+        name: "test order",
+        email: "hello@gmail.com",
+        mailing_address: "1234 Main st.",
+        cc_number: 12345,
+        cc_exp: "12/23/20",
+        purchase_date: "09/09/20",
+        status: "paid"
+      )
+      @category = Category.create!(
+        title: "books"
+      )
     end
 
     it "can set the merchant through 'merchant'" do 
@@ -133,5 +145,40 @@ describe Product do
       expect(@product.merchant).must_equal @merchant
     end
 
+    it "can set reviews through 'reviews'" do 
+      @product.merchant = @merchant
+      @product.save 
+
+      review = Review.create(text: "Amazing", rating: 5, product_id: @product.id)
+      
+      expect(@product.reviews.first).must_equal review
+    end
+
+    it "can set order_items through 'order_items'" do
+      @product.merchant = @merchant
+      @product.save
+      
+      order_item = OrderItem.create(product_id: @product.id, order_id: @order.id, quantity: 1, shipped: false)
+
+      expect(@product.order_items.first).must_equal order_item
+    end
+
+    it "can set orders through 'order_items'" do 
+      @product.merchant = @merchant
+      @product.save
+      
+      order_item = OrderItem.create(product_id: @product.id, order_id: @order.id, quantity: 1, shipped: false)
+
+      expect(@product.orders.first).must_equal @order
+    end
+
+    it "can set categories through 'categories'" do 
+      @product.merchant = @merchant
+      @product.save
+
+      @product.categories << @category
+      
+      expect(@product.categories.first).must_equal @category
+    end
   end
 end
