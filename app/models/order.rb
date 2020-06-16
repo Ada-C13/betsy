@@ -10,7 +10,6 @@ class Order < ApplicationRecord
   validates :credit_card_cvv, presence: true, on: :update
   validates :customer_email, presence: true, on: :update
 
-
   def checkout_order!
     return false if self.status != "pending"
     return false if self.name.nil? || self.credit_card_num.nil? ||
@@ -41,7 +40,7 @@ class Order < ApplicationRecord
     return total
   end
   
-  def self.by_merchant(merchant_id) # TODO add more tests
+  def self.by_merchant(merchant_id) # TODO move to merchant
     merchant = Merchant.find_by(id: merchant_id)
     return [] if merchant.nil?
     return merchant.orders

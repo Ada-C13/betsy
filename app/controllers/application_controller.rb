@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
 
   before_action :find_cart
   before_action :current_merchant
-  #before_action :require_login
 
   def render_404
     # DPR: this will actually render a 404 page in production
@@ -16,11 +15,11 @@ class ApplicationController < ActionController::Base
   def find_cart
     if session[:order_id]
       @shopping_cart = Order.find_by(id: session[:order_id])
-    else
-      @shopping_cart = Order.create(status: "pending")
-      session[:order_id] = @shopping_cart.id
-    end 
-  end
+      return if !@shopping_cart.nil? && @shopping_cart.status == "pending"
+    end
+    @shopping_cart = Order.create(status: "pending")
+    session[:order_id] = @shopping_cart.id
+end
 
   def current_merchant
     @current_merchant ||= session[:merchant_id] &&
@@ -36,7 +35,6 @@ class ApplicationController < ActionController::Base
   end
 
   def require_ownership
-
     if params[:id].to_i != current_merchant.id
       if request.get?
         redirect_to dashboard_merchant_url(current_merchant.id)
@@ -48,7 +46,6 @@ class ApplicationController < ActionController::Base
         return
       end
     end
-
   end
 
 end

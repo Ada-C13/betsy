@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   resources :order_items, only: [:edit, :update, :destroy]
   post "/order_items/:id/create", to: "order_items#create", as: "create_order_items"
 
-  
 
   resources :products
   post "/products/:id/deactivate", to: "products#deactivate", as: "product_deactivate"
