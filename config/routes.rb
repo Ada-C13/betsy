@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
 
   resources :products
+  get "/products/:id/by_category", to: "products#by_category", as: "by_category"
+  get "/products/:id/by_merchant", to: "products#by_merchant", as: "by_merchant"
   post "/products/:id/deactivate", to: "products#deactivate", as: "product_deactivate"
   post "/products/:product_id/reviews/new", to: "reviews#new", as: "new_review"
   

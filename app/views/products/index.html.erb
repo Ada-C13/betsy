@@ -2,24 +2,23 @@
 
 <h2>Products</h2>
 
-<div class="container">
-  <div class="alert alert-secondary">
-    <h4>Session debug panel</h4>
-    <p>[:session_id] = <%= session[:session_id] %> *****
-    [:order_id] = <%= session[:order_id] %> *****
-    [:merchant_id] = <%= session[:merchant_id] ? session[:merchant_id] : "Not logged in as merchant" %>
-    </p>
+  <div class="container">
+    <div class="alert alert-secondary">
+      <h4>Session debug panel</h4>
+      <p>[:session_id] = <%= session[:session_id] %> *****
+      [:order_id] = <%= session[:order_id] %> *****
+      [:merchant_id] = <%= session[:merchant_id] ? session[:merchant_id] : "Not logged in as merchant" %>
+      </p>
+    </div>
   </div>
-</div>
 
-<div class="product-grid__container container">
-  <% @products.in_groups_of(4).each do |group| %>
-  <div class="product-grid__row row">
-    <% group.each do |product| %>
-      <%= render partial: "shared/product", locals: { product: product } %>
+  <div class="product-grid__container container">
+    <% @products.in_groups_of(4).each do |group| %>
+    <div class="product-grid__row row">
+      <% group.each do |product| %>
+        <%= render partial: "shared/product", locals: { product: product } %>
+      <% end %>
+    </div>
     <% end %>
   </div>
-  <% end %>
 </div>
-
-<%= link_to 'New Product', new_product_path %>
