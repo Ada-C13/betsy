@@ -95,10 +95,22 @@ class OrdersController < ApplicationController
   end
 
   def search
-    # Params: order id and email address - both are required to complete the search
-    # Flashes an error message if order can’t be found
-    # Else flashes a success message
-    # Redirects to order_path
+    order = Order.find_by(
+      id: params[:order][:id], 
+      email: params[:order][:email]
+    )
+    
+    if !order
+      flash[:status] = :failure
+      flash[:result_text] = "Order not found! Please confirm your order number and email, then try again."
+      redirect_to root_path
+      return
+    else
+      flash[:status] = :success
+      flash[:result_text] = "Order found! Here are the details."
+      redirect_to order_path(order)
+      return
+    end
   end
 
   private
