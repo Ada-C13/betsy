@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   
-  before_action :require_login, only: [:index, :show]
+  # before_action :require_login, only: [:index, :show]
   before_action :find_order, only: [:show, :complete, :cancel, :confirmation]
 
   # TODO: remove index route because we can get orders from Merchant model

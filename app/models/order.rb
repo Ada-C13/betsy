@@ -24,8 +24,6 @@ class Order < ApplicationRecord
     self.order_items.each do |item|
       item.product.stock -= item.quantity
       item.product.save
-      puts "debugging ------> "
-      p item.product
     end
     self.status = "paid"
     result = self.save

@@ -40,64 +40,64 @@ describe OrdersController do
   valid_statuses   = %w(pending paid complete cancelled)
   invalid_statuses = ["parrot", "parakeet", "incomplete", "nope", 2021, nil]
 
-  describe "index" do
-    it "succeeds when there are orders" do
-      # Arrange
-      merchant = perform_login(merchants(:suely))
-      # Act
-      get orders_path
-      # Assert
-      must_respond_with :success
-    end
+  # describe "index" do
+  #   it "succeeds when there are orders" do
+  #     # Arrange
+  #     merchant = perform_login(merchants(:suely))
+  #     # Act
+  #     get orders_path
+  #     # Assert
+  #     must_respond_with :success
+  #   end
 
-    it "succeeds when there are no orders" do
-      # Arrange
-      merchant = perform_login(merchants(:suely))
-      Order.all do |order|
-        order.destroy
-      end
-      # Act
-      get orders_path
-      # Assert
-      must_respond_with :success
-    end
+  #   it "succeeds when there are no orders" do
+  #     # Arrange
+  #     merchant = perform_login(merchants(:suely))
+  #     Order.all do |order|
+  #       order.destroy
+  #     end
+  #     # Act
+  #     get orders_path
+  #     # Assert
+  #     must_respond_with :success
+  #   end
 
-    it "fails if no merchant is logged in" do
-      # Act
-      get orders_path
-      # Assert
-      must_redirect_to root_path
-    end    
-  end # describe "index"
+  #   it "fails if no merchant is logged in" do
+  #     # Act
+  #     get orders_path
+  #     # Assert
+  #     must_redirect_to root_path
+  #   end    
+  # end # describe "index"
 
-  describe "show" do
-    it "succeeds for an existing order ID" do
-      # Arrange
-      merchant = perform_login(merchants(:suely))
-      # Act
-      get order_path(pending_order.id)
-      # Assert
-      must_respond_with :success
-    end
+  # describe "show" do
+  #   it "succeeds for an existing order ID" do
+  #     # Arrange
+  #     merchant = perform_login(merchants(:suely))
+  #     # Act
+  #     get order_path(pending_order.id)
+  #     # Assert
+  #     must_respond_with :success
+  #   end
 
-    it "redirects to order list if order not found" do
-      # Arrange
-      merchant = perform_login(merchants(:suely))
-      destroyed_id = pending_order.id
-      pending_order.destroy
-      # Act
-      get order_path(destroyed_id)
-      # Assert
-      must_redirect_to orders_path
-    end
+  #   it "redirects to order list if order not found" do
+  #     # Arrange
+  #     merchant = perform_login(merchants(:suely))
+  #     destroyed_id = pending_order.id
+  #     pending_order.destroy
+  #     # Act
+  #     get order_path(destroyed_id)
+  #     # Assert
+  #     must_redirect_to orders_path
+  #   end
 
-    it "redirects to root if merchant not logged in" do
-      # Act
-      get order_path(pending_order.id)
-      # Assert
-      must_redirect_to root_path
-    end    
-  end # describe "show"
+  #   it "redirects to root if merchant not logged in" do
+  #     # Act
+  #     get order_path(pending_order.id)
+  #     # Assert
+  #     must_redirect_to root_path
+  #   end    
+  # end # describe "show"
 
   describe "edit" do
     it "edits the shopping cart" do

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'pages#landing'
 
+  resources :orders, only: [:index, :show]
+
   # Index – List orders for a Merchant (Merchant only)
   # Show  – Shows any orders from the Merchant (Merchant only)
   get "/cart", to: "orders#edit", as: "cart" 
@@ -12,7 +14,6 @@ Rails.application.routes.draw do
   post "/orders/:id/complete", to: "orders#complete", as: "order_complete"
   # Complete – Ships the order, changes status to “complete” (Merchant only)
   post "/orders/:id/cancel", to: "orders#cancel", as: "order_cancel"
-  resources :orders, only: [:index, :show, :update]
   # Cancel – Cancels the order, changes status to “cancelled” (Merchant only)
   get "/orders/:id/confirmation", to: "orders#confirmation", as: "order_confirmation"
 
