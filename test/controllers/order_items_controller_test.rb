@@ -2,7 +2,7 @@ require "test_helper"
 
 describe OrderItemsController do
   before do
-    @order_item = order_items(:order_item1)
+    @order_item = order_items(:order_item_three)
   end
 
   describe "update" do

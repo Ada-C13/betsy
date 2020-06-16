@@ -62,7 +62,7 @@
             <%= link_to cart_path do %> 
               <%= image_tag("https://i.imgur.com/JtZnRAu.png", alt: "shopping cart") %>
               <% if session[:order_id] %>
-                <span class="badge badge-primary badge-pill"><%= @order.order_items.count %></span>
+                <span class="badge badge-primary badge-pill"><%= @current_order.order_items.count %></span>
               <% end %>
             <% end %>  
           </li>
@@ -90,5 +90,16 @@
     <section>
       <%= yield %>
     </section>
+
+    <footer>
+      <hr />
+      <nav class="app-footer__nav">
+        <ul class="nav app-footer__site-nav-container">
+          <li class="nav-item app-footer__nav_item">
+            <%= link_to "Order Status", orders_search_new_path, class: "nav-link"%>
+          </li>
+        </ul>
+      </nav>
+    </footer>
   </body>
 </html>

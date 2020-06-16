@@ -16,6 +16,12 @@ class Order < ApplicationRecord
     return order_items.map{ |item| item.subtotal}.sum
   end
 
+  def self.search(search)
+    if search
+      return Order.find_by(id: search[:id], email: search[:email])
+    end
+  end
+  
   def find_merchants_ids
     merchant_ids = []
     self.products.each do |product|

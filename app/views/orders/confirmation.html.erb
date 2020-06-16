@@ -1,0 +1,3 @@
+<%= render partial: "order" %>
+
+<%= link_to "Cancel Order", order_path(@order), class: "btn btn-danger float-right", method: "delete", data: { confirm: "Are you sure you want to cancel Order ##{@order.id}?" } %>
