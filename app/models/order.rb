@@ -24,6 +24,10 @@ class Order < ApplicationRecord
 
 
   def cancel
+    if self.status == "shipped"
+      errors.add(:status, "can't cancel shipped order")
+      return false
+    end
     change_status("cancelled")
   end
 
@@ -52,6 +56,10 @@ class Order < ApplicationRecord
   end
 
   def submit_order
+    if self.status == "paid"
+      return false
+    end
+    # 16 dig cc > 4 dig cc
     change_status("paid")
   end
 
@@ -59,7 +67,8 @@ class Order < ApplicationRecord
 
   def change_status(new_status)
     if !VALID_STATUSES.include? new_status
-      raise ArgumentError.new("status invalid")
+       self.errors[:status] << "Not a valid staus"
+       return false
     end
     self.status = new_status
     self.save
@@ -67,7 +76,7 @@ class Order < ApplicationRecord
       order_item.status = new_status
       order_item.save
     end
-    return self.status
+    return true
   end
 
   
