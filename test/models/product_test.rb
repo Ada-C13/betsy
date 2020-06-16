@@ -11,8 +11,8 @@ describe Product do
       photo: "https://i.imgur.com/WSHmeuf.jpg",
       merchant: merchants(:merchantaaa)
     )
-   
   end
+  let(:existing_product) {products(:product1)}
 
   it "can be instantiated" do
     # Assert
@@ -40,12 +40,17 @@ describe Product do
     it "the product belongs to merchant" do
       # Arrange
       @new_product.save
-      
       # Assert
-      expect(@merchant.products.count).must_equal 3
-      @merchant.products.each do |product|
-        expect(product).must_be_instance_of Product
-      end 
+      expect(@new_product.merchant).must_equal @merchant
+    end
+    it "has order_items" do
+      order_items = OrderItem.all.find_all { |item|
+        item.product == existing_product
+      }
+      existing_product.order_items.each do |item|
+      expect(order_items).must_include item
+      order_items.delete(item)
+      end
     end
   end
 

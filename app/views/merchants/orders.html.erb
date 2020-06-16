@@ -24,3 +24,11 @@
     <%end%>
   <%end%>
 </table>
+<div class="revenue">
+  <div class="left-label">
+    Total Revenue:
+  </div>
+  <div class="right-value">
+    <%=format_price(@merchant.calculate_revenue)%>
+  </div>
+</div>

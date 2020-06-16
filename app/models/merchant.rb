@@ -17,4 +17,18 @@ class Merchant < ApplicationRecord
     # We'll do the saving outside of this method
     return merchant
   end
+
+  def calculate_revenue
+    revenue = 0.0
+    self.products.each do |product|
+      product.order_items.each do |item|
+        if item.status == "paid" || item.status == "shipped"
+          revenue += product.price * item.quantity
+        end
+      end
+    end
+    return revenue
+  end
+
+
 end
