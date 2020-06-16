@@ -71,4 +71,25 @@ describe OrderItemsController do
       must_respond_with :not_found
     end
   end
+
+  describe "ship" do
+    it "updates order and order_item statuses" do
+      expect(@order_item.shipped).must_equal false
+      post ship_item_path(@order_item.id)
+      @order_item.reload
+      expect(@order_item.shipped).must_equal true
+      expect(@order_item.order.status).must_equal "complete"
+      expect(flash[:result_text]).must_include "Successfully shipped"
+      must_redirect_to merchant_path(@order_item.product.merchant.id)
+    end
+
+    it "doesn't update the order_item if it's already shipped" do
+      expect(@order_item.shipped).must_equal false
+      post ship_item_path(@order_item.id)
+      @order_item.reload
+      expect(@order_item.shipped).must_equal true
+      post ship_item_path(@order_item.id)
+      expect(@order_item.shipped).must_equal true
+    end
+  end
 end

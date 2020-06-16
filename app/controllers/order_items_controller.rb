@@ -31,12 +31,14 @@ class OrderItemsController < ApplicationController
   end
 
   def ship
-    @order_item.update(shipped: true)
-    @order_item.order.update(status: "complete")
-    flash[:status] = :success
-    flash[:result_text] = "Successfully shipped #{@order_item.product.title}!"
-    redirect_to merchant_path(@order_item.product.merchant.id)
-    return
+    if !@order_item.shipped
+      @order_item.update(shipped: true)
+      @order_item.order.update(status: "complete")
+      flash[:status] = :success
+      flash[:result_text] = "Successfully shipped #{@order_item.product.title}!"
+      redirect_to merchant_path(@order_item.product.merchant.id)
+      return
+    end
   end
 
   private
