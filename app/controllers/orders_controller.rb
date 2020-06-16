@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   end
   
   def index
-    @order_items = @order.order_items if @order
+    @order_items = @current_order.order_items if @order
   end
 
   def show
@@ -14,9 +14,9 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    if @order
-      @order.update(status: "pending")
-    elsif !@order || @order_items.empty?
+    if @current_order
+      @current_order.update(status: "pending")
+    elsif !@current_order || @order_items.empty?
       flash[:status] = :failure
       flash[:result_text] = "You cannot check out without any products in your cart!"
       redirect_to cart_path
@@ -26,33 +26,33 @@ class OrdersController < ApplicationController
 
   def complete
     # saves user info to order
-    if @order.update(order_params)
+    if @current_order.update(order_params)
 
       # stores the last 4 digits of cc_number
       # TODO: Move this into an order model method, instead of storing, we want to display the last 4
-      @order.update(cc_number: @order.cc_number.to_s[-4..-1].to_i) 
+      @current_order.update(cc_number: @current_order.cc_number.to_s[-4..-1].to_i) 
 
       # change status to paid and sets purchase_date
-      @order.update(
+      @current_order.update(
         status: "paid", 
         purchase_date: Date.today
       )
 
       # reduces the stock of each product 
       # TODO: Move this into a product model method
-      @order.order_items.each do |item|
+      @current_order.order_items.each do |item|
         item.product.update(stock: item.product.stock - item.quantity)
       end
 
       # display flash messages and redirect
       flash[:status] = :success
-      flash[:result_text] = "Thank you for your order, #{@order.name}!"
-      redirect_to order_confirmation_path(@order)
+      flash[:result_text] = "Thank you for your order, #{@current_order.name}!"
+      redirect_to order_confirmation_path(@current_order)
       return
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Could not complete order!"
-      flash.now[:messages] = @order.errors.messages
+      flash.now[:messages] = @current_order.errors.messages
       render :checkout, status: :bad_request
       return
     end
@@ -94,13 +94,14 @@ class OrdersController < ApplicationController
     end
   end
 
+  def search_form
+    @order = Order.new
+  end
+
   def search
-    order = Order.find_by(
-      id: params[:order][:id], 
-      email: params[:order][:email]
-    )
-    
-    if !order
+    @order = Order.search(params)
+
+    if !@order
       flash[:status] = :failure
       flash[:result_text] = "Order not found! Please confirm your order number and email, then try again."
       redirect_to root_path
@@ -108,7 +109,7 @@ class OrdersController < ApplicationController
     else
       flash[:status] = :success
       flash[:result_text] = "Order found! Here are the details."
-      redirect_to order_path(order)
+      redirect_to order_path(@order)
       return
     end
   end
@@ -116,6 +117,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    return params.require(:order).permit(:name, :email, :mailing_address, :cc_number, :cc_exp)
+    return params.require(:order).permit(:name, :email, :mailing_address, :cc_number, :cc_exp, :search)
   end
 end

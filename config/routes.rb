@@ -29,7 +29,8 @@ Rails.application.routes.draw do
   get "/cart", to: "orders#index", as: "cart"
   get "/order/checkout", to: "orders#checkout", as: "order_checkout"
   get "/order/:id/confirmation", to: "orders#confirmation", as: "order_confirmation" 
-  post "/orders/search", to: "orders#search", as: "search_orders"
+  get "/orders/search/new", to: "orders#search_form", as: "orders_search_new"
+  post "/orders/search", to: "orders#search", as: "orders_search"
   patch "/order/checkout", to: "orders#complete"
 
   # order_items
