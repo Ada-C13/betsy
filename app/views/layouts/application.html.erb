@@ -13,37 +13,58 @@
 
   <header>
   </header>
+
   <nav>
-    <ul class = "nav">
-      <li ><%= link_to "Home", root_path, :class => "glyphicon glyphicon-home" %></li>
-      <li><a href="#">Products</a>
-        <ul>
-          <li><%= link_to "All Product", products_path %></li>
-          <% if Category.all.length >0 %>
-            <% Category.all.each do |category| %>
-            <li>
-              <%= link_to category.name, category_path(category) %>
+    <div class="container">
+      <ul class="nav">
+        <li><%= link_to "Home", root_path, class: "nav-item" %>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a data-toggle="dropdown"  class="nav-link dropdown-toggle" href="/products" role="button" aria-haspopup="true" aria-expanded="false">Products
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a>
+              <%= link_to "All Products", products_path, class: "dropdown-item" %>
+            </a>
+            <% if Category.all.length > 0 %>
+              <% Category.all.each do |category| %>
+              <a>
+                <%= link_to category.name, category_path(category), class: "dropdown-item" %>
+              </a>
+              <% end %>
             <% end %>
-            </li>
-          <% end %>
+          </div>
+        </li>
+
+        <li><%= link_to "Merchants", merchants_path, class: "nav-item" %>
+        </li>
+
+        <li><%= link_to "EMAIL", root_path, class: "nav-item" %>
+        </li>
+        <li><%= link_to "SEARCH", root_path, class: "nav-item" %>
+        </li>
+        <li><%= link_to "Cart", cart_path, class: "nav-item" %>
+        </li>
+
+        <% if session[:merchant_id] %>
+          <li class="nav-item dropdown">
+            <a data-toggle="dropdown"  class="nav-link dropdown-toggle" href="/products" role="button" aria-haspopup="true" aria-expanded="false">My Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a>
+                <%= link_to "Log out", logout_path, class: "dropdown-item", method: :put %>
+              </a>
+              <a>
+                <%= link_to "Account Summary", account_path(session[:merchant_id]), class: "dropdown-item" %>
+              </a>
+            </div>
           </li>
-        </ul>
-      </li>
-      <li><%= link_to "Merchants", merchants_path %></li>
-      <li><%= link_to "", root_path, :class=>"fa fa-envelope" %></li>
-      <li><%= link_to "", root_path, :class => "fa fa-search" %></li>
-      <li class = "push"><a href="#">My Account</a>
-      <% if session[:merchant_id] %>
-        <ul>
-          <li><%= link_to "Log out", logout_path, method: :put %></li>
-          <li><%= link_to "Account Summary", account_path(session[:merchant_id]) %></li>
-        </ul> 
         <% else %>
-        <%= link_to "Login with Github", github_login_path %> 
-      <% end %>
-      </li>
-      <li class = "push"><%= link_to "", cart_path, :class => "fa fa-shopping-cart" %></li>
-    </ul>
+          <li><%= link_to "Login with Github", github_login_path, class: "nav-item" %></li>
+        <% end %>
+      </ul>
+    </div>
   </nav>
 
   <body>
