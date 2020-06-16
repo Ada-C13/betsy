@@ -7,12 +7,14 @@
       <th>Order ID</th>
       <th>Status</th>
   </tr>
-  <%@merchant.order_items.each do |item|%>
-    <tr>
-      <td><%= item.product.name %></td>
-      <td><%= item.quantity %></td>
-      <td><%= item.order.id %></td>
-      <td><%= item.status%></td>
-    </tr>
+  <%@merchant.products.each do |product|%>
+    <%product.order_items.each do |item|%>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.order.id %></td>
+        <td><%= item.status%></td>
+      </tr>
+    <%end%>
   <%end%>
 </table>
