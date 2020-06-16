@@ -11,8 +11,6 @@ class OrdersController < ApplicationController
       @order = Order.new
       if @order.save
         session[:cart_id] = @order.id
-      else
-        flash[:error] = "Oops, something went wrong. Product could not be added to cart."
       end
     end
   end
@@ -42,10 +40,15 @@ class OrdersController < ApplicationController
   def show_complete; end
 
   def cancel
-    @order.cancel
-    flash[:success] = "Your order was cancelled."
-    redirect_to root_path
-    return
+    if @order.cancel
+      flash[:success] = "Your order was cancelled."
+      redirect_to root_path
+      return
+    else
+      flash[:error] = 'Order has already been shipped'
+      redirect_to complete_order_path(@order)
+      return
+    end
   end
 
   private
@@ -66,7 +69,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    return params.require(:order).permit(:name, :email, :address, :cc_last_four,:cc_exp_year, :cc_exp_month, :cc_cvv)
+    return params.require(:order).permit(:name, :email, :address, :cc_last_four, :cc_exp_year, :cc_exp_month, :cc_cvv)
   end
 
 end

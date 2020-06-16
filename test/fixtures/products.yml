@@ -33,3 +33,10 @@ product5:
   active: true
   description: This is xxx product is the most popular product that help protect form Covid 19.
   merchant: merchantccc
+product0:
+  name: xxx
+  price: 50.00
+  stock: 0
+  active: true
+  description: This is xxx product is the most popular product that help protect form Covid 19.
+  merchant: merchantccc

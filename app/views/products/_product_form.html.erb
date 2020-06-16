@@ -8,7 +8,7 @@
   </ul>
 <% end %>
 
-<h2>ADD PRODUCT</h2>
+<h3>ADD PRODUCT</h3>
 <%= form_with model: @product, class: 'product-form' do |f| %>
   <div class='form-group'>
     <%= f.label :name %>
@@ -38,7 +38,7 @@
 
   <div>
     <%= f.label :category %>
-    <%= f.select :categories_id, options_for_select(Category.all.map{ |cate| [cate.name, cate.id] }),{} ,class: "form-control" %>
+    <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
   </div>
   <br>
   <%= f.submit "#{action_name} Product", class: "btn btn-primary" %>
