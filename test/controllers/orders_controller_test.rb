@@ -212,4 +212,40 @@ describe OrdersController do
       expect(order.status).must_equal "cancelled"
     end
   end
+
+  describe "search" do
+    before do
+      @order = orders(:pending_order)
+    end
+
+    it "can successfully find an order given an existing id and email address, flashes a success message, and redirects" do
+      @order.update!(email: "magic@store.com")
+      @order.reload
+
+      expect{
+        post search_orders_path(@order)
+      }.wont_differ "Order.count"
+
+      expect(flash[:status]).must_equal :success
+      expect(flash[:result_text]).must_include "Order found!"
+    end
+
+    it "flashes an error message and redirects if given an invalid id" do
+      expect{
+        post search_orders_path(-1)
+      }.wont_differ "Order.count"
+
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "Order not found!"
+    end
+
+    it "flashes an error message and redirects if given an invalid email" do
+      expect{
+        post search_orders_path(@order)
+      }.wont_differ "Order.count"
+
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "Order not found!"
+    end
+  end
 end

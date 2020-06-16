@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find_by(id: params[:id], email: params[:email])
+    @order = Order.find_by(id: params[:id])
     head :not_found if !@order
     return
   end
@@ -92,6 +92,13 @@ class OrdersController < ApplicationController
       redirect_to root_path
       return
     end
+  end
+
+  def search
+    # Params: order id and email address - both are required to complete the search
+    # Flashes an error message if order can’t be found
+    # Else flashes a success message
+    # Redirects to order_path
   end
 
   private
