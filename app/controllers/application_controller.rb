@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 
   def find_order
     if session[:order_id]
-      @order = Order.find_by(id: session[:order_id])
+      @current_order = Order.find_by(id: session[:order_id])
     end
   end
 end
