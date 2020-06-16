@@ -100,6 +100,22 @@ describe Product do
 
       expect(result).must_equal true
     end
+
+    it "is not valid without photo_url" do 
+      @product.photo_url = nil 
+
+      result = @product.valid?
+
+      expect(result).must_equal false
+    end
+
+    it "is not valid when the url is invalid" do 
+      @product.photo_url = "just a string"
+
+      result = @product.valid?
+
+      expect(result).must_equal false
+    end
   end
 
   describe "relations" do 
