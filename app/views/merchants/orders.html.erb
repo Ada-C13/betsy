@@ -6,6 +6,7 @@
       <th>Quantity</th>
       <th>Order ID</th>
       <th>Status</th>
+      <th></th>
   </tr>
   <%@merchant.products.each do |product|%>
     <%product.order_items.each do |item|%>
@@ -14,6 +15,11 @@
         <td><%= item.quantity %></td>
         <td><%= item.order.id %></td>
         <td><%= item.status%></td>
+        <td>
+          <%if item.status == "paid"%>
+            <%= link_to "Ship Item", ship_path({:id => item.id}), method: :patch%>
+          <%end%>
+        </td>
       </tr>
     <%end%>
   <%end%>
