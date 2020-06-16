@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
 
   has_many   :order_items, dependent: :destroy
+  belongs_to :merchant
 
   VALID_STATUS = %w(pending paid complete cancelled)
   validates :status, presence: true, inclusion: {in: VALID_STATUS}
@@ -40,10 +41,12 @@ class Order < ApplicationRecord
     return total
   end
   
-  def self.by_merchant(merchant_id) # TODO move to merchant
-    merchant = Merchant.find_by(id: merchant_id)
-    return [] if merchant.nil?
-    return merchant.orders
-  end
+  # TODO: move to merchant / remove because merchant.orders 
+  # already returns all orders belonging to the merchant
+  # def self.by_merchant(merchant_id)
+  #   merchant = Merchant.find_by(id: merchant_id)
+  #   return [] if merchant.nil?
+  #   return merchant.orders
+  # end
   
 end

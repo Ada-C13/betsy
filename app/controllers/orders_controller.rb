@@ -3,14 +3,16 @@ class OrdersController < ApplicationController
   before_action :require_login, only: [:index, :show]
   before_action :find_order, only: [:show, :complete, :cancel, :confirmation]
 
-  def index
-    # List orders for a Merchant (Merchant only)
-    @orders = Order.by_merchant(current_merchant)
-  end
+  # TODO: remove index route because we can get orders from Merchant model
+  # def index
+  #   # List orders for a Merchant (Merchant only)
+  #   @orders = Order.by_merchant(current_merchant)
+  # end
   
-  def show
-    # Shows any orders from the Merchant (Merchant only)
-  end
+  # TODO: remove show route because we can get orders from Merchant model
+  # def show
+  #   # Shows any orders from the Merchant (Merchant only)
+  # end
 
   def edit
     # Shows cart, updates credit card/address/email and confirms checkout (User)
