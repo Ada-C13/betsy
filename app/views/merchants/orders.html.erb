@@ -1,0 +1,18 @@
+
+<table style="width:70%">  
+  <h3>Your Orders</h3> 
+  <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Order ID</th>
+      <th>Status</th>
+  </tr>
+  <%@merchant.order_items.each do |item|%>
+    <tr>
+      <td><%= item.product.name %></td>
+      <td><%= item.quantity %></td>
+      <td><%= item.order.id %></td>
+      <td><%= item.status%></td>
+    </tr>
+  <%end%>
+</table>

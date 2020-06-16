@@ -1,5 +1,5 @@
 class MerchantsController < ApplicationController
-  before_action :find_merchant, [:account, :shop, :orders]
+  before_action :find_merchant, only: [:account, :shop, :orders]
   skip_before_action :require_login, except: [:account, :orders]
 
   def index
