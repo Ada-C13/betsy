@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
 
       # stores the last 4 digits of cc_number
       # TODO: Move this into an order model method, instead of storing, we want to display the last 4
-      @order.update(cc_number: @order.cc_number.to_s[-4..-1].to_i) 
+      # @order.update(cc_number: @order.cc_number.to_s[-4..-1].to_i) 
 
       # change status to paid and sets purchase_date
       @order.update(
@@ -91,6 +91,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    return params.require(:order).permit(:name, :email, :mailing_address, :cc_number, :cc_exp)
+    return params.require(:order).permit(:name, :email, :mailing_address, :cc_number, :cc_exp, :cvv, :zipcode)
   end
 end

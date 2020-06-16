@@ -59,7 +59,15 @@ class ProductsController < ApplicationController
 
     # creates a new order if there is no order_id saved to session
     if !session[:order_id]
-      order = Order.create
+      order = Order.create(
+        name: "bob",
+        email: "bob@bobb.com",
+        mailing_address: "edrftyghjk",
+        cc_number: 1234123412341234,
+        cc_exp: Date.today,
+        cvv: 123,
+        zipcode: 12345
+      )
       session[:order_id] = order.id
     end
 
