@@ -1,6 +1,11 @@
 pending_order:
   status: pending
 complete_order:
+  name: Test name
+  email: something@something.com
+  mailing_address: address
+  cc_number: 1234567890123456
+  cc_exp: 2020/06
   status: complete
 paid_order:
   status: paid

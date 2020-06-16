@@ -35,7 +35,7 @@ describe ProductsController do
             title: "kiwi",
             price: 2.99,
             description: "yellow banana",
-            photo_url: "url info",
+            photo_url: "https://i.imgur.com/z9U4xd6.jpg",
             merchant_id: merchant.id,
             stock: 5,
             category_ids: []

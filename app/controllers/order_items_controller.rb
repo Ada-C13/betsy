@@ -1,5 +1,5 @@
 class OrderItemsController < ApplicationController
-  before_action only: [:update, :destroy] do
+  before_action only: [:update, :destroy, :ship] do
     find_order_item
   end
 
@@ -28,6 +28,17 @@ class OrderItemsController < ApplicationController
     flash[:result_text] = "Successfully removed #{@order_item.product.title} from cart!"
     redirect_to cart_path
     return
+  end
+
+  def ship
+    if !@order_item.shipped
+      @order_item.update(shipped: true)
+      @order_item.order.update(status: "complete")
+      flash[:status] = :success
+      flash[:result_text] = "Successfully shipped #{@order_item.product.title}!"
+      redirect_to merchant_path(@order_item.product.merchant.id)
+      return
+    end
   end
 
   private

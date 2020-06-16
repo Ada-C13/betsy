@@ -70,10 +70,23 @@ describe Merchant do
 
         cancelled_orders_count = @merchant.number_of_orders_for("cancelled")
         expect(cancelled_orders_count).must_equal 1
+      end
+    end
 
+    describe "existing_order_items_by_merchant" do
+      it "returns all order_items for 1 merchant" do
+        order_items = @merchant.existing_order_items_by_merchant
+        expect(order_items.count).must_equal 4
+      end
+
+      it "returns empty array if order_items are equal to zero" do
+        @merchant.products.destroy_all
+        expect(@merchant.existing_order_items_by_merchant.count).must_equal 0
+        expect(@merchant.existing_order_items_by_merchant).must_be_instance_of Array
       end
     end
   end
+
   describe "relations" do
     it "has a list of products" do
       merchant = merchants(:merchant1)

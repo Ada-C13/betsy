@@ -9,14 +9,28 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by(id: params[:id])
-
-    if !@order || @order.id != session[:order_id] # we need session[:order_id] in order to view the show page
+    if !@order  
       flash[:status] = :failure
-      flash[:result_text] = "You cannot view this order!"
+      flash[:result_text] = "Sorry, there is no such order"
       redirect_to root_path
       return
-    elsif @order.status == "paid" # if the order has been completed, we will reset the session[:order_id]
-      session[:order_id] = nil
+    else
+      # User can't see the order if any item or the order does not belong to this logged-in user's products 
+      # or if there is no logged-in merchant and it's not their order
+      # we need session[:order_id] or session[:merchant_id] in order to view the show page
+      if session[:merchant_id] && !@order.find_merchants_ids.include?(session[:merchant_id])
+        flash[:status] = :failure
+        flash[:result_text] = "This order does not have your products"
+        redirect_to root_path
+        return
+      elsif !session[:merchant_id] && session[:order_id] != @order.id
+        flash[:status] = :failure
+        flash[:result_text] = "You cannot view this order!"
+        redirect_to root_path
+        return
+      elsif @order.status == "paid" # if the order has been completed, we will reset the session[:order_id]
+        session[:order_id] = nil
+      end
     end
   end
 

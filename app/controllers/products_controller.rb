@@ -96,7 +96,7 @@ class ProductsController < ApplicationController
       @products = @category.products
     else
       # This is the 'regular' route, /products
-      @products = Product.all
+      @products = Product.all.order(id: :asc)
     end
   end
 
@@ -132,6 +132,6 @@ class ProductsController < ApplicationController
 
   def product_params 
     return params.require(:product).permit(:title, :price, :description, :merchant_id,
-                                    :photo_url, :stock, active: true, category_ids: [])
+    :stock, category_ids: []).merge(photo_url: "https://i.imgur.com/z9U4xd6.jpg", active: true)
   end
 end
