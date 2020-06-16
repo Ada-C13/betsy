@@ -23,12 +23,29 @@ describe OrdersController do
       must_respond_with :success
     end
 
-    it "flashes an error message and redirects if given an id that does not match session[:order_id]" do
+    it "flashes an error message and redirects if given a merchant that does not match session[:merchant_id]" do
+      merchant = perform_login
+      order = orders(:complete_order)
+      get order_path(order.id)
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "This order does not have your products"
+      must_redirect_to root_path
+    end
+
+    it "flashes an error message and redirects if given the order does not exist" do
       get order_path(-1)
       
       expect(flash[:status]).must_equal :failure
       expect(flash[:result_text]).must_include "Sorry, there is no such order"
       
+      must_redirect_to root_path
+    end
+
+    it "flashes an error message and redirects if given an id that does not match session[:order_id]" do
+      order = build_order
+      get order_path(orders(:paid_order))
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "You cannot view this order!"
       must_redirect_to root_path
     end
 
