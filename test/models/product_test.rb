@@ -101,4 +101,37 @@ describe Product do
       expect(result).must_equal true
     end
   end
+
+  describe "relations" do 
+    before do 
+      @merchant = Merchant.create!(
+        id: 5,
+        username: "peter",
+        uid: 7878743,
+        email: "peter@gmail.com ",
+        provider: "github"
+      )
+      @product = Product.new(
+        title: "tinkerbell",
+        price: 40,
+        photo_url: "photo of tinkerbell",
+        description: "magic tinkerbell",
+        stock: 5, 
+        active: true
+      )
+    end
+
+    it "can set the merchant through 'merchant'" do 
+      @product.merchant = @merchant
+
+      expect(@product.merchant_id).must_equal @merchant.id
+    end
+
+    it "can set the merchant through 'merchant_id'" do 
+      @product.merchant_id = @merchant.id 
+
+      expect(@product.merchant).must_equal @merchant
+    end
+
+  end
 end
