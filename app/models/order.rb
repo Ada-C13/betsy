@@ -16,7 +16,20 @@ class Order < ApplicationRecord
                     self.credit_card_exp.nil? || self.credit_card_cvv.nil? ||
                     self.customer_email.nil?  || self.address.nil? ||
                     self.city.nil? || self.state.nil? || self.zip.nil?
+    # checking if stock is still available
+    self.order_items.each do |item|
+      return false if item.quantity > item.product.stock
+    end
+    # begin transaction
+    self.order_items.each do |item|
+      item.product.stock -= item.quantity
+      item.product.save
+      puts "debugging ------> "
+      p item.product
+    end
     self.status = "paid"
+    result = self.save
+    # end transaction
     return self.save
   end
 
