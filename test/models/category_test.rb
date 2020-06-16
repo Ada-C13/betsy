@@ -3,7 +3,8 @@ require "test_helper"
 describe Category do
   before do
     @category = Category.new(name: "xxxxxx")
-    @category1 = categories(:category1) 
+    @category1 = categories(:category1)
+    @category3 = categories(:category3)
   end
 
   it "category will have the required field" do
@@ -48,20 +49,23 @@ describe Category do
     end
   end
 
-  describe "custum_methods" do
-    describe "product_by_category" do
-      category1 = categorys(:category1)
-      category = Category.product_by_category(category1.name)
+  describe "costum_methods" do
+    it "should return all products that belongs to one category" do
+      category1 = Category.new(name: @category1.name)
 
-      category.each do |category|
-        expect(category).must_be_kind_of Category
-      end
+      products = Category.product_by_category(@category1.name)
 
-      # expect(category.length).must_equal 8
-      # category.each do |category|
-      #   expect(category).must_be_kind_of Work
-      #   expect(movie.category).must_equal "movie"
-      # end
+      expect(products.length).must_equal 6
+    end
+
+    it "will return empty array if we dont have any product for specific category" do
+      category3 = Category.new(name: @category3.name)
+
+      products = Category.product_by_category(@category3.name)
+      p products
+
+      expect(products.length).must_equal 0
+      expect(products).must_equal []
     end
   end
 end
