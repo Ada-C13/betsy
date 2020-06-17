@@ -26,7 +26,9 @@
               <td><%= link_to order_item.product.name, product_path(order_item.product) %></td>
               <%= order_item.product.stock %>
               <td>
-                <%= order_item.quantity %>
+              <%= link_to "+", order_item_path(id: order_item, quantity: order_item.quantity + 1)%>
+                  <%= order_item.quantity %>
+              <%= link_to "-", order_item_path(id: order_item, quantity: order_item.quantity - 1) %>
               </td>
               <td><%= order_item.product.price %></td>
               <td><%= order_item.subtotal %></td>
