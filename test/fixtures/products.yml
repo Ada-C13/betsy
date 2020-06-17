@@ -36,5 +36,15 @@ cilantro:
   active: false
   price: 100
   merchant: angela
-  categories: herb, vegetable
+  categories: herb
+
+mint:
+  name: mint
+  description: helps your breath smell better
+  photo: https://i.imgur.com/QFyZBAo.jpg
+  stock: 2
+  active: true
+  price: 40
+  merchant: annie
+  categories: herb
 

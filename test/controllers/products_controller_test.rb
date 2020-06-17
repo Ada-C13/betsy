@@ -1,4 +1,5 @@
 require "test_helper"
+require "json"
 
 describe ProductsController do
   let(:product) { products(:daisy) }
@@ -8,18 +9,45 @@ describe ProductsController do
     must_respond_with :success
   end
 
-  it "can filter products by categories and merchants" do
-    vegetable = categories(:vegetable)
-    flower = categories(:flower)
-    annie = merchants(:annie)
-
-    get products_url, params: {categories: [vegetable.id, flower.id], merchants: [annie.id]}
-    must_respond_with :success
-  end
-
   it "should show product" do
     get product_url(product)
     must_respond_with :success
+  end
+
+  describe 'filtering products' do
+    let(:vegetable) { categories(:vegetable) }
+    let(:flower) { categories(:flower) }
+    let(:herb) { categories(:herb) }
+    let(:annie) { merchants(:annie) }
+
+    it "can filter products by categories and merchants" do
+      get products_url, params: {categories: [vegetable.id, flower.id], merchants: [annie.id]}
+      must_respond_with :success
+      products = @controller.instance_variable_get(:@products)
+
+      expect(products.count).must_equal 4
+      expect(products).must_include products(:daisy)
+      expect(products).must_include products(:tulip)
+      expect(products).must_include products(:onion)
+      expect(products).must_include products(:mint)
+
+      expect(products).wont_include merchants(:angela)
+      expect(products).wont_include products(:cilantro)
+    end
+
+    it "can show only active products" do
+      get products_url, params: {categories: [vegetable.id, herb.id], merchants: [annie.id]}
+      must_respond_with :success
+      products = @controller.instance_variable_get(:@products)
+
+      expect(products.count).must_equal 2
+      expect(products).must_include products(:onion)
+      expect(products).must_include products(:mint)
+
+      expect(products).wont_include products(:tulip)
+      expect(products).wont_include merchants(:angela)
+      expect(products).wont_include products(:cilantro)
+    end
   end
 
   describe "managing products" do
