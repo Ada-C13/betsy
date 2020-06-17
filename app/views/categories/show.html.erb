@@ -6,13 +6,20 @@
     <% Category.product_by_category(@category.name).each do |product|%>
       <%if product.active%>
         <div class = "col-xs-6 col-md-4">
-          <img class = "show_images", src="<%= product.photo %>", alt="<%=product.name %>">
+          <%= link_to(image_tag(product.photo, class: "show_images"), product_path(product)) %>
           <p><%= link_to product.name.titleize, product_path(product) %></p>
           <p><%= format_price(product.price) %></p>
           </div>
       <% end %>
     <% end%>
+    <%# TODO: the pagination doesn't work%>
+    <div class="pagination">
+      <%# will_paginate @category_products %>
+    </div> 
 </div>
 <%else%>
   <p>There is no product for this category</p>
 <% end%>
+
+
+<p><%# page_entries_info @category.products %></p>
