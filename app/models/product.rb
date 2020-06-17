@@ -21,13 +21,21 @@ class Product < ApplicationRecord
     self.stock += quantity
   end
 
+  def enough_stock?(quantity)
+    if self.stock == 0
+      errors.add(:stock, "#{self.name} out of stock.")
+      return false
+    elsif self.stock < quantity
+      errors.add(:stock, "There are #{self.stock} #{self.name} in stock, select another quanity.")
+      return false
+    else
+      return true
+    end
+  end
+
   def change_active
     self.active = !self.active
     self.save 
-  end
-  # this is weird
-  def zero_inventory
-    return "OUT OF STOCK" if self.stock == 0
   end
 end
 

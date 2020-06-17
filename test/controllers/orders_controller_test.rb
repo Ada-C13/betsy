@@ -48,7 +48,7 @@ describe OrdersController do
       expect(order_item.product.id).must_equal @p1.id
       expect(flash[:success]
         ).must_equal "Added #{order_item.quantity} of #{@p1.name} to cart."
-      must_redirect_to product_path(@p1)
+      must_redirect_to cart_path
     end
     it "doesn't save order item if there's not enough enough stock" do
       too_much = {
@@ -57,12 +57,12 @@ describe OrdersController do
       post add_order_item_path(@p1), params: too_much
       cart = Order.find_by(id: session[:cart_id])
       expect(flash[:error]
-        ).must_equal "There are only #{@p1.stock} #{@p1.name} in stock, please select another quanity."
+        ).must_equal "There are #{@p1.stock} #{@p1.name} in stock, select another quanity."
       must_redirect_to product_path(@p1)
     end
     it "returns right error for 0 stock" do
       post add_order_item_path(products(:product0)), params: @quantity_hash
-      expect(flash[:error]).must_equal "OUT OF STOCK"
+      expect(flash[:error]).must_include "out of stock"
       must_redirect_to product_path(products(:product0))
     end
     it "has right number of order_items" do
