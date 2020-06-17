@@ -21,4 +21,13 @@ class Product < ApplicationRecord
   # and updated with \A and \z on the sides
   validates :photo_url, presence: true, format: { 
     with: /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\z/ix }
+
+
+  def reduce_stock(order_item) 
+    return self.stock - order_item.quantity
+  end
+
+  def increase_stock(order_item) 
+    return self.stock + order_item.quantity
+  end
 end

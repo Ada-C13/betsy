@@ -196,7 +196,9 @@ describe OrdersController do
     end
 
     it "can add the quantity of each order item back to product stock" do
-      order = build_order
+      product1 = products(:plant)
+      product2 = products(:ball)
+      order = build_order(product1, product2)
 
       expect{
         delete order_path(order)
