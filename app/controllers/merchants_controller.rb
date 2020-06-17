@@ -22,24 +22,15 @@ class MerchantsController < ApplicationController
     return redirect_to root_path
   end
 
-  def dashboard
-    
-  end
+  def dashboard; end
 
-  def manage_orders
-  end
+  def manage_orders; end
 
-  def manage_products
-  end
+  def manage_products; end
 
   def logout
     session.delete(:merchant_id)
     redirect_to root_path
     flash[:success] = "Successfully logged out!"
   end
-
-  private 
-
-
-  
 end
