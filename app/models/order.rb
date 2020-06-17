@@ -66,7 +66,7 @@ class Order < ApplicationRecord
     all_changed = true
     self.order_items.each do |item|
       if !item.method(change).call
-        errors.add(:order_items, item.errors[:status])
+        errors.add("order_item##{item.id}".to_sym, item.errors[:status])
         all_changed = false
       end
     end

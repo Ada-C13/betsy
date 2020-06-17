@@ -45,7 +45,7 @@ class OrdersController < ApplicationController
       redirect_to root_path
       return
     else
-      flash[:error] = 'Order has already been shipped'
+      flash[:error] = "#{@order.errors.messages.values}"
       redirect_to complete_order_path(@order)
       return
     end

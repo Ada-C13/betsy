@@ -105,8 +105,7 @@ describe Order do
       shipped_item = @order1.order_items.find{|o_i| o_i.status == "shipped"}
       all_changed = @order1.cancel
       expect(all_changed).must_equal false
-      expect(@order1.errors).must_include :order_items
-      expect(@order1.errors.messages[:order_items]).must_include ["#{shipped_item.product.name} is already shipped"]
+      expect(@order1.errors.messages.values.pop).must_include ["#{shipped_item.product.name} is already shipped"]
     end
   end
 

@@ -167,14 +167,17 @@ describe OrdersController do
 
     describe "cancel" do
       it "cancels paid order" do
-        post complete_order_path(orders(:paid_order))
+        items = OrderItem.all.find_all {|o_i| o_i.status == "paid"}
+        order = Order.create
+        order.order_items = items
+        post complete_order_path(order)
         expect(flash[:success]).must_equal "Your order was cancelled."
         must_redirect_to root_path
       end
       it "flashes user if order has already been shipped" do
         shipped = orders(:shipped_order)
         post complete_order_path(shipped)
-        expect(flash[:error]).must_equal 'Order has already been shipped'
+        expect(flash[:error]).must_include "is already shipped"
         must_redirect_to complete_order_path(shipped)
       end
     end
