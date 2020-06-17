@@ -10,65 +10,96 @@
   </head>
 
   <body>
-    <header>
-      <nav class="app-header__nav">
-        <ul class="nav app-header__site-nav-container">
-          <h2><%= link_to "Spellbound", root_path %></h2>
-          <li class="nav-item app-header__nav_item">
-            <%= link_to "All Products", products_path, class: "nav-link"%>
-          </li>
-          
-          <li class="nav-item app-header__nav_item">
-            <%= link_to "All Merchants", merchants_path, class: "nav-link"%>
-          </li>
 
-          <li class="nav-item app-header__nav_item">
-            <%= link_to "Products by Category", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"} %>
-            <div class="dropdown-menu">
-              <%Category.all.each do |cat|%>
-                <%= link_to cat.title, category_products_path(cat.id), class: "dropdown-item" %>
-              <%end%>
-            </div>
-          </li>
+    <header class="header">
 
-          <li class="nav-item app-header__nav_item">
-            <%= link_to "Products by Merchant", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}%>
-            <div class="dropdown-menu">
-              <%Merchant.all.each do |merchant|%>
-                <%= link_to merchant.username, merchant_products_path(merchant.id), class: "dropdown-item" %>
-              <%end%>
-            </div>
-          </li>
-        </ul>
+		<!-- Top Bar -->
 
-        <ul class="nav app-header__user-nav-container">
-          <% if @login_user %>
+		<div class="top_bar">
+			<div class="container">
+				<div class="row">
+					<div class="col d-flex flex-row">
+						<div class="phone">+0 555 MAGIC</div>
+						<div class="user_box ml-auto">
+              
+              <% if @login_user %>
+                <div class="user_box_link user_box_login">
+                  <%= link_to "Merchant Dashboard: #{@login_user.username}", merchant_path(@login_user) %>
+                </div>
 
-            <li class="nav-item app-header__nav_item">
-              <%= link_to "Logged in as #{@login_user.username}", merchant_path(@login_user), class: "btn btn-primary" %>
-            </li>
-            <li class="nav-item app-header__nav_item">
-              <%= link_to "Log Out", logout_path, method: :post, class: "btn btn-primary" %>
-            </li>
-
-          <% else %>
-
-            <li class="nav-item app-header__nav_item">
-              <%= link_to "Log In", github_login_path, class: "btn btn-primary" %>
-            </li>
-          <% end %>
-
-          <li class="nav-item app-header__nav_item">
-            <%= link_to cart_path do %> 
-              <%= image_tag("https://i.imgur.com/JtZnRAu.png", alt: "shopping cart") %>
-              <% if session[:order_id] %>
-                <span class="badge badge-primary badge-pill"><%= @current_order.order_items.count %></span>
+                <div class="user_box_link user_box_login">
+                  <%= link_to "Log Out", logout_path, method: :post %>
+                </div>
+              
+              <% else %>
+                <div class="user_box_link user_box_login">
+                  <%= link_to "Log In", github_login_path %>
+                </div>
               <% end %>
-            <% end %>  
-          </li>
-        </ul>
-      </nav>
-    </header>
+
+              <div class="user_box_link">
+                <%= link_to cart_path do %> 
+                  <%= image_tag("https://i.imgur.com/lvFdy3t.png", size: "20x20", alt: "shopping cart") %>
+                  
+                  <% if session[:order_id] %>
+                    <span class="badge badge-primary badge-pill"><%= @current_order.order_items.count %></span>
+                  <% end %>
+                <% end %>  
+              </div>
+						</div> 
+					</div> 
+				</div>
+			</div>		
+		</div>
+
+		<!-- Main Navigation -->
+
+		<nav class="main_nav">
+			<div class="container">
+				<div class="row">
+					<div class="col main_nav_col d-flex flex-row align-items-center justify-content-start">
+						
+            <div class="logo_container">
+							<div class="logo">
+                <%= link_to "Spellbound", root_path %>
+              </div>
+						</div>
+
+						<div class="main_nav_container ml-auto">
+							<ul class="main_nav_list">
+
+								<li class="main_nav_item">
+                  <%= link_to "Products by Category", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"} %>
+                  <div class="main_nav_dropdown dropdown-menu">
+                    <%= link_to "All Products", products_path, class: "nav-link"%>
+                    <%Category.all.each do |cat|%>
+                      <%= link_to cat.title.pluralize, category_products_path(cat.id), class: "dropdown-item" %>
+                    <%end%>
+                  </div>
+                </li>
+
+								<li class="main_nav_item">
+                  <%= link_to "Products by Merchant", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}%>
+                  <div class="main_nav_dropdown dropdown-menu">
+                    <%Merchant.all.each do |merchant|%>
+                      <%= link_to merchant.username, merchant_products_path(merchant.id), class: "dropdown-item" %>
+                    <%end%>
+                  </div>
+                </li>
+
+                <li class="main_nav_item"><%= link_to "All Merchants", merchants_path, class: "nav-link"%></li>
+							</ul>
+						</div>
+
+						<div class="hamburger"> <!-- for mobile view -->
+							<i class="fa fa-bars trans_200"></i>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</nav>
+
+	</header>
     
     <% if flash[:result_text] or flash[:messages] %>
       <section class="alert__container">
