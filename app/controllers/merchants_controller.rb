@@ -14,7 +14,10 @@ class MerchantsController < ApplicationController
     end
   end
 
-  def shop; end
+  def shop
+    # TODO: the pagination doesn't work
+    @merchant_products = @merchant.products.paginate(page: params[:page], per_page: 9)
+  end
   
   def orders
   end
