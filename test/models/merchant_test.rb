@@ -85,6 +85,28 @@ describe Merchant do
         expect(@merchant.existing_order_items_by_merchant).must_be_instance_of Array
       end
     end
+
+    describe "find_orders_by_status" do
+      it "returns only orders with a specific status" do
+        result = @merchant.find_orders_by_status("complete")
+        expect(result.size).must_equal 2
+        result.each do |order_item|
+          expect(order_item.order.status).must_equal "complete"
+        end
+      end
+
+      it "return an empty array if no orders with such status found" do
+        result = @merchant.find_orders_by_status("pending")
+        expect(result.size).must_equal 0
+        expect(result).must_be_instance_of Array
+      end
+
+      it "return all existing orders for a merchant if status is not given" do
+        existing_orders = @merchant.existing_order_items_by_merchant
+        result = @merchant.find_orders_by_status("")
+        expect(result.size).must_equal existing_orders.count
+      end
+    end
   end
 
   describe "relations" do
