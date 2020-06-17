@@ -1,19 +1,5 @@
 require "test_helper"
 
-# 1nominal test
-# if no session[cart_id] => create the Order PLUS create the seesion
-# has session[cart_id]
-# to chechk if product_id (must_be_instance_of) and prder_id (must_be_instance_of) is not empty
-# clear the cart, the session[cart_id] will still exist
-# if the product is already in the cart => flash message PLUS the redirect path.
-# if the order_item is not saved we have to tests the flash and the redirect
-
-# edge cases
-# if we dont have quantity
-# if product is nil => flash[:error] = “product is not exited”
-
-# expect(session[:merchant_id]).must_equal merchant.id
-
 describe OrdersController do
   before do
     @p1 = products(:product1)

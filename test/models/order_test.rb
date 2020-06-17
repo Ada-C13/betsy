@@ -110,18 +110,47 @@ describe Order do
   end
 
   describe "custom method: submit_order" do 
-    # skip
-    # it "be able to update a valid status" do
-    #   @order1 = orders(:full_cart) # status == "pending" and has 2 products (product1 x 1 + product4 x 5)
-    #   @order1.submit_order
-    #   expect(@order1.status).must_equal "paid"
-    # end
+    it "be able to update a valid status" do
+      @order1 = orders(:full_cart) # status == "pending" and has 2 products (product1 x 1 + product4 x 5)
+      @order1.submit_order
+      expect(@order1.status).must_equal "paid"
+    end
 
-    # it "can't change the status to paid if the current status == paid " do
-    #   @order1 = orders(:paid_order)
-    #   result = @order1.submit_order
-    #   expect(result).must_equal false
-    # end
+    it "can't change the status to paid if the current status == paid " do
+      @order1 = orders(:paid_order)
+      result = @order1.submit_order
+      expect(result).must_equal false
+    end
+
+    it "all of its order items are now paid status, with products stock updated" do
+      items = OrderItem.all.find_all {|item| 
+        item.status == "pending" && item.product.stock > item.quantity
+      }
+      old_stocks = {}
+      items.each do |item|
+        old_stocks["#{item.product.id}"] = item.product.stock
+      end
+      order = Order.new(
+        name: 'Lak',
+        email: 'lak@ada.org',
+        address: '244 Thomas str',
+        cc_last_four: '2340',
+        cc_exp_month: '10',
+        cc_exp_year: '2024',
+        cc_cvv: '543'
+      )
+      order.order_items = items
+      submit = order.submit_order
+      expect(submit).must_equal true
+      items.each do |item|
+        expect(item.status).must_equal "paid"
+      end
+      items.each do |item|
+        expect(
+          item.product.stock
+        ).must_equal old_stocks["#{item.product.id}"] - item.quantity
+      end
+    end
   end
 
   describe "custom method: clear_cart" do 
