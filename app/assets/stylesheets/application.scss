@@ -423,8 +423,9 @@ section
 	text-transform: uppercase;
 }
 .badge {
-  background-color: #8d4fff;
+  background-color: #fa9d1b;
   margin-left: -5px;
+  color: #31114b;
 }
 .user_box_link a:hover
 {
@@ -782,9 +783,38 @@ section
 .home
 {
 	width: 100%;
-	height: 100vh;
+	height: 465px;
+	background: transparent;
 }
-
+.home_background
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+  background-position: center center;
+}
+.home_content
+{
+	position: absolute;
+	bottom: 106px;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+.home_title
+{
+	font-size: 72px;
+	font-weight: 800;
+	color: #FFFFFF;
+	text-transform: uppercase;
+}
 
 /*********************************
 4.1 Home Slider
