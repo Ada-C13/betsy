@@ -82,7 +82,7 @@ describe OrderItem do
       item = OrderItem.find_by(status: "shipped")
       result = item.restock
       expect(result).must_equal false
-      expect(item.errors.messages[:status]).must_include "This item is already shipped"
+      expect(item.errors.messages[:status]).must_include "#{item.product.name} is already shipped"
     end
     it "changes item status to cancelled" do
       item = OrderItem.find_by(status: "paid")

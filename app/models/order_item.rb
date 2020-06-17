@@ -30,7 +30,7 @@ class OrderItem < ApplicationRecord
 
   def restock
     if self.status == "shipped"
-      errors.add(:status, "This item is already shipped")
+      errors.add(:status, "#{self.product.name} is already shipped")
       return false
     end
     self.status = "cancelled"
