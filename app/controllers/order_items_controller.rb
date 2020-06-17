@@ -1,7 +1,12 @@
 class OrderItemsController < ApplicationController
   def create
     product_id = params[:id]
-    quantity = params[:order_item][:quantity] ? params[:order_item][:quantity].to_i : 1
+    order_item_params = params[:order_item]
+    if order_item_params.nil?
+      quantity = 1
+    else
+      quantity = params[:order_item][:quantity].to_i
+    end
     message = OrderItem.add_item(@shopping_cart.id, product_id, quantity)
     if message.nil?
       flash[:success] = "Product added to shopping cart"
