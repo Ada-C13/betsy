@@ -1,10 +1,28 @@
-<%= form_with model: @category do |f| %>
-
-  <div class="form-group">
-    <%= f.label "Title:" %>
-    <%= f.text_field :title, class: "form-control" %>
+<body data-gr-c-s-loaded="true" style="">
+  <div class="parallax-mirror" style="visibility: visible; z-index: -100; position: fixed; top: 0px; left: 0px; overflow: hidden; transform: translate3d(0px, -139px, 0px); height: 465px; width: 1280px;"><img class="parallax-slider" src="images/blog_background.jpg" style="transform: translate3d(-200px, 111.2px, 0px); position: absolute; height: 415px; width: 1681px; max-width: none;"></div>
+    <div class="super_container">
+      <div class="home">
+        <div class="home_background parallax-window" data-parallax="scroll">
+          <div><img src="https://i.imgur.com/b6IS9xc.jpg" alt="background" /></div>
+        </div>
+          
+        <div class="home_content">
+          <div class="home_title">New category</div>
+        </div>
+      </div>
+    </div>
   </div>
   
-  <%= f.submit "Add Category", class: "btn btn-primary"%>
+  <div class="search">
+        <%= form_with model: @category do |f| %>
 
-<% end %>
+          <div class="form-group">
+            <%= f.label "Title:", class: "test_quote_title" %>
+            <%= f.text_field :title, class: "check_in search_input" %>
+          </div>
+          
+          <%= f.submit "Add Category", class: "button search_button"%>
+
+        <% end %>
+  </div>
+</body>
