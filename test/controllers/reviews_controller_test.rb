@@ -38,7 +38,7 @@ describe ReviewsController do
     must_respond_with :bad_request
   end
 
-  it "can't create when rating that is above 5" do
+  it "can't create with rating that is above 5" do
     assert_no_difference("Review.count") do
       post product_reviews_path(product), params: { review: { rating: 8, comment: "I was really happy with my daisies!", product_id: product.id  } }
     end
@@ -46,12 +46,16 @@ describe ReviewsController do
     must_respond_with :bad_request
   end
 
-  # it "can't review own product" do
-  #   perform_login(product.merchant)
+# hello 
+  it "should redirect to products_path" do
+    bad_review = {
+      rating: 8,
+      comment: "bad review",
+      product_id: -1
+    }
 
-  #   post product_reviews_path(product), params: { review: { rating: 8, comment: "I was really happy with my daisies!", product_id: product.id  } }
-
-  #   must_respond_with :bad_request
-    
-  # end
+    post new_product_review_path(-1), params: { review: bad_review }
+    #expect(flash[:danger]).must_equal "Something went wrong with the reviewing process."
+    must_redirect_to products_path
+  end
 end
