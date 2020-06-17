@@ -102,7 +102,6 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      # raise
       return params.require(:product).permit(:name, :description, :photo, :stock, :price, category_ids: [])
     end
 end
