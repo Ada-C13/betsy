@@ -22,13 +22,13 @@ describe Review do
       
     end
 
-    it "is not valid if the rating isn't between 0-5" do
+    it "is not valid if the rating isn't between 1-5" do
       review.rating = 7
       result = review.valid?
 
       expect(result).must_equal false
       expect(review.errors.messages).must_include :rating
-      expect(review.errors.messages[:rating]).must_include "should be between 0 and 5"
+      expect(review.errors.messages[:rating]).must_include "should be between 1 and 5"
 
     end
 
