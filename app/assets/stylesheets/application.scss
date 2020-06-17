@@ -142,7 +142,7 @@
 .profile-img {
   border-radius: 50%;
   max-width: 15%;
-  border: solid lightcoral 3px;
+  border: solid gray 3px;
   margin-bottom: 2em;
   margin-top: 2em;
 }
@@ -152,6 +152,7 @@ section {
   margin-left: 10em;
   padding-right:  5em;
   display:center;
+  font-family: 'Times New Roman', Times, serif;
 }
 .dropdown-item{
   color: black;
@@ -358,7 +359,7 @@ label{
 }
 
 .item_images {
-  max-width: 10%;
+  max-width: 18%;
   border:gray 2px solid;
   image-rendering: center;
   margin: 5px
@@ -378,16 +379,6 @@ tr:hover {background-color: #f5f5f5;}
   margin: 5px;
 }
 
-h2 {
-  color:red;
-  font-family: 'Times New Roman', Times, serif;
-}
-
-h3{
-  color: red;
-  font-family: 'Times New Roman', Times, serif;
-}
-
 .middle {
   text-align: center;
 }
@@ -395,3 +386,8 @@ h3{
 .left {
   text-align: left;
 }
+
+div, li {
+  font-family: 'Times New Roman', Times, serif;
+}
+

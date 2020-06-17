@@ -1,6 +1,6 @@
 <section>
   <img class = "show_images", src="<%=@product.photo %>", alt="<%=@product.name %>">
-  <h2><%= @product.name %></h2> 
+  <h2><%= @product.name.titleize %></h2> 
   <p><strong>Price: </strong><%= format_price(@product.price) %></p>
   <p><strong>In Stock: </strong><%= @product.stock %></strong></p>
   <p><strong>Description: </strong><%= @product.description %></p>
@@ -37,7 +37,7 @@
       <% elsif review.rating == 5 %>
         <span> ⭐⭐⭐⭐⭐</span>
       <% end %>
-      <%= review.feedback %> 
+      <p><%= review.feedback %> </p>
     <% end %>
     </li>
   <% else %>
