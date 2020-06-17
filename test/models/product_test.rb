@@ -157,4 +157,12 @@ describe Product do
     end
   end
 
+  describe "toggle active" do
+    it "changes status" do
+      old_status = @existing_product.active
+      @existing_product.change_active
+      expect(@existing_product.active).must_equal !old_status
+    end
+  end
+
 end
