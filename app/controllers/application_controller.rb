@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def current_merchant
     @current_merchant ||= session[:merchant_id] &&
-    Merchant.find_by(id: session[:merchant_id])
+      Merchant.find_by(id: session[:merchant_id])
   end
 
   def require_login
