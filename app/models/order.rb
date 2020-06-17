@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   has_many :order_items
   has_many :products, through: :order_items
 
-  validates :status, presence: true, inclusion: { in: VALID_STATUSES, message: "Status must be pending, paid, shipped, or cancelled"} 
+  validates :status, presence: true, inclusion: { in: VALID_STATUSES, message: "Status invalid."} 
   def order_submitted?
     status == "paid" || status == "shipped" || status == "cancelled" 
   end

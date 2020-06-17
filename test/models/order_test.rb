@@ -4,7 +4,7 @@ describe Order do
   describe "validations" do
     describe "validations are all replying on the status" do
       before do 
-        statuses = ["pending", "paid", "shipped", "cancelled", "baloney", nil]
+        statuses = ["pending", "paid", "shipped", "baloney", nil]
         @required_fields = [:name, :email, :address, :cc_last_four, :cc_exp_month, :cc_exp_year, :cc_cvv]
         @orders_with_only_status = []
         statuses.each do |status|
@@ -17,11 +17,11 @@ describe Order do
         order = @orders_with_only_status[0]
         expect(order.valid?).must_equal true
       end
-      it "paid, shipped, and cancelled are not valid without address, name, etc" do
+      it "paid, shipped are not valid without address, name, etc" do
         order_paid = @orders_with_only_status[1]
         expect(order_paid.valid?).must_equal false
         @required_fields.each do |field|
-          expect(order_paid.errors).must_include field
+        expect(order_paid.errors).must_include field
         end
 
         order_shipped = @orders_with_only_status[2]
@@ -29,17 +29,11 @@ describe Order do
         @required_fields.each do |field|
           expect(order_shipped.errors).must_include field
         end
-
-        order_cancelled = @orders_with_only_status[3]
-        expect(order_cancelled.valid?).must_equal false
-        @required_fields.each do |field|
-          expect(order_cancelled.errors).must_include field
-        end
       end
       it "invalid statuses create invalid orders" do
-        bad_order = @orders_with_only_status[4] # "baloney"
+        bad_order = @orders_with_only_status[3] # "baloney"
         expect(bad_order.valid?).must_equal false
-        bad_order = @orders_with_only_status[5] # nil
+        bad_order = @orders_with_only_status[4] # nil
         expect(bad_order.valid?).must_equal false
       end
     end
@@ -65,6 +59,7 @@ describe Order do
   end
 
   describe "private custom method: change_status" do
+    skip
     before do
       @order1 = orders(:paid_order) # status == "paid" and has 2 products (product1 x 3 + product3 x 5)
       @order2 = orders(:full_cart) # status == "pending" and has 2 products (product1 x 1 + product4 x 5)
@@ -85,23 +80,34 @@ describe Order do
   end
 
   describe "custom method: cancel" do 
-    it "be able to update a valid status" do
-      @order1 = orders(:paid_order) # status == "paid" and has 2 products (product1 x 3 + product3 x 5)
-      result = @order1.cancel
+    # it "be able to update a valid status" do
+    #   @order1 = orders(:paid_order) # status == "paid" and has 2 products (product1 x 3 + product3 x 5)
+    #   result = @order1.cancel
+    #   expect(result).must_equal true
+    #   expect(@order1.status).must_equal "cancelled"
+    # end
+    it "given an order of all paid items, it changes all status of items to cancelled" do
+      items = Order.find_all(status: "paid")
+      order = Order.create
+      order.order_items = items
+      result = order.cancel
       expect(result).must_equal true
-      expect(@order1.status).must_equal "cancelled"
+      order.order_items.each do |item|
+        expect(item.status).must_equal "cancelled"
+      end
     end
 
-    it "can't change the status to cancelled if the current status == shipped" do
-      @order1 = orders(:shipped_order)
-      result = @order1.cancel
-      expect(result).must_equal false
-      expect(@order1.errors).must_include :status
-      expect(@order1.errors.messages[:status]).must_include "can't cancel shipped order"
-    end
+    # it "can't change the status to cancelled if the current status == shipped" do
+    #   @order1 = orders(:shipped_order)
+    #   result = @order1.cancel
+    #   expect(result).must_equal false
+    #   expect(@order1.errors).must_include :status
+    #   expect(@order1.errors.messages[:status]).must_include "can't cancel shipped order"
+    # end
   end
 
   describe "custom method: submit_order" do 
+    skip
     it "be able to update a valid status" do
       @order1 = orders(:full_cart) # status == "pending" and has 2 products (product1 x 1 + product4 x 5)
       @order1.submit_order
