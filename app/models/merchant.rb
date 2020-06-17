@@ -73,4 +73,14 @@ class Merchant < ApplicationRecord
     end
     return existing_items
   end
+
+  def find_orders_by_status(status)
+    if status
+      return existing_order_items_by_merchant.select do |item|
+        item.order.status == status
+      end
+    else
+      return existing_order_items_by_merchant
+    end
+  end
 end

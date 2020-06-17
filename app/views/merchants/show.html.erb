@@ -60,10 +60,15 @@
       </tbody>
     </table>
 
-    <h3>Orders</h3>
     <% if @merchant.existing_order_items_by_merchant.empty? %>
+      <h3>Orders</h3>
       <h4>Sorry, no one has bought any of your products yet..</h4>
     <% else %>
+    <%= form_tag(merchant_path(@merchant.id), method: :get) do %>
+      <h3>Orders | filter by status <%= select_tag "Status", options_from_collection_for_select(
+          @merchant.existing_order_items_by_merchant.map{ |item| item.order}, "status", "status") %></h3>
+        <%= submit_tag "Filter", class: "btn btn-primary" %>
+    <% end %>
       <table class="table">
         <thead>
           <tr>
@@ -80,7 +85,7 @@
 
         <tbody>
 
-        <% exiting_order_items = @merchant.existing_order_items_by_merchant %>
+        <% exiting_order_items = @merchant.find_orders_by_status(params["Status"]) %>
         <% exiting_order_items.each do |item| %>
           <tr>
             <td><%= link_to item.order.id, order_path(item.order.id) %></td>
