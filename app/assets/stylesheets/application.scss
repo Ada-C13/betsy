@@ -2061,14 +2061,14 @@ section
 }
 
 /*********************************
-13.3 Footer - Tags
+13.3 Footer - Support
 *********************************/
 
-.footer_tags
+.footer_support
 {
 	margin-top: 40px;
 }
-.tag_item
+.support_item
 {
 	height: 35px;
 	float: left;
@@ -2081,19 +2081,18 @@ section
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-.tag_item:hover
+.support_item:hover
 {
 	background: #fa9e1b;
 }
-.tag_item a
+.support_item a
 {
 	display: block;
 	font-size: 12px;
 	font-weight: 600;
 	color: #FFFFFF;
 	line-height: 33px;
-	padding-left: 25px;
-	padding-right: 25px;
+	padding: 0 25px 25px 25px;
 }
 
 /*********************************
