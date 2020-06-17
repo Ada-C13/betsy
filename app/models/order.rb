@@ -32,9 +32,7 @@ class Order < ApplicationRecord
   end
 
   def clear_cart
-    self.order_items.each do |order_item|
-      order_item.destroy
-    end
+    self.order_items.destroy_all
   end 
 
   def total_price
@@ -67,8 +65,8 @@ class Order < ApplicationRecord
 
   def change_status(new_status)
     if !VALID_STATUSES.include? new_status
-       self.errors[:status] << "Not a valid staus"
-       return false
+      self.errors[:status] << "Not a valid staus"
+      return false
     end
     self.status = new_status
     self.save

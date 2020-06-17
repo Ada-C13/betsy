@@ -57,3 +57,7 @@ class ActiveSupport::TestCase
     public *self.private_instance_methods(false)
   end
 end
+
+class Order
+  public *self.private_instance_methods(false)
+end
