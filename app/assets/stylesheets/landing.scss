@@ -1,5 +1,5 @@
 .landing {
-  background-color: lightsteelblue;
+  background-color: #F2B4AB;
   text-align: center;
   margin: 0 auto;
   
@@ -14,20 +14,25 @@
 }
 
 .spotlight {
-  margin: 26vh auto 0;
+  margin: -16vh auto;
   width: 300px;
   height: 300px;
-  background-color: goldenrod;
+  background-color: #D0D7EE;
   border-radius: 300px;
 }
 
 .spotlight img {
-  width: 110%;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .tagline {
-  margin: -10vh 10vh;
-  font-size: 2.5em;
+font-style: normal;
+font-weight: normal;
+font-size: 36px;
+line-height: 47px;
+
+  margin: 16vh;
   text-align: right;
 }
 
@@ -39,4 +44,7 @@
   /* Set the fixed height of the footer here */
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
+  a {
+    color: #D91720;
+  }
 }
