@@ -5,7 +5,7 @@ tulip:
   stock: 6
   active: true
   price: 12.50
-  merchant_id: 1
+  merchant: katherine
 
 daisy:
   name: daisy
@@ -14,7 +14,7 @@ daisy:
   stock: 2
   active: true
   price: 3.75
-  merchant_id: 1
+  merchant: melba
 
 onion:
   name: onion
@@ -23,7 +23,7 @@ onion:
   stock: 10
   active: true
   price: .50
-  merchant_id: 2
+  merchant: annie
 
 cilantro: 
   name: cilantro
@@ -32,5 +32,5 @@ cilantro:
   stock: 1
   active: false
   price: 100
-  merchant_id: 3
+  merchant: angela
 
