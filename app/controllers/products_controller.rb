@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
     @product.active = true
     if @product.save
       flash[:success] = "Successfully created #{@product.name}"
-      redirect_to products_path
+      redirect_to @product
     else
       flash.now[:warning] = "Unable to save product."
       flash.now[:details] = @product.errors.full_messages
@@ -102,6 +102,7 @@ class ProductsController < ApplicationController
     end
 
     def product_params
+      # raise
       return params.require(:product).permit(:name, :description, :photo, :stock, :price, category_ids: [])
     end
 end
