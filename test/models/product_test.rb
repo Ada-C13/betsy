@@ -11,8 +11,9 @@ describe Product do
       photo: "https://i.imgur.com/WSHmeuf.jpg",
       merchant: merchants(:merchantaaa)
     )
+    @existing_product = products(:product1)
+    @before_stock = @existing_product.stock
   end
-  let(:existing_product) {products(:product1)}
 
   it "can be instantiated" do
     # Assert
@@ -45,9 +46,9 @@ describe Product do
     end
     it "has order_items" do
       order_items = OrderItem.all.find_all { |item|
-        item.product == existing_product
+        item.product == @existing_product
       }
-      existing_product.order_items.each do |item|
+      @existing_product.order_items.each do |item|
       expect(order_items).must_include item
       order_items.delete(item)
       end
@@ -122,4 +123,38 @@ describe Product do
       expect(@new_product.errors.messages[:photo]).must_equal ["can't be blank"]
     end
   end
+
+  describe "restock" do
+    it "adds expected amount to stock" do
+      @existing_product.restock(5)
+      expect(@existing_product.stock).must_equal @before_stock + 5
+    end
+  end
+  describe "destock" do
+    it "subtracts expected amount to stock" do
+      @existing_product.destock(5)
+      expect(@existing_product.stock).must_equal @before_stock - 5
+    end
+  end
+  describe "enough_stock?" do
+    it "responds false, with right errors to 0 stock" do
+      zero_stock_product = products(:product0)
+      result = zero_stock_product.enough_stock?(1)
+      expect(result).must_equal false
+      expect(zero_stock_product.errors.messages[:stock].pop).must_include "out of stock."
+    end
+    it "responds false, with errors to insufficient stock" do
+      little_stock_product = products(:product4)
+      result = little_stock_product.enough_stock?(20)
+      expect(result).must_equal false
+      expect(
+        little_stock_product.errors.messages[:stock]
+      ).must_include "There are #{little_stock_product.stock} #{little_stock_product.name} in stock, select another quanity."
+    end
+    it "responds true when enough stock" do
+      result = @existing_product.enough_stock?(1)
+      expect(result).must_equal true
+    end
+  end
+
 end
