@@ -1,5 +1,5 @@
 
-<h3>CHECKOUT</h3>
+<h3>Checkout</h3>
 <%= form_with scope: :order, url: checkout_path, method: :patch do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name, :class => "form-control" %>
