@@ -1,3 +1,11 @@
+nav {
+  background-color: lightslategray;
+}
+
+nav.landing {
+  background-color:  #fff;
+}
+
 .app-header__nav {
   display: flex;
   flex-direction: row;
@@ -10,4 +18,9 @@
   width: 80px;
   background-image: image-url(asset_path("icons/shopping-cart.svg"));
   background-repeat: no-repeat;
+}
+
+.navbar-brand.landing {
+  font-size: 2em;
+  background-color: transparent;
 }

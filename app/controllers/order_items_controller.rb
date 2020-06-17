@@ -17,6 +17,18 @@ class OrderItemsController < ApplicationController
     redirect_back fallback_location: cart_path
   end
 
+  def update_quantity
+    @order_item = OrderItem.find_by(id: params[:id])
+    if @order_item
+      quantity = params[:quantity].to_i
+      @order_item.update_item(quantity)
+      redirect_to cart_path
+    else
+      flash[:warning] = "Item in cart does not exist"
+      redirect_to cart_path
+    end
+  end
+
   def destroy
     @order_item = OrderItem.find_by(id: params[:id])
     if !@order_item

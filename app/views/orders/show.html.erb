@@ -1,3 +1,5 @@
+<% content_for(:headline) { "Order Details"} %>
+
 <h2>Order: <%= link_to @order.id, order_path(@order) %></h2>
 <p>Status: <%= @order.status %></p>
 <p>Items: <%= @order.order_items.size %></p>
