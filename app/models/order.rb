@@ -11,16 +11,16 @@ class Order < ApplicationRecord
   validates :customer_email,  presence: true, on: :update
 
   def checkout_order!
-    return false if self.status != "pending"
-    return false if self.name.nil? || self.credit_card_num.nil? ||
-                    self.credit_card_exp.nil? || self.credit_card_cvv.nil? ||
-                    self.customer_email.nil?  || self.address.nil? ||
-                    self.city.nil? || self.state.nil? || self.zip.nil?
+    return "Invalid cart" if self.status != "pending"
+    return "Missing credit card information" if self.name.nil? ||
+    self.credit_card_num.nil? || self.credit_card_exp.nil? || self.credit_card_cvv.nil?
+    return "Missing customer email" if self.customer_email.nil?
+    return "Missing address" if self.address.nil? || self.city.nil? || self.state.nil? || self.zip.nil?
+    # begin transaction
     # checking if stock is still available
     self.order_items.each do |item|
-      return false if item.quantity > item.product.stock
+      return "Quantity not available in stock" if item.quantity > item.product.stock
     end
-    # begin transaction
     self.order_items.each do |item|
       item.product.stock -= item.quantity
       item.product.save
@@ -28,19 +28,19 @@ class Order < ApplicationRecord
     self.status = "paid"
     result = self.save
     # end transaction
-    return self.save
+    return result ? nil : "Error saving the order"
   end
 
   def ship_order!
-    return false if self.status != "paid"
+    return "Order not paid" if self.status != "paid"
     self.status = "complete"
-    return self.save
+    return self.save ? nil : "Error saving the order"
   end
 
   def cancel_order!
-    return false if self.status != "paid" 
+    return "Order not paid" if self.status != "paid"
     self.status = "cancelled"
-    return self.save
+    return self.save ? nil : "Error saving the order"
   end
 
   def total_cost
