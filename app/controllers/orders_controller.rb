@@ -1,18 +1,6 @@
 class OrdersController < ApplicationController
   
-  # before_action :require_login, only: [:index, :show]
   before_action :find_order, only: [:show, :complete, :cancel, :confirmation]
-
-  # TODO: remove index route because we can get orders from Merchant model
-  # def index
-  #   # List orders for a Merchant (Merchant only)
-  #   @orders = Order.by_merchant(current_merchant)
-  # end
-  
-  # TODO: remove show route because we can get orders from Merchant model
-  # def show
-  #   # Shows any orders from the Merchant (Merchant only)
-  # end
 
   def edit
     # Shows cart, updates credit card/address/email and confirms checkout (User)
@@ -22,12 +10,13 @@ class OrdersController < ApplicationController
     # Process checkout, changes status to “paid”, show confirmation (User)
     @shopping_cart.time_submitted = DateTime.now
     if @shopping_cart.update(order_params)
-      if @shopping_cart.checkout_order!
+      result = @shopping_cart.checkout_order!
+      if result.nil?
         session[:order_id] = nil
         flash[:success] = "Successfully checked out order #{@shopping_cart.id}"
         redirect_to order_confirmation_path(@shopping_cart)
       else
-        flash[:warning] = "Checkout has failed!"
+        flash[:warning] = "Checkout has failed: #{result}"
         flash[:details] = @shopping_cart.errors.full_messages
         render :edit, status: :bad_request
       end
@@ -50,10 +39,11 @@ class OrdersController < ApplicationController
 
   def complete
     # Ships the order, changes status to “complete” (Merchant only)
-    if @order.ship_order!
+    result = @order.ship_order!
+    if result.nil?
       flash[:success] = "Successfully completed order #{@order.id}"
     else
-      flash[:warning] = "Failed to complete order #{@order.id}."
+      flash[:warning] = "Failed to complete order #{@order.id}: #{result}"
       flash[:details] = @order.errors.full_messages
     end
     redirect_back fallback_location: order_path(@order)      
@@ -61,12 +51,13 @@ class OrdersController < ApplicationController
 
   def cancel
     # Cancels the order, changes status to “cancelled” (Merchant only)
-    if @order.cancel_order!
+    result = @order.cancel_order!
+    if result.nil?
       flash[:status] = :success
       flash[:result_text] = "Successfully cancelled order #{@order.id}"
     else
       flash[:status] = :failure
-      flash[:result_text] = "Failed to cancel order."
+      flash[:result_text] = "Failed to cancel order: #{result}"
     end
     redirect_back fallback_location: order_path(@order)      
   end

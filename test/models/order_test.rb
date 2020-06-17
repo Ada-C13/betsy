@@ -51,7 +51,7 @@ describe Order do
       result = pending_order.checkout_order!
       pending_order.reload
       # Assert
-      expect(result).must_equal true
+      expect(result).must_be_nil
       expect(pending_order.status).must_equal "paid"
     end
 
@@ -62,7 +62,8 @@ describe Order do
       result = complete_order.checkout_order!
       complete_order.reload
       # Assert
-      expect(result).must_equal false
+      expect(result).must_be_kind_of String
+      expect(result.downcase).must_include "invalid"
       expect(complete_order.status).must_equal "complete"
     end
 
@@ -78,7 +79,8 @@ describe Order do
       result = incomplete_order.checkout_order!
       incomplete_order.reload
       # Assert
-      expect(result).must_equal false
+      expect(result).must_be_kind_of String
+      expect(result.downcase).must_include "credit card"
       expect(incomplete_order.status).must_equal "pending"
     end
 
@@ -94,7 +96,8 @@ describe Order do
       result = incomplete_order.checkout_order!
       incomplete_order.reload
       # Assert
-      expect(result).must_equal false
+      expect(result).must_be_kind_of String
+      expect(result.downcase).must_include "email"
       expect(incomplete_order.status).must_equal "pending"
     end
   end # describe "checkout_order!"
@@ -107,7 +110,7 @@ describe Order do
       result = paid_order.ship_order!
       paid_order.reload
       # Assert
-      expect(result).must_equal true
+      expect(result).must_be_nil
       expect(paid_order.status).must_equal "complete"
     end
 
@@ -118,7 +121,8 @@ describe Order do
       result = pending_order.ship_order!
       pending_order.reload
       # Assert
-      expect(result).must_equal false
+      expect(result).must_be_kind_of String
+      expect(result.downcase).must_include "not paid"
       expect(pending_order.status).must_equal "pending"
     end
   end # describe "ship_order!"
@@ -131,8 +135,20 @@ describe Order do
       result = paid_order.cancel_order!
       paid_order.reload
       # Assert
-      expect(result).must_equal true
+      expect(result).must_be_nil
       expect(paid_order.status).must_equal "cancelled"
+    end
+
+    it "rejects status not paid" do
+      # Arrange
+      pending_order.save!
+      # Act
+      result = pending_order.cancel_order!
+      pending_order.reload
+      # Assert
+      expect(result).must_be_kind_of String
+      expect(result.downcase).must_include "not paid"
+      expect(pending_order.status).must_equal "pending"
     end
   end # describe "cancel_order!"
 

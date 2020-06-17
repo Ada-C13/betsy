@@ -9,13 +9,6 @@
   </div>
 
   <div class="product-list">
-    <div class="alert alert-secondary">
-      <h4>Session debug panel</h4>
-      <p>[:session_id] = <%= session[:session_id] %> *****
-      [:order_id] = <%= session[:order_id] %> *****
-      [:merchant_id] = <%= session[:merchant_id] ? session[:merchant_id] : "Not logged in as merchant" %>
-      </p>
-    </div>
 
     <h1><%= "No products to view" if @products.empty? %></h1>
     <% @products.in_groups_of(4).each do |group| %>
