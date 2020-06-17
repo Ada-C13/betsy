@@ -31,6 +31,7 @@ gem 'will_paginate', '~> 3.1.0'
 gem "omniauth"
 gem "omniauth-github"
 gem 'simplecov', require: false, group: :test
+gem 'simple_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
