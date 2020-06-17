@@ -1,6 +1,5 @@
 <% content_for(:title) { 'Evergreenery - Browse Products' } %>
-
-<h2><%= @filters.count > 0 ? "Showing Products for #{@filters.join(', ')}" : "Products"%></h2>
+<% content_for(:headline) { @filters.count > 0 ? "Showing Products for #{@filters.join(', ')}" : "Products" } %>
 
 <div class="product-show-page__container container">
 
