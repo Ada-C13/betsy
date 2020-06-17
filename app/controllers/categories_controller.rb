@@ -14,6 +14,10 @@ class CategoriesController < ApplicationController
     @category_products = Category.includes(:products).paginate(page: params[:page], per_page: 6)
   end
 
+  def category_products
+    @category_products = @category.products.paginate(page: params[:page], per_page: 9)
+  end
+
   def new
     @category = Category.new
   end

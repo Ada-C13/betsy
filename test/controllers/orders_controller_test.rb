@@ -1,19 +1,5 @@
 require "test_helper"
 
-# 1nominal test
-# if no session[cart_id] => create the Order PLUS create the seesion
-# has session[cart_id]
-# to chechk if product_id (must_be_instance_of) and prder_id (must_be_instance_of) is not empty
-# clear the cart, the session[cart_id] will still exist
-# if the product is already in the cart => flash message PLUS the redirect path.
-# if the order_item is not saved we have to tests the flash and the redirect
-
-# edge cases
-# if we dont have quantity
-# if product is nil => flash[:error] = “product is not exited”
-
-# expect(session[:merchant_id]).must_equal merchant.id
-
 describe OrdersController do
   before do
     @p1 = products(:product1)
@@ -48,7 +34,7 @@ describe OrdersController do
       expect(order_item.product.id).must_equal @p1.id
       expect(flash[:success]
         ).must_equal "Added #{order_item.quantity} of #{@p1.name} to cart."
-      must_redirect_to product_path(@p1)
+      must_redirect_to cart_path
     end
     it "doesn't save order item if there's not enough enough stock" do
       too_much = {
@@ -57,12 +43,12 @@ describe OrdersController do
       post add_order_item_path(@p1), params: too_much
       cart = Order.find_by(id: session[:cart_id])
       expect(flash[:error]
-        ).must_equal "There are only #{@p1.stock} #{@p1.name} in stock, please select another quanity."
+        ).must_equal "There are #{@p1.stock} #{@p1.name} in stock, select another quanity."
       must_redirect_to product_path(@p1)
     end
     it "returns right error for 0 stock" do
       post add_order_item_path(products(:product0)), params: @quantity_hash
-      expect(flash[:error]).must_equal "OUT OF STOCK"
+      expect(flash[:error]).must_include "out of stock"
       must_redirect_to product_path(products(:product0))
     end
     it "has right number of order_items" do
@@ -167,14 +153,30 @@ describe OrdersController do
 
     describe "cancel" do
       it "cancels paid order" do
-        post complete_order_path(orders(:paid_order))
-        expect(flash[:success]).must_equal "Your order was cancelled."
-        must_redirect_to root_path
+        items = OrderItem.all.find_all {|o_i| o_i.status == "paid"}
+        order = Order.create
+        order.order_items = items
+        post complete_order_path(order)
+        expect(flash[:success]).must_equal "This order has been cancelled."
+        must_redirect_to complete_order_path(order)
       end
       it "flashes user if order has already been shipped" do
-        shipped = orders(:shipped_order)
+        shipped = orders(:shipped_order) # has a shipped item
         post complete_order_path(shipped)
-        expect(flash[:error]).must_equal 'Order has already been shipped'
+        expect(flash[:error]).must_include "is already shipped"
+        must_redirect_to complete_order_path(shipped)
+      end
+      it "flashes user for all order_items already shipped" do
+        shipped = orders(:shipped_order)
+        shipped_items = shipped.order_items.map {|item| 
+          if item.status == "shipped"
+            item.product.name
+          end
+        }
+        post complete_order_path(shipped)
+        shipped_items.each do |name|
+          expect(flash[:error]).must_include name
+        end
         must_redirect_to complete_order_path(shipped)
       end
     end

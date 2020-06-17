@@ -9,16 +9,18 @@
         <p><%= format_price(product.price) %></p>
         <br>
       </div>
-    <%end%>
+    <% end %>
   <% end %>
-<br>
-<div>
+  <br>
+  <br>
+  <div>
+    <%# <p><%= page_entries_info @product %></p> 
 
-<p><%= page_entries_info @product %></p> 
-
-<div class="pagination">
-  <%= will_paginate @products %>
-</div> 
+    <div class="pagination">
+      <%= will_paginate @products %>
+    </div>
+  </div>
+</div>
 
 
 

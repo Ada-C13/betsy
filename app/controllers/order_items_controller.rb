@@ -5,16 +5,10 @@ class OrderItemsController < ApplicationController
   def create
     qty = params[:quantity].to_i
     product = Product.find_by(id: params[:id])
-    if product.stock == 0
-      flash[:error] = "#{product.zero_inventory}"
+    if !product.enough_stock?(params[:quantity].to_i)
+      flash[:error] = "#{product.errors.messages[:stock].pop}"
       redirect_to product_path(product)
       return
-    elsif product.stock < qty
-      flash[:error] = "There are only #{product.stock} #{product.name} in stock, please select another quanity."
-      redirect_to product_path(product)
-      return 
-    else
-      product.decrease_quantity(qty)
     end
     order = nil
     order_item = OrderItem.new(quantity: qty)
@@ -38,7 +32,7 @@ class OrderItemsController < ApplicationController
     else
       flash[:error] = "Unable to add #{qty} of #{product.name} to cart"
     end
-    redirect_to product_path(product)
+    redirect_to cart_path
     return
   end
 
@@ -46,16 +40,10 @@ class OrderItemsController < ApplicationController
 
   def update
     qty = order_item_params[:quantity].to_i
-    if @order_item.product.stock == 0
-      flash[:error] = "#{@order_item.product.zero_inventory}"
-    elsif  @order_item.product.stock < qty
-      flash[:error] = "There are only #{@order_item.product.stock} #{@order_item.product.name} in stock, please select another quanity."
+    if !product.enough_stock?(params[:quantity])
+      flash[:error] = "#{product.errors.messages[:stock].pop}"
     elsif @order_item.update(order_item_params)  
       flash[:success] = "Changed quantity to #{@order_item.quantity}."
-    else
-      flash.now[:error] = "Couldn't change quantity."
-      render :edit
-      return
     end
     redirect_to cart_path
     return
@@ -68,8 +56,9 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
-    order.product.increase_quantity(@order.quantity)
-    @order.destroy
+    @order_item.product.restock(@order_item.quantity)
+    @order_item.destroy
+    redirect_to cart_path
   end
 
   private
@@ -79,5 +68,9 @@ class OrderItemsController < ApplicationController
 
   def find_order_item
     @order_item = OrderItem.find_by(id: params[:id])
+    if @order_item.nil?
+      head :not_found
+      return
+    end 
   end
 end

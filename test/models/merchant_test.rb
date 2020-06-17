@@ -32,7 +32,6 @@ describe Merchant do
       target_products = Product.all.find_all { |p|
         p.merchant == @merchant
       }
-      p target_products
       expect(@merchant.products.length).must_equal target_products.length
       @merchant.products.each do |product|
         expect(target_products).must_include product
@@ -43,8 +42,9 @@ describe Merchant do
 
 
     it 'has many order_item' do
-      # merchants(:merchantaaa) from the fixture file has 3 order items
-      expect(@merchant.order_items.count).must_equal 2
+      items = OrderItem.all.find_all {|item|
+         item.product.merchant == @merchant }
+      expect(@merchant.order_items.count).must_equal items.length
       @merchant.order_items.each do |order_item|
         expect(order_item).must_be_instance_of OrderItem
       end

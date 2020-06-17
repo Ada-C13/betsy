@@ -19,6 +19,7 @@ class ProductsController < ApplicationController
   end
 
   def create
+    # byebug  
     if session[:merchant_id]
       merchant = Merchant.find_by(id: session[:merchant_id])
       @product = Product.new(product_params)

@@ -4,7 +4,7 @@ describe Order do
   describe "validations" do
     describe "validations are all replying on the status" do
       before do 
-        statuses = ["pending", "paid", "shipped", "cancelled", "baloney", nil]
+        statuses = ["pending", "paid", "shipped", "baloney", nil]
         @required_fields = [:name, :email, :address, :cc_last_four, :cc_exp_month, :cc_exp_year, :cc_cvv]
         @orders_with_only_status = []
         statuses.each do |status|
@@ -17,11 +17,11 @@ describe Order do
         order = @orders_with_only_status[0]
         expect(order.valid?).must_equal true
       end
-      it "paid, shipped, and cancelled are not valid without address, name, etc" do
+      it "paid, shipped are not valid without address, name, etc" do
         order_paid = @orders_with_only_status[1]
         expect(order_paid.valid?).must_equal false
         @required_fields.each do |field|
-          expect(order_paid.errors).must_include field
+        expect(order_paid.errors).must_include field
         end
 
         order_shipped = @orders_with_only_status[2]
@@ -29,17 +29,11 @@ describe Order do
         @required_fields.each do |field|
           expect(order_shipped.errors).must_include field
         end
-
-        order_cancelled = @orders_with_only_status[3]
-        expect(order_cancelled.valid?).must_equal false
-        @required_fields.each do |field|
-          expect(order_cancelled.errors).must_include field
-        end
       end
       it "invalid statuses create invalid orders" do
-        bad_order = @orders_with_only_status[4] # "baloney"
+        bad_order = @orders_with_only_status[3] # "baloney"
         expect(bad_order.valid?).must_equal false
-        bad_order = @orders_with_only_status[5] # nil
+        bad_order = @orders_with_only_status[4] # nil
         expect(bad_order.valid?).must_equal false
       end
     end
@@ -65,39 +59,53 @@ describe Order do
   end
 
   describe "private custom method: change_status" do
-    before do
-      @order1 = orders(:paid_order) # status == "paid" and has 2 products (product1 x 3 + product3 x 5)
-      @order2 = orders(:full_cart) # status == "pending" and has 2 products (product1 x 1 + product4 x 5)
-    end
+    # skip
+    # before do
+    #   @order1 = orders(:paid_order) # status == "paid" and has 2 products (product1 x 3 + product3 x 5)
+    #   @order2 = orders(:full_cart) # status == "pending" and has 2 products (product1 x 1 + product4 x 5)
+    # end
 
-    it "be able to update a valid status" do
-      expect(@order1.change_status("shipped")).must_equal true
-      expect(@order2.change_status("paid")).must_equal true
-    end
+    # it "be able to update a valid status" do
+    #   expect(@order1.change_status("shipped")).must_equal true
+    #   expect(@order2.change_status("paid")).must_equal true
+    # end
 
-    it "raise error when trying to update a invalid status" do
-      expect(@order1.change_status("baloney")).must_equal false
-    end
+    # it "raise error when trying to update a invalid status" do
+    #   expect(@order1.change_status("baloney")).must_equal false
+    # end
 
-    it "raise error when try to update the status to nil" do
-      expect(@order2.change_status(nil)).must_equal false
-    end
+    # it "raise error when try to update the status to nil" do
+    #   expect(@order2.change_status(nil)).must_equal false
+    # end
   end
 
   describe "custom method: cancel" do 
     it "be able to update a valid status" do
-      @order1 = orders(:paid_order) # status == "paid" and has 2 products (product1 x 3 + product3 x 5)
-      result = @order1.cancel
-      expect(result).must_equal true
+      @order1 = Order.create
+      items = OrderItem.all.find_all {|o_i| o_i.status = "paid"}
+      @order1.order_items = items
+      all_changed = @order1.cancel
+      expect(all_changed).must_equal true
       expect(@order1.status).must_equal "cancelled"
+    end
+    it "given an order of all paid items, it changes all status of items to cancelled" do
+      items = OrderItem.all.find_all {|o_i| o_i.status = "paid"}
+      order = Order.create
+      order.order_items = items
+      all_changed = order.cancel
+      expect(all_changed).must_equal true
+      order.order_items.each do |item|
+        expect(item.status).must_equal "cancelled"
+      end
     end
 
     it "can't change the status to cancelled if the current status == shipped" do
-      @order1 = orders(:shipped_order)
-      result = @order1.cancel
-      expect(result).must_equal false
-      expect(@order1.errors).must_include :status
-      expect(@order1.errors.messages[:status]).must_include "can't cancel shipped order"
+      # orders(:paid_order) contains a shipped and a paid order_item
+      @order1 = orders(:paid_order)
+      shipped_item = @order1.order_items.find{|o_i| o_i.status == "shipped"}
+      all_changed = @order1.cancel
+      expect(all_changed).must_equal false
+      expect(@order1.errors.messages.values.pop).must_include ["#{shipped_item.product.name} is already shipped"]
     end
   end
 
@@ -112,6 +120,36 @@ describe Order do
       @order1 = orders(:paid_order)
       result = @order1.submit_order
       expect(result).must_equal false
+    end
+
+    it "all of its order items are now paid status, with products stock updated" do
+      items = OrderItem.all.find_all {|item| 
+        item.status == "pending" && item.product.stock > item.quantity
+      }
+      old_stocks = {}
+      items.each do |item|
+        old_stocks["#{item.product.id}"] = item.product.stock
+      end
+      order = Order.new(
+        name: 'Lak',
+        email: 'lak@ada.org',
+        address: '244 Thomas str',
+        cc_last_four: '2340',
+        cc_exp_month: '10',
+        cc_exp_year: '2024',
+        cc_cvv: '543'
+      )
+      order.order_items = items
+      submit = order.submit_order
+      expect(submit).must_equal true
+      items.each do |item|
+        expect(item.status).must_equal "paid"
+      end
+      items.each do |item|
+        expect(
+          item.product.stock
+        ).must_equal old_stocks["#{item.product.id}"] - item.quantity
+      end
     end
   end
 
