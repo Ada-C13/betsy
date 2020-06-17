@@ -10,6 +10,13 @@ class OrderItemsController < ApplicationController
     redirect_back fallback_location: cart_path
   end
 
+  def update_quantity
+    @order_item = OrderItem.find(params[:id])
+    quantity = params[:quantity].to_i
+    @order_item.update_item(quantity)
+    redirect_to cart_path
+  end
+
   def destroy
     @order_item = OrderItem.find_by(id: params[:id])
     @order_item.remove_item
