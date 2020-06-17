@@ -3,7 +3,7 @@ nav {
 }
 
 nav.landing {
-  background-color:  transparent;
+  background-color:  #fff;
 }
 
 .app-header__nav {
@@ -18,4 +18,9 @@ nav.landing {
   width: 80px;
   background-image: image-url(asset_path("icons/shopping-cart.svg"));
   background-repeat: no-repeat;
+}
+
+.navbar-brand.landing {
+  font-size: 2em;
+  background-color: transparent;
 }

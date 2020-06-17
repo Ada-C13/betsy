@@ -18,7 +18,7 @@ navbar structure based on https://stackoverflow.com/questions/19733447/bootstrap
 
   <%# start CENTER nav %>
   <div class="mx-auto">
-    <%= link_to 'Evergreenery', root_path, class:'navbar-brand mx-auto' unless action_name == "landing"%>
+    <%= link_to 'Evergreenery', root_path, class:"navbar-brand mx-auto #{action_name} "%>
   </div>
   <%# end CENTER nav %>
   
