@@ -84,8 +84,8 @@
 
         <tbody>
         
-        <% exiting_order_items = @merchant.find_orders_by_status(params["Status"]) %>
-        <% if exiting_order_items.empty? %>
+        <% existing_order_items = @merchant.find_orders_by_status(params["Status"]) %>
+        <% if existing_order_items.empty? %>
           <h4> No <%=params["Status"]%> orders </h4>
         <% else %>
         <% if params["Status"] && params["Status"] != "" %>
@@ -93,7 +93,7 @@
         <% elsif params["Status"] == "" %>
           <h4> All orders </h4>
         <% end %>
-          <% exiting_order_items.each do |item| %>
+          <% existing_order_items.each do |item| %>
             <tr>
               <td><%= link_to item.order.id, order_path(item.order.id) %></td>
               <td><%= link_to item.product.title, product_path(item.product.id) %></td>
