@@ -9,7 +9,7 @@
 <% end %>
 
 <h3>ADD PRODUCT</h3>
-<%= form_with model: @product, class: 'product-form' do |f| %>
+<%= form_for @product, class: 'product-form' do |f| %>
   <div class='form-group'>
     <%= f.label :name %>
     <%= f.text_field :name, :class => "form-control" %>
@@ -36,9 +36,16 @@
     <%= f.text_field :photo, :class => "form-control" %>
   </div>
 
-  <div>
+  <div class='my_class_name'>
     <%= f.label :category %>
-    <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+    <div >
+      <%= b.check_box %>
+      <%= b.label %>
+    </div>
+  <% end %>
+    
+    
   </div>
   <br>
   <%= f.submit "#{action_name} Product", class: "btn btn-primary" %>
