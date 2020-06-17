@@ -28,7 +28,7 @@ class ProductsController < ApplicationController
       end
     end
 
-    if (!params[:categories] && !params[:merchants]) || (params[:categories].one? && params[:merchants].one?)
+    if @products.empty?
       @products = Product.all
     else
       @products.flatten!.uniq!
@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
     @product.active = true
     if @product.save
       flash[:success] = "Successfully created #{@product.name}"
-      redirect_to @product
+      redirect_to product_path(@product)
     else
       flash.now[:warning] = "Unable to save product."
       flash.now[:details] = @product.errors.full_messages
@@ -69,11 +69,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
-
-    if @product.nil?
-      head :not_found
-      return
-    elsif @product.update(product_params)
+    if @product.update(product_params)
       redirect_to @product
       flash[:success] = "Successfully updated product."
       return
@@ -83,22 +79,16 @@ class ProductsController < ApplicationController
       render :edit, status: :bad_request
       return
     end
-
-  end
-
-  # DELETE /products/1
-  # DELETE /products/1.json
-  def destroy
-    @product.destroy
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
-    end
   end
 
   private
 
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.find_by(id: params[:id])
+      if @product.nil?
+        head :not_found
+        return 
+      end
     end
 
     def product_params

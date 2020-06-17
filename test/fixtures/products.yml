@@ -6,6 +6,7 @@ tulip:
   active: true
   price: 12.50
   merchant: katherine
+  categories: flower
 
 daisy:
   name: daisy
@@ -15,6 +16,7 @@ daisy:
   active: true
   price: 3.75
   merchant: melba
+  categories: flower
 
 onion:
   name: onion
@@ -24,6 +26,7 @@ onion:
   active: true
   price: .50
   merchant: annie
+  categories: vegetable
 
 cilantro: 
   name: cilantro
@@ -33,4 +36,5 @@ cilantro:
   active: false
   price: 100
   merchant: angela
+  categories: herb, vegetable
 

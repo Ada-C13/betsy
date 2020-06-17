@@ -8,6 +8,15 @@ describe ProductsController do
     must_respond_with :success
   end
 
+  it "can filter products by categories and merchants" do
+    vegetable = categories(:vegetable)
+    flower = categories(:flower)
+    annie = merchants(:annie)
+
+    get products_url, params: {categories: [vegetable.id, flower.id], merchants: [annie.id]}
+    must_respond_with :success
+  end
+
   it "should show product" do
     get product_url(product)
     must_respond_with :success
@@ -72,6 +81,11 @@ describe ProductsController do
       end
 
       it "should respond with success when deactivating a product" do
+      end
+
+      it "should respond with not found if product is not given" do
+        patch product_url(-1), params: { product: new_product }
+        must_respond_with :not_found
       end
     end
 

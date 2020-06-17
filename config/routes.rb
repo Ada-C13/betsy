@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   post "/order_items/:id/create", to: "order_items#create", as: "create_order_items"
   get "/order_items/:id/", to: "order_items#update_quantity"
 
-  resources :products do
+  resources :products, except: [:destroy] do
     resources :reviews, only: [:new, :create]
   end
   post "/products/:id/deactivate", to: "products#deactivate", as: "product_deactivate"
