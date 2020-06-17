@@ -27,3 +27,9 @@ merchant_four:
   uid: 7878787
   email: jimn@gmail.com 
   provider: github
+merchant_five:
+  id: 6
+  username: jack
+  uid: 787878743
+  email: jack@gmail.com 
+  provider: github

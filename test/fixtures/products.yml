@@ -62,3 +62,11 @@ ball:
   stock: 5
   merchant_id: 3
   active: true
+butterfly:
+  title: butterfly
+  price: 40
+  photo_url: https://i.imgur.com/CwJFjPu.png
+  description: magic butterfly
+  stock: 5
+  merchant_id: 5
+  active: true

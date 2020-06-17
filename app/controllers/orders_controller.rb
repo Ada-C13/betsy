@@ -54,8 +54,13 @@ class OrdersController < ApplicationController
       
       # reduces the stock of each product 
       # TODO: Move this into a product model method
+
+      # @current_order.order_items.each do |item|
+      #   item.product.update(stock: item.product.stock - item.quantity)
+      # end
+
       @current_order.order_items.each do |item|
-        item.product.update(stock: item.product.stock - item.quantity)
+        item.product.update(stock: item.product.reduce_stock(item))
       end
 
       # display flash messages and redirect
@@ -93,8 +98,12 @@ class OrdersController < ApplicationController
       return
     else
       # TODO: Move this into a product model method
+      # @order.order_items.each do |item|
+      #   item.product.update(stock: item.product.stock + item.quantity)
+      # end
+
       @order.order_items.each do |item|
-        item.product.update(stock: item.product.stock + item.quantity)
+        item.product.update(stock: item.product.increase_stock(item))
       end
 
       # sets order status to cancelled

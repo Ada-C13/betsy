@@ -199,4 +199,34 @@ describe Product do
       expect(@product.categories.first).must_equal @category
     end
   end
+
+  describe "custom methods" do 
+    describe "reduce_stock" do
+      it "reduces the stock by the correct amount" do 
+        product = products(:butterfly)
+        order_item = order_items(:order_item_six)
+
+        updated_stock = product.reduce_stock(order_item)
+        product.stock = updated_stock
+        product.save
+
+        expect(updated_stock).must_equal 3
+        expect(updated_stock).must_equal product.stock 
+      end
+    end
+
+    describe "increase_stock" do 
+      it "increases the stock by the correct amount" do 
+        product = products(:butterfly)
+        order_item = order_items(:order_item_six)
+
+        updated_stock = product.increase_stock(order_item)
+        product.stock = updated_stock
+        product.save
+
+        expect(updated_stock).must_equal 7
+        expect(updated_stock).must_equal product.stock 
+      end
+    end
+  end
 end
