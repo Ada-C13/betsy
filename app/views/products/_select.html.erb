@@ -1,0 +1,35 @@
+<div id="accordion" role="tablist" >
+  <div class="card">
+    <div class="card-header" role="tab" id="headingTwo">
+      <h5 class="mb-0">
+          Filter Products
+      </h5>
+    </div>
+      <div class="card-body">
+
+        <div class="form-check">
+          <%= form_with url: products_path, method: :get, class:'form-group' do |f| %>
+            <h3>Categories</h3>
+            <%= f.collection_check_boxes( :categories, Category.all, :id, :name) do |c| %>
+              <div class="form-check">
+                <%= c.check_box class:"form-check-input" %>
+                <%= c.label class:"form-check-label"%> 
+              </div>
+            <% end %>
+
+            <div class="dropdown-divider"></div>
+            
+            <h3>Merchants</h3>
+            <%= f.collection_check_boxes( :merchants, Merchant.all, :id, :username) do |c| %>
+              <div class="form-check">
+                <%= c.check_box class:"form-check-input" %>
+                <%= c.label class:"form-check-label"%> 
+              </div>
+            <% end %>
+
+            <%= f.submit %>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</div>

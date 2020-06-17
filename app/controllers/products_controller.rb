@@ -4,7 +4,34 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @filters = []
+    @products = []
+
+    if params[:categories]
+      params[:categories].each do |c|
+        if Category.exists?(c)
+          category = Category.find(c)
+          @products << category.products
+          @filters << category.name
+        end
+      end
+    end
+
+    if params[:merchants]
+      params[:merchants].each do |m|
+        if Merchant.exists?(m)
+          @products << Product.where(merchant: m)
+          @filters << Merchant.find(m).username
+        end
+      end
+    end
+
+    if (!params[:categories] && !params[:merchants]) || (params[:categories].one? && params[:merchants].one?)
+      @products = Product.all
+    else
+      @products.flatten!.uniq!
+    end
+    
   end
 
   # GET /products/1
@@ -86,6 +113,7 @@ class ProductsController < ApplicationController
     end
 
     def product_params
+      raise
       return params.require(:product).permit(:name, :description, :photo, :stock, :price, category_ids: [])
     end
 end
