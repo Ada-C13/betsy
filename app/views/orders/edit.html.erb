@@ -22,9 +22,7 @@
         <tbody>
           <% @shopping_cart.order_items.each do |order_item| %>
             <tr>
-              <p>order item id <%= order_item.id %></p>
               <td><%= link_to order_item.product.name, product_path(order_item.product) %></td>
-              <%= order_item.product.stock %>
               <td>
               <%= link_to "+", order_item_path(id: order_item, quantity: order_item.quantity + 1)%>
                   <%= order_item.quantity %>
