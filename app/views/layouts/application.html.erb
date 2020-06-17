@@ -44,7 +44,7 @@
                     <%= image_tag("https://i.imgur.com/lvFdy3t.png", size: "20x20", alt: "shopping cart") %>
                     
                     <% if session[:order_id] %>
-                      <span class="badge badge-primary badge-pill"><%= @current_order.order_items.count %></span>
+                      <span class="badge badge-primary badge-pill user_box_cart_number"><%= @current_order.order_items.count %></span>
                     <% end %>
                   <% end %>  
                 </div>

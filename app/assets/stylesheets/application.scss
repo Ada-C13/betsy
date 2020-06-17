@@ -350,7 +350,7 @@ section
 .top_bar
 {
 	width: 100%;
-	height: 36px;
+	height: 50px;
 	background: #350a4e;
 	-webkit-transition: all 400ms ease;
 	-moz-transition: all 400ms ease;
@@ -368,8 +368,8 @@ section
 {
 	display: inline-block;
 	margin-right: 36px;
-	line-height: 36px;
-	font-size: 10px;
+	line-height: 48px;
+	font-size: 12px;
 	font-weight: 600;
 	color: #FFFFFF;
 }
@@ -389,7 +389,7 @@ section
 	width: 100%;
 	padding-left: 10px;
 	padding-right: 10px;
-	line-height: 36px;
+	line-height: 48px;
 }
 .social_list_item:hover a i
 {
@@ -416,11 +416,15 @@ section
 .user_box_link a
 {
 	display: block;
-	font-size: 10px;
-	line-height: 36px;
+	font-size: 12px;
+	line-height: 48px;
 	font-weight: 600;
 	color: #FFFFFF;
 	text-transform: uppercase;
+}
+.badge {
+  background-color: #8d4fff;
+  margin-left: -5px;
 }
 .user_box_link a:hover
 {
@@ -438,7 +442,7 @@ section
 	right: -9px;
 	background: #FFFFFF;
 	width: 1px;
-	height: 9px;
+	height: 18px;
 	content: '';
 }
 .main_nav_col
