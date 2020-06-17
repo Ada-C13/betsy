@@ -1,15 +1,16 @@
 class CategoriesController < ApplicationController
   def new
+    @category = Category.new
   end
 
   def create
-    @category = Category.new(params[:id])
+    @category = Category.new(category_params)
     if @category.save
       flash[:success] = "Successfuly created #{@category.name} category"
-      redirect_to dashboard_merchant(params[:id])
+      redirect_to dashboard_merchant_path(@current_merchant)
     else
       flash.now[:warning] = "Unable to save category."
-      flash.now[:details] = @product.errors.full_messages
+      flash.now[:details] = @category.errors.full_messages
       render :new, status: :bad_request
     end
   end
