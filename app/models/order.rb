@@ -1,9 +1,9 @@
 class Order < ApplicationRecord
-  VALID_STATUSES = ["pending", "paid", "shipped", "cancelled"] 
+  VALID_STATUSES = ["pending", "paid", "cancelled"] 
   has_many :order_items
   has_many :products, through: :order_items
 
-  validates :status, presence: true, inclusion: { in: VALID_STATUSES, message: "Status must be pending, paid, shipped, or cancelled"} 
+  validates :status, presence: true, inclusion: { in: VALID_STATUSES, message: "Status invalid."} 
   def order_submitted?
     status == "paid" || status == "shipped" || status == "cancelled" 
   end
@@ -24,11 +24,9 @@ class Order < ApplicationRecord
 
 
   def cancel
-    if self.status == "shipped"
-      errors.add(:status, "can't cancel shipped order")
-      return false
-    end
-    change_status("cancelled")
+    self.status = "cancelled"
+    self.save
+    return change_items(:restock)
   end
 
   def clear_cart
@@ -41,7 +39,6 @@ class Order < ApplicationRecord
       total += order_item.product.price * order_item.quantity
     end
     return total
-    # format "$d.dd" method for order_item and order?
   end
 
   def find_order_item(product)
@@ -54,27 +51,26 @@ class Order < ApplicationRecord
   end
 
   def submit_order
-    if self.status == "paid"
+    if self.status != "pending"
       return false
     end
     # 16 dig cc > 4 dig cc
-    change_status("paid")
+    self.status = "paid"
+    self.save
+    return change_items(:destock)
   end
 
   private
 
-  def change_status(new_status)
-    if !VALID_STATUSES.include? new_status
-      self.errors[:status] << "Not a valid staus"
-      return false
+  def change_items(change)
+    all_changed = true
+    self.order_items.each do |item|
+      if !item.method(change).call
+        errors.add("order_item#{item.id}".to_sym, item.errors[:status])
+        all_changed = false
+      end
     end
-    self.status = new_status
-    self.save
-    self.order_items.each do |order_item|
-      order_item.status = new_status
-      order_item.save
-    end
-    return true
+    return all_changed
   end
 
   

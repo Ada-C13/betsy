@@ -41,14 +41,12 @@ class OrdersController < ApplicationController
 
   def cancel
     if @order.cancel
-      flash[:success] = "Your order was cancelled."
-      redirect_to root_path
-      return
+      flash[:success] = "This order has been cancelled."
     else
-      flash[:error] = 'Order has already been shipped'
-      redirect_to complete_order_path(@order)
-      return
+      flash[:error] = "The following items could not be cancelled: #{@order.errors.messages.values}" 
     end
+    redirect_to complete_order_path(@order)
+    return
   end
 
   private
