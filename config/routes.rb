@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root "pages#landing"
 
+  get "/team", to: "pages#team", as: "team"
+
   resources :orders, only: [:index, :show]
 
   # Index – List orders for a Merchant (Merchant only)
