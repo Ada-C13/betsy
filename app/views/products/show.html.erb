@@ -1,52 +1,92 @@
-<main>
-<section>
-  <h2><%=@product.title.capitalize%></h2>
-  <p><%= image_tag(@product.photo_url, height: "350", :alt => "product photo") %></p>
-  <p><%= number_to_currency(@product.price) %></p>
-  <p><%= @product.stock > 0 ? 'In stock' : 'Out of stock' %></p>
-  <p>by <%= @product.merchant.username %></p>
-  <p>Description: <%= @product.description %></p>
-  <p>Available: <%= @product.stock %></p>
-  <p>Free Shipping & Returns</p>
-  <p>Status: <%= "#{@product.active ? "Active" : "Inactive"}" %></p>
+<body>
+
+  <div >
+    <div><img height="400" width="100%" src="https://i.imgur.com/HCWU4MU.jpg" alt="background" /></div>
+  </div> 
+
+
+
+
+  <main>
+    <section>
+
+    <section class="product-info">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            
+            <p><%= image_tag(@product.photo_url, height: "350", :alt => "product photo") %></p>
+          </div>
+
+          <div class="col">
+            <h2 class="product-title"><%=@product.title.capitalize%></h2>
+            <p><%= number_to_currency(@product.price) %></p>
+            <p><%= @product.stock > 0 ? 'In stock' : 'Out of stock' %></p>
+            <p>by <%= @product.merchant.username %></p>
+            <p>Description: <%= @product.description %></p>
+            <p>Available: <%= @product.stock %></p>
+            <p>Free Shipping & Returns</p>
+            <p>Status: <%= "#{@product.active ? "Active" : "Inactive"}" %></p>
+          </div>
+          
+        </div>
+      </div>
+    </section>
       
-    <% if session[:merchant_id] && @product.merchant_id == session[:merchant_id] %>
-      <%= link_to "#{@product.active ? "Retire" : "Activate"}", retire_product_path(@product.id), method: :post, class: "btn btn-primary" %>
-    <% end %>
-    
-    <% if @product.stock > 0 %>
-    
-    <%= form_with model: @order_item, url: {:action => "add_to_cart"} do |f| %>
 
-      <%= f.label "Quantity:" %>
-      <%= f.select(:quantity, (1..@product.stock).map(&:to_i)) %>
 
-      <%= f.submit "Add to Cart" %>
-    <% end %>
-  <% else %>
-    <p>Sorry, this item is out of stock.</p>
-  <% end %>
 
-  <% if @product.categories.any?%>
-    <p>Category: 
-      <% @product.categories.each do |cat| %>
-        <%= cat.title %>
+
+      <h2 class="product-title"><%=@product.title.capitalize%></h2>
+      <p><%= image_tag(@product.photo_url, height: "350", :alt => "product photo") %></p>
+      <p><%= number_to_currency(@product.price) %></p>
+      <p><%= @product.stock > 0 ? 'In stock' : 'Out of stock' %></p>
+      <p>by <%= @product.merchant.username %></p>
+      <p>Description: <%= @product.description %></p>
+      <p>Available: <%= @product.stock %></p>
+      <p>Free Shipping & Returns</p>
+      <p>Status: <%= "#{@product.active ? "Active" : "Inactive"}" %></p>
+    </div>
+          
+        <% if session[:merchant_id] && @product.merchant_id == session[:merchant_id] %>
+          <%= link_to "#{@product.active ? "Retire" : "Activate"}", retire_product_path(@product.id), method: :post, class: "btn btn-primary" %>
+        <% end %>
+        
+        <% if @product.stock > 0 %>
+        
+        <%= form_with model: @order_item, url: {:action => "add_to_cart"} do |f| %>
+
+          <%= f.label "Quantity:" %>
+          <%= f.select(:quantity, (1..@product.stock).map(&:to_i)) %>
+
+          <%= f.submit "Add to Cart" %>
+        <% end %>
+      <% else %>
+        <p>Sorry, this item is out of stock.</p>
       <% end %>
-    </p>
-  <% end %>
 
-  <% if @product.reviews.any?%>
-    <h3>Reviews: </h3>
-      <% @product.reviews.each do |review| %>
-        <p>Stars: <%= review.rating %></p>
-        <p>Feedback: <%= review.text %></p>
+      <% if @product.categories.any?%>
+        <p>Category: 
+          <% @product.categories.each do |cat| %>
+            <%= cat.title %>
+          <% end %>
+        </p>
       <% end %>
-    
-  <% else %>
-    <h3>This product has no reviews yet</h3>
-  <% end %>
-  <% if @product.merchant_id != session[:merchant_id]%>
-    <%= link_to "Add a review", new_review_path, class: "btn btn-primary"%>
-  <% end %>
-</section>
-</main>
+
+      <% if @product.reviews.any?%>
+        <h3>Reviews: </h3>
+          <% @product.reviews.each do |review| %>
+            <p>Stars: <%= review.rating %></p>
+            <p>Feedback: <%= review.text %></p>
+          <% end %>
+        
+      <% else %>
+        <h3>This product has no reviews yet</h3>
+      <% end %>
+      <% if @product.merchant_id != session[:merchant_id]%>
+        <%= link_to "Add a review", new_review_path, class: "btn btn-primary"%>
+      <% end %>
+    </section>
+  </main>
+
+</body>
