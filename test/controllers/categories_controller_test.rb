@@ -29,6 +29,19 @@ describe CategoriesController do
     end
   end
 
+  describe "show" do
+    it "responds with success when showing an existing valid category" do
+      @categories.save
+      get category_path(@categories.id)
+      must_respond_with :success
+    end
+
+    it "responds with 404 with an invalid category id" do
+      get category_path(-1)
+      must_redirect_to categories_path
+    end
+  end
+
   describe "create" do
     before do
       @category_hash = {
@@ -47,16 +60,6 @@ describe CategoriesController do
       expect(Category.last.name).must_equal @category_hash[:category][:name]
 
       must_redirect_to account_path(@merchant.id)
-    end
-
-    it "can not create category if the user is logout" do
-      put logout_path, params: {}
-
-      expect { 
-        post categories_path, params: @category_hash
-      }.wont_change "Category.count"
-      #TODO
-      # must_redirect_to categories_path
     end
 
     it "does not create a category if name is not present, and responds with a redirect" do

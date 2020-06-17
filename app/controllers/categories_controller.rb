@@ -1,11 +1,11 @@
 class CategoriesController < ApplicationController
+  before_action :find_category, except: [:index, :new]
   skip_before_action :require_login, only: [:index, :show]
   def index
     @categories = Category.all
   end
 
   def show
-    @category = Category.find_by(id: params[:id])
     if @category.nil?
       redirect_to categories_path
       return
@@ -26,19 +26,20 @@ class CategoriesController < ApplicationController
         return
       else
         flash[:status] = :failure
-        flash[:result_text] = "Could not create a category"
+        flash[:result_text] = "Could not create a category #{@category.name}"
         flash[:messages] = @category.errors.messages
         render :new, status: :bad_request
         return
       end
-    else
-      flash[:result_text] = "You must log in to create a category"
-      redirect_to categories_path
-      return
     end   
   end
 
   def category_params
     params.require(:category).permit(:name)
   end
+
+  def find_category
+    @category = Category.find_by(id: params[:id])
+  end
+  
 end

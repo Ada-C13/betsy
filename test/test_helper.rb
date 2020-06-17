@@ -52,4 +52,12 @@ class ActiveSupport::TestCase
 
     return merchant
   end
+
+  class Category 
+    public *self.private_instance_methods(false)
+  end
+end
+
+class Order
+  public *self.private_instance_methods(false)
 end

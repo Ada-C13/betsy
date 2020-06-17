@@ -29,9 +29,7 @@ class Order < ApplicationRecord
   end
 
   def clear_cart
-    self.order_items.each do |order_item|
-      order_item.destroy
-    end
+    self.order_items.destroy_all
   end 
 
   def total_price
