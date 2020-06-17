@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  root 'pages#landing'
+  root "pages#landing"
 
   resources :orders, only: [:index, :show]
 
   # Index – List orders for a Merchant (Merchant only)
   # Show  – Shows any orders from the Merchant (Merchant only)
-  get "/cart", to: "orders#edit", as: "cart" 
+  get "/cart", to: "orders#edit", as: "cart"
   # Edit – Shows cart, updates credit card/address/email and confirms checkout (User)
   patch "/cart", to: "orders#update"
   # Update – Process checkout, change status to “paid” (User)
@@ -21,15 +21,15 @@ Rails.application.routes.draw do
   post "/order_items/:id/create", to: "order_items#create", as: "create_order_items"
 
 
-  resources :products
+  resources :products do
+    resources :reviews, only: [:new, :create]
+  end
+
   get "/products/:id/by_category", to: "products#by_category", as: "by_category"
   get "/products/:id/by_merchant", to: "products#by_merchant", as: "by_merchant"
   post "/products/:id/deactivate", to: "products#deactivate", as: "product_deactivate"
-  post "/products/:product_id/reviews/new", to: "reviews#new", as: "new_review"
-  
-  resources :categories, except: [:edit, :update, :destroy]
 
-  resources :reviews, only: [:new, :create]
+  resources :categories, except: [:edit, :update, :destroy]
 
   resources :merchants, only: [:index, :show] do
     member do
@@ -38,8 +38,9 @@ Rails.application.routes.draw do
       post "logout"
     end
   end
-  get 'merchants/:id/dashboard/manage_orders', to: 'merchants#manage_orders', as: "manage_orders"
-  get 'merchants/:id/dashboard/manage_products', to: 'merchants#manage_products', as: "manage_products"
+  
+  get "merchants/:id/dashboard/manage_orders", to: "merchants#manage_orders", as: "manage_orders"
+  get "merchants/:id/dashboard/manage_products", to: "merchants#manage_products", as: "manage_products"
 
   # Omniauth Login route
   get "/auth/github", as: "github_login"

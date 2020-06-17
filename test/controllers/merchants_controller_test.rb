@@ -81,21 +81,21 @@ describe MerchantsController do
         get dashboard_merchant_url(@incorrect_id)
         must_respond_with :redirect
         must_redirect_to dashboard_merchant_url(@correct_id)
-        expect(flash[:warning]).must_equal "Tried to access a resource that isn't yours."
+        expect(flash[:warning]).must_equal "Tried to access a resource that isn't yours. Returning to your dashboard."
       end
 
       it "responds with redirect when retrieving merchant orders" do
         get manage_orders_url(@incorrect_id)
         must_respond_with :redirect
         must_redirect_to dashboard_merchant_url(@correct_id)
-        expect(flash[:warning]).must_equal "Tried to access a resource that isn't yours."
+        expect(flash[:warning]).must_equal "Tried to access a resource that isn't yours. Returning to your dashboard."
       end
 
       it "responds with redirect when retrieving merchant products" do
         get manage_products_url(@incorrect_id)
         must_respond_with :redirect
         must_redirect_to dashboard_merchant_url(@correct_id)
-        expect(flash[:warning]).must_equal "Tried to access a resource that isn't yours."
+        expect(flash[:warning]).must_equal "Tried to access a resource that isn't yours. Returning to your dashboard."
       end
     end
 

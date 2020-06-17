@@ -10,7 +10,18 @@
     <p><%= @product.description %></p>
     <%= button_to 'Add to cart', create_order_items_path(@product), class: 'btn btn-primary' %>
     <%= button_to 'Edit', edit_product_path(@product), method: :get, class: 'btn btn-info btn-sm' %>
+    <%= link_to "add review", new_product_review_path(@product) %>
+   
     </div>
+
+  </div>
+
+  <div>
+  <% @product.reviews.each do |review| %>
+  <p><%= review.rating %></p>
+  <p><%# rating_as_stars(review.rating) %></p>
+  <p><%= review.comment %>
+  <% end %>
 
   </div>
 
@@ -18,3 +29,6 @@
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
+
+
+
