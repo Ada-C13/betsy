@@ -66,8 +66,8 @@
     <% else %>
     <%= form_tag(merchant_path(@merchant.id), method: :get) do %>
       <h3>Orders | filter by status <%= select_tag "Status", options_from_collection_for_select(
-          @merchant.existing_order_items_by_merchant.map{ |item| item.order}, "status", "status") %></h3>
-        <%= submit_tag "Filter", class: "btn btn-primary" %>
+          @merchant.existing_order_items_by_merchant.map{ |item| item.order}, "status", "status"), include_blank: "all orders", prompt: 'Select' %>
+        <%= submit_tag "Filter", class: "btn btn-primary" %></h3>
     <% end %>
       <table class="table">
         <thead>
