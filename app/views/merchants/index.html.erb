@@ -1,7 +1,11 @@
 <h1>Merchants</h1>
 <% @merchants.sort_by{|merchant| merchant.name.downcase}.each do |merchant| %>
-  <li class = "list">
-    <img class = "merchant_images", src="<%= merchant.avatar %>", alt="user">
+  <div>
+  <% if merchant.avatar %>
+    <%= link_to(image_tag(merchant.avatar, class: "merchant_images"), merchant_shop_path(merchant)) %>
+  <% else %>
+    <%= link_to(image_tag("https://i.imgur.com/2bvab7y.jpg", class: "merchant_images"), merchant_shop_path(merchant)) %>
+  <% end %>
     <%= link_to merchant.name.titleize, merchant_shop_path(merchant) %>
-  </li>
+  </div>
 <% end %>

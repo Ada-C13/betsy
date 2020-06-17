@@ -1,21 +1,29 @@
 <% if !@merchant.products.empty? %> 
-  <table style="width:70%">  
+  <%# <table style="width:70%">   %>
   <h3><%= "#{@merchant.name.titleize}\'s Products"%></h3> 
-    <tr>
-        <th>Product</th>
-        <th>Name</th>
-        <th>Stock</th>
-        <th>Price</th>
-    </tr>    
+    <div class = "middle">
     <% @merchant.products.each do |product| %>
-      <tr class = "middle">
-        <td><%= image_tag product.photo, alt:"image", class: "item_images" %></td>
-        <td><%= link_to product.name.titleize, product_path(product.id) %></td>
-        <td><%= product.stock%></td>
-        <td><%= format_price(product.price) %></td>
-      </tr>
+      <%if product.active%>
+        <div class = "col-xs-6 col-md-4">
+          <%= link_to(image_tag(product.photo, class: "show_images"), product_path(product)) %>
+          <p><%= link_to product.name.titleize, product_path(product) %></p>
+          <p><%= format_price(product.price) %></p>
+          <br>
+        </div>
+      <%end%>
     <% end %>
-  </table>
-  <% else %>
+  <%# TODO: the pagination doesn't work%>
+    <div class="pagination">
+      <%= will_paginate @merchant_products %>
+    </div> 
+    </div>
+<% else %>
   <h2><%= "#{@merchant.name} does not have any available products in their shop." %></h2>
 <% end %>
+<br>
+
+
+<p><%# page_entries_info @merchants %></p> 
+
+
+

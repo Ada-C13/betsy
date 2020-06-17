@@ -10,6 +10,8 @@ class CategoriesController < ApplicationController
       redirect_to categories_path
       return
     end
+    # TODO: the pagination doesn't work
+    @category_products = Category.includes(:products).paginate(page: params[:page], per_page: 6)
   end
 
   def category_products
@@ -37,6 +39,8 @@ class CategoriesController < ApplicationController
       end
     end   
   end
+
+  private
 
   def category_params
     params.require(:category).permit(:name)

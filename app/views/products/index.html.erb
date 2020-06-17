@@ -1,13 +1,12 @@
-<h2 class = "middle"> All Products </h2>
+<h3 class = "middle"> All Products </h3>
 <br>
 <div class = "middle">
   <% @products.each do |product| %>
     <%if product.active%>
       <div class = "col-xs-6 col-md-4">
-        <img class = "show_images", src="<%= product.photo %>", alt="<%=product.name %>">
-        <p><small><%= link_to product.name.titleize, product_path(product) %></small></p>
-        <small><%= format_price(product.price) %></small>
-        <br>
+        <%= link_to(image_tag(product.photo, class: "show_images"), product_path(product)) %>
+        <p><%= link_to product.name.titleize, product_path(product) %></p>
+        <p><%= format_price(product.price) %></p>
         <br>
       </div>
     <% end %>
@@ -22,5 +21,6 @@
     </div>
   </div>
 </div>
+
 
 

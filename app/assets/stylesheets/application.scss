@@ -139,6 +139,15 @@
 //   right: 10px; 
 // }
 
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
 .profile-img {
   border-radius: 50%;
   max-width: 15%;
@@ -160,10 +169,12 @@ section {
 
 footer{
   background-color: lightgray;
-  padding: 1rem;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: black;
   text-align: center;
-  margin-top: 20rem;
-  position: relative;
+  position: absolute;
 }
 
 table {
