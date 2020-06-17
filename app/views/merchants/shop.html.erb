@@ -9,7 +9,7 @@
     </tr>    
     <% @merchant.products.each do |product| %>
       <tr class = "middle">
-        <td class = "left"><%= image_tag product.photo, alt:"image", class: "item_images" %></td>
+        <td><%= image_tag product.photo, alt:"image", class: "item_images" %></td>
         <td><%= link_to product.name.titleize, product_path(product.id) %></td>
         <td><%= product.stock%></td>
         <td><%= format_price(product.price) %></td>
