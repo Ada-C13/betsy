@@ -2,12 +2,14 @@
   <table style="width:70%">  
   <h3><%= "#{@merchant.name.titleize}\'s Products"%></h3> 
     <tr>
+        <th>Product</th>
         <th>Name</th>
         <th>Stock</th>
         <th>Price</th>
     </tr>    
     <% @merchant.products.each do |product| %>
       <tr class = "middle">
+        <td class = "left"><%= image_tag product.photo, alt:"image", class: "item_images" %></td>
         <td><%= link_to product.name.titleize, product_path(product.id) %></td>
         <td><%= product.stock%></td>
         <td><%= format_price(product.price) %></td>
