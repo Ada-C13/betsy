@@ -13,7 +13,7 @@ class ProductsController < ApplicationController
       params[:categories].each do |c|
         if Category.exists?(c)
           category = Category.find(c)
-          @products << category.products
+          @products << category.products.where(active: true)
           @filters << category.name
         end
       end
@@ -22,14 +22,14 @@ class ProductsController < ApplicationController
     if params[:merchants]
       params[:merchants].each do |m|
         if Merchant.exists?(m)
-          @products << Product.where(merchant: m)
+          @products << Product.where(merchant: m, active: true)
           @filters << Merchant.find(m).username
         end
       end
     end
 
     if @products.empty?
-      @products = Product.all
+      @products = Product.all.where(active: true)
     else
       @products.flatten!.uniq!
     end
