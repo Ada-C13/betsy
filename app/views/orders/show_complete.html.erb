@@ -1,17 +1,17 @@
 <h3>THANKS FOR SHOPPING WITH US! ORDER COMPLETE</h3>
-<p class = "middle" >Hi <%= @order.name %>, we've recieved order #<%= @order.id %> and are working on it now.
-We'll email you an update when we've shipped it.</p>
+<p class = "middle" ><strong>Hi <%= @order.name %>, we've recieved order #<%= @order.id %> and are working on it now.
+We'll email you an update when we've shipped it.</strong></p>
 <h3>ORDER DETAILS</h3>
 
 <br>
 <br>
-<p>Order#: <%= @order.id%></p>
-<p>Customer name: <%= @order.name %>
-<p>Purchased On: <%= @order.updated_at.strftime("%B %e, %Y") %></p>
-<p>Purchased Status: <%= @order.status %></p>
-<p>Shipping Address: <%= @order.address %></p>
-<p>Email: <%= @order.email %>
-<p>Credit card ending in <%= @order.cc_last_four%> was billed for <%=format_price(@order.total_price)%></p>
+<p><strong>Order#:</strong> <%= @order.id%></p>
+<p><strong>Customer name:</strong> <%= @order.name %>
+<p><strong>Purchased On:</strong> <%= @order.updated_at.strftime("%B %e, %Y") %></p>
+<p><strong>Purchased Status:</strong> <%= @order.status %></p>
+<p><strong>Shipping Address:</strong> <%= @order.address %></p>
+<p><strong>Email:</strong> <%= @order.email %>
+<p><strong>Credit card ending in </strong> <%= @order.cc_last_four%> was billed for <%=format_price(@order.total_price)%></p>
 
 <br>
 <br>
@@ -21,7 +21,7 @@ We'll email you an update when we've shipped it.</p>
     <tr >
       
       <td class = "left"><%= image_tag item.product.photo, alt:"image", class: "item_images" %></td>
-      <td><%= item.product.name %></td>
+      <td><%= item.product.name.titleize %></td>
       <td>
         <%= format_price(item.product.price)%> x
         <%= item.quantity%>
