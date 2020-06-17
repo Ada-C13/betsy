@@ -350,7 +350,7 @@ section
 .top_bar
 {
 	width: 100%;
-	height: 36px;
+	height: 50px;
 	background: #350a4e;
 	-webkit-transition: all 400ms ease;
 	-moz-transition: all 400ms ease;
@@ -368,8 +368,8 @@ section
 {
 	display: inline-block;
 	margin-right: 36px;
-	line-height: 36px;
-	font-size: 10px;
+	line-height: 48px;
+	font-size: 12px;
 	font-weight: 600;
 	color: #FFFFFF;
 }
@@ -389,7 +389,7 @@ section
 	width: 100%;
 	padding-left: 10px;
 	padding-right: 10px;
-	line-height: 36px;
+	line-height: 48px;
 }
 .social_list_item:hover a i
 {
@@ -416,11 +416,16 @@ section
 .user_box_link a
 {
 	display: block;
-	font-size: 10px;
-	line-height: 36px;
+	font-size: 12px;
+	line-height: 48px;
 	font-weight: 600;
 	color: #FFFFFF;
 	text-transform: uppercase;
+}
+.badge {
+  background-color: #fa9d1b;
+  margin-left: -5px;
+  color: #31114b;
 }
 .user_box_link a:hover
 {
@@ -438,7 +443,7 @@ section
 	right: -9px;
 	background: #FFFFFF;
 	width: 1px;
-	height: 9px;
+	height: 18px;
 	content: '';
 }
 .main_nav_col
@@ -778,9 +783,38 @@ section
 .home
 {
 	width: 100%;
-	height: 100vh;
+	height: 465px;
+	background: transparent;
 }
-
+.home_background
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+  background-position: center center;
+}
+.home_content
+{
+	position: absolute;
+	bottom: 106px;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+.home_title
+{
+	font-size: 72px;
+	font-weight: 800;
+	color: #FFFFFF;
+	text-transform: uppercase;
+}
 
 /*********************************
 4.1 Home Slider
@@ -2061,14 +2095,14 @@ section
 }
 
 /*********************************
-13.3 Footer - Tags
+13.3 Footer - Support
 *********************************/
 
-.footer_tags
+.footer_support
 {
 	margin-top: 40px;
 }
-.tag_item
+.support_item
 {
 	height: 35px;
 	float: left;
@@ -2081,19 +2115,18 @@ section
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-.tag_item:hover
+.support_item:hover
 {
 	background: #fa9e1b;
 }
-.tag_item a
+.support_item a
 {
 	display: block;
 	font-size: 12px;
 	font-weight: 600;
 	color: #FFFFFF;
 	line-height: 33px;
-	padding-left: 25px;
-	padding-right: 25px;
+	padding: 0 25px 25px 25px;
 }
 
 /*********************************
