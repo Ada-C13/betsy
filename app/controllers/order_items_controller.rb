@@ -56,8 +56,9 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
-    order.product.increase_quantity(@order.quantity)
-    @order.destroy
+    @order_item.product.restock(@order_item.quantity)
+    @order_item.destroy
+    redirect_to cart_path
   end
 
   private
