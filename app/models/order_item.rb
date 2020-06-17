@@ -7,8 +7,13 @@ class OrderItem < ApplicationRecord
   validates :status, presence: true, inclusion: { in: VALID_STATUSES, message: "Not a valid status" }
 
   def ship
+    if self.status == "pending"
+      errors.add(:status, "Pending item can't be shipped")
+      return false
+    end
     self.status = "shipped"
     self.save 
+    return true
   end
 
   def destock

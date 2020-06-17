@@ -34,13 +34,13 @@ describe OrderItem do
       @order_items = order_items
     end
 
-    it "order_item belongd to a product" do
+    it "order_item belongs to a product" do
       @order_items.each do |order_item|
         expect(order_item.product).must_be_instance_of Product
       end
     end
 
-    it "order_item belongd to a order" do
+    it "order_item belongs to a order" do
       @order_items.each do |order_item|
         expect(order_item.order).must_be_instance_of Order
       end
@@ -74,6 +74,62 @@ describe OrderItem do
 
     it "it's valid when order_item has status" do
       expect(new_order_item.valid?).must_equal true
+    end
+  end
+
+  describe "restock" do
+    it "rejects restocking an item that's already shipped" do
+      item = OrderItem.find_by(status: "shipped")
+      result = item.restock
+      expect(result).must_equal false
+      expect(item.errors.messages[:status]).must_include "This item is already shipped"
+    end
+    it "changes item status to cancelled" do
+      item = OrderItem.find_by(status: "paid")
+      result = item.restock
+      expect(result).must_equal true
+      expect(item.status).must_equal "cancelled"
+    end
+    it "item product stock reflects changes" do
+      item = OrderItem.find_by(status: "paid")
+      previous_stock = item.product.stock
+      item.restock
+      expect(item.product.stock).must_equal item.quantity + previous_stock
+    end
+  end
+  describe "destock" do
+    it "makes no changes when product is out of stock" do
+      item = OrderItem.new(quantity: 1)
+      item.product = products(:product0)
+      result = item.destock
+      expect(result).must_equal false
+      expect(item.errors.messages[:status]).must_include "#{item.product.name} is now out of stock!"
+    end
+    it "changes item status to paid" do
+      item = OrderItem.find_by(status: "pending")
+      result = item.destock
+      expect(result).must_equal true
+      expect(item.status).must_equal "paid"
+    end
+    it "item product stock reflects changes" do
+      item = OrderItem.find_by(status: "pending")
+      previous_stock = item.product.stock
+      item.destock
+      expect(item.product.stock).must_equal previous_stock - item.quantity
+    end
+  end
+  describe "ship" do 
+    it "changes status from paid to shipped" do
+      item = OrderItem.find_by(status: "paid")
+      result = item.ship
+      expect(result).must_equal true
+      expect(item.status).must_equal "shipped"
+    end
+    it "returns false and error when item still pending" do
+      item = OrderItem.find_by(status: "pending")
+      result = item.ship
+      expect(result).must_equal false
+      expect(item.errors.messages[:status]).must_include "Pending item can't be shipped"
     end
   end
 end
