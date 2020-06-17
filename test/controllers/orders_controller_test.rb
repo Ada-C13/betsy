@@ -171,13 +171,26 @@ describe OrdersController do
         order = Order.create
         order.order_items = items
         post complete_order_path(order)
-        expect(flash[:success]).must_equal "Your order was cancelled."
-        must_redirect_to root_path
+        expect(flash[:success]).must_equal "This order has been cancelled."
+        must_redirect_to complete_order_path(order)
       end
       it "flashes user if order has already been shipped" do
-        shipped = orders(:shipped_order)
+        shipped = orders(:shipped_order) # has a shipped item
         post complete_order_path(shipped)
         expect(flash[:error]).must_include "is already shipped"
+        must_redirect_to complete_order_path(shipped)
+      end
+      it "flashes user for all order_items already shipped" do
+        shipped = orders(:shipped_order)
+        shipped_items = shipped.order_items.map {|item| 
+          if item.status == "shipped"
+            item.product.name
+          end
+        }
+        post complete_order_path(shipped)
+        shipped_items.each do |name|
+          expect(flash[:error]).must_include name
+        end
         must_redirect_to complete_order_path(shipped)
       end
     end

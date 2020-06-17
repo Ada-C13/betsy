@@ -23,4 +23,9 @@ order_item5:
   product: product4
   order: shipped_order
   status: shipped
+order_item6:
+  quantity: 5
+  product: product1
+  order: shipped_order
+  status: shipped
   
