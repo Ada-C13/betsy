@@ -5,12 +5,10 @@ class ApplicationController < ActionController::Base
   before_action :find_cart
   before_action :current_merchant
 
-  def render_404
-    # DPR: this will actually render a 404 page in production
-    raise ActionController::RoutingError.new("Not Found")
-  end
-
-  private
+  # def render_404
+  #   # DPR: this will actually render a 404 page in production
+  #   raise ActionController::RoutingError.new("Not Found")
+  # end
 
   def find_cart
     if session[:order_id]
@@ -35,10 +33,17 @@ class ApplicationController < ActionController::Base
   end
 
   def require_ownership
-    if params[:id].to_i != current_merchant.id
-      if request.get?
-        redirect_to dashboard_merchant_url(current_merchant.id)
-        flash[:warning] = "Tried to access a resource that isn't yours."
+    if params[:controller] == "merchants"
+      requester = params[:id].to_i # when params id references a merchant
+    else
+      requester = Product.find_by(id: params[:id]).merchant.id # when params id references a product
+    end 
+
+    if requester != current_merchant.id
+      if request.get? # merchant trying to GET ownership-locked resources
+        redirect_to dashboard_merchant_path(@current_merchant.id)
+        flash[:warning] = "Tried to access a resource that isn't yours. Returning to your dashboard."
+        flash[:danger] = request.params
         return
       else
         redirect_back(fallback_location: root_path)
@@ -47,5 +52,4 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-
 end

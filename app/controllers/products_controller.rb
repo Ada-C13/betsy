@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, only: [:new, :edit, :update, :destroy]
+  before_action :require_ownership, only: [:edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
@@ -49,24 +51,18 @@ class ProductsController < ApplicationController
   end
 
   def create
-    # checking if a merchant is signed in
-    if session[:merchant_id]
-      @product = Product.new(product_params)
-      @product.merchant_id = session[:merchant_id]
-      @product.photo = 'https://i.imgur.com/OR9WgUb.png' if @product.photo = ''
-      @product.active = true
-      if @product.save
-        flash[:success] = "Successfully created #{@product.name}"
-        redirect_to products_path
-      else
-        flash.now[:warning] = 'Unable to save product'
-        flash.now[:details] = @product.errors.full_messages
-        render :new, status: :bad_request
-        return
-      end
+    @product = Product.new(product_params)
+    @product.merchant_id = session[:merchant_id]
+    @product.photo = 'https://i.imgur.com/OR9WgUb.png' if @product.photo = ''
+    @product.active = true
+    if @product.save
+      flash[:success] = "Successfully created #{@product.name}"
+      redirect_to products_path
     else
-      #say you must be loged in as a merchant to create product
-      flash.now[:warning] = 'Must be logged in as Merchant to create a product'
+      flash.now[:warning] = "Unable to save product."
+      flash.now[:details] = @product.errors.full_messages
+      render :new, status: :bad_request
+      return
     end
   end
 
