@@ -1,8 +1,9 @@
 
-<table style="width:70%">  
+<table style="width:80%">  
   <h3>Your Orders</h3> 
   <tr>
       <th>Item</th>
+      <th>Name</th>
       <th>Quantity</th>
       <th>Order ID</th>
       <th>Status</th>
@@ -10,8 +11,9 @@
   </tr>
   <%@merchant.products.each do |product|%>
     <%product.order_items.each do |item|%>
-      <tr>
-        <td><%= product.name %></td>
+      <tr class = "middle">
+        <td><%= image_tag product.photo, alt:"image", class: "item_images" %></td>
+        <td><%= link_to product.name.titleize, product_path(product.id) %></td>
         <td><%= item.quantity %></td>
         <td><%= item.order.id %></td>
         <td><%= item.status%></td>
@@ -26,7 +28,7 @@
 </table>
 <div class="revenue">
   <div class="left-label">
-    Total Revenue:
+    <strong>Total Revenue:</strong>
   </div>
   <div class="right-value">
     <%=format_price(@merchant.calculate_revenue)%>

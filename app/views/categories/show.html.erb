@@ -1,14 +1,18 @@
-<h3>Product | <%= @category.name %></h3>
-<% if Category.product_by_category(@category.name).length > 0%>
-  <% Category.product_by_category(@category.name).each do |product|%>
-    <%if product.active%>
-      <div>
-        <img class = "show_images", src="<%= product.photo %>", alt="<%=product.name %>">
-        <%= link_to product.name.titleize, product_path(product) %>
-        <%= format_price(product.price) %>
-        </div>
-    <% end %>
-  <% end%>
+<h3>Product | <%= @category.name.titleize %></h3>
+<br>
+
+  <% if Category.product_by_category(@category.name).length > 0%>
+  <div class = "middle">
+    <% Category.product_by_category(@category.name).each do |product|%>
+      <%if product.active%>
+        <div class = "col-xs-6 col-md-4">
+          <img class = "show_images", src="<%= product.photo %>", alt="<%=product.name %>">
+          <p><%= link_to product.name.titleize, product_path(product) %></p>
+          <p><%= format_price(product.price) %></p>
+          </div>
+      <% end %>
+    <% end%>
+</div>
 <%else%>
   <p>There is no product for this category</p>
 <% end%>

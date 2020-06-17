@@ -6,7 +6,7 @@
   <p><strong>Description: </strong><%= @product.description %></p>
   <p><strong>Categories:</strong> 
     <% @product.categories.each do |category| %>
-      <%= category.name.titleize  %>
+      <%= category.name.titleize %> |
     <% end %>
   </p>
 
