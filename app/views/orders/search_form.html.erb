@@ -1,0 +1,15 @@
+<%= form_with url: orders_search_path do |f| %>
+
+  <div class="form-group">
+    <%= f.label "ID:" %>
+    <%= f.text_field :id, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Email:" %>
+    <%= f.text_field :email, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Find Order", class: "btn btn-primary"%>
+
+<% end %>

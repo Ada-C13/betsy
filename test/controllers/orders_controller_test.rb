@@ -48,48 +48,6 @@ describe OrdersController do
       expect(flash[:result_text]).must_include "You cannot view this order!"
       must_redirect_to root_path
     end
-
-    it "sets the session[:order_id] to nil if the order status is paid" do
-      order = build_order
-      
-      order_hash = {
-        order: {
-          name: "Wizard", 
-          email: "hello@wizard.com", 
-          mailing_address: "12345 Wizard Way",
-          cc_number: 1234123412341234, 
-          cc_exp: Date.today + 365,
-          cvv: 123,
-          zipcode: 12345
-        },
-      }
-
-      patch order_checkout_path, params: order_hash
-
-      get order_path(order.id)
-
-      order.reload
-      expect(order.status).must_equal "paid"
-      expect(session[:order_id]).must_be_nil
-    end
-  end
-
-  describe "checkout" do
-    it "responds with success when session[:order_id] exists" do
-      order = build_order 
-
-      get order_checkout_path
-      must_respond_with :success
-    end
-
-    it "flashes an error message and redirects to cart when session[:order_id] is nil" do
-      get order_checkout_path
-
-      expect(flash[:status]).must_equal :failure
-      expect(flash[:result_text]).must_include "cannot check out"
-      
-      must_redirect_to cart_path
-    end
   end
 
   describe "complete" do
@@ -130,7 +88,7 @@ describe OrdersController do
       expect(flash[:status]).must_equal :success
       expect(flash[:result_text]).must_include @order.name
 
-      must_redirect_to order_path(@order.id)
+      must_redirect_to order_confirmation_path(@order.id)
     end
 
     it "reduces the stock of each product by the quantity purchased" do
@@ -171,6 +129,48 @@ describe OrdersController do
 
     #   must_respond_with :bad_request
     # end
+  end
+
+  describe "confirmation" do
+    it "responds with success when showing the current session order" do
+      order = build_order
+
+      get order_confirmation_path(order.id)
+      must_respond_with :success
+    end
+
+    it "flashes an error message and redirects if given an id that does not match session[:order_id]" do
+      get order_confirmation_path(-1)
+      
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "cannot view"
+      
+      must_redirect_to root_path
+    end
+
+    it "sets the session[:order_id] to nil if the order status is paid" do
+      order = build_order
+      
+      order_hash = {
+        order: {
+          name: "Wizard", 
+          email: "hello@wizard.com", 
+          mailing_address: "12345 Wizard Way", 
+          cc_number: 1234123412341234, 
+          cc_exp: Date.today + 365,
+          cvv: 123,
+          zipcode: 12345      
+        },
+      }
+      
+      patch order_checkout_path, params: order_hash
+
+      get order_confirmation_path(order.id)
+
+      order.reload
+      expect(order.status).must_equal "paid"
+      expect(session[:order_id]).must_be_nil
+    end
   end
 
   describe "destroy" do
@@ -225,6 +225,77 @@ describe OrdersController do
 
       order.reload
       expect(order.status).must_equal "cancelled"
+    end
+  end
+
+  describe "search form" do
+    it "responds with success" do
+      get orders_search_new_path
+      must_respond_with :success
+    end
+  end
+  
+  describe "search" do
+    before do
+      @order = orders(:pending_order)
+    end
+
+    let (:search_hash) {
+      {
+        id: @order.id,
+        email: @order.email,
+      }
+    }
+
+    it "can successfully find an order given an existing id and email address, flashes a success message, and redirects" do
+      expect{
+        post orders_search_path, params: search_hash
+      }.wont_differ "Order.count"
+
+      expect(flash[:status]).must_equal :success
+      expect(flash[:result_text]).must_include "Order found!"
+
+      must_redirect_to orders_found_path(@order.id)
+    end
+
+    it "flashes an error message and redirects if given an invalid id" do
+      search_hash[:id] = -1
+
+      expect{
+        post orders_search_path, params: search_hash
+      }.wont_differ "Order.count"
+
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "Order not found!"
+      
+      must_respond_with :not_found
+    end
+
+    it "flashes an error message and redirects if given an invalid email" do
+      search_hash[:email] = nil
+      
+      expect{
+        post orders_search_path, params: search_hash
+      }.wont_differ "Order.count"
+
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "Order not found!"
+
+      must_respond_with :not_found
+    end
+  end
+
+  describe "found" do
+    it "responds with success when showing an existing valid order" do
+      order = orders(:pending_order)
+      
+      get orders_found_path(order.id)
+      must_respond_with :success
+    end
+
+    it "responds with 404 with an invalid order id" do
+      get orders_found_path(-1)
+      must_respond_with :not_found
     end
   end
 end
