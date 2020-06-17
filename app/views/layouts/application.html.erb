@@ -30,7 +30,7 @@
             <% if Category.all.length > 0 %>
               <% Category.all.sort_by{|category| category.name.downcase}.each do |category| %>
               <a>
-                <%= link_to category.name.titleize , category_path(category), class: "dropdown-item" %>
+                <%= link_to category.name.titleize , category_product_path(category), class: "dropdown-item" %>
               </a>
               <% end %>
             <% end %>
