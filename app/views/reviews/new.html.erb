@@ -5,16 +5,15 @@
   <p>Please enter your review for product: <%= params[:product_id] %>  </p>
   <div class='form-group'>
     <%= form.label :rating, class: 'control-label' %>
-    <%= form.text_field :rating, class: 'form-control' %>
+    <%= form.select :rating, generate_select_options(1..5), {selected:5}, class: 'form-control' %>
   </div>
- <div id="rateYo"></div>
+
   <div class='form-group'>
     <%= form.label :comment, class: 'control-label' %>
     <%= form.text_area :comment, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%# form.submit %>
     <%= form.submit("#{action_name} review") %>
   </div>
 <% end %>
