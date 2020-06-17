@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
         return
       else
         redirect_back(fallback_location: root_path)
-        flash[:danger] = "Could not post that request with invalid credentials."
+        flash[:danger] = "Could not complete that request with invalid credentials."
         return
       end
     end

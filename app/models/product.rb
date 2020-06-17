@@ -8,5 +8,5 @@ class Product < ApplicationRecord
     message: "%{value} has already been taken." }
   validates :price, presence: true, numericality: { greater_than: 0,
     message: "must be a number greater than $0" }
-    
+  validates :stock, presence: true, numericality: { greater_than: 0 }
 end
