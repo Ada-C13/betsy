@@ -44,7 +44,7 @@ describe Merchant do
 
     it 'has many order_item' do
       # merchants(:merchantaaa) from the fixture file has 3 order items
-      expect(@merchant.order_items.count).must_equal 3
+      expect(@merchant.order_items.count).must_equal 2
       @merchant.order_items.each do |order_item|
         expect(order_item).must_be_instance_of OrderItem
       end
