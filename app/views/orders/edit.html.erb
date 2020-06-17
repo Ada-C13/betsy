@@ -1,37 +1,50 @@
-<h2>Shopping Cart</h2>
-<p>Status: <%= @shopping_cart.status %></p>
-<p>Items: <%= @shopping_cart.order_items.size %></p>
-<p>Total Cost: <%= @shopping_cart.total_cost %></p>
+<% content_for(:headline) { "Shopping Cart"} %>
 
-<section class="order-order_items__container">
-  <h3 class="order-order_items__header">Items</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Product Name</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Subtotal</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @shopping_cart.order_items.each do |order_item| %>
-        <tr>
-          <td><%= link_to order_item.product.name, product_path(order_item.product) %></td>
-          <td><%= order_item.quantity %></td>
-          <td><%= order_item.product.price %></td>
-          <td><%= order_item.subtotal %></td>
-          <th><%= link_to 'Delete', order_item_path(order_item), class: 'btn btn-danger', method: 'delete' %></th>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</section>
+<div class='shopping-cart'>
+  <div class="container">
+    <p>Status: <%= @shopping_cart.status %></p>
+    <p>Items: <%= @shopping_cart.order_items.size %></p>
+    <p>Total Cost: <%= @shopping_cart.total_cost %></p>
 
-<% if @shopping_cart.order_items.size > 0 %>
-  <%= render 'payment_form' %>
-<% end %>
 
-<%= link_to "Empty Shopping Cart", cart_path, class: 'btn btn-danger', method: 'delete' %>
-<%= link_to "Back to Main Menu", root_path, class: "btn btn-primary" %>
+    <section class="order-order_items__container">
+      <h3 class="order-order_items__header">Items</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @shopping_cart.order_items.each do |order_item| %>
+            <tr>
+              <td><%= link_to order_item.product.name, product_path(order_item.product) %></td>
+              <td>
+              <%= link_to "+", order_item_path(id: order_item, quantity: order_item.quantity + 1)%>
+                  <%= order_item.quantity %>
+              <%= link_to "-", order_item_path(id: order_item, quantity: order_item.quantity - 1) %>
+              </td>
+              <td><%= order_item.product.price %></td>
+              <td><%= order_item.subtotal %></td>
+              <th><%= link_to 'Delete', order_item_path(order_item), class: 'btn btn-danger', method: 'delete' %></th>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+    <%= link_to "Empty Shopping Cart", cart_path, class: 'btn btn-danger', method: 'delete' %>
+    <%= link_to "Back to Main Menu", root_path, class: "btn btn-primary" %>
+  </div>
+
+  <div class="container">
+    <% if @shopping_cart.order_items.size > 0 %>
+      <%= render 'payment_form' %>
+    <% end %>
+  </div>
+</div>
+
+

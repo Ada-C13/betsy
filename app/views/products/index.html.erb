@@ -1,18 +1,15 @@
 <% content_for(:title) { 'Evergreenery - Browse Products' } %>
+<% content_for(:headline) { @filters.count > 0 ? "Showing Products for #{@filters.join(', ')}" : "Products" } %>
 
-<h2>Products</h2>
+<div class="product-show-page__container container">
 
-  <div class="container">
-    <div class="alert alert-secondary">
-      <h4>Session debug panel</h4>
-      <p>[:session_id] = <%= session[:session_id] %> *****
-      [:order_id] = <%= session[:order_id] %> *****
-      [:merchant_id] = <%= session[:merchant_id] ? session[:merchant_id] : "Not logged in as merchant" %>
-      </p>
-    </div>
+  <div class="filter-box container">
+    <%= render 'select' %>
   </div>
 
-  <div class="product-grid__container container">
+  <div class="product-list">
+
+    <h1><%= "No products to view" if @products.empty? %></h1>
     <% @products.in_groups_of(4).each do |group| %>
     <div class="product-grid__row row">
       <% group.each do |product| %>

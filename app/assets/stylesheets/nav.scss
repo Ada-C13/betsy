@@ -1,3 +1,11 @@
+nav {
+  background-color: lightslategray;
+}
+
+nav.landing {
+  background-color:  #fff;
+}
+
 .app-header__nav {
   display: flex;
   flex-direction: row;
@@ -12,10 +20,7 @@
   background-repeat: no-repeat;
 }
 
-.side_nav_bar {
-  border: red 3px solid,
-}
-
-.products__container {
-  border: green 3px solid,
+.navbar-brand.landing {
+  font-size: 2em;
+  background-color: transparent;
 }

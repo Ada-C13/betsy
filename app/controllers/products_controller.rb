@@ -1,23 +1,44 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, only: [:new, :edit, :update, :destroy]
+  before_action :require_ownership, only: [:edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @filters = []
+    @products = []
+
+    if params[:categories]
+      params[:categories].each do |c|
+        if Category.exists?(c)
+          category = Category.find(c)
+          @products << category.products
+          @filters << category.name
+        end
+      end
+    end
+
+    if params[:merchants]
+      params[:merchants].each do |m|
+        if Merchant.exists?(m)
+          @products << Product.where(merchant: m)
+          @filters << Merchant.find(m).username
+        end
+      end
+    end
+
+    if (!params[:categories] && !params[:merchants]) || (params[:categories].one? && params[:merchants].one?)
+      @products = Product.all
+    else
+      @products.flatten!.uniq!
+    end
+    
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
-  end
-
-  def by_merchant
-    @merchant = Merchant.find(params[:id])
-  end
-
-  def by_category
-    @category = Category.find(params[:id])
   end
 
   # GET /products/new
@@ -30,23 +51,18 @@ class ProductsController < ApplicationController
   end
 
   def create
-    # checking if a merchant is signed in
-    if session[:merchant_id]
-      @product = Product.new(product_params)
-      @product.merchant_id = session[:merchant_id]
-      @product.photo = 'https://i.imgur.com/OR9WgUb.png' if @product.photo = ''
-      if @product.save
-        flash[:success] = "Successfully created #{@product.name}"
-        redirect_to products_path
-      else
-        flash.now[:warning] = 'Unable to save product'
-        flash.now[:details] = @product.errors.full_messages
-        render :new, status: :bad_request
-        return
-      end
+    @product = Product.new(product_params)
+    @product.merchant_id = session[:merchant_id]
+    @product.photo = 'https://i.imgur.com/OR9WgUb.png' if @product.photo = ''
+    @product.active = true
+    if @product.save
+      flash[:success] = "Successfully created #{@product.name}"
+      redirect_to @product
     else
-      #say you must be loged in as a merchant to create product
-      flash.now[:warning] = 'Must be logged in as Merchant to create a product'
+      flash.now[:warning] = "Unable to save product."
+      flash.now[:details] = @product.errors.full_messages
+      render :new, status: :bad_request
+      return
     end
   end
 
@@ -86,6 +102,7 @@ class ProductsController < ApplicationController
     end
 
     def product_params
+      # raise
       return params.require(:product).permit(:name, :description, :photo, :stock, :price, category_ids: [])
     end
 end

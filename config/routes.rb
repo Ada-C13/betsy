@@ -19,14 +19,11 @@ Rails.application.routes.draw do
 
   resources :order_items, only: [:edit, :update, :destroy]
   post "/order_items/:id/create", to: "order_items#create", as: "create_order_items"
-
+  get "/order_items/:id/", to: "order_items#update_quantity"
 
   resources :products do
     resources :reviews, only: [:new, :create]
   end
-
-  get "/products/:id/by_category", to: "products#by_category", as: "by_category"
-  get "/products/:id/by_merchant", to: "products#by_merchant", as: "by_merchant"
   post "/products/:id/deactivate", to: "products#deactivate", as: "product_deactivate"
 
   resources :categories, except: [:edit, :update, :destroy]

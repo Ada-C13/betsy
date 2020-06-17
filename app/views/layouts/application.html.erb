@@ -16,6 +16,9 @@
 
   <body class=<%= action_name %>>
     <%= render 'layouts/header' %>
+    <% if content_for?(:headline) %>
+      <h2 class="headline"><%= yield(:headline) %></h2>
+    <% end %>
     <%= render 'layouts/alert' %>
     <%= yield %>
   </body>
