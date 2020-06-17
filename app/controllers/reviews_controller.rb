@@ -8,7 +8,7 @@ class ReviewsController < ApplicationController
      
       @review = Review.new
     else 
-      redirect_to root_path
+      redirect_to products_path
       flash[:danger] = "Something went wrong with the reviewing process."
     end
   end

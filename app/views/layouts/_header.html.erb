@@ -2,57 +2,57 @@
 navbar structure based on https://stackoverflow.com/questions/19733447/bootstrap-navbar-with-left-center-or-right-aligned-items
 %>
 
-<nav class="navbar navbar-expand-md navbar-light <%= action_name %>">
-
-  <%# start of LEFT nav %>
-  <div class="navbar w-100">
-    <% unless action_name == "landing" %>
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item app-header__nav_item">
-          <%= link_to 'All Products', products_path, class:'nav-link'%>
-        </li>
-      </ul>
-    <% end %>
-  </div>
-  <%# end LEFT nav %>
-
-  <%# start CENTER nav %>
-  <div class="mx-auto">
-    <%= link_to 'Evergreenery', root_path, class:"navbar-brand mx-auto #{action_name} "%>
-  </div>
-  <%# end CENTER nav %>
-  
-
-
-  <%# start RIGHT nav %>
-  <div class="navbar w-100">
-    <ul class="navbar-nav ml-auto">
-
-      <%# merchant login button %>
-      <% if @current_merchant.nil? %>
-      <li class="nav-item app-header__nav_item">
-        <%= button_to 'Merchant Login', github_login_path, class:'btn btn-outline-primary'%>
-      </li>
-      <% else %>
-      <%# merchant log out button %>
-       <li class="nav-item app-header__nav_item">
-        <%= link_to "#{@current_merchant.username}", dashboard_merchant_url(@current_merchant.id), class:'nav-link' %>
-        </li>
-       <li class="nav-item app-header__nav_item">
-        <%= button_to 'Merchant Log Out', logout_merchant_url(@current_merchant.id), method: :post, class:'btn btn-outline-secondary'%>
-      </li>
-      <% end %>
-      <%# cart link %>
-
+<nav class="navbar fixed-top navbar-expand-md navbar-light <%= action_name %>">
+  <div class="container">
+    <%# start of LEFT nav %>
+    <div class="navbar w-100">
       <% unless action_name == "landing" %>
-      <li class="nav-item app-header__nav_item cart">
-        <%= link_to 'Cart', cart_path, class:'nav-link'%>
-      </li>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item app-header__nav_item">
+            <%= link_to 'All Products', products_path, class:'nav-link'%>
+          </li>
+        </ul>
       <% end %>
+    </div>
+    <%# end LEFT nav %>
 
-    </ul>
+    <%# start CENTER nav %>
+    <div class="mx-auto">
+      <%= link_to 'Evergreenery', root_path, class:"navbar-brand mx-auto #{action_name} "%>
+    </div>
+    <%# end CENTER nav %>
+    
+
+
+    <%# start RIGHT nav %>
+    <div class="navbar w-100">
+      <ul class="navbar-nav ml-auto">
+
+        <%# merchant login button %>
+        <% if @current_merchant.nil? %>
+        <li class="nav-item app-header__nav_item">
+          <%= button_to 'Merchant Login', github_login_path, class:'btn btn-outline-primary'%>
+        </li>
+        <% else %>
+        <%# merchant log out button %>
+        <li class="nav-item app-header__nav_item">
+          <%= link_to "#{@current_merchant.username}", dashboard_merchant_url(@current_merchant.id), class:'nav-link' %>
+          </li>
+        <li class="nav-item app-header__nav_item">
+          <%= button_to 'Merchant Log Out', logout_merchant_url(@current_merchant.id), method: :post, class:'btn btn-outline-secondary'%>
+        </li>
+        <% end %>
+        <%# cart link %>
+
+        <% unless action_name == "landing" %>
+        <li class="nav-item app-header__nav_item cart">
+          <%= link_to 'Cart', cart_path, class:'nav-link'%>
+        </li>
+        <% end %>
+
+      </ul>
+    </div>
+    <%# end RIGHT nav %>
   </div>
-  <%# end RIGHT nav %>
-
 </nav>
   
