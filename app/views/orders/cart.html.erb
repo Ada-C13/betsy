@@ -4,7 +4,7 @@
   <%@order.order_items.each do |item|%>
     <tr >
       <td class = "left"><%= image_tag item.product.photo, alt:"image", class: "item_images" %></td>
-      <td><%= link_to item.product.name, product_path(item.product) %> |
+      <td><%= link_to item.product.name.titleize, product_path(item.product) %> |
         <%= link_to "Edit Quantity", order_item_path(item) %> | 
         <%= link_to "🗑Remove", order_item_path(item), method: :delete%>
       </td>
