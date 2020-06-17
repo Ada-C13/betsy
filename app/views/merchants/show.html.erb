@@ -65,8 +65,7 @@
       <h4>Sorry, no one has bought any of your products yet..</h4>
     <% else %>
     <%= form_tag(merchant_path(@merchant.id), method: :get) do %>
-      <h3>Orders | filter by status <%= select_tag "Status", options_from_collection_for_select(
-          @merchant.existing_order_items_by_merchant.map{ |item| item.order}, "status", "status"), include_blank: "all orders", prompt: 'Select' %>
+      <h3>Orders <%= select_tag "Status", options_for_select(["pending", "paid", "complete", "cancelled"]), include_blank: "all orders", prompt: 'Select' %>
         <%= submit_tag "Filter", class: "btn btn-primary" %></h3>
     <% end %>
       <table class="table">
@@ -84,27 +83,36 @@
         </thead>
 
         <tbody>
-
+        
         <% exiting_order_items = @merchant.find_orders_by_status(params["Status"]) %>
-        <% exiting_order_items.each do |item| %>
-          <tr>
-            <td><%= link_to item.order.id, order_path(item.order.id) %></td>
-            <td><%= link_to item.product.title, product_path(item.product.id) %></td>
-            <td><%= item.quantity %></td>
-            <td><%= item.product.price %></td>
-            <td><%= item.subtotal %></td>
-            <td><%= item.created_at.to_s.to_time.strftime('%B %e, %Y, %T') %></td>
-            <td><%= item.order.status%></td>
-            <% if item.shipped %>
-              <td>Shipped</td>
-            <% elsif item.order.status == "pending" || !item.order.status %>
-              <td>Should be paid first</td>
-            <% else %>
-              <td><%= link_to "Ship", ship_item_path(item.id), method: :post, class: "btn btn-primary" %></td>
-            <% end %>
-          </tr>
+        <% if exiting_order_items.empty? %>
+          <h4> No <%=params["Status"]%> orders </h4>
+        <% else %>
+        <% if params["Status"] && params["Status"] != "" %>
+          <h4> Orders filtered by status: <%=params["Status"]%> </h4>
+        <% elsif params["Status"] == "" %>
+          <h4> All orders </h4>
         <% end %>
-
+          <% exiting_order_items.each do |item| %>
+            <tr>
+              <td><%= link_to item.order.id, order_path(item.order.id) %></td>
+              <td><%= link_to item.product.title, product_path(item.product.id) %></td>
+              <td><%= item.quantity %></td>
+              <td><%= item.product.price %></td>
+              <td><%= item.subtotal %></td>
+              <td><%= item.created_at.to_s.to_time.strftime('%B %e, %Y, %T') %></td>
+              <td><%= item.order.status%></td>
+              <% if item.shipped %>
+                <td>Shipped</td>
+              <% elsif item.order.status == "pending" || !item.order.status %>
+                <td>Should be paid first</td>
+              <% else %>
+                <td><%= link_to "Ship", ship_item_path(item.id), method: :post, class: "btn btn-primary" %></td>
+              <% end %>
+            </tr>
+            <% end %>
+          
+        <% end %>
         </tbody>
       </table>
   <% end %>
