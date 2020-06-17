@@ -1,9 +1,11 @@
 class ReviewsController < ApplicationController
+  before_action :merchant_reviews, only:[:new, :create]
 
   def new
-    if params[:product_id]
+
+    if params[:product_id] && Product.find_by(id: params[:product_id])
       # Nested route: /product/:product_id/reviews/new
-      product = Product.find_by(id: params[:product_id])
+     
       @review = Review.new
     else 
       redirect_to root_path
@@ -13,15 +15,7 @@ class ReviewsController < ApplicationController
 
 
   def create
-    
-    # if there is a merchant logged in
-    # if session[:merchant_id]?
-      
-    # # and that merchant ID matchs the product id
-    #   if @product_id == session[:merchant_id]
-    # # merchant can't review their own product
-    #   end
-    # end
+
   @review = Review.new(review_params)
   @review.product_id = params[:product_id]
 
@@ -39,9 +33,23 @@ class ReviewsController < ApplicationController
 
   
   private
+
+  def merchant_reviews
+
+    product = Product.find_by(id: merchant_review_params)
+    # if there is a merchant logged in
+    if product&.merchant == @current_merchant
+      flash[:warning] = "You can't review your own product!"
+      redirect_to product_path(product)
+    end
+  end
+
+  def merchant_review_params
+    params.require(:product_id)
+  end
  
   def review_params
-    return params.require(:review).permit(:rating, :comment, :product_id)
+    params.require(:review).permit(:rating, :comment, :product_id)
   end
 
 end

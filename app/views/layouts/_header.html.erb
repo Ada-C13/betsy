@@ -11,20 +11,6 @@ navbar structure based on https://stackoverflow.com/questions/19733447/bootstrap
         <li class="nav-item app-header__nav_item">
           <%= link_to 'All Products', products_path, class:'nav-link'%>
         </li>
-        
-        <%# dropdown box for Categories %>
-        <% if Category.all.length > 0 %>
-        <li class="nav-item dropdown">
-          <%= render partial: "shared/dropdown", locals: { label: "Categories", items: Category.all }%>
-        </li>
-        <% end %>
-
-        <%# dropdown box for Merchants %>
-        <% if Merchant.all.length > 0 %>
-        <li class="nav-item dropdown">
-          <%= render partial: "shared/dropdown", locals: { label: "Merchants", items: Merchant.all }%>
-        </li>
-        <% end %>
       </ul>
     <% end %>
   </div>

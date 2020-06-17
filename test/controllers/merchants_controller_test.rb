@@ -97,6 +97,13 @@ describe MerchantsController do
         must_redirect_to dashboard_merchant_url(@correct_id)
         expect(flash[:warning]).must_equal "Tried to access a resource that isn't yours. Returning to your dashboard."
       end
+
+      it "responds with redirect when posting merchant products" do
+        post manage_products_url(@incorrect_id)
+        must_respond_with :redirect
+        must_redirect_to dashboard_merchant_url(@correct_id)
+        expect(flash[:warning]).must_equal "Tried to access a resource that isn't yours. Returning to your dashboard."
+      end
     end
 
     describe "with no merchant logged in" do

@@ -23,9 +23,6 @@ Rails.application.routes.draw do
   resources :products do
     resources :reviews, only: [:new, :create]
   end
-
-  get "/products/:id/by_category", to: "products#by_category", as: "by_category"
-  get "/products/:id/by_merchant", to: "products#by_merchant", as: "by_merchant"
   post "/products/:id/deactivate", to: "products#deactivate", as: "product_deactivate"
 
   resources :categories, except: [:edit, :update, :destroy]
