@@ -15,8 +15,8 @@
   </header>
 <div class="page-container">
   <div class="content-wrap">
-  <nav>
-    <div class="container">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
       <ul class="nav">
         <li><%= link_to "Home", root_path, class: "nav-item" %>
         </li>
@@ -69,7 +69,7 @@
   </nav>
 
   <body>
-    <section>
+    <section class="section">
       <section class="flash-msg__section">
         <% flash.each do |name, message| %>
           <strong class="<%= name %>">
@@ -77,11 +77,10 @@
           </strong>
         <% end %>
       </section>
-
       <%= yield %>
     </section>
-    </body>
-  <footer>
+  </body>
+  <footer class="footer">
     <p><strong>Copyright Ada C13 2020</strong></p>
   </footer>
   </div>
