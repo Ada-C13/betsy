@@ -1,18 +1,16 @@
 <% if !@merchant.products.empty? %> 
   <table style="width:70%">  
-  <h3><%= "#{@merchant.name}\'s Products"%></h3> 
+  <h3><%= "#{@merchant.name.titleize}\'s Products"%></h3> 
     <tr>
         <th>Name</th>
         <th>Stock</th>
         <th>Price</th>
-        <th>Active</th>
-        <th></th>
     </tr>    
     <% @merchant.products.each do |product| %>
-      <tr>
-        <td><%= link_to product.name, product_path(product.id) %></td>
+      <tr class = "middle">
+        <td><%= link_to product.name.titleize, product_path(product.id) %></td>
         <td><%= product.stock%></td>
-        <td><%= product.price %></td>
+        <td><%= format_price(product.price) %></td>
       </tr>
     <% end %>
   </table>
