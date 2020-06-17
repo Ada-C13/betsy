@@ -8,7 +8,7 @@ class Order < ApplicationRecord
   validates :credit_card_num, presence: true, on: :update
   validates :credit_card_exp, presence: true, on: :update
   validates :credit_card_cvv, presence: true, on: :update
-  validates :customer_email, presence: true, on: :update
+  validates :customer_email,  presence: true, on: :update
 
   def checkout_order!
     return false if self.status != "pending"
@@ -24,8 +24,6 @@ class Order < ApplicationRecord
     self.order_items.each do |item|
       item.product.stock -= item.quantity
       item.product.save
-      puts "debugging ------> "
-      p item.product
     end
     self.status = "paid"
     result = self.save
@@ -52,13 +50,5 @@ class Order < ApplicationRecord
     end
     return total
   end
-  
-  # TODO: move to merchant / remove because merchant.orders 
-  # already returns all orders belonging to the merchant
-  # def self.by_merchant(merchant_id)
-  #   merchant = Merchant.find_by(id: merchant_id)
-  #   return [] if merchant.nil?
-  #   return merchant.orders
-  # end
   
 end
