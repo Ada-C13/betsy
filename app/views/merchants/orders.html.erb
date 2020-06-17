@@ -12,7 +12,7 @@
   <%@merchant.products.each do |product|%>
     <%product.order_items.each do |item|%>
       <tr class = "middle">
-        <td><%= image_tag product.photo, alt:"image", class: "item_images" %></td>
+        <td><%= link_to(image_tag(product.photo, class: "item_images"), product_path(product.id)) %></td>
         <td><%= link_to product.name.titleize, product_path(product.id) %></td>
         <td><%= item.quantity %></td>
         <td><%= item.order.id %></td>

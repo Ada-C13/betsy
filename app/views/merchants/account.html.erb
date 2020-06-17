@@ -25,7 +25,7 @@
     </tr>    
     <% @products.each do |product| %>
         <tr class = "middle">
-        <td><%= image_tag product.photo, alt:"image", class: "item_images" %></td>
+        <td><%= link_to(image_tag(product.photo, class: "item_images"), product_path(product)) %></td>
         <td><%= link_to product.name.titleize, product_path(product) %></td>
         <td><%= product.stock%></td>
         <td><%= format_price(product.price) %></td>
