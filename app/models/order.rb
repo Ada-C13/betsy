@@ -25,6 +25,7 @@ class Order < ApplicationRecord
 
   def cancel
     self.status = "cancelled"
+    self.save
     return change_items(:restock)
   end
 
@@ -50,22 +51,26 @@ class Order < ApplicationRecord
   end
 
   def submit_order
-    if self.status == "paid"
+    if self.status != "pending"
       return false
     end
     # 16 dig cc > 4 dig cc
+    self.status = "paid"
+    self.save
     return change_items(:destock)
   end
 
   private
 
   def change_items(change)
+    all_changed = true
     self.order_items.each do |item|
       if !item.method(change).call
-        return false
+        errors.add(:order_items, item.errors[:status])
+        all_changed = false
       end
     end
-    return true
+    return all_changed
   end
 
   
