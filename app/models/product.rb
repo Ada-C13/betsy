@@ -11,13 +11,13 @@ class Product < ApplicationRecord
   validates :description, presence: true
   validates :photo, presence: true 
 
-  def decrease_quantity(quantity) 
+  def destock(quantity) 
     if self.stock > quantity 
       self.stock -= quantity
     end
   end
 
-  def increase_quantity(quantity)
+  def restock(quantity)
     self.stock += quantity
   end
 

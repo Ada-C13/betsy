@@ -8,7 +8,32 @@ class OrderItem < ApplicationRecord
 
   def ship
     self.status = "shipped"
-    self.save
+    self.save 
   end
+
+  def destock
+    if self.product.stock > self.quantity
+      self.product.destock(self.quantity)
+      self.status = "paid"
+      self.save
+      return true
+    else
+      errors.add(:status, "#{self.product.name} is now out of stock!")
+      return false
+    end
+  end
+
+  def restock
+    if self.status == "shipped"
+      errors.add(:status, "This item is already shipped")
+      return false
+    end
+    self.status = "cancelled"
+    self.save
+    self.product.restock(self.quantity)
+    return true
+  end
+
+
 
 end

@@ -5,17 +5,17 @@ class OrderItemsController < ApplicationController
   def create
     qty = params[:quantity].to_i
     product = Product.find_by(id: params[:id])
-    if product.stock == 0
-      flash[:error] = "#{product.zero_inventory}"
-      redirect_to product_path(product)
-      return
-    elsif product.stock < qty
-      flash[:error] = "There are only #{product.stock} #{product.name} in stock, please select another quanity."
-      redirect_to product_path(product)
-      return 
-    else
-      product.decrease_quantity(qty)
-    end
+    # if product.stock == 0
+    #   flash[:error] = "#{product.zero_inventory}"
+    #   redirect_to product_path(product)
+    #   return
+    # elsif product.stock < qty
+    #   flash[:error] = "There are only #{product.stock} #{product.name} in stock, please select another quanity."
+    #   redirect_to product_path(product)
+    #   return 
+    # else
+    #   product.decrease_quantity(qty)
+    # end
     order = nil
     order_item = OrderItem.new(quantity: qty)
     if session[:cart_id]
