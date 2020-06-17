@@ -39,14 +39,6 @@ class ProductsController < ApplicationController
   def show
   end
 
-  def by_merchant
-    @merchant = Merchant.find(params[:id])
-  end
-
-  def by_category
-    @category = Category.find(params[:id])
-  end
-
   # GET /products/new
   def new
     @product = Product.new
