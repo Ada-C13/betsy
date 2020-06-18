@@ -4,7 +4,9 @@ describe MerchantsController do
 
   describe "Logged in users" do
     before do 
-      @merchant = perform_login
+      @merchant = merchants(:merchantaaa)
+      @merchant4 = merchants(:merchantddd)
+      perform_login(@merchant)
     end
 
     describe "index" do 
@@ -44,9 +46,26 @@ describe MerchantsController do
       end
 
       it "redirect back to account if trying to access a not existed account" do
-        get account_path(1000000000) # merchant 1000000000 doesn't exist
-        must_redirect_to account_path(@merchant.id)
+        get account_path(-1) # merchant 1000000000 doesn't exist
         expect(flash[:error]).must_equal  "You don't have access to that account!"
+        must_redirect_to account_path(@merchant.id)
+      end
+    end
+
+    describe "shop" do
+      it "should return all products that belongs to one merchant" do
+        get merchant_shop_path(@merchant.id)
+        all_products_merchant = @merchant.products
+        expect(all_products_merchant.length).must_equal 4
+        must_respond_with :success
+      end
+
+      it "will return empty array if we dont have any product for specific merchant" do
+        perform_login(@merchant4)
+        get merchant_shop_path(@merchant4.id)
+        all_products_merchant = @merchant4.products
+        expect(all_products_merchant.length).must_equal 0
+        must_respond_with :success
       end
     end
 
