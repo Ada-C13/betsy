@@ -58,6 +58,8 @@ describe ReviewsController do
         comment: "bad review",
         product_id: 1000
       }
+    end
+  end
 
 # hello 
   it "should redirect to products_path" do
