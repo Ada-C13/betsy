@@ -38,8 +38,8 @@ line-height: 47px;
 
 .footer {
   text-align: right;
-  position: absolute;
-  bottom: 0;
+  // position: absolute; # to fix bug
+  // bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;
