@@ -8,36 +8,32 @@
     </div>
 
     <div class="col-md-6">
-    <h3><%= @product.name %> - <span class="show-product__price"><%= number_to_currency(@product.price) %></span></h3>
-    <p><%= @product.description %></p>
-    <%= button_to 'Add to cart', create_order_items_path(@product), class: 'btn btn-primary' %>
-    <%= button_to 'Edit', edit_product_path(@product), method: :get, class: 'btn btn-info btn-sm' %>
+      <h3><%= @product.name %> - <span class="show-product__price"><%= number_to_currency(@product.price) %></span></h3>
+      <p><%= @product.description %></p>
+      <div class='top_buttons'>
+        <%= button_to 'Add to cart', create_order_items_path(@product), class: 'btn btn-primary btn-lg' %>
+        <%= button_to 'Leave a Review', new_product_review_path(@product), method: :get, class: 'btn btn-secondary btn-md' %>
+      </div>
+      <br>
+      <%= button_to 'Back to Products', products_path, class: 'btn btn-outline-secondary btn-md' %>
+      
     </div>
 
   </div>
 
 <div class="review_container">
   <% unless product_owned_by_merchant?(@product) %> 
-  <%# <% text = "Add Review for " + @product.name%> 
-  <p>
-   <%= rating_as_stars(rating_average(@product.reviews)) %>
-   (<%= rating_count(@product.reviews) %>)
-    Add Review for <%= link_to @product.name, new_product_review_path(@product) %> 
+    <p>
+      <%= rating_as_stars(rating_average(@product.reviews)) %>
+      (<%= rating_count(@product.reviews) %>)
+      <%= rating_count(@product.reviews) == 0 ? "No reviews for " : "Reviews for "%><%= @product.name %> 
     </p>
   <% end %>
 
   <% @product.reviews.each do |review| %>
-  <div class="reviews">
-  <p><%= rating_as_stars(review.rating) %> on <%= review.created_at.strftime('%-d %B %Y') %> <%= review.comment %> </p>
+    <div class="reviews">
+      <p><%= rating_as_stars(review.rating) %> on <%= review.created_at.strftime('%-d %B %Y') %> <%= review.comment %> </p>
+    </div>
+    <% end %> 
   </div>
-  <p></p>
-  <% end %> 
- </div>
 </div>
-
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
-
-
-

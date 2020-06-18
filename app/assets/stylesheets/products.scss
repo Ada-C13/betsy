@@ -9,3 +9,22 @@
     margin-top: 10px;
   }
 }
+
+.top_buttons {
+  max-width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.btn-secondary {
+  border-color: $secondary-color;
+  background-color: $secondary-color;
+}
+
+.btn-secondary:hover {
+  border-color: darken($secondary-color, 10%);
+  background-color: darken($secondary-color, 5%);
+}
+
