@@ -40,7 +40,7 @@
             </div>
             <div class="col-lg-8">
               <div class="items_content">
-                <div class="items_price"><%= number_to_currency(item.product.price) %><span>per item</span></div>
+                <div class="items_price"><%= number_to_currency(item.subtotal) %><span>SUBTOTAL</span><span>(<%= number_to_currency(item.product.price) %> per item)</span></div>
                 <div class="rating_r rating_r_4 items_rating" data-rating="4">
                   <i></i>
                   <i></i>
@@ -75,10 +75,9 @@
   </div>		
 </div>
 
-<ul class="nav justify-content-center">
-  <li class="nav-item">
-    <%= link_to "Proceed to Checkout", order_checkout_path, class: "btn cart_button" %>
-  </li>
-</ul> 
+<div class="checkout">
+  <h3 class="items_price">Total: <%= number_to_currency(@current_order.total) %></h3>
+  <p><%= link_to "Proceed to Checkout", order_checkout_path, class: "btn cart_button" %></p>
+</div> 
 
 <% end %>
