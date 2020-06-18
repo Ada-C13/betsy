@@ -18,7 +18,8 @@ class CategoriesController < ApplicationController
       return
     else
       flash[:status] = :failure
-      flash.now[:result_text] = "Could not create category"
+      flash.now[:result_text] = "Could not create category!"
+      flash.now[:messages] = @category.errors.messages
       render :new, status: :not_found
       return
     end
