@@ -54,7 +54,7 @@ describe ReviewsController do
       product_id: -1
     }
 
-    post new_product_review_path(-1), params: { review: bad_review }
+    post product_reviews_path(-1), params: { review: bad_review }
     #expect(flash[:danger]).must_equal "Something went wrong with the reviewing process."
     must_redirect_to products_path
   end
