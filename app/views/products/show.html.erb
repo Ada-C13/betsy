@@ -11,26 +11,29 @@
     <h3><%= @product.name %> - <span class="show-product__price"><%= number_to_currency(@product.price) %></span></h3>
     <p><%= @product.description %></p>
     <%= button_to 'Add to cart', create_order_items_path(@product), class: 'btn btn-primary' %>
-    <%= button_to 'Edit', edit_product_path(@product), method: :get, class: 'btn btn-info btn-sm' %>
+    <%= button_to 'Edit Product', edit_product_path(@product), method: :get, class: 'btn btn-info' %>
     </div>
 
   </div>
 
 <div class="review_container">
   <% unless product_owned_by_merchant?(@product) %> 
-  <%# <% text = "Add Review for " + @product.name%> 
+
   <p>
+  <% if @product.reviews.count > 1 %>
    <%= rating_as_stars(rating_average(@product.reviews)) %>
-   (<%= rating_count(@product.reviews) %>)
-    Add Review for <%= link_to @product.name, new_product_review_path(@product) %> 
-    </p>
+   (Average of <%= @product.reviews.count %> reviews)
+   <% end %>
+    <%= link_to "Add Review", new_product_review_path(@product) %> 
+  
+  </p>
   <% end %>
 
   <% @product.reviews.each do |review| %>
-  <div class="reviews">
+  <div class="review">
   <p><%= rating_as_stars(review.rating) %> on <%= review.created_at.strftime('%-d %B %Y') %> <%= review.comment %> </p>
   </div>
-  <p></p>
+
   <% end %> 
  </div>
 </div>
