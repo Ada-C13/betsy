@@ -166,6 +166,26 @@ describe ProductsController do
         must_respond_with :success
       end
 
+      it "can get products by merchant" do
+        merchant = merchants(:merchant1)
+        
+        get products_path, params: {
+          merchant_id: merchant.id
+        }
+
+        must_respond_with :success
+      end
+
+      it "can get products by category" do
+        category = Category.create!(title: "Wand")
+        
+        get products_path, params: {
+          category_id: category.id
+        }
+        
+        must_respond_with :success
+      end
+
       it "responds with 404 when getting products by merchant with an invalid merchant id" do
         get products_path, params: {
           merchant_id: -1
