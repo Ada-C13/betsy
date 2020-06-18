@@ -111,7 +111,6 @@ describe OrdersController do
       expect(@order.purchase_date).must_equal Date.today
     end
 
-    # TODO: Establish validations for Order, then come back to this test.
     it "does not complete order if the form data violates order validations, creates a flash message, and responds with a 400 error" do
       invalid_order_hash = {
         order: {
