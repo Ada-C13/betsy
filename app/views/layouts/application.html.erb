@@ -13,14 +13,24 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body class="<%=controller_name%> <%=action_name%>">
-    <%= render 'layouts/header' %>
-    <% if content_for?(:headline) %>
+    <header>  
+      <%= render 'layouts/header' %>
+      <% if content_for?(:headline) %>
       <h2 class="headline"><%= yield(:headline) %></h2>
     <% end %>
+    </header>
+    
+    <main>
     <%= render 'layouts/alert' %>
     <%= yield %>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <%= link_to raw("Meet the team &#10084;"), team_path %>
+      </div>
+    </footer>
   </body>
 </html>
 

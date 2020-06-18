@@ -1,31 +1,28 @@
 <% flash.each do |type, message| %>
   <% next if type == 'details' %>
-  <div class="container">
-  <div class="alert alert-<%= type %>">
-    <strong><%= message %></strong>
-    <% if flash[:details] %>
+    <div class="alert alert-<%= type %> container">
+      <strong><%= message %></strong>
+      <% if flash[:details] %>
       <ul>
-      <% flash[:details].each do |msg| %>
-        <% msg %>
-        <% if !msg[1].empty? %>
-          <li><%= msg %></li>
+        <% flash[:details].each do |msg| %>
+          <% msg %>
+          <% if !msg[1].empty? %>
+            <li><%= msg %></li>
+          <% end %>
         <% end %>
-      <% end %>
       </ul>
     <% end %>
 
     <% if flash[:errors] %>
       <ul>
-      <% flash[:errors].each do |error| %>
-      <li><%= error %></li>
-        
-      <% end %>
+        <% flash[:errors].each do |error| %>
+        <li><%= error %></li>
+        <% end %>
       </ul>
     <% end %>
 
-
-
-
-  </div>
-  </div>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
 <% end %>
