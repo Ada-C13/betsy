@@ -73,7 +73,7 @@
                   <li class="main_nav_item">
                     <%= link_to "Products by Category", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"} %>
                     <div class="main_nav_dropdown dropdown-menu">
-                      <%= link_to "All Products", products_path, class: "nav-link"%>
+                      <%= link_to "All Products", products_path, class: "dropdown-item"%>
                       <%Category.all.each do |cat|%>
                         <%= link_to cat.title.pluralize, category_products_path(cat.id), class: "dropdown-item" %>
                       <%end%>
