@@ -7,10 +7,11 @@ class Order < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, on: :update 
   validates :cc_number, presence: true, numericality: { only_integer: true }, length: {is: 16 }, on: :update
   validates :cc_exp, presence: true, on: :update
-  # TODO: VALIDATION OF CC EXP DATE, WILL MAKE CUSTOM METHOD
   validates :mailing_address, presence: true, on: :update
   validates :zipcode, presence: true, numericality: { only_integer: true}, length: { is: 5 }, on: :update
   validates :cvv, presence: true, numericality: { only_integer: true }, length: { is: 3 }, on: :update
+
+  validate :valid_expiration_date, on: :update
 
   def total
     return order_items.map{ |item| item.subtotal}.sum
@@ -28,5 +29,11 @@ class Order < ApplicationRecord
       merchant_ids << product.merchant.id
     end
     return merchant_ids
+  end
+
+  def valid_expiration_date
+    if Date.today > self.cc_exp
+      errors.add(:cc_exp, "can't be in the past")
+    end
   end
 end
