@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
       @product.merchant = merchant
 
       if @product.save
-        flash[:success] = "Successfully created #{@product.name}"
+        flash[:success] = "Successfully created #{@product.name.titleize}"
         redirect_to account_path(merchant)
         return
       else
@@ -49,7 +49,7 @@ class ProductsController < ApplicationController
       head :not_found
       return
     elsif @product.update(product_params)
-      flash[:success] = "Successfully updated #{@product.name}"
+      flash[:success] = "Successfully updated #{@product.name.titleize}"
       redirect_to product_path(@product)
       return
     else 
@@ -90,7 +90,7 @@ class ProductsController < ApplicationController
       return
     end
     @product.change_active
-    flash[:success] = "#{@product.name} active status changed."
+    flash[:success] = "#{@product.name.titleize} active status changed."
     redirect_to account_path(session[:merchant_id])
     return
   end
