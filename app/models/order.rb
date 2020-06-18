@@ -54,7 +54,6 @@ class Order < ApplicationRecord
     if self.status != "pending"
       return false
     end
-    # 16 dig cc > 4 dig cc
     self.status = "paid"
     self.save
     return change_items(:destock)

@@ -24,6 +24,7 @@ class OrdersController < ApplicationController
   def checkout; end
 
   def submit_order
+    filter_cc
     @order.submit_order
     if @order.update(order_params)
       session[:cart_id] = nil
@@ -66,6 +67,10 @@ class OrdersController < ApplicationController
     end
   end
 
+  def filter_cc
+    params[:order][:cc_last_four] = params[:order][:cc_last_four][-4..-1]
+  end
+  
   def order_params
     return params.require(:order).permit(:name, :email, :address, :cc_last_four, :cc_exp_year, :cc_exp_month, :cc_cvv)
   end
