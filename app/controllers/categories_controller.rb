@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
     @categories = Category.all
     redirect_to root_path
   end
-
+  
   def category_products
     if @category.nil?
       redirect_to categories_path
