@@ -37,6 +37,15 @@ class Product < ApplicationRecord
     self.active = !self.active
     self.save 
   end
+
+  def self.average_rating(product)
+    all_rating = product.reviews.map {|review| review.rating}
+    if all_rating.length > 0
+      return average = (all_rating.sum.to_f/all_rating.length).round(1) 
+    else
+      return "There is no review for this product."
+    end
+  end
 end
 
 
