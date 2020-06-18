@@ -53,3 +53,11 @@ product_inactive:
   description: This is xxx product is the most popular product that help protect form Covid 19.
   merchant: merchantccc
   categories: [category1]
+product6: 
+  name: yyy
+  price: 50.00
+  stock: 0
+  active: true
+  description: This is xxx product is the most popular product that help protect form Covid 19.
+  merchant: merchantaaa
+  categories: [category2]
