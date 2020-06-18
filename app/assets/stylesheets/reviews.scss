@@ -15,11 +15,14 @@ span.rating-empty-stars {
   padding: 1em;
 }
 
-
-
-.reviews {
+.review {
   background-color: lightgray;
   padding: 1em;
   border-radius: 1em;
+  margin-bottom: 1em;
 
+}
+
+form.button_to {
+  display: inline;
 }
