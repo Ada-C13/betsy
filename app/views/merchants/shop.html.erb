@@ -1,8 +1,8 @@
-<% if !@merchant.products.empty? %> 
+<% if @merchant_products.length > 0 %> 
   <%# <table style="width:70%">   %>
   <h3><%= "#{@merchant.name.titleize}\'s Products"%></h3> 
     <div class = "middle">
-    <% @merchant.products.each do |product| %>
+    <% @merchant_products.each do |product| %>
       <%if product.active%>
         <div class = "col-xs-6 col-md-4">
           <%= link_to(image_tag(product.photo, class: "show_images"), product_path(product)) %>
@@ -12,7 +12,8 @@
         </div>
       <%end%>
     <% end %>
-  <%# TODO: the pagination doesn't work%>
+    <br>
+    
     <div class="pagination">
       <%= will_paginate @merchant_products %>
     </div> 
