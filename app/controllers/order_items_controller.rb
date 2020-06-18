@@ -17,11 +17,17 @@ class OrderItemsController < ApplicationController
     redirect_back fallback_location: cart_path
   end
 
-  def update_quantity
+  def update
     @order_item = OrderItem.find_by(id: params[:id])
     if @order_item
-      quantity = params[:quantity].to_i
-      @order_item.update_item(quantity)
+      quantity = params[:order_item][:quantity].to_i
+      message = @order_item.update_item(quantity)
+      if message.nil?
+        flash[:success] = "Product quantity updated"
+      else
+        flash[:warning] = "Unable to update product quantity"
+        flash[:details] = [message]
+      end
       redirect_to cart_path
     else
       flash[:warning] = "Item in cart does not exist"

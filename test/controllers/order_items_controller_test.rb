@@ -125,6 +125,59 @@ describe OrderItemsController do
     end
   end # describe "create"
 
+  describe "update" do
+    it "updates quantity" do
+      # Arrange
+      expect {
+        post create_order_items_path(product.id), params: { order_item: { quantity: 2 } }
+      }.must_change "OrderItem.count", 1
+      new_item = OrderItem.last
+      expect(new_item).wont_be_nil
+      expect(new_item.product.id).must_equal product.id
+      expect(new_item.quantity).must_equal 2
+      must_respond_with :redirect
+      must_redirect_to cart_path
+      # Act & Assert
+      expect {
+        patch order_item_path(new_item), params: { order_item: { quantity: 3 } }
+      }.wont_change "OrderItem.count"
+      new_item.reload
+      expect(new_item.quantity).must_equal 3
+      must_respond_with :redirect
+      must_redirect_to cart_path
+    end
+
+    it "fails to update quantity if item does not exist" do # ?????
+      # Act & Assert
+      expect {
+        patch order_item_path(0), params: { order_item: { quantity: 3 } }
+      }.wont_change "OrderItem.count"
+      must_respond_with :redirect
+      must_redirect_to cart_path
+    end
+
+    it "fails to update if quantity is invalid" do
+      # Arrange
+      expect {
+        post create_order_items_path(product.id), params: { order_item: { quantity: 2 } }
+      }.must_change "OrderItem.count", 1
+      new_item = OrderItem.last
+      expect(new_item).wont_be_nil
+      expect(new_item.product.id).must_equal product.id
+      expect(new_item.quantity).must_equal 2
+      must_respond_with :redirect
+      must_redirect_to cart_path
+      # Act & Assert
+      expect {
+        patch order_item_path(new_item), params: { order_item: { quantity: -1 } }
+      }.wont_change "OrderItem.count"
+      new_item.reload
+      expect(new_item.quantity).must_equal 2
+      must_respond_with :redirect
+      must_redirect_to cart_path
+    end
+  end # describe "update"
+
   describe "destroy" do
     it "removes an existing item" do
       # Arrange
