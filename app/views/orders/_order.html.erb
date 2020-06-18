@@ -1,10 +1,21 @@
+<div class="home">
+  <div class="home_background" style="background: url(https://i.imgur.com/HCWU4MU.jpg); background-size: 100%;"></div>
+  <div class="home_content">
+    <div class="home_title">
+      <center>Order Summary</center>
+    </div>
+  </div>
+</div>
+
 <% unless !@order.status || @order.status == "pending" %>
-  <h4>Order #<%= @order.id %></h4>
+<section class="order-ordersummary__container">
+  <strong><h1>Order #<%= @order.id %></h1></strong>
   <p><%= @order.purchase_date.strftime("Purchased on %m/%d/%Y at %I:%M%p")  %></p>
 
   <div class="card-group">
-    <div class="card">
+    <div class="card card_orderdetails">
       <div class="card-body">
+      <h3>Payment Details</h3>
         <ul class="list-unstyled">
           <li>Status: <%= @order.status.capitalize %></li>
           <li>Credit Card: XXXX-XXXX-XXXX-<%= @order.cc_number.to_s[-4..-1].to_i %></li>
@@ -12,8 +23,9 @@
         </ul>
       </div>
     </div>
-    <div class="card">
+    <div class="card card_orderdetails">
       <div class="card-body">
+      <h3>Customer Details</h3>
         <ul class="list-unstyled">
           <li>Name: <%= @order.name %></li>
           <li>Email: <%= mail_to @order.email %></li>
@@ -23,9 +35,9 @@
     </div>
   </div>
 
-  <h4>Products</h4>
+  <h3>Products</h3>
 
-  <table class="table">
+  <table class="table_orderproducts table">
     <thead>
       <tr>
         <th>Image</th>
@@ -60,4 +72,5 @@
       <tr>
     </tbody>
   </table>
+  </section>
 <% end %>
