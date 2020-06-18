@@ -120,6 +120,26 @@ describe ProductsController do
           patch product_path(-1), params: product_hash
         }.must_differ "Product.count", 0
       end
+
+      it "will not update a product if the form data violates validations, creates a flash message, and responds with a 400 error" do
+        @product.save
+        invalid_product_hash = {
+          product: {
+            title: nil
+          }
+        }
+  
+        expect {
+          patch product_path(@product.id), params: invalid_product_hash
+        }.wont_differ "Order.count"
+  
+        expect(flash[:status]).must_equal :failure
+        expect(flash[:result_text]).must_include "Could not update"
+        expect(flash[:messages].first).must_include :title
+        expect(flash[:messages].first).must_include ["can't be blank"]
+  
+        must_respond_with :bad_request
+      end
     end
     
     describe "index" do
@@ -144,6 +164,42 @@ describe ProductsController do
         # Assert
         expect(Product.all.length).must_equal 1
         must_respond_with :success
+      end
+
+      it "can get products by merchant" do
+        merchant = merchants(:merchant1)
+        
+        get products_path, params: {
+          merchant_id: merchant.id
+        }
+
+        must_respond_with :success
+      end
+
+      it "can get products by category" do
+        category = Category.create!(title: "Wand")
+        
+        get products_path, params: {
+          category_id: category.id
+        }
+        
+        must_respond_with :success
+      end
+
+      it "responds with 404 when getting products by merchant with an invalid merchant id" do
+        get products_path, params: {
+          merchant_id: -1
+        }
+
+        must_respond_with :not_found
+      end
+
+      it "responds with 404 when getting products by category with an invalid category id" do
+        get products_path, params: {
+          category_id: -1
+        }
+
+        must_respond_with :not_found
       end
     end
   
@@ -253,6 +309,23 @@ describe ProductsController do
         new_order = Order.last
         expect(session[:order_id]).must_equal new_order.id
         expect(new_order.status).must_equal "pending"
+      end
+
+      it "adds quantity to the order item if the order item already exists" do
+        same_product = @product_2
+
+        expect {
+          post add_to_cart_path(same_product), params: order_item_params
+        }.must_differ "Order.count", 1
+
+        expect {
+          post add_to_cart_path(same_product), params: order_item_params
+        }.wont_differ "OrderItem.count"
+  
+        order_item = OrderItem.find_by(product_id: @product_2.id)
+        expect(order_item.quantity).must_equal 2
+  
+        must_redirect_to product_path(@product_2.id)
       end
   
       it "does not create an order item if the product_id is invalid, and responds with a 404" do

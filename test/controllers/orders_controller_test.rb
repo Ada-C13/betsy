@@ -50,6 +50,23 @@ describe OrdersController do
     end
   end
 
+  describe "checkout" do
+    it "responds with success when session[:order_id] exists" do
+      order = build_order 
+
+      get order_checkout_path
+      must_respond_with :success
+    end
+
+    it "flashes an error message and redirects to cart when session[:order_id] is nil" do
+      get order_checkout_path
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "cannot check out"
+
+      must_redirect_to cart_path
+    end
+  end
+
   describe "complete" do
     before do
       @product_1 = products(:apple)
@@ -111,7 +128,6 @@ describe OrdersController do
       expect(@order.purchase_date).must_equal Date.today
     end
 
-    # TODO: Establish validations for Order, then come back to this test.
     it "does not complete order if the form data violates order validations, creates a flash message, and responds with a 400 error" do
       invalid_order_hash = {
         order: {
