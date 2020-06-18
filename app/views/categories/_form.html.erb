@@ -1,9 +1,17 @@
-<section class="section">
-  <%= form_with model: @category, class: 'product-form' do |f| %>
-    <div class='form-group'>
-      <%= f.label :name %>
-      <%= f.text_field :name, :class => "form-control" %>
-    </div>
-    <%= f.submit "Add Category", class: "btn btn-primary" %>
-  <% end %>
-</section>
+<% if @category.errors.any? %>
+  <ul class="errors">
+    <% @category.errors.each do |column, message| %>
+      <li>
+        <span><strong><%= column.capitalize %></strong></span>: <%= message %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+<h3>Add Category</h3>
+<%= form_with model: @category, class: 'product-form' do |f| %>
+  <div class='form-group'>
+    <%= f.label :name %>
+    <%= f.text_field :name, :class => "form-control" %>
+  </div>
+  <%= f.submit "Add Category", class: "btn btn-primary" %>
+<% end %>
