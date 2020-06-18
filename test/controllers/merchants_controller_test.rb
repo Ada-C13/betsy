@@ -70,26 +70,25 @@ describe MerchantsController do
     end
 
     describe "create(login as a merchant)" do
-      before do
-        @valid_merchant = {
-          merchant: {
+        let(:invalid_merchant) {
+          Merchant.new(
+            provider: "github",
+            uid: "1234567",
+            name: nil,
+            email:"youknowwho@ada.org",
+            avatar: "https://i.imgur.com/WSHmeuf.jpg"
+          )
+        }
+        let(:valid_merchant) {
+          Merchant.new(
             provider: "github",
             uid: "1234567",
             name: "youknowwho",
             email:"youknowwho@ada.org",
             avatar: "https://i.imgur.com/WSHmeuf.jpg"
-        } 
-      }
-      end
-      @invalid_merchant = Merchant.new(
-        provider: "github",
-        uid: "1234567",
-        name: nil,
-        email:"youknowwho@ada.org",
-        avatar: "https://i.imgur.com/WSHmeuf.jpg"
-      )
+            )
+        }
 
-      
       it "can log in" do
         must_respond_with :redirect
         must_redirect_to root_path
@@ -97,30 +96,22 @@ describe MerchantsController do
 
       it "can log in a new user" do
         put logout_path, params: {}
-        @valid_merchant = Merchant.new(
-          provider: "github",
-          uid: "1234567",
-          name: "youknowwho",
-          email:"youknowwho@ada.org",
-          avatar: "https://i.imgur.com/WSHmeuf.jpg"
-          )
-        
-        expect{logged_in_user = perform_login(@valid_merchant)}.must_change "Merchant.count", 1
-        expect(Merchant.last.provider).must_equal @valid_merchant[:provider]
-        expect(Merchant.last.uid).must_equal @valid_merchant[:uid]
-        expect(Merchant.last.name).must_equal @valid_merchant[:name]
-        expect(Merchant.last.email).must_equal @valid_merchant[:email]
-        expect(Merchant.last.avatar).must_equal @valid_merchant[:avatar]
-
+        expect{logged_in_user = perform_login(valid_merchant)}.must_change "Merchant.count", 1
+        expect(Merchant.last.provider).must_equal valid_merchant[:provider]
+        expect(Merchant.last.uid).must_equal valid_merchant[:uid]
+        expect(Merchant.last.name).must_equal valid_merchant[:name]
+        expect(Merchant.last.email).must_equal valid_merchant[:email]
+        expect(Merchant.last.avatar).must_equal valid_merchant[:avatar]
+        expect(flash[:notice]).must_equal "Logged in as a new merchant #{valid_merchant[:name]}"
         must_respond_with :redirect
         must_redirect_to root_path
       end
 
       it "can't create merchant if merchant data is invalid" do
         put logout_path, params: {}
-
-        expect{logged_in_user = perform_login(@invalid_merchant)}.wont_change "Merchant.count"
-        # expect(flash[:error]).must_equal "Could not create merchant account"
+        OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(invalid_merchant))
+        get omniauth_callback_path(:github)
+        expect(flash[:error]).must_equal "Could not create merchant account"
         must_redirect_to root_path
       end
     end
