@@ -18,7 +18,7 @@ class MerchantsController < ApplicationController
     # TODO: the pagination doesn't work
     @merchant_products = @merchant.products.paginate(page: params[:page], per_page: 9)
   end
-  
+
   def orders
   end
 
@@ -28,11 +28,11 @@ class MerchantsController < ApplicationController
       provider: params[:provider])
     
     if merchant # merchant exists
-      flash[:notice] = "Logged in as returning merchant #{merchant.name}"
+      flash[:notice] = "Logged in as returning merchant #{merchant.name.titleize}"
     else # merchant doesn't exist yet (new merchant)
       merchant = Merchant.build_from_github(auth_hash)
       if merchant.save
-        flash[:notice] = "Logged in as a new merchant #{merchant.name}"
+        flash[:notice] = "Logged in as a new merchant #{merchant.name.titleize}"
       else
         flash[:error] = "Could not create merchant account  #{merchant.errors.messages}"
         return redirect_to root_path
