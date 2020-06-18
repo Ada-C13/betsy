@@ -1,37 +1,65 @@
 
-<%= form_with model: @product do |f| %>
+<body>
 
-  <div class="form-group">
-    <%= f.label "Title:" %>
-    <%= f.text_field :title, class: "form-control" %>
+  <div class="new_edit_background">
+    <div><img src="https://i.imgur.com/b6IS9xc.jpg" alt="background" /></div>
+  </div>  
+
+
+  <div class="contact_title text-center">
+    <% if @product.id %>
+      Edit <%=@product.title%>
+    <% else %>
+      NEW PRODUCT
+    <%end%>
+  </div>
+      
+
+  <div class="indentation">
+
+    <div class="col">
+      <div class="contact_form_container">
+        <div class="contact_title text-center"></div>
+
+          <%= form_with model: @product do |f| %>
+
+            <div class="form-group">
+              <%= f.label "Title:" %>
+              <%= f.text_field :title, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label "Price:" %>
+              <%= f.text_field :price, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label "Photo URL:" %>
+              <%= f.text_field :photo_url, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label "Description:" %>
+              <%= f.text_area :description, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label "Stock:" %>
+              <%= f.text_field :stock, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label "Category: " %>
+              <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :title) %>
+              <%= link_to "Add a new category", new_category_path, class: "form_submit_button button trans_200" %>
+            </div>
+
+
+            <%= f.submit "#{action_name} Product", class: "form_submit_button button trans_200"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= f.label "Price:" %>
-    <%= f.text_field :price, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label "Photo URL:" %>
-    <%= f.text_field :photo_url, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label "Description:" %>
-    <%= f.text_area :description, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label "Stock:" %>
-    <%= f.text_field :stock, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label "Category: " %>
-    <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :title) %>
-    <%= link_to "Add a new category", new_category_path, class: "btn btn-secondary" %>
-  </div>
-
-  <%= f.submit "#{action_name} Product", class: "btn btn-primary"%>
-
-<% end %>
+</body>

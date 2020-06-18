@@ -1,3 +1,37 @@
 // Place all the styles related to the Products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.form-group {
+  color: white;
+}
+
+.new_edit_background {
+  height: 12rem;
+}
+
+.indentation {
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
+
+.quantity-review {
+  margin-left: 5rem;
+  margin-bottom: 5rem;
+}
+
+.product-title {
+  color: purple;
+}
+
+.product-info {
+  margin-top: 3rem;
+}
+
+.product-line {
+  color: black;
+  font-size: medium;
+}
+
+.quantity {
+  margin-bottom: 2rem;
+}
