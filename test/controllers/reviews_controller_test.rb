@@ -12,19 +12,10 @@ describe ReviewsController do
     it "can't review own product" do
       perform_login(product.merchant)
 
-      get new_product_review_path(product)
+      get new_product_review_path(product) # /products/{product.id}/reviews/new
       expect(flash[:warning]).must_equal "You can't review your own product!"
       must_redirect_to product_path(product)
     end
-
-  #   it "can't get the review_path for a non-existent product" do
-  #     product = Product.new(
-  #       id: 1000,
-  #       name: "fake",
-  #     )
-  #     get new_product_review_path(product)
-  #     expect(flash[:danger]).must_equal "Something went wrong with the reviewing process."
-  #   end
   end
 
   describe "create new review" do
@@ -53,24 +44,10 @@ describe ReviewsController do
     end
 
     it "should redirect to products_path" do
-      bad_review = {
-        rating: 8,
-        comment: "bad review",
-        product_id: 1000
-      }
+    
+      get new_product_review_path(1000)
+      expect(flash[:warning]).must_equal "Product not found!"
+      must_redirect_to products_path
     end
-  end
-
-# hello 
-  it "should redirect to products_path" do
-    bad_review = {
-      rating: 8,
-      comment: "bad review",
-      product_id: -1
-    }
-
-    post product_reviews_path(-1), params: { review: bad_review }
-    #expect(flash[:danger]).must_equal "Something went wrong with the reviewing process."
-    must_redirect_to products_path
   end
 end
