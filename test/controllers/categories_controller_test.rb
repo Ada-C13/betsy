@@ -42,6 +42,11 @@ describe CategoriesController do
       expect {
         post categories_path, params: category_hash
       }.must_differ "Category.count", 0
+
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "Could not create category"
+      expect(flash[:messages].first).must_include :title
+      expect(flash[:messages].first).must_include ["can't be blank"]
     end
   end
 end

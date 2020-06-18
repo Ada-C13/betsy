@@ -2,38 +2,59 @@
   <div class="home_background" style="background: url(https://i.imgur.com/HCWU4MU.jpg); background-size: 100%;"></div>
   <div class="home_content">
     <div class="home_title">
-      Products
+      Magical Products
     </div>
   </div>
 </div>
 
-<% if @merchant %>
-  <h2 class="category-names">Products by <%= @merchant.username %></h2>
-<% elsif @category %>
-  <h2 class="category-names"><%= @category.title %>s</h2>
-<% else %>
-  <h2 class="category-names">All Products</h2>
-<% end %>
-
+<div class="on_top">
+  <% if @merchant %>
+    <h2 class="category-names">Products by <%= @merchant.username %></h2>
+  <% elsif @category %>
+    <h2 class="category-names"><%= @category.title %>s</h2>
+  <% else %>
+    <h2 class="category-names">All Products</h2>
+  <% end %>
+</div>
 
 <% if @products %>
-  <div class="table-indentation">
-    <table class="table table-borderless">
 
-      <tbody>
-        <% @products.each do |product| %>
+  <div class="offers offers_products">
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+				</div>
+			</div>
+			<div class="row offers_items">
+				
+				<!-- Products -->
+				<% @products.each do |product| %>
           <% if product.active %>
-            <tr>
-              <td><%= link_to image_tag(product.photo_url, height: "250", width: "300", :alt => "product photo"), product_path(product) %></td>
-              <td><h2><%= link_to product.title, product_path(product), class: "item-names" %></h2></td>
-              <td><h2 class="item-names"><%= number_to_currency(product.price)%></h2></td>
-            </tr>
+          <div class="col-lg-6 offers_col">
+            <div class="offers_item">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="offers_image_container">
+                    <div class="offers_image_background"><%= link_to image_tag(product.photo_url, size: "250x250", :alt => "product photo"), product_path(product) %></div>
+                    <div class="item_name"><%= link_to product.title, product_path(product) %></div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="offers_content">
+                    <div class="offers_price"><%= number_to_currency(product.price)%><span> per item</span></div>
+                    <p class="offers_text"><%= h truncate(product.description, :length => 100) %>.</p>
+                    <div class="offers_link"><%= link_to "view details", product_path(product.id) %></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <% end %>
         <% end %>
-      </tbody>
 
-    </table>
-  </div>
+			</div>
+		</div>
+	</div>
 <% else %>
-  <h3>There are currently no products over here</h3>
+  <h3>There are currently no products here.</h3>
 <% end %>

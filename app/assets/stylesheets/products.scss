@@ -5,6 +5,21 @@
   color: white;
 }
 
+.custom-form-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-label {
+  width: 156.8px;
+  margin: 5px 10px 5px 0;
+}
+
+.checkbox {
+  flex: 1;
+  margin-right: 10px;
+}
+
 .indentation {
   margin-left: 10rem;
   margin-right: 10rem;
@@ -53,4 +68,14 @@
 
 .table-indentation {
   margin: 2em 4em;
+}
+.on_top {
+  z-index: 1;
+}
+.offers_products
+{
+  margin-top: -155px;
+}
+.offers_item {
+  margin-bottom: 50px;
 }

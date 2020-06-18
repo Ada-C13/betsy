@@ -376,6 +376,10 @@ section
 	-o-transition: all 400ms ease;
 	transition: all 400ms ease;
 }
+.star
+{
+	height: 15px;
+}
 .header.scrolled .top_bar
 {
 	visibility: hidden;
@@ -1255,7 +1259,15 @@ section
 	margin-top: -8px;
 	text-transform: uppercase;
 }
-
+.section_title2
+{
+	font-size: 30px;
+  font-weight: 700;
+  font-family: 'Open Sans', sans-serif;
+	color: #2d2c2c;
+	margin-top: -8px;
+	text-transform: uppercase;
+}
 /*********************************
 7. Intro
 *********************************/

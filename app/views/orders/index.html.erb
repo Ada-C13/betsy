@@ -34,20 +34,13 @@
             <div class="col-lg-1 temp_col"></div>
             <div class="col-lg-3 col-1680-4">
               <div class="items_image_container">
-                <div class="items_image_background"><%= link_to image_tag(item.product.photo_url, height: "200", :alt => "product photo"), product_path(item.product) %></div>
+                <div class="items_image_background"><%= link_to image_tag(item.product.photo_url, size: "250x200", :alt => "product photo"), product_path(item.product) %></div>
                 <div class="item_name"><%= link_to item.product.title, product_path(item.product) %></div>
               </div>
             </div>
             <div class="col-lg-8">
               <div class="items_content">
-                <div class="items_price"><%= number_to_currency(item.subtotal) %><span>SUBTOTAL</span><span>(<%= number_to_currency(item.product.price) %> per item)</span></div>
-                <div class="rating_r rating_r_4 items_rating" data-rating="4">
-                  <i></i>
-                  <i></i>
-                  <i></i>
-                  <i></i>
-                  <i></i>
-                </div>
+                <div class="items_price items_price_border"><%= number_to_currency(item.subtotal) %><span>SUBTOTAL</span><span>(<%= number_to_currency(item.product.price) %> per item)</span></div>
                 <p class="items_text"><%= item.product.description %></p>
                 <div class="item_quantity align-items-end">
                   <%= form_with model: item do |f| %>
