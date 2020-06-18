@@ -113,7 +113,7 @@ describe ProductsController do
         expect( daisy.active ).must_equal true
 
         post product_deactivate_path(daisy)
-        must_redirect_to product_path(daisy)
+        must_redirect_to manage_products_path(@current_merchant)
 
         daisy.reload
         expect( daisy.active ).must_equal false
@@ -126,7 +126,7 @@ describe ProductsController do
         expect( daisy.active ).must_equal false
 
         post product_deactivate_path(daisy)
-        must_redirect_to product_path(daisy)
+        must_redirect_to manage_products_path(@current_merchant)
         
         daisy.reload
         expect( daisy.active ).must_equal true

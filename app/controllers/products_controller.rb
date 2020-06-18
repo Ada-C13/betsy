@@ -84,7 +84,7 @@ class ProductsController < ApplicationController
   def deactivate
     @product.active = !@product.active
     if @product.save
-      redirect_to product_path(@product)
+      redirect_to manage_products_path(@current_merchant)
     else
       flash[:warning] = "Unable to #{!@product.active} product"
     end
