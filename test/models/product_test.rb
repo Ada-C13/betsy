@@ -81,4 +81,72 @@ describe Product do
     end
 
   end
+
+  describe "filter_products function" do
+    before do
+      @categories_ids = [categories(:flower).id, categories(:herb).id]
+      @merchant_ids = [merchants(:annie).id, merchants(:melba).id, merchants(:katherine).id]
+    end
+
+    it 'can filter products with only category input' do
+      @merchant_ids = []
+      results = Product.filter_products(@categories_ids, @merchant_ids)
+      products = results[:products]
+      expect( products.count ).must_equal 3
+    end
+
+    it 'can filter products with only merchant input' do
+      @categories_ids = []
+      results = Product.filter_products(@categories_ids, @merchant_ids)
+      products = results[:products]
+      expect( products.count ).must_equal 4
+    end
+
+    it 'can filter products with category and merchant input' do
+      results = Product.filter_products(@categories_ids, @merchant_ids)
+      products = results[:products]
+      expect( products.count ).must_equal 4
+    end
+
+    it 'will return an empty array with no valid ids' do
+      results = Product.filter_products(["hi", 'cool'], ['ada', 'betsy'])
+      products = results[:products]
+      expect( products ).must_equal []
+    end
+
+    it 'will return a list of category and filter names' do
+      results = Product.filter_products(@categories_ids, @merchant_ids)
+      products = results[:products]
+      filter_names = results[:filters]
+      expect( products ).must_be_kind_of Array
+      expect( filter_names ).must_be_kind_of Array
+      expect( filter_names ).must_include "flower"
+    end
+
+    it 'will return all products that are uniq' do
+      results = Product.filter_products(@categories_ids, @merchant_ids)
+      products = results[:products]
+      expect( products ).must_equal products.uniq
+    end
+
+    it 'will only return products that are currently active' do
+      results = Product.filter_products(@categories_ids, @merchant_ids)
+      products = results[:products]
+      expect( products ).wont_include "cilantro"
+    end
+  end
+
+  describe "active_products function" do
+    it 'can get all products that are currently active' do
+      products = Product.active_products
+      expect( products ).wont_include products(:cilantro)
+      expect( products ).must_include products(:mint)
+      expect( products.count ).must_equal 4
+    end
+
+    it 'will return all products that are uniq' do
+      products = Product.active_products
+      expect( products ).must_equal products.uniq
+    end
+  end
 end
