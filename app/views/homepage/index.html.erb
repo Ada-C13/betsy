@@ -2,15 +2,18 @@
   <div class="home_background" style="background: url(https://i.imgur.com/HCWU4MU.jpg); background-size: 100%;"></div>
   <div class="home_content">
     <div class="home_title">
-      A world of magic
+      A World of Magic
     </div>
   </div>
 </div>
+
+<%= render partial: "shared/flash" %>
+
 <div class="intro">
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					<h2 class="intro_title text-center">We have the best magic products</h2>
+					<h2 class="intro_title text-center">We offer the best magical products</h2>
 				</div>
 			</div>
 			<div class="row">
@@ -46,13 +49,6 @@
                   <h1>Books</h1>
                 <% end %>
 								<div class="intro_price">From $5</div>
-								<div class="rating rating_4">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -70,14 +66,7 @@
           <div class="col">
             <div class="owl-item cta_item text-center">
                   <div class="cta_title">About Spellbound</div>
-                  <div class="rating_r rating_r_4">
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                  </div>
-                    <p class="cta_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec. Proin bibendum, augue faucibus tincidunt ultrices, tortor augue gravida lectus, et efficitur enim justo vel ligula.</p>
+                    <p class="cta_text">SPELLBOUND is a full-stack web project developed by Antonia Irizarry, Kate Pchelina, Olga Patrakova, and Lee Higgins for <%= link_to "Ada Developers Academy", "https://adadevelopersacademy.org/" %>. This project uses Ruby on Rails, HTML, and CSS, with styling modeled on the <%= link_to "Travelix Bootstrap theme", "https://themewagon.com/themes/free-bootstrap-4-html5-travel-agency-website-template-travelix/" %>.</p>
                   </div>
               </div>						
 					</div>

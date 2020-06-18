@@ -1,3 +1,5 @@
+<%= render partial: "shared/flash" %>
+
 <% unless !@order.status || @order.status == "pending" %>
   <h4>Order #<%= @order.id %></h4>
   <p><%= @order.purchase_date.strftime("Purchased on %m/%d/%Y at %I:%M%p")  %></p>

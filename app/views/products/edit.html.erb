@@ -1,4 +1,18 @@
+<div class="clear" style="background: url(https://i.imgur.com/b6IS9xc.jpg);">
 
+  <div class="contact_title text-center">
+    EDIT <%=@product.title%>
+  </div>
 
+  <div class="indentation">
 
-<%= render partial: "form", locals: { action_name: "Update" } %>
+    <div class="col">
+      <div class="contact_form_container">
+        
+        <%= render partial: "shared/flash" %>
+        <%= render partial: "form", locals: { action_name: "Update" } %>
+
+      </div>
+    </div>
+  </div>
+</div>
