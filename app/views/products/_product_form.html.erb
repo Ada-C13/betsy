@@ -7,8 +7,6 @@
     <% end %>
   </ul>
 <% end %>
-
-<h3>ADD PRODUCT</h3>
 <%= form_for @product, class: 'product-form' do |f| %>
   <div class='form-group'>
     <%= f.label :name %>
@@ -44,8 +42,6 @@
       <%= b.label %>
     </div>
   <% end %>
-    
-    
   </div>
   <br>
   <%= f.submit "#{action_name} Product", class: "btn btn-primary" %>
