@@ -166,7 +166,7 @@ describe ProductsController do
       expect(@product_one.description).must_equal @edited_product_hash[:product][:description]
       expect(@product_one.merchant_id).must_equal @edited_product_hash[:product][:merchant_id]
 
-      expect(flash[:success]).must_equal "Successfully updated #{@product_one.name}"
+      expect(flash[:success]).must_equal "Successfully updated #{@product_one.name.titleize}"
       must_redirect_to product_path(id)
     end
 

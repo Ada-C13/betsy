@@ -67,7 +67,7 @@ describe OrdersController do
       cart = Order.find_by(id: session[:cart_id])
       existing_order_item = cart.order_items.last
       post add_order_item_path(@p1), params: @quantity_hash
-      expect(flash[:redirect]).must_equal "#{@p1.name} already in cart. Edit quantity here:"
+      expect(flash[:redirect]).must_equal "#{@p1.name.titleize} already in cart. Edit quantity here:"
       must_redirect_to order_item_path(existing_order_item)
     end
   end
