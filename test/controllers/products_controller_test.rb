@@ -165,6 +165,22 @@ describe ProductsController do
         expect(Product.all.length).must_equal 1
         must_respond_with :success
       end
+
+      it "responds with 404 when getting products by merchant with an invalid merchant id" do
+        get products_path, params: {
+          merchant_id: -1
+        }
+
+        must_respond_with :not_found
+      end
+
+      it "responds with 404 when getting products by category with an invalid category id" do
+        get products_path, params: {
+          category_id: -1
+        }
+
+        must_respond_with :not_found
+      end
     end
   
     describe "show" do
