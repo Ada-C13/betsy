@@ -12,22 +12,12 @@ module ApplicationHelper
   end
 
   def rating_average(reviews)
-    sum = 0
-    count = 0
-    reviews.each do |review|
-      sum += review.rating
-      count += 1
+    return 0 if reviews.empty?
+    
+    sum = reviews.reduce(0)do |sum,review|
+      sum + review.rating
     end
-    return 0 if count == 0
-    return  sum / count
-  end
-
-  def rating_count(reviews)
-    count = 0
-    reviews.each do |review|
-      count += 1
-    end
-    return count
+    sum / reviews.count
   end
 
 end
