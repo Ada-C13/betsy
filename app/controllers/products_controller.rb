@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :require_login, only: [:new, :edit, :update, :destroy]
-  before_action :require_ownership, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :deactivate]
+  before_action :require_login, only: [:new, :edit, :update]
+  before_action :require_ownership, only: [:edit, :update]
 
   # GET /products
   # GET /products.json
@@ -79,6 +79,10 @@ class ProductsController < ApplicationController
       render :edit, status: :bad_request
       return
     end
+  end
+
+  def deactivate
+
   end
 
   private
