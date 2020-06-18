@@ -3,7 +3,7 @@
 <table class="table table-hover">
   <%@order.order_items.each do |item|%>
     <tr >
-      <td class = "left"><%= link_to(image_tag(item.product.photo, class: "item_images"), product_path(item.product)) %></td>
+      <td class = "left"><%= link_to(image_tag(item.product.photo, class: "item_cart_images"), product_path(item.product)) %></td>
       <td><%= link_to item.product.name.titleize, product_path(item.product) %> |
         <%= link_to "Edit Quantity", order_item_path(item) %> | 
         <%= link_to "🗑Remove", order_item_path(item), method: :delete%>
