@@ -15,10 +15,11 @@
   </header>
 <div class="page-container">
   <div class="content-wrap">
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <ul class="nav">
-        <li><%= link_to "Home", root_path, class: "nav-item" %>
+  <nav class="navbar container-fluid">
+    <%# <div class="container-fluid"> %>
+      <%# <ul class="nav"> %>
+        <li><i class="fa fa-home"></i>
+        <%= link_to "Home", root_path, class: "nav-item" %>
         </li>
 
         <li class="nav-item dropdown">
@@ -40,13 +41,15 @@
 
         <li><%= link_to "Merchants", merchants_path, class: "nav-item" %>
         </li>
-
-        <li><%= link_to "EMAIL", root_path, class: "nav-item" %>
+        <li><i class="fa fa-envelope"></i>
+        <%= link_to "Email", root_path, class: "nav-item" %>
         </li>
         <li><%= link_to "SEARCH", root_path, class: "nav-item" %>
         </li>
-        <li><%= link_to "Cart", cart_path, class: "nav-item" %>
+        <li><i class="fa fa-shopping-cart"></i>
+        <%= link_to "Cart", cart_path, class: "nav-item" %>
         </li>
+        
 
         <% if session[:merchant_id] %>
           <li class="nav-item dropdown">
@@ -64,8 +67,8 @@
         <% else %>
           <li><%= link_to "Login with Github", github_login_path, class: "nav-item" %></li>
         <% end %>
-      </ul>
-    </div>
+      <%# </ul> %>
+    <%# </div> %>
   </nav>
 
   <body>
