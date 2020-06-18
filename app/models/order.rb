@@ -55,8 +55,16 @@ class Order < ApplicationRecord
       return false
     end
     self.status = "paid"
-    self.save
     return change_items(:destock)
+  end
+
+  def cc_num_is_correct(cc_num)
+    if /\d{16}/.match?(cc_num)
+      return true
+    else
+      errors.add(:cc_validation, "Credit card number must be 16 digits")
+      return false
+    end
   end
 
   private

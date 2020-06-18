@@ -24,9 +24,8 @@ class OrdersController < ApplicationController
   def checkout; end
 
   def submit_order
-    filter_cc
     @order.submit_order
-    if @order.update(order_params)
+    if filter_cc && @order.update(order_params)
       session[:cart_id] = nil
       flash[:success] = "Your order has been submitted!"
       redirect_to complete_order_path(@order)
@@ -68,9 +67,14 @@ class OrdersController < ApplicationController
   end
 
   def filter_cc
-    params[:order][:cc_last_four] = params[:order][:cc_last_four][-4..-1]
+    if @order.cc_num_is_correct(params[:order][:cc_last_four])
+      params[:order][:cc_last_four] = params[:order][:cc_last_four][-4..-1]
+      return true
+    else
+      return false
+    end
   end
-  
+
   def order_params
     return params.require(:order).permit(:name, :email, :address, :cc_last_four, :cc_exp_year, :cc_exp_month, :cc_cvv)
   end
