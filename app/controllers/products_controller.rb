@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :require_login, only: [:new, :edit, :update, :destroy]
-  before_action :require_ownership, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :deactivate]
+  before_action :require_login, only: [:new, :edit, :update, :deactivate]
+  before_action :require_ownership, only: [:edit, :update, :deactivate]
 
   # GET /products
   # GET /products.json
@@ -78,6 +78,15 @@ class ProductsController < ApplicationController
       flash.now[:details] = @product.errors.full_messages
       render :edit, status: :bad_request
       return
+    end
+  end
+
+  def deactivate
+    @product.active = !@product.active
+    if @product.save
+      redirect_to manage_products_path(@current_merchant)
+    else
+      flash[:warning] = "Unable to #{!@product.active} product"
     end
   end
 
