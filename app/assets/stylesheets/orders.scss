@@ -84,7 +84,8 @@
 {
 	position: absolute;
 	left: 0;
-	width: 200px;
+  width: 250px;
+  padding-right: 10px;
 	background: #fa9e1b;
 	overflow: hidden;
 }
@@ -109,6 +110,9 @@
 	font-weight: 700;
 	color: #eda84a;
 	line-height: 25px;
+}
+.items_price_border {
+  border-bottom: 2px solid #fa9e1b;
 }
 .items_price span
 {
@@ -159,7 +163,7 @@
 }
 .item_quantity_select
 {
-  width: 50px;
+  width: 70px;
   margin-right: 10px;
 }
 .item_remove
@@ -179,5 +183,5 @@
 }
 .clear
 {
-  padding: 200px 0;
+  padding: 200px 0 150px 0;
 }

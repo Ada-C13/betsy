@@ -1,3 +1,23 @@
+ <div class="clear" style="background: url(https://i.imgur.com/b6IS9xc.jpg);">
 
+  <div class="contact_title text-center">
+    <% if @product.id %>
+      Edit <%=@product.title%>
+    <% else %>
+      NEW PRODUCT
+    <%end%>
+  </div>
 
-<%= render partial: "form", locals: { action_name: "New" } %>
+  <div class="indentation">
+
+    <div class="col">
+      <div class="contact_form_container">
+        <div class="contact_title text-center"></div>
+
+          <%= render partial: "form", locals: { action_name: "New" } %>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

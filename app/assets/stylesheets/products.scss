@@ -5,8 +5,19 @@
   color: white;
 }
 
-.new_edit_background {
-  height: 12rem;
+.custom-form-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-label {
+  width: 156.8px;
+  margin: 5px 10px 5px 0;
+}
+
+.checkbox {
+  flex: 1;
+  margin-right: 10px;
 }
 
 .indentation {
@@ -34,4 +45,37 @@
 
 .quantity {
   margin-bottom: 2rem;
+}
+
+.category-names {
+  font-size: 40px;
+  font-weight: 800;
+  color: purple;
+  text-transform: uppercase;
+  line-height: 1.5;
+  text-align: center;
+  margin: 3rem auto;
+}
+
+.item-names {
+  font-size: 20px;
+  font-weight: 800;
+  color: purple;
+  text-transform: uppercase;
+  line-height: 1.5;
+  margin-left: 2rem;
+}
+
+.table-indentation {
+  margin: 2em 4em;
+}
+.on_top {
+  z-index: 1;
+}
+.offers_products
+{
+  margin-top: -155px;
+}
+.offers_item {
+  margin-bottom: 50px;
 }

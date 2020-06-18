@@ -1,5 +1,5 @@
 <div class="home">
-  <div class="home_background" style="background: url(https://i.imgur.com/HCWU4MU.jpg);"></div>
+  <div class="home_background" style="background: url(https://i.imgur.com/HCWU4MU.jpg); background-size: 100%;"></div>
   <div class="home_content">
     <div class="home_title">
       <center><%= @merchant.username %>'s Dashboard</center>
@@ -7,11 +7,8 @@
   </div>
 </div>
 
-
-  <% if !@merchant.products.empty? %>
   <section class="merchant-products__container">
-
-
+  <% if !@merchant.products.empty? %>
     <p><h2><strong>Total Revenue: <%= number_to_currency(@merchant.total_revenue) %></strong></h2></p>
 
     <h3>Total Revenue Breakdown</h3>
@@ -60,16 +57,20 @@
           <td><%= link_to product.title, product_path(product.id) %></td>
           <td><%= product.price %></td>
           <td><%= product.active == true ? "true" : "false"%></td>
-          <td><%= link_to "Edit", edit_product_path(product.id), class: "form_submit_button button trans_200" %></td>
+          <td><%= link_to "Edit", edit_product_path(product.id), class: "btn btn-outline-dark" %></td>
         </tr>
       <% end %>
 
       </tbody>
     </table>
+    <div style="text-align: center; margin-bottom: 5em;"><%= link_to "Add a new product", new_product_path, class: "form_submit_button button trans_200" %></div>
+  </section>
 
+  <section class="merchant-orders__container">
     <% if @merchant.existing_order_items_by_merchant.empty? %>
+
       <h3>Orders</h3>
-      <h4>Sorry, no one has bought any of your products yet..</h4>
+      <h4>Sorry, no one has bought any of your products yet...</h4>
     <% else %>
     <%= form_tag(merchant_path(@merchant.id), method: :get) do %>
       <h3>Orders <%= select_tag "Status", options_for_select(["pending", "paid", "complete", "cancelled"]), include_blank: "all orders", prompt: 'Select' %>
@@ -123,12 +124,9 @@
         </tbody>
       </table>
   <% end %>
-  </section>
   
   <% else %>
-    <h3>There are currently no products to sell. Please add some.</h3>
+  <h3>There are currently no products to sell. Let's add some!</h3>
+  <div style="text-align: center; margin-bottom: 5em;"><%= link_to "Add a new product", new_product_path, class: "form_submit_button button trans_200" %></div>
   <% end %>
-  <%= link_to "Add a new product", new_product_path, class: "form_submit_button button trans_200" %>
-  <p>
-<p></p>
-<p></p>
+</section>

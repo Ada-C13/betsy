@@ -228,5 +228,24 @@ describe Product do
         expect(updated_stock).must_equal product.stock 
       end
     end
+
+    describe "average_rating" do
+      it "calculates rating correctly" do
+        product = products(:butterfly)
+        product.reviews << Review.new(text: "Great", rating: 5)
+        expect(product.reviews.count).must_equal 1
+        expect(product.average_rating).must_equal 5.0
+
+        product.reviews << Review.new(text: "Ok", rating: 3)
+        expect(product.reviews.count).must_equal 2
+        expect(product.average_rating).must_equal 4.0
+      end
+
+      it "returns zero if a product has no reviews yet" do
+        product = products(:butterfly)
+        expect(product.reviews.count).must_equal 0
+        expect(product.average_rating).must_equal 0.0
+      end
+    end
   end
 end
