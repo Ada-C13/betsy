@@ -1,8 +1,29 @@
 <% content_for(:headline) { "Manage Orders"} %>
 
-<section>
-  <h3>Manage Orders</h3>
-  <table class="table">
+
+<div class="container">
+  <div class="row">
+        <div class="col-md merchant__stat-card">
+          <p class="stat"><%= number_to_currency(@current_merchant.revenue)%></p>
+          <p class="stat-label">Total Orders</p>
+        </div>
+        <div class="col-md merchant__stat-card">
+          <p class="stat">0</p>
+          <p class="stat-label">Orders Pending</p>
+        </div>
+        <div class="col-md merchant__stat-card">
+          <p class="stat">0</p>
+          <p class="stat-label">Orders Paid</p>
+        </div>
+        <div class="col-md merchant__stat-card">
+          <p class="stat">0</p>
+          <p class="stat-label">Orders Shipped</p>
+        </div>
+      </div>
+
+</div>
+<div class="container">
+  <table class="table table-light">
     <thead>
       <tr>
         <th>Order Number</th>
@@ -13,7 +34,6 @@
         <th></th>
       </tr>
     </thead>
-    <p> <%= @current_merchant.username %> </p>
     <tbody>
        <% @current_merchant.orders.uniq.each do |order| %>
         <tr>
@@ -29,4 +49,4 @@
       <% end %> 
     </tbody>
   </table>
-</section>
+</div>
