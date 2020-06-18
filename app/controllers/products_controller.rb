@@ -47,7 +47,7 @@ class ProductsController < ApplicationController
       flash.now[:status] = :failure 
       flash.now[:result_text] = "Could not update #{@product.title}"
       flash.now[:messages] = @product.errors.messages 
-      render :edit, status: :not_found
+      render :edit, status: :bad_request
       return
     end
   end
