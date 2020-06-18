@@ -1,10 +1,6 @@
-
-<body>
-
-  <div class="new_edit_background">
+<div class="new_edit_background">
     <div><img src="https://i.imgur.com/b6IS9xc.jpg" alt="background" /></div>
   </div>  
-
 
   <div class="contact_title text-center">
     <% if @product.id %>
@@ -13,7 +9,6 @@
       NEW PRODUCT
     <%end%>
   </div>
-      
 
   <div class="indentation">
 
@@ -54,12 +49,10 @@
               <%= link_to "Add a new category", new_category_path, class: "form_submit_button button trans_200" %>
             </div>
 
-
             <%= f.submit "#{action_name} Product", class: "form_submit_button button trans_200"%>
           <% end %>
         </div>
       </div>
     </div>
   </div>
-
-</body>
+  
