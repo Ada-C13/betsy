@@ -12,7 +12,7 @@ $electric: #0DD7F2;
 // Derivative colors
 //-----------------------------    
 $light-dusk:           lighten($dusk, 50%); //#B6C1E7
-$light-strawberry: lighten($strawberry, 50%);
+$light-strawberry: saturate($strawberry, 20%);
 
 
 
@@ -21,7 +21,10 @@ $light-strawberry: lighten($strawberry, 50%);
 $primary-color: $blue ;
 $secondary-color: $soft-salmon;
 $tertiary-color: $lilac;
+
 $highlight-color: $electric;
+$highlight-warning-color: $light-strawberry;
+
 $merchants-tertiary-color: $dusk;
 
 
