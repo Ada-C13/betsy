@@ -108,43 +108,62 @@ describe OrdersController do
         name: 'Lak',
         email: 'lak@ada.org',
         address: '244 Thomas str',
-        cc_last_four: '2340',
+        cc_last_four: '2340222233334444',
         cc_exp_month: '10',
         cc_exp_year: '2024',
         cc_cvv: '543'
         }
       }}
-      let(:bad_submit) {{
+      let(:bad_submit_no_address) {{
         order: {
         name: 'Lak',
         email: 'lak&ada.org',
         address: '',
-        cc_last_four: '2340',
-        cc_exp_month: '',
+        cc_last_four: '2340123422221111',
+        cc_exp_month: '01',
         cc_exp_year: '2024',
         cc_cvv: '543'
         }
       }}
-    describe "checkout form" do
+      let(:bad_submit_cc_num) {{
+        order: {
+        name: 'Lak',
+        email: 'lak&ada.org',
+        address: '1234 Hello Rd',
+        cc_last_four: '2340',
+        cc_exp_month: '01',
+        cc_exp_year: '2024',
+        cc_cvv: '543'
+        }
+      }}
+    before do 
+      post add_order_item_path(@p1), params: @quantity_hash
+      @order = Order.find_by(id: session[:cart_id])
     end
 
     describe "submit_order" do
       it "flashes/redirects correctly after GOOD submit, cart session is reset" do  
-        post add_order_item_path(@p1), params: @quantity_hash
-        order = Order.find_by(id: session[:cart_id])
         patch checkout_path, params: good_submit
         expect(session[:cart_id]).must_equal nil
         expect(flash[:success]).must_equal "Your order has been submitted!"
-        must_redirect_to complete_order_path(order)
+        must_redirect_to complete_order_path(@order)
       end
-      it "flashes/renders correctly after BAD submit, cart session is NOT reset" do  
-        post add_order_item_path(@p1), params: @quantity_hash
-        order = Order.find_by(id: session[:cart_id])
-        patch checkout_path, params: bad_submit
-        expect(session[:cart_id]).must_equal order.id
+      it "stores cc_last_four correctly after GOOD submit" do 
+        id = @order.id
+        patch checkout_path, params: good_submit
+        order = Order.find_by(id: id)
+        expect(order.cc_last_four).must_equal good_submit[:order][:cc_last_four][-4..-1]
+      end
+      it "flashes/renders correctly after BAD submit (address), cart session is NOT reset" do  
+        patch checkout_path, params: bad_submit_no_address
+        expect(session[:cart_id]).must_equal @order.id
         expect(flash[:error]).must_include "address"
-        expect(flash[:error]).must_include "cc_exp_month"
         expect(flash[:error]).must_include "can't be blank"
+      end
+      it "flashes/renders correctly after BAD submit (cc_num)" do  
+        patch checkout_path, params: bad_submit_cc_num
+        expect(flash[:error]).must_include "cc_validation"
+        expect(flash[:error]).must_include "Credit card number must be 16 digits"
       end
     end
 
