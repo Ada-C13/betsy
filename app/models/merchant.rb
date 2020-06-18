@@ -16,8 +16,11 @@ class Merchant < ApplicationRecord
     merchant.provider = "github"
     merchant.username = auth_hash["info"]["name"]
     merchant.email = auth_hash["info"]["email"]
-
     return merchant
+  end
+
+  def revenue 
+    return orders.map { |order| order.status == "pending" ? 0 : order.total_cost }.sum 
   end
   
 end
