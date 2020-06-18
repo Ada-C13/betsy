@@ -1,3 +1,11 @@
 .product-show-page__container {
   display: flex;
 }
+
+.product-grid__product {
+  margin: 0 auto 6vh;
+
+  h5 {
+    margin-top: 10px;
+  }
+}
