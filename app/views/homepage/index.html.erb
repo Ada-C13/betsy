@@ -6,3 +6,60 @@
     </div>
   </div>
 </div>
+<div class="intro">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h2 class="intro_title text-center">We have the best magic products</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-10 offset-lg-1">
+					<div class="intro_text text-center">
+						<p>Whether you’re on the hunt for a wizardly wand, in dire need of a protective spell, or seeking the companionship of a plant who will actually talk back, you’re bound to find something that will sate your magical curiosities. </p>
+					</div>
+				</div>
+			</div>
+			<div class="row intro_items">
+
+				<!-- Intro Item -->
+      <% (1..3).each do |i| %>
+				<div class="col-lg-4 intro_col">
+					<div class="intro_item">
+						<div class="intro_item_overlay"></div>
+            <% if i == 1 %>
+              <div class="intro_item_background" style="background-image:url(https://i.imgur.com/vHrp5Wl.jpg)"></div>
+            <% elsif i == 2 %>
+              <div class="intro_item_background" style="background-image:url(https://i.imgur.com/rAwT2VX.jpg)"></div>
+            <% elsif i == 3 %>
+              <div class="intro_item_background" style="background-image:url(https://i.imgur.com/hIIfn2k.jpg)"></div>
+            <% end %>
+						<div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
+							<div class="intro_date">For a true wizard</div>
+							<div class="button intro_button"><div class="button_bcg"></div><%= link_to "see more", category_products_path(i)%></div>
+							<div class="intro_center text-center">
+                <% if i == 1 %>
+                  <h1>Wands</h1>
+                <% elsif i == 2 %>
+                  <h1>Plants</h1>
+                <% elsif i == 3 %>
+                  <h1>Books</h1>
+                <% end %>
+								<div class="intro_price">From $5</div>
+								<div class="rating rating_4">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+      <% end %>
+				<!-- Intro Item -->
+
+			</div>
+		</div>
+	</div>
