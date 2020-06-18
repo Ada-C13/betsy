@@ -10,68 +10,64 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   </head>
-
-  <header>
-  </header>
-<div class="page-container">
+  <div class="page-container">
   <div class="content-wrap">
-  <nav class="navbar container-fluid">
-    <%# <div class="container-fluid"> %>
-      <%# <ul class="nav"> %>
-        <li><i class="fa fa-home"></i>
-        <%= link_to "Home", root_path, class: "nav-item" %>
-        </li>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a href="#" class="navbar-brand">Brand</a>
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <li class="nav-item dropdown">
-          <a data-toggle="dropdown"  class="nav-link dropdown-toggle" href="/products" role="button" aria-haspopup="true" aria-expanded="false">Products
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a>
-              <%= link_to "All Products", products_path, class: "dropdown-item" %>
-            </a>
-            <% if Category.all.length > 0 %>
-              <% Category.all.sort_by{|category| category.name.downcase}.each do |category| %>
-              <a>
-                <%= link_to category.name.titleize , category_product_path(category), class: "dropdown-item" %>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav">
+            <li><%= link_to "Home", root_path, class:"nav-item nav-link active fa fa-home mr-sm-4" %></li>
+            <li class="nav-item dropdown">
+              <a data-toggle="dropdown"  class="nav-link dropdown-toggle mr-sm-4" href="/products" role="button" aria-haspopup="true" aria-expanded="false">Products
               </a>
-              <% end %>
-            <% end %>
-          </div>
-        </li>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a>
+                  <%= link_to "All Products", products_path, class: "dropdown-item" %>
+                </a>
+                <% if Category.all.length > 0 %>
+                  <% Category.all.sort_by{|category| category.name.downcase}.each do |category| %>
+                  <a>
+                    <%= link_to category.name.titleize , category_product_path(category), class: "dropdown-item" %>
+                  </a>
+                  <% end %>
+                <% end %>
+              </div>
+            </li>
 
-        <li><%= link_to "Merchants", merchants_path, class: "nav-item" %>
-        </li>
-        <li><i class="fa fa-envelope"></i>
-        <%= link_to "Email", root_path, class: "nav-item" %>
-        </li>
-        <li><%= link_to "SEARCH", root_path, class: "nav-item" %>
-        </li>
-        <li><i class="fa fa-shopping-cart"></i>
-        <%= link_to "Cart", cart_path, class: "nav-item" %>
-        </li>
-        
+            <li><%= link_to "Merchants", merchants_path, class:"nav-link mr-sm-4" %></li>
+            <li><%= link_to "Contact", root_path, class: "nav-link fa fa-envelope mr-sm-4" %></li>
+            <li><%= link_to "Cart", cart_path, class: "nav-link fa fa-shopping-cart mr-sm-4" %></li>
 
-        <% if session[:merchant_id] %>
-          <li class="nav-item dropdown">
-            <a data-toggle="dropdown"  class="nav-link dropdown-toggle" href="/products" role="button" aria-haspopup="true" aria-expanded="false">My Account
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a>
-                <%= link_to "Log out", logout_path, class: "dropdown-item", method: :put %>
+            <% if session[:merchant_id] %>
+            <li class="nav-item dropdown">
+              <a data-toggle="dropdown"  class="nav-link dropdown-toggle fa fa-user mr-sm-4" href="/products" role="button" aria-haspopup="true" aria-expanded="false">My Account
               </a>
-              <a>
-                <%= link_to "Account Summary", account_path(session[:merchant_id]), class: "dropdown-item" %>
-              </a>
-            </div>
-          </li>
-        <% else %>
-          <li><%= link_to "Login with Github", github_login_path, class: "nav-item" %></li>
-        <% end %>
-      <%# </ul> %>
-    <%# </div> %>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a>
+                  <%= link_to "Log out", logout_path, class: "dropdown-item fa fa-sign-out", method: :put %>
+                </a>
+                <a>
+                  <%= link_to "Account Summary", account_path(session[:merchant_id]), class: "dropdown-item" %>
+                </a>
+              </div>
+            </li>
+          <% else %>
+        <li><%= link_to "Login with Github", github_login_path, class: "nav-link fa fa-sign-in" %></li>
+      <% end %>
   </nav>
 
   <body>
+    <div class = "btn pull-right" >
+      <form class="form-inline ml-auto">
+        <input type="text" class="form-control mr-sm-2" placeholder="Search">
+        <button type="submit" class="btn btn-secondary">Search</button>
+      </form>
+    </div>
+    <br>
     <section class="section">
       <section class="flash-msg__section">
         <% flash.each do |name, message| %>
@@ -83,7 +79,8 @@
       <%= yield %>
     </section>
   </body>
-  <footer class="footer">
+
+  <footer class = "footer" >
     <p><strong>Copyright Ada C13 2020</strong></p>
   </footer>
   </div>
