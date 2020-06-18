@@ -1,0 +1,34 @@
+.team {
+  main {
+    margin-top: -1vh;
+    background-color: $salmon;
+  }
+  .col-md-6 {
+    padding: 5% 5%;
+  }
+
+  img {
+    border: 1px solid darken($salmon,30%);
+    border-radius: 100%;
+  }
+
+  //Nikki box
+  .top-left {
+    background-color: darken($secondary-color, 10%);
+  }
+
+  //Suely box
+  .top-right {
+    background-color: darken($secondary-color, 2%);
+  }
+
+  //Haben box
+  .bottom-left {
+    background-color: darken($secondary-color, 20%);
+  }
+
+  //Angela box
+  .bottom-right {
+    background-color: lighten($secondary-color, 2%);
+  }
+}
