@@ -32,7 +32,9 @@ class Order < ApplicationRecord
   end
 
   def valid_expiration_date
-    if Date.today > self.cc_exp
+    if self.cc_exp.nil?
+      errors.add(:cc_exp, "can't be nil")
+    elsif Date.today > self.cc_exp
       errors.add(:cc_exp, "can't be in the past")
     end
   end
