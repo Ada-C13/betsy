@@ -120,6 +120,26 @@ describe ProductsController do
           patch product_path(-1), params: product_hash
         }.must_differ "Product.count", 0
       end
+
+      it "will not update a product if the form data violates validations, creates a flash message, and responds with a 400 error" do
+        @product.save
+        invalid_product_hash = {
+          product: {
+            title: nil
+          }
+        }
+  
+        expect {
+          patch product_path(@product.id), params: invalid_product_hash
+        }.wont_differ "Order.count"
+  
+        expect(flash[:status]).must_equal :failure
+        expect(flash[:result_text]).must_include "Could not update"
+        expect(flash[:messages].first).must_include :title
+        expect(flash[:messages].first).must_include ["can't be blank"]
+  
+        must_respond_with :bad_request
+      end
     end
     
     describe "index" do
