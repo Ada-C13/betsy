@@ -32,6 +32,7 @@ class ActiveSupport::TestCase
       info: {
         nickname: merchant.name,
         email: merchant.email,
+        image: merchant.avatar,
       },
     }
   end
