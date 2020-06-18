@@ -69,8 +69,9 @@
       <h3 class="product-title">This product has no reviews yet</h3>
     <% end %>
     <% if @product.merchant_id != session[:merchant_id]%>
-      <%= link_to "Add a review", new_review_path, class: "btn btn-outline-dark"%>
+      <%= link_to "Write a customer review", new_review_path, class: "btn btn-outline-dark"%>
     <% end %>
   </section>
   
 </body>
+
