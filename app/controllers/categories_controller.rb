@@ -33,7 +33,7 @@ class CategoriesController < ApplicationController
         flash.now[:error] = "A problem occurred: Could not create category"
         render :new, status: :bad_request
         return
-      end
+      end  
     end   
   end
 

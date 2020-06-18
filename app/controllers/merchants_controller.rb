@@ -17,7 +17,7 @@ class MerchantsController < ApplicationController
   def shop
     @merchant_products = @merchant.products.paginate(page: params[:page], per_page: 9)
   end
-  
+
   def orders
   end
 
@@ -25,13 +25,12 @@ class MerchantsController < ApplicationController
     auth_hash = request.env["omniauth.auth"]
     merchant = Merchant.find_by(uid: auth_hash[:uid],
       provider: params[:provider])
-    
     if merchant # merchant exists
-      flash[:notice] = "Logged in as returning merchant #{merchant.name}"
+      flash[:notice] = "Logged in as returning merchant #{merchant.name.titleize}"
     else # merchant doesn't exist yet (new merchant)
       merchant = Merchant.build_from_github(auth_hash)
       if merchant.save
-        flash[:notice] = "Logged in as a new merchant #{merchant.name}"
+        flash[:notice] = "Logged in as a new merchant #{merchant.name.titleize}"
       else
         flash[:error] = "Could not create merchant account"
         return redirect_to root_path
@@ -49,10 +48,6 @@ class MerchantsController < ApplicationController
   end
 
   private
-  def merchant_params
-    return params.require(:merchant).permit(:name, :email, :provider, :uid, :avatar)
-  end
-
   def find_merchant
     @merchant = Merchant.find_by(id: params[:merchant_id])
   end

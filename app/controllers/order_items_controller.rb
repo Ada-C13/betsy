@@ -16,7 +16,7 @@ class OrderItemsController < ApplicationController
       order = Order.find_by(id: session[:cart_id])
       existing_order_item = order.find_order_item(product)
       if existing_order_item
-        flash[:redirect] = "#{product.name} already in cart. Edit quantity here:"
+        flash[:redirect] = "#{product.name.titleize} already in cart. Edit quantity here:"
         redirect_to order_item_path(existing_order_item)
         return
       end
@@ -56,7 +56,7 @@ class OrderItemsController < ApplicationController
   
   def ship
     @order_item.ship
-    flash[:success] = "Notified customer that #{@order_item.product.name} has been shipped."
+    flash[:success] = "Notified customer that #{@order_item.product.name.titleize} has been shipped."
     redirect_to merchant_orders_path(merchant_id: session[:merchant_id])
   end
 

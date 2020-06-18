@@ -6,7 +6,7 @@
     <% @category_products.each do |product|%>
       <%if product.active%>
         <div class = "col-xs-6 col-md-4">
-          <img class = "show_images", src="<%= product.photo %>", alt="<%=product.name %>">
+          <%= link_to(image_tag(product.photo, class: "show_images"), product_path(product)) %>
           <p><small><%= link_to product.name.titleize, product_path(product) %></small></p>
           <small><%= format_price(product.price) %></small>
           <br>
@@ -20,7 +20,7 @@
     <div class="pagination">
       <%= will_paginate @category_products %>
     </div>  
-  <%else%>
+  <% else %>
     <p>There is no product for this category</p>
   <% end%>
 </div>
