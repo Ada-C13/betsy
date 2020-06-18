@@ -34,7 +34,7 @@
             <div class="col-lg-1 temp_col"></div>
             <div class="col-lg-3 col-1680-4">
               <div class="items_image_container">
-                <div class="items_image_background"><%= link_to image_tag(item.product.photo_url, height: "200", :alt => "product photo"), product_path(item.product) %></div>
+                <div class="items_image_background"><%= link_to image_tag(item.product.photo_url, size: "250x200", :alt => "product photo"), product_path(item.product) %></div>
                 <div class="item_name"><%= link_to item.product.title, product_path(item.product) %></div>
               </div>
             </div>
