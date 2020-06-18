@@ -42,20 +42,21 @@
   </section>
       
           
-  <section>
-        
-    <% if @product.stock > 0 %>  
-      <%= form_with model: @order_item, url: {:action => "add_to_cart"} do |f| %>
+  <section class="quantity-review">
 
-        <%= f.label "Quantity:", class: "product-line" %>
-        <%= f.select(:quantity, (1..@product.stock).map(&:to_i)) %>
+    <div class="quantity">
+      <% if @product.stock > 0 %>  
+        <%= form_with model: @order_item, url: {:action => "add_to_cart"} do |f| %>
 
-        <%= f.submit "Add to Cart", class: "btn btn-outline-dark" %>
+          <%= f.label "Quantity:", class: "product-line" %>
+          <%= f.select(:quantity, (1..@product.stock).map(&:to_i)) %>
+
+          <%= f.submit "Add to Cart", class: "btn btn-outline-dark" %>
+        <% end %>
+      <% else %>
+        <p>Sorry, this item is out of stock.</p>
       <% end %>
-    <% else %>
-      <p>Sorry, this item is out of stock.</p>
-    <% end %>
-
+    </div>
 
     <% if @product.reviews.any?%>
       <h3>Reviews: </h3>
@@ -68,9 +69,8 @@
       <h3 class="product-title">This product has no reviews yet</h3>
     <% end %>
     <% if @product.merchant_id != session[:merchant_id]%>
-      <%= link_to "Add a review", new_review_path, class: "btn btn-primary"%>
+      <%= link_to "Add a review", new_review_path, class: "btn btn-outline-dark"%>
     <% end %>
   </section>
   
-
 </body>
