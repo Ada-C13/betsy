@@ -109,4 +109,17 @@ end
       expect(order.find_merchants_ids).must_be_instance_of Array
     end
   end
+
+  describe "valid_expiration_date" do 
+    it "is invalid if the expiration date is nil" do 
+      @order.update(cc_exp: nil)
+      expect(@order.valid_expiration_date).must_include "expiration date can't be nil"
+    end
+
+    it "is invalid if the today's date is greater than the expiration" do 
+      exp_date = Date.parse("2020-01-01")
+      @order.update(cc_exp: exp_date)
+      expect(@order.valid_expiration_date).must_include "expiration date can't be in the past"
+    end
+  end
 end
