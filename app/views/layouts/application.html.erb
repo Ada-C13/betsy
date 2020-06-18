@@ -27,11 +27,13 @@
     <%= yield %>
     </main>
 
+    <% if action_name == "landing"%>
     <footer class="footer">
       <div class="container">
         <%= link_to raw("Meet the team &#10084;"), team_path %>
       </div>
     </footer>
+    <% end %>
   </body>
 </html>
 
