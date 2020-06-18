@@ -43,6 +43,11 @@ describe ReviewsController do
       expect {
         post reviews_path, params: review_hash
       }.must_differ "Review.count", 0
+
+      expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_include "Could not create review"
+      expect(flash[:messages].first).must_include :text
+      expect(flash[:messages].first).must_include ["can't be blank"]
     end
   end
 end
