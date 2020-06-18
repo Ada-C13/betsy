@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
       redirect_to complete_order_path(@order)
       return
     else
-      flash.now[:error] = "Woops, #{@order.errors.messages}"
+      flash.now[:error] = "A problem occurred: Could not submit order"
       render :checkout
       return
     end
