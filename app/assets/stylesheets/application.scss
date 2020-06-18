@@ -30,7 +30,7 @@
 .profile-img {
   border-radius: 50%;
   max-width: 15%;
-  border: solid gray 3px;
+  border: solid gray 2px;
   margin-bottom: 2em;
   margin-top: 2em;
 }
@@ -47,16 +47,18 @@
   color: black;
 }
 
-
+ /* Footer height */
 .footer {
   position: absolute;
   background-color: lightgray;
-  bottom: 0;
   width: 100%;
   color: black;
+  font-family: 'Times New Roman', Times, serif;
   text-align: center;
-  height: 4rem;            /* Footer height */
+  padding: 2rem;         
 }
+
+
 
 table {
   margin: auto;
@@ -88,6 +90,10 @@ table td {
 
 h3 {
   text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+nav {
   font-family: 'Times New Roman', Times, serif;
 }
 
@@ -139,7 +145,7 @@ h3 {
 
 .images {
   max-width: 50%;
-  border:gray 2px solid;
+  border:gray 1px solid;
   image-rendering: center;
   margin: 5px
 }
@@ -148,14 +154,14 @@ h3 {
   max-width: 90%;
   max-height: 200px;
   height: 70%;
-  border:gray 2px solid;
+  border:gray 1px solid;
   image-rendering: center;
   margin: 5px
 }
 
 .merchant_images {
   max-width: 4%;
-  border:gray 2px solid;
+  border:gray 1px solid;
   image-rendering: center;
   margin: 5px;
   border-radius: 50%;
@@ -210,20 +216,26 @@ h3 {
     height: 1%; }
   *:first-child + html .pagination {
     overflow: hidden; }
-    
-// .order-table {
-//   border-bottom: solid 1px gray;
-//   padding: 1px;
-//   font-family: 'Times New Roman', Times, serif;
-// }
+
+  // .order-table {
+  //   border-bottom: solid 1px gray;
+  //   padding: 1px;
+  //   font-family: 'Times New Roman', Times, serif;
+  // }
 
 .item_images {
-  max-width: 25%;
-  border:gray 2px solid;
+  max-width: 35%;
+  border:gray 1px solid;
   image-rendering: center;
   margin: 5px
 }
 
+.item_cart_images {
+  max-width: 25%;
+  border:gray 1px solid;
+  image-rendering: center;
+  margin: 5px
+}
 // th, td {
 //   border-bottom: 1px solid #dddddd;
 // }
@@ -238,9 +250,34 @@ h3 {
 .left {
   text-align: left;
 }
+.right {
+  text-align: right;
+}
 
 li {
   list-style: none;
   text-decoration: none;
 }
 
+.topnav-right {
+  float: right;
+}
+
+.slide {
+  max-width: 100%;
+  image-rendering: center;
+  margin: 5px
+}
+
+.product-image-homepage{
+  max-width: 80%;
+  border:gray 1px solid;
+  image-rendering: center;
+  margin: 5px
+}
+
+.line-height {
+  line-height:80%;
+}
+
+ 
