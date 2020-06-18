@@ -1,15 +1,22 @@
-<main>
-  <h2><%= @merchant.username %>' Dashboard</h2>
+<div class="home">
+  <div class="home_background" style="background: url(https://i.imgur.com/HCWU4MU.jpg);"></div>
+  <div class="home_content">
+    <div class="home_title">
+      <center><%= @merchant.username %>'s Dashboard</center>
+    </div>
+  </div>
+</div>
+
 
   <% if !@merchant.products.empty? %>
   <section class="merchant-products__container">
 
 
-    <p><strong>Total Revenue: <%= number_to_currency(@merchant.total_revenue) %></strong></p>
+    <p><h2><strong>Total Revenue: <%= number_to_currency(@merchant.total_revenue) %></strong></h2></p>
 
     <h3>Total Revenue Breakdown</h3>
 
-    <table class="table">
+    <table class="table table_dashboard">
       <thead>
         <tr>
           <th>Order Status</th>
@@ -35,7 +42,7 @@
 
     <h3>Products</h3>
 
-    <table class="table">
+    <table class="table table_dashboard">
       <thead>
         <tr>
           <th>Product Name</th>
@@ -53,7 +60,7 @@
           <td><%= link_to product.title, product_path(product.id) %></td>
           <td><%= product.price %></td>
           <td><%= product.active == true ? "true" : "false"%></td>
-          <td><%= link_to "Edit", edit_product_path(product.id), class: "btn btn-primary" %></td>
+          <td><%= link_to "Edit", edit_product_path(product.id), class: "form_submit_button button trans_200" %></td>
         </tr>
       <% end %>
 
@@ -66,9 +73,9 @@
     <% else %>
     <%= form_tag(merchant_path(@merchant.id), method: :get) do %>
       <h3>Orders <%= select_tag "Status", options_for_select(["pending", "paid", "complete", "cancelled"]), include_blank: "all orders", prompt: 'Select' %>
-        <%= submit_tag "Filter", class: "btn btn-primary" %></h3>
+        <%= submit_tag "Filter", class: "form_submit_button button trans_200" %></h3>
     <% end %>
-      <table class="table">
+      <table class="table table_orders">
         <thead>
           <tr>
             <th>Order number</th>
@@ -107,7 +114,7 @@
               <% elsif item.order.status == "pending" || !item.order.status %>
                 <td>Should be paid first</td>
               <% else %>
-                <td><%= link_to "Ship", ship_item_path(item.id), method: :post, class: "btn btn-primary" %></td>
+                <td><%= link_to "Ship", ship_item_path(item.id), method: :post, class: "form_submit_button button trans_200" %></td>
               <% end %>
             </tr>
             <% end %>
@@ -121,5 +128,7 @@
   <% else %>
     <h3>There are currently no products to sell. Please add some.</h3>
   <% end %>
-  <%= link_to "Add a new product", new_product_path, class: "btn btn-primary" %>
-</main>
+  <%= link_to "Add a new product", new_product_path, class: "form_submit_button button trans_200" %>
+  <p>
+<p></p>
+<p></p>
