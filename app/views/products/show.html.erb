@@ -22,17 +22,17 @@
         <p class="product-line">By: <%= @product.merchant.username %></p>
         <p class="product-line">Description: <%= @product.description %></p>
         <p class="product-line">Items Available: <%= @product.stock %></p>
-        <p class="product-line">Free Shipping & Returns</p>
         <p class="product-line">Product Status: <%= "#{@product.active ? "Active" : "Inactive"}" %></p>
-
 
         <% if @product.categories.any?%>
           <p class="product-line">Category: 
             <% @product.categories.each do |cat| %>
-              <%= cat.title %>
+              <%= link_to cat.title.pluralize, category_products_path(cat.id), class: "btn btn-outline-dark" %>
             <% end %>
           </p>
         <% end %>
+
+        <h4>Free Shipping & Returns!</h4>
 
         <% if session[:merchant_id] && @product.merchant_id == session[:merchant_id] %>
           <%= link_to "#{@product.active ? "Retire Product" : "Activate Product"}", retire_product_path(@product.id), method: :post, class: "btn btn-outline-dark" %>
@@ -42,16 +42,15 @@
     </div>
   </div>
 </section>
-    
-        
+   
 <section class="quantity-review">
 
   <div class="quantity">
     <% if @product.stock > 0 %>  
       <%= form_with model: @order_item, url: {:action => "add_to_cart"} do |f| %>
 
-        <%= f.label "Quantity:", class: "product-line" %>
-        <%= f.select(:quantity, (1..@product.stock).map(&:to_i)) %>
+        <%= f.label "Quantity: ", class: "product-line" %>
+        <%= f.select(:quantity, (1..@product.stock).map(&:to_i), {}, { class: "custom-select item_quantity_select" }) %>
 
         <%= f.submit "Add to Cart", class: "btn btn-outline-dark" %>
       <% end %>
@@ -71,7 +70,7 @@
     <h3 class="product-title">This product has no reviews yet</h3>
   <% end %>
   <% if @product.merchant_id != session[:merchant_id]%>
-    <%= link_to "Write a customer review", new_review_path, class: "btn btn-outline-dark"%>
+    <%= link_to "Write a Customer Review", new_review_path, class: "btn btn-outline-dark"%>
   <% end %>
 </section>
 
