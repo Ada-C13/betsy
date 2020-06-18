@@ -41,15 +41,15 @@ categories.each do |category|
 end
 puts "Created #{count} categories"
 
-26.times do |i|
+27.times do |i|
   next if i == 0 || i == 3
   Product.find(i).categories << Category.where(title: "Plant")
 end
 Product.find(3).categories << Category.where(title: "Book")
-(27..44).each do |i|
+(28..45).each do |i|
   Product.find(i).categories << Category.where(title: "Wand")
 end
 
-(45..70).each do |i|
+(46..70).each do |i|
   Product.find(i).categories << Category.where(title: "Book")
 end
