@@ -19,7 +19,7 @@ class MerchantsController < ApplicationController
     end
 
     session[:merchant_id] = merchant.id
-    return redirect_to root_path
+    return redirect_to dashboard_merchant_url(merchant)
   end
 
   def dashboard; end

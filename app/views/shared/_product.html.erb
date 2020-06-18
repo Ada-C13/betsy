@@ -3,7 +3,7 @@
   <div class='product-grid__product'>
     <%= link_to product_url(product.id) do %>
       <%= image_tag(product.photo, class: "img-fluid") %>
-      <h4><%= product.name %></h4>
+      <h5><%= product.name %></h5>
       <div><%= number_to_currency(product.price) %></div> 
     <% end %>
   </div>

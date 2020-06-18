@@ -1,16 +1,33 @@
 id,name,description,photo,stock,active,price,merchant_id,category_ids
-1,Rose,A rose is a woody perennial flowering plant of the genus Rosa in the family Rosaceae.,https://i.imgur.com/QFyZBAo.jpg,5,true,100,1,145
-2,Aloe Vera,Aloe vera is a succulent plant species of the genus Aloe.,https://i.imgur.com/iIpfDQH.jpg,5,true,20,1,26
-3,Rosemary,"Rosemary is an aromatic evergreen shrub with leaves similar to hemlock needles. It is native to the Mediterranean and Asia, but is reasonably hardy in cool climates. It can withstand droughts, surviving a severe lack of water for lengthy periods.",https://i.imgur.com/TmN3LtO.jpg,10,true,3,5,7
-4,Pepperomia,"If you haven't experienced much luck with flowering houseplants, you will appreciate that the peperomia sports foliage that is highly ornamental in its own right. Leaves may be textured or smooth; red, green, gray, or purple; variegated, marbled, or solid; large, heart-shaped, or tiny. Plants throughout the peperomia genus may look so different from one to the next, that it's difficult to discern if they are even related, but one thing all peperomia plants have in common is that they are slow-growing and low maintenance.",https://i.imgur.com/5OJtwFT.jpg,3,true,10.50,2,84
-5,Succulent Trio,A great set of succulents to give as a gift... even if it's a gift to yourself!,https://i.imgur.com/QUE0KPl.jpg,12,true,35.99,2,26
-6,Pink Bouquet,A beautiful collection of seasonal flowers in shades of pink. Flowers are sent via courier overnight so they arrive fresh and ready to brighten up any room.,https://i.imgur.com/422pFSM.jpg,20,true,75,3,1
-7,Lavender,"These distinctively scented purple blossoms have a variety of culinary and aromatherapy uses. Once dried, their purple shade remains eternal and can be used as decoration or garnish.",https://i.imgur.com/RnQjPN0.jpg,2,true,14.99,2,71
-8,Butterleaf,"A cactus variety known for its clusters of wide buttery-flavored leaves. Best grown in warm temperatures with occasional watering and bright sunlight.",https://i.imgur.com/lZG0gf8.jpg,5,true,23,7,2
-9,Fiddlefern,"Part of the fern family, this low-maintenance plant makes a wonderful beginner houseplant. It grows quickly and can be propogated without hassle.",https://i.imgur.com/kA3R89Y.jpg,6,true,20,6
-10,Phalenopsis,"Phalenopsis orchids are a classic mainstay of many indoor gardens due to their friendly maintenance requirements. Blossoms once a year under the right conditions. We ship our phals without flowers to keep their vibrant coloring a surprise!",https://i.imgur.com/obaVjxq.jpg,20,true,13.50,7
-11,Tulips,"A bouquet of freshly cut tulips. Long-lasting and guaranteed to blossom within 2-3 days. Cared for properly, this bouqet remains vividly colored for up to two weeks. Shipped via overnight express to ensure freshness. Trim the bouquet ends on arrival for best chance of thriving.",https://i.imgur.com/4zpdRNC.jpg,22,true,20,6
-12,Parsley,"Known in some circles as the 'herb of the gods', parsley is a popular herb in cooking and medicinal remedies. This listing is for a single parsley sprig.",https://i.imgur.com/kc0bZWU.jpg,50,true,3,4
-13,Daisies,"Brightly colored and hardy even in the most extreme climates, it's easy to see why daisies are some of the most popular flowers. Our daisies are grown with lots of love and care, making them some of the biggest and most vibrant blooms available on the market. Order a bundle in time for the next holiday to ensure your centerpiece is the talk of the town.",https://i.imgur.com/tSkwbWB.jpg,4,true,10,6
-14,Chives,"Easy to grow in soil or water, chives have earned their spot as a culinary mainstay. Great on steamed potatoes or in an omelette, these aromatic plants will elevate your cooking and provide cheery decor for a sunny windowsill.",https://i.imgur.com/I8koPIS.jpg,10,true,6,1
-15,Herb Trio,"Can't decide which herbs to purchase? Let us make it easy on you with this surprise pack of three high-value herbs. Every plant is guaranteed to be ready for transplant into your garden. Selection is completely random. Exciting!",https://i.imgur.com/Mlcghyq.jpg,12,true,30,5
+1,Sphynx sweater,"99% cotton, 1% catnip. For cats who need to chill out and warm up at the same time.",https://i.imgur.com/0aPXiCh.jpg,5,true,100,1,28
+2,Tito's Vodka sweater,"What's better than a vodka martini? A vodka martini made with a bottle of Tito's wearing a sweater. Time to shake AND stir.",https://i.imgur.com/hMcGBdX.jpg,5,true,20,1,435
+3,Pear sweater,"The fibers in this pear sweater were specially selected to ensure the best possible pairing for your pear...",https://i.imgur.com/UUy6Zgl.jpg,10,true,3,5,15
+4,Traffic cone sweater,Traffic cones wearing sweaters are 3x more visible and 200% cuter.,https://i.imgur.com/oepFWln.png,3,true,10.50,2,78
+5,Teapot sweater,I'm a little teapot short and cozy,https://i.imgur.com/7fEu0Iq.jpg,12,true,35.99,2,345
+6,Laptop sweater,The turtleneck area (???) of the sweater is perfect for storing your charger.,https://i.imgur.com/IiIGJmm.jpg,20,true,75,3,56
+7,Jar sweater,LOOK IT HAS A POCKET! Keep the contents of your jam jar a surprise. Is it strawberry? Is it grape? Is it actually a jar of pickles? No one will know and that's what makes it fun.,https://i.imgur.com/HsKpvyl.jpg,2,true,14.99,2,3
+8,Pumpkin spice latte sweater,you know what season it is and so does this seasonably available sweater,https://i.imgur.com/oV0IIzY.png,5,true,23,7,45
+9,Snake sweater,For the discerning snake who appreciates the aesthetic of sweater sleeves,https://i.imgur.com/VipCUDK.jpg,6,true,20,6,28
+10,Cell phone sweater,"Protects your phone from damage, prying eyes, and cold weather.",https://i.imgur.com/RfH1meY.jpg,20,true,13.50,7,56
+11,Drink glass sweater,Chill your drinks warm your soul with this handcrafted sweater for drinking glasses.,https://i.imgur.com/iZGmpi9.jpg?1,22,true,20,6,45
+12,Lawn flamingo sweater,"Year round festivity. Weatherproof. Fits all sizes of lawn flamingo.",https://i.imgur.com/FNF1yvy.jpg,50,true,3,4,378
+13,Cake sweater,this definitely counts as a sweater except don't put it in the wash,https://i.imgur.com/uujvsAw.jpg,4,true,10,6,8
+14,Cold brew sweater,Sometimes you want an iced coffee in the winter and sometimes you'd like that iced coffee to be cozy too.,https://i.imgur.com/iiGV5Au.jpg?1,10,true,6,1,45
+15,Keys sweater,Never fumble for the right key again with this assortment of sweaters for your keys.,https://i.imgur.com/wd4etxh.jpg,12,true,30,5,567
+16,Ice cream pint sweater,A sweater-tuxedo for a pint of your favorite ice cream.,https://i.imgur.com/qrQXaQF.jpg,10,true,49.99,1,3
+17,Sequoia tree sweater,Enough sleeves to support baby trees so that they can grow big and strong and cozy.,https://i.imgur.com/ip6D2CB.jpg,10,true,15.99,2,93
+18,Soda can sweater,what flavor soda is this? who knows! it's wearing a sweater!,https://i.imgur.com/lePK3ig.jpg,10,true,10.5,3,34
+19,Beer sweater,sold in pairs so you can enjoy with a pal,https://i.imgur.com/Ewu6uNB.jpg,10,true,20,4,34
+20,Long sleeved mug sweater,for extra cold days and extra hot tea,https://i.imgur.com/BJVxg0i.jpg,10,true,50,5,345
+21,Egg sweater,keep the yolks nice and toasty,https://i.imgur.com/TTxB1n4.jpg,10,true,10.5,6,35
+22,Kleenex sweater,Finally a tissue box that you can hug,https://i.imgur.com/n9oucfw.jpg,10,true,10.5,4,3
+23,Wine sweater,dapper and delicious,https://i.imgur.com/WpwsxiR.jpg,10,true,19.99,3,34
+24,Penguin sweater,Please measure your penguin carefully before ordering to ensure proper fit.,https://i.imgur.com/CGcuJ6Q.jpg,10,true,10.5,2,2
+25,Snail sweater,possibly also a hat for a mouse,https://i.imgur.com/avhUZ6E.jpg,10,true,20.99,3,2
+26,Potted plant sweater,Plant not included but cozy vibes are absolutely included.,https://i.imgur.com/OPdj0kf.jpg,10,true,12.5,3,93
+27,Hot bottle sweater,keep your hot water bottle extra warm,https://i.imgur.com/59fmaYu.jpg,10,true,11.5,4,57
+28,French press sweater,rumor has it this makes your coffee taste even better,https://i.imgur.com/wkBWB5h.jpg,10,true,12.5,5,34
+29,Banana sweater,"Sold as single units, so be sure to stock up for that bunch of bananas sitting in your fruit basket.",https://i.imgur.com/yakLhKh.jpg,10,true,7.99,6,1
+30,Toilet roll sweater,This sweater is almost as precious as the toilet paper inside of it.,https://i.imgur.com/EbGakCS.jpg,10,true,14.5,7,378
+31,Maker's Mark sweater,I like my whiskey the way I like my bananas: wearing a sweater.,https://i.imgur.com/jKmfiea.jpg,10,true,9.99,4,34
+32,Bonsai sweater,Meticulously crafted to match the elegant grace of any bonsai tree.,https://i.imgur.com/tbkYW7H.jpg,10,true,150,2,398

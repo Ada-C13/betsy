@@ -1,8 +1,9 @@
- <h2>Add Review</h2>
+<% content_for(:title) { "Write A Review" } %>
+<% content_for(:headline) { "Write A Review" } %>
 
 <div class="container">
 <%= form_with(model: @review, url: product_reviews_path) do |form| %>
-  <p>Please enter your review for product: <%= params[:product_id] %>  </p>
+  <p>Please enter your review for product: <%= Product.find_by(id: params[:product_id]).name %>  </p>
   <div class='form-group'>
     <%= form.label :rating, class: 'control-label' %>
     <%= form.select :rating, generate_select_options(1..5), {selected:5}, class: 'form-control' %>

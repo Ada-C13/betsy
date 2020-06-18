@@ -59,9 +59,16 @@ describe ReviewsController do
         product_id: 1000
       }
 
-      post product_reviews_path(1000), params: { review: bad_review }
-      expect(flash[:danger]).must_equal "Something went wrong with the reviewing process."
-      must_redirect_to products_path
-    end
+# hello 
+  it "should redirect to products_path" do
+    bad_review = {
+      rating: 8,
+      comment: "bad review",
+      product_id: -1
+    }
+
+    post product_reviews_path(-1), params: { review: bad_review }
+    #expect(flash[:danger]).must_equal "Something went wrong with the reviewing process."
+    must_redirect_to products_path
   end
 end

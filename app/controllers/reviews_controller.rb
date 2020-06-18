@@ -37,6 +37,12 @@ class ReviewsController < ApplicationController
   def merchant_reviews
 
     product = Product.find_by(id: merchant_review_params)
+    if !product
+      flash[:warning] = "Product not found!"
+      redirect_to products_path
+      return
+    end
+    
     # if there is a merchant logged in
     if product&.merchant == @current_merchant
       flash[:warning] = "You can't review your own product!"

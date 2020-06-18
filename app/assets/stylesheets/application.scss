@@ -42,6 +42,10 @@ body {
   background-color: #fff ;
 }
 
+main {
+  margin-top: 7vh;
+}
+
 h2 {
   color: #1a7d6b;
   text-align: center;
@@ -51,11 +55,15 @@ h2 {
 .headline {
   color: #fff;
   margin: 0 auto;
-  padding: 80px 0 20px;
+  padding: 10px 0 20px;
   background-color: $tertiary-color;
 }
 
 .merchants .headline {
   background-color: $merchants-tertiary-color;
+}
+
+.alert {
+  margin-bottom: -6vh;
 }
 

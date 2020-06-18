@@ -1,8 +1,8 @@
-id,email,username,uid,provider
-1,joe@email.com,joe3928,1,github
-2,bob@email.com,bob2948,2,github
-3,plant_witch@email.com,plantwitch,3,github
-4,jimothy_jameson@email.com,jimothy_jameson,4,github
-5,elvy@email.com,meowfromspace,5,github
-6,picchu@email.com,picchuuu,6,github
-7,tatertot@email.com,tatertot123,7,github
+email,username,uid,provider
+joe@email.com,joe3928,1234567891,github
+bob@email.com,bob2948,1234567892,github
+plant_witch@email.com,plantwitch,1234567893,github
+jimothy_jameson@email.com,jimothy_jameson,1234567894,github
+elvy@email.com,meowfromspace,1234567895,github
+picchu@email.com,picchuuu,1234567896,github
+tatertot@email.com,tatertot123,1234567897,github
