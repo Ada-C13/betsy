@@ -30,4 +30,16 @@ class Product < ApplicationRecord
   def increase_stock(order_item) 
     return self.stock + order_item.quantity
   end
+
+  def average_rating
+    count = self.reviews.count
+    if count == 0
+      return 0.0
+    end
+    sum = 0.0
+    self.reviews.each do |review|
+      sum += review.rating
+    end
+    return sum / count
+  end
 end
