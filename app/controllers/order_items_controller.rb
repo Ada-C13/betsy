@@ -28,22 +28,27 @@ class OrderItemsController < ApplicationController
     order_item.product = product
     order_item.order = order
     if order_item.save
-      flash[:success] = "Added #{qty} of #{product.name.titleize} to cart."
+      flash[:success] = "Added #{qty} of #{product.name} to cart."
+      redirect_to cart_path
+      return
     else
-      flash[:error] = "Unable to add #{qty} of #{product.name.titleize} to cart"
+      flash[:error] = "Unable to add #{qty} of #{product.name} to cart"
+      redirect_to product_path(product)
+      return
     end
-    redirect_to cart_path
-    return
   end
 
   def edit; end
 
   def update
     qty = order_item_params[:quantity].to_i
-    if !product.enough_stock?(params[:quantity])
+    product = @order_item.product
+    if !product.enough_stock?(qty)
       flash[:error] = "#{product.errors.messages[:stock].pop}"
     elsif @order_item.update(order_item_params)  
       flash[:success] = "Changed quantity to #{@order_item.quantity}."
+    else
+      flash[:error] = "Unable to add #{qty} of #{product.name} to cart"
     end
     redirect_to cart_path
     return
@@ -56,9 +61,16 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
-    @order_item.product.restock(@order_item.quantity)
-    @order_item.destroy
-    redirect_to cart_path
+    if @order_item.status != "pending"
+      flash[:error] = "That item can't be deleted, it is #{@order_item.status}"
+      redirect_to root_path
+      return
+    else
+      @order_item.destroy
+      flash[:success] = "Item removed from cart"
+      redirect_to cart_path
+      return
+    end
   end
 
   private

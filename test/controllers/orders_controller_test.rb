@@ -149,6 +149,16 @@ describe OrdersController do
     end
 
     describe "show_complete" do
+      it "returns completed order" do
+        order = orders(:shipped_order)
+        get complete_order_path(order)
+        must_respond_with :success
+      end
+      it "returns 404 when not found" do
+        id_params = {id: 1000000000000000}
+        get complete_order_path(id_params)
+        must_respond_with :not_found
+      end
     end
 
     describe "cancel" do

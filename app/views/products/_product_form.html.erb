@@ -34,15 +34,17 @@
     <%= f.text_field :photo, :class => "form-control" %>
   </div>
 
-  <div class='my_class_name'>
+  
     <%= f.label :category %>
+  <div class='my_class_name'>
     <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
     <div >
       <%= b.check_box %>
-      <%= b.label %>
+      <%= b.label%>
     </div>
-  <% end %>
+   <% end %> 
   </div>
+  
   <br>
   <%= f.submit "#{action_name} Product", class: "btn btn-primary" %>
 <% end %>

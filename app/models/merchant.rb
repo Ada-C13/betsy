@@ -22,7 +22,7 @@ class Merchant < ApplicationRecord
     revenue = 0.0
     self.products.each do |product|
       product.order_items.each do |item|
-        if item.status == "paid" || item.status == "shipped"
+        if item.status != "pending"
           revenue += product.price * item.quantity
         end
       end

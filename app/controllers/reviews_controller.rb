@@ -4,6 +4,7 @@ class ReviewsController < ApplicationController
   
   def index
     @reviews = Review.all
+    redirect_to root_path
   end
   
   def new

@@ -11,18 +11,20 @@
   </tr>
   <%@merchant.products.each do |product|%>
     <%product.order_items.each do |item|%>
-      <tr class = "middle">
-        <td><%= link_to(image_tag(product.photo, class: "item_images"), product_path(product.id)) %></td>
-        <td><%= link_to product.name.titleize, product_path(product.id) %></td>
-        <td><%= item.quantity %></td>
-        <td><%= item.order.id %></td>
-        <td><%= item.status%></td>
-        <td>
-          <%if item.status == "paid"%>
-            <%= link_to "Ship Item", ship_path({:id => item.id}), method: :patch%>
-          <%end%>
-        </td>
-      </tr>
+    <%if item.status != "pending"%>
+        <tr class = "middle">
+          <td><%= link_to(image_tag(product.photo, class: "item_images"), product_path(product.id)) %></td>
+          <td><%= link_to product.name.titleize, product_path(product.id) %></td>
+          <td><%= item.quantity %></td>
+          <td><%= item.order.id %></td>
+          <td><%= item.status%></td>
+          <td>
+            <%if item.status == "paid"%>
+              <%= link_to "Ship Item", ship_path({:id => item.id}), method: :patch%>
+            <%end%>
+          </td>
+        </tr>
+        <%end%>
     <%end%>
   <%end%>
 </table>

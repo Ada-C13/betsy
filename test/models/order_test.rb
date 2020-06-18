@@ -1,6 +1,18 @@
 require "test_helper"
 
 describe Order do
+  let(:empty_cart) {
+    orders(:empty_cart)
+  }
+  let(:full_cart) {
+    orders(:full_cart)
+  }
+  let(:paid_order) {
+    orders(:paid_order)
+  }
+  let(:all_orders) {
+    [empty_cart, full_cart, paid_order]
+  }
   describe "validations" do
     describe "validations are all replying on the status" do
       before do 
@@ -40,43 +52,18 @@ describe Order do
   end
 
   describe "relationships" do
-    before do
-      @order = orders(:full_cart) 
-    end
-
     it "order has many order_items" do
-      expect(@order.order_items.count).must_equal 2
-      @order.order_items.each do |order_item|
+      expect(full_cart.order_items.count).must_equal 2
+      full_cart.order_items.each do |order_item|
         expect(order_item).must_be_instance_of OrderItem
       end
     end
     it "has many products through order_items" do
-      expect(@order.products.count).must_equal 2
-      @order.products.each do |product|
+      expect(full_cart.products.count).must_equal 2
+      full_cart.products.each do |product|
         expect(product).must_be_instance_of Product
       end
     end
-  end
-
-  describe "private custom method: change_status" do
-    # skip
-    # before do
-    #   @order1 = orders(:paid_order) # status == "paid" and has 2 products (product1 x 3 + product3 x 5)
-    #   @order2 = orders(:full_cart) # status == "pending" and has 2 products (product1 x 1 + product4 x 5)
-    # end
-
-    # it "be able to update a valid status" do
-    #   expect(@order1.change_status("shipped")).must_equal true
-    #   expect(@order2.change_status("paid")).must_equal true
-    # end
-
-    # it "raise error when trying to update a invalid status" do
-    #   expect(@order1.change_status("baloney")).must_equal false
-    # end
-
-    # it "raise error when try to update the status to nil" do
-    #   expect(@order2.change_status(nil)).must_equal false
-    # end
   end
 
   describe "custom method: cancel" do 
@@ -100,25 +87,23 @@ describe Order do
     end
 
     it "can't change the status to cancelled if the current status == shipped" do
-      # orders(:paid_order) contains a shipped and a paid order_item
-      @order1 = orders(:paid_order)
-      shipped_item = @order1.order_items.find{|o_i| o_i.status == "shipped"}
-      all_changed = @order1.cancel
+      # paid_order contains a shipped and a paid order_item
+      shipped_item = paid_order.order_items.find{|o_i| o_i.status == "shipped"}
+      all_changed = paid_order.cancel
       expect(all_changed).must_equal false
-      expect(@order1.errors.messages.values.pop).must_include ["#{shipped_item.product.name} is already shipped"]
+      expect(paid_order.errors.messages.values.pop).must_include ["#{shipped_item.product.name} is already shipped"]
     end
   end
 
   describe "custom method: submit_order" do 
     it "be able to update a valid status" do
-      @order1 = orders(:full_cart) # status == "pending" and has 2 products (product1 x 1 + product4 x 5)
-      @order1.submit_order
-      expect(@order1.status).must_equal "paid"
+      # full_cart status == "pending" and has 2 products (product1 x 1 + product4 x 5)
+      full_cart.submit_order
+      expect(full_cart.status).must_equal "paid"
     end
 
     it "can't change the status to paid if the current status == paid " do
-      @order1 = orders(:paid_order)
-      result = @order1.submit_order
+      result = paid_order.submit_order
       expect(result).must_equal false
     end
 
@@ -169,27 +154,35 @@ describe Order do
       new_product.merchant = merchants(:merchantaaa)
       item = OrderItem.new(quantity: 1)
       item.product = new_product
-      @order = orders(:empty_cart)
-      @order.order_items << item
-      expect(@order.order_items.length).must_equal 1
+      empty_cart.order_items << item
+      expect(empty_cart.order_items.length).must_equal 1
 
-      is_empty = @order.clear_cart
-      expect(@order.order_items.length).must_equal 0
+      is_empty = empty_cart.clear_cart
+      expect(empty_cart.order_items.length).must_equal 0
     end
   end
 
   describe "custom method: total_price" do 
     it "returns total price for cart with multiple items" do
-      @order1 = orders(:full_cart)
-      expect(@order1.total_price).must_equal 612
+      items = OrderItem.all.find_all {|item|
+        item.order == full_cart
+      }
+      expected_total = items.sum { |item| 
+        item.product.price * item.quantity
+      }
+      expect(full_cart.total_price).must_equal expected_total
     end
     it "returns total price for complete order with multiple items" do
-      @order1 = orders(:paid_order)
-      expect(@order1.total_price).must_equal 536
+      items = OrderItem.all.find_all {|item|
+        item.order == paid_order
+      }
+      expected_total = items.sum { |item| 
+        item.product.price * item.quantity
+      }
+      expect(paid_order.total_price).must_equal expected_total
     end
     it "returns 0.00 when cart is empty" do
-      @order1 = orders(:empty_cart)
-      expect(@order1.total_price).must_equal 0
+      expect(empty_cart.total_price).must_equal 0
     end
   end
 
