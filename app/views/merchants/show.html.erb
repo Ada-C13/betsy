@@ -76,7 +76,7 @@
     <% else %>
     <%= form_tag(merchant_path(@merchant.id), method: :get) do %>
       <h3>Orders <%= select_tag "Status", options_for_select(["pending", "paid", "complete", "cancelled"]), include_blank: "all orders", prompt: 'Select' %>
-        <%= submit_tag "Filter", class: "form_submit_button button trans_200" %></h3>
+        <%= submit_tag "Filter", class: "btn btn-outline-dark" %></h3>
     <% end %>
       <table class="table table_orders">
         <thead>
@@ -117,7 +117,7 @@
               <% elsif item.order.status == "pending" || !item.order.status %>
                 <td>Should be paid first</td>
               <% else %>
-                <td><%= link_to "Ship", ship_item_path(item.id), method: :post, class: "form_submit_button button trans_200" %></td>
+                <td><%= link_to "Ship", ship_item_path(item.id), method: :post, class: "btn btn-outline-dark" %></td>
               <% end %>
             </tr>
             <% end %>
