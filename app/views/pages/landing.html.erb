@@ -9,11 +9,11 @@
   <img src="https://i.imgur.com/UUM6HIw.png" alt="product_hero" />
 </div>
 
-<%= link_to products_path, class: "btn btn-primary browse" do %>Browse all products<% end %>
+<%= link_to "Browse all products", products_path, class: "btn btn-primary browse" %>
 </main>
 
 <footer class="footer">
   <div class="container">
-    <%= link_to "Meet the team", team_path %>
+    <%= link_to raw("Meet the team &#10084;"), team_path %>
   </div>
 </footer>
