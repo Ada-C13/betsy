@@ -110,7 +110,7 @@ describe Merchant do
     it "returns expected revenue" do
       order_items = OrderItem.all.find_all { |item|
         item.product.merchant == merchant &&
-        item.status != "pending"
+        item.status == "paid" || item.status == "shipped"
       }
       revenue = order_items.sum { |item|
         item.quantity * item.product.price
