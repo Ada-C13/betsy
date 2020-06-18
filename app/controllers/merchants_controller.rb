@@ -15,7 +15,6 @@ class MerchantsController < ApplicationController
   end
 
   def shop
-    # TODO: the pagination doesn't work
     @merchant_products = @merchant.products.paginate(page: params[:page], per_page: 9)
   end
   
@@ -34,7 +33,7 @@ class MerchantsController < ApplicationController
       if merchant.save
         flash[:notice] = "Logged in as a new merchant #{merchant.name}"
       else
-        flash[:error] = "Could not create merchant account  #{merchant.errors.messages}"
+        flash[:error] = "Could not create merchant account"
         return redirect_to root_path
       end
     end

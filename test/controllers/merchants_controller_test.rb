@@ -4,7 +4,9 @@ describe MerchantsController do
 
   describe "Logged in users" do
     before do 
-      @merchant = perform_login
+      @merchant = merchants(:merchantaaa)
+      @merchant4 = merchants(:merchantddd)
+      perform_login(@merchant)
     end
 
     describe "index" do 
@@ -44,13 +46,50 @@ describe MerchantsController do
       end
 
       it "redirect back to account if trying to access a not existed account" do
-        get account_path(1000000000) # merchant 1000000000 doesn't exist
-        must_redirect_to account_path(@merchant.id)
+        get account_path(-1)
         expect(flash[:error]).must_equal  "You don't have access to that account!"
+        must_redirect_to account_path(@merchant.id)
+      end
+    end
+
+    describe "shop" do
+      it "should return all products that belongs to one merchant" do
+        get merchant_shop_path(@merchant.id)
+        all_products_merchant = @merchant.products
+        expect(all_products_merchant.length).must_equal 4
+        must_respond_with :success
+      end
+
+      it "will return empty array if we dont have any product for specific merchant" do
+        perform_login(@merchant4)
+        get merchant_shop_path(@merchant4.id)
+        all_products_merchant = @merchant4.products
+        expect(all_products_merchant.length).must_equal 0
+        must_respond_with :success
       end
     end
 
     describe "create(login as a merchant)" do
+      before do
+        @valid_merchant = {
+          merchant: {
+            provider: "github",
+            uid: "1234567",
+            name: "youknowwho",
+            email:"youknowwho@ada.org",
+            avatar: "https://i.imgur.com/WSHmeuf.jpg"
+        } 
+      }
+      end
+      @invalid_merchant = Merchant.new(
+        provider: "github",
+        uid: "1234567",
+        name: nil,
+        email:"youknowwho@ada.org",
+        avatar: "https://i.imgur.com/WSHmeuf.jpg"
+      )
+
+      
       it "can log in" do
         must_respond_with :redirect
         must_redirect_to root_path
@@ -58,12 +97,30 @@ describe MerchantsController do
 
       it "can log in a new user" do
         put logout_path, params: {}
+        @valid_merchant = Merchant.new(
+          provider: "github",
+          uid: "1234567",
+          name: "youknowwho",
+          email:"youknowwho@ada.org",
+          avatar: "https://i.imgur.com/WSHmeuf.jpg"
+          )
+        
+        expect{logged_in_user = perform_login(@valid_merchant)}.must_change "Merchant.count", 1
+        expect(Merchant.last.provider).must_equal @valid_merchant[:provider]
+        expect(Merchant.last.uid).must_equal @valid_merchant[:uid]
+        expect(Merchant.last.name).must_equal @valid_merchant[:name]
+        expect(Merchant.last.email).must_equal @valid_merchant[:email]
+        expect(Merchant.last.avatar).must_equal @valid_merchant[:avatar]
 
-        new_merchant = Merchant.new(uid:"932410", name: "youknowwho", provider: "github", email: "youknowwho@ada.org")
-
-        expect{logged_in_user = perform_login(new_merchant)}.must_change "Merchant.count", 1
-  
         must_respond_with :redirect
+        must_redirect_to root_path
+      end
+
+      it "can't create merchant if merchant data is invalid" do
+        put logout_path, params: {}
+
+        expect{logged_in_user = perform_login(@invalid_merchant)}.wont_change "Merchant.count"
+        # expect(flash[:error]).must_equal "Could not create merchant account"
         must_redirect_to root_path
       end
     end
