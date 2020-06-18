@@ -50,5 +50,15 @@ class Order < ApplicationRecord
     end
     return total
   end
-  
+
+  def empty?
+    return order_items.count == 0 
+  end
+
+
+  # this method should return a list of Order Items in this Order 
+  # where the Order Item contains a Product that belongs to the current_merchant
+  def order_items_by_merchant(current_merchant)
+    # return self.order_items.where(product inside that Order_Item belongs to current_merchant)
+  end
 end
