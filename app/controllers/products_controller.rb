@@ -58,26 +58,31 @@ class ProductsController < ApplicationController
     return head :not_found if !product
 
     # creates a new order if there is no order_id saved to session
-    if !session[:order_id]
+    if !@current_order
       order = Order.create(status: "pending")
       session[:order_id] = order.id
     end
 
-    # create new order_item
-    order_item = OrderItem.new(
-      product_id: product.id,
-      order_id: session[:order_id],
-      quantity: params[:quantity],
-      shipped: false
-    )
+    if @current_order && @current_order.products.include?(product)
+      order_item = OrderItem.find_by(product_id: product.id)
+    else
+      # create new order_item
+      order_item = OrderItem.new(
+        product_id: product.id,
+        order_id: session[:order_id],
+        quantity: 0,
+        shipped: false
+      )
+    end
 
-    # if quantity is greater than product stock, don't save order_item
-    if order_item.quantity > product.stock
+    # if quantity is greater than product stock plus existing quantity, don't save order_item
+    if params[:quantity].to_i > product.stock - order_item.quantity
       flash[:status] = :failure
       flash[:result_text] = "#{product.title} does not have enough quantity in stock"
       redirect_to product_path(product.id)
       return
     else 
+      order_item.quantity += params[:quantity].to_i
       order_item.save
       flash[:status] = :success
       flash[:result_text] = "Successfully added #{product.title} to cart!"
