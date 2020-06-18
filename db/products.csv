@@ -1,7 +1,8 @@
 title,price,photo_url,description,stock,merchant_id,active
-Bat-thorn,4.9,https://i.imgur.com/rAwT2VX.jpg,a plant similar to wolfsbane offering protection against vampires,10,1,false
-Biollante,4.5,https://i.imgur.com/rAwT2VX.jpg,a monster plant of titanic proportions,15,1,true
-Dyson tree,20,https://i.imgur.com/rAwT2VX.jpg,a genetically-engineered plant capable of growing on a comet,10,1,true
+Shrooms,4.9,https://i.imgur.com/vG4pjTp.jpg,a plant that can be merged into Golden Mushrooms,10,1,true
+Biollante,4.5,https://i.imgur.com/aJW8Kkz.jpg,a monster plant of titanic proportions,15,1,true
+A Guide to Advanced Transfiguration,26,https://i.imgur.com/ZebruqT.jpg,by Emeric Switch,2,7,true
+Dyson tree,20,https://i.imgur.com/INj4OrW.jpg,a genetically-engineered plant capable of growing on a comet,10,1,true
 Integral tree,55,https://i.imgur.com/rAwT2VX.jpg,enormous tree 100 kilometers long with a leafy tuft at each end oriented in opposite directions forming the integral symbol ∫,3,1,true
 Wolf Flower,15.99,https://i.imgur.com/rAwT2VX.jpg,an extremely rare phosphorescent plant found only in the mountains of Tibet,15,1,false
 Plant Men of Barsoom,155,https://i.imgur.com/rAwT2VX.jpg,a race of humanoid plant,5,1,true
@@ -68,4 +69,3 @@ The Standard Book of Spells Year 5,20,https://i.imgur.com/hIIfn2k.jpg,by Miranda
 Defensive Magical Theory,15,https://i.imgur.com/hIIfn2k.jpg,by Wilbert Slinkhard,7,8,false
 The Standard Book of Spells Year 6,21,https://i.imgur.com/hIIfn2k.jpg,by Miranda Goshawk,6,7,true
 Advanced Potion-Making,12,https://i.imgur.com/hIIfn2k.jpg,by Libatius Borage,3,7,true
-A Guide to Advanced Transfiguration,26,https://i.imgur.com/hIIfn2k.jpg,by Emeric Switch,2,7,true
