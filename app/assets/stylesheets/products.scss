@@ -5,6 +5,21 @@
   color: white;
 }
 
+.custom-form-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-label {
+  width: 156.8px;
+  margin: 5px 10px 5px 0;
+}
+
+.checkbox {
+  flex: 1;
+  margin-right: 10px;
+}
+
 .indentation {
   margin-left: 10rem;
   margin-right: 10rem;
