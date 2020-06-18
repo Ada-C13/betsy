@@ -11,9 +11,9 @@
 
   <section class="merchant-products__container">
   <% if !@merchant.products.empty? %>
-    <p><h2><strong>Total Revenue: <%= number_to_currency(@merchant.total_revenue) %></strong></h2></p>
+    <h1 class="strong_orange">Total Revenue: <%= number_to_currency(@merchant.total_revenue) %></h1>
 
-    <h3>Total Revenue Breakdown</h3>
+    <h3 class="strong_orange">Total Revenue Breakdown</h3>
 
     <table class="table table_dashboard">
       <thead>
@@ -39,7 +39,7 @@
     </table>
 
 
-    <h3>Products</h3>
+    <h3 class="strong_orange">Products</h3>
 
     <table class="table table_dashboard">
       <thead>
@@ -71,11 +71,11 @@
   <section class="merchant-orders__container">
     <% if @merchant.existing_order_items_by_merchant.empty? %>
 
-      <h3>Orders</h3>
+      <h3 class="strong_orange">Orders</h3>
       <h4>Sorry, no one has bought any of your products yet...</h4>
     <% else %>
     <%= form_tag(merchant_path(@merchant.id), method: :get) do %>
-      <h3>Orders <%= select_tag "Status", options_for_select(["pending", "paid", "complete", "cancelled"]), include_blank: "all orders", prompt: 'Select' %>
+      <h3 class="strong_orange">Orders <%= select_tag "Status", options_for_select(["pending", "paid", "complete", "cancelled"]), include_blank: "all orders", prompt: 'Select' %>
         <%= submit_tag "Filter", class: "btn btn-outline-dark" %></h3>
     <% end %>
       <table class="table table_orders">
