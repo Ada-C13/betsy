@@ -1,48 +1,58 @@
-<h2>Checkout</h2>
-
-<%= form_with model: @current_order, url: {:action => "complete"} do |f| %>
-  <div class="form-group">
-    <%= f.label "Name:" %>
-    <%= f.text_field :name, class: "form-control" %>
+<div class="clear" style="background: url(https://i.imgur.com/HCWU4MU.jpg)">
+  <div class="contact_title text-center">
+    CHECKOUT
   </div>
 
-  <div class="form-group">
-    <%= f.label "Email:" %>
-    <%= f.text_field :email, class: "form-control" %>
-  </div>
+  <div class="col">
+    <div class="contact_form_container indentation">
+      <div class="contact_title text-center"></div>
 
-  <div class="form-group">
-    <%= f.label "Mailing Address:" %>
-    <%= f.text_field :mailing_address, class: "form-control" %>
-  </div>
+      <%= form_with model: @current_order, url: {:action => "complete"} do |f| %>
+        <div class="form-group">
+          <%= f.label :name, "Name:" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
 
-  <div class="form-group">
-    <%= f.label "Credit Card Number:" %>
-    <%= f.text_field :cc_number, class: "form-control" %>
-  </div>
+        <div class="form-group">
+          <%= f.label :email, "Email:" %>
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
 
-  <div class="form-group">
-    <%= f.label "Credit Card Expiration Date:" %>
-    <%= f.date_select(
-      :cc_exp, 
-      use_two_digit_numbers: true, 
-      start_year: Date.today.year, 
-      discard_day: true, 
-      order: [:month, :day, :year], 
-      class: "form-control") %>
-  </div>
+        <div class="form-group">
+          <%= f.label :mailing_address, "Mailing Address:" %>
+          <%= f.text_field :mailing_address, class: "form-control" %>
+        </div>
 
-  <div class="form-group">
-    <%= f.label "CVV:" %>
-    <%= f.text_field :cvv, class: "form-control" %>
-  </div>
+        <div class="form-group">
+          <%= f.label :cc_number, "Credit Card Number:" %>
+          <%= f.text_field :cc_number, class: "form-control" %>
+        </div>
 
-  <div class="form-group">
-    <%= f.label "Billing Zip Code:" %>
-    <%= f.text_field :zipcode, class: "form-control" %>
-  </div>
+        <div class="form-group">
+          <%= f.label :cc_exp, "Expiration Date:" %>
+          <%= f.date_select(
+            :cc_exp, 
+            use_two_digit_numbers: true, 
+            start_year: Date.today.year, 
+            discard_day: true, 
+            order: [:month, :day, :year], 
+            class: "form-control ") %>
+        </div>
 
-  <div class="form-group">
-    <%= f.submit "Complete Order", class: "btn btn-primary" %>
+        <div class="form-group">
+          <%= f.label :cvv, "CVV:" %>
+          <%= f.text_field :cvv, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :zipcode, "Billing Zip Code:" %>
+          <%= f.text_field :zipcode, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit "Complete Order", class: "form_submit_button button trans_200" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-<% end %>
+</div>
