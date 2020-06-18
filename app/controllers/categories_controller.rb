@@ -3,6 +3,7 @@ class CategoriesController < ApplicationController
   skip_before_action :require_login, only: [:index, :show, :category_products]
   def index
     @categories = Category.all
+    redirect_to root_path
   end
 
   def category_products

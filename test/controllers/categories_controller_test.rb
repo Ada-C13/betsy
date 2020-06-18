@@ -15,13 +15,13 @@ describe CategoriesController do
       # Ensure that there is at least one Categoty saved
       @category.save
       get categories_path
-      must_respond_with :success
+      must_redirect_to root_path
     end
 
     it "responds with success when there are no categories saved" do
       # Ensure that there are zero Categoty saved
       get categories_path
-      must_respond_with :success
+      must_redirect_to root_path
     end
   end
 
