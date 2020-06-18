@@ -45,7 +45,7 @@ puts "Created #{count} categories"
   next if i == 0 || i == 3
   Product.find(i).categories << Category.where(title: "Plant")
 end
-Category.find(3) << Category.where(title: "Book")
+Category.find(3).categories << Category.where(title: "Book")
 (27..44).each do |i|
   Product.find(i).categories << Category.where(title: "Wand")
 end
