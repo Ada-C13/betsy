@@ -9,31 +9,13 @@ class ProductsController < ApplicationController
     @filters = []
     @products = []
 
-    if params[:categories]
-      params[:categories].each do |c|
-        if Category.exists?(c)
-          category = Category.find(c)
-          @products << category.products.where(active: true)
-          @filters << category.name
-        end
-      end
-    end
-
-    if params[:merchants]
-      params[:merchants].each do |m|
-        if Merchant.exists?(m)
-          @products << Product.where(merchant: m, active: true)
-          @filters << Merchant.find(m).username
-        end
-      end
-    end
-
-    if @products.empty?
-      @products = Product.all.where(active: true)
+    if params[:categories] || params[:merchants]
+      results = Product.filter_products(params[:categories], params[:merchants])
+      @products = results[:products]
+      @filters = results[:filters]
     else
-      @products.flatten!.uniq!
+      @products = Product.active_products
     end
-    
   end
 
   # GET /products/1
