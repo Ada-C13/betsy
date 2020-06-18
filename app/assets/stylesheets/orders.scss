@@ -1,3 +1,170 @@
 // Place all the styles related to the Orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+/* Shopping Cart */
+
+.empty
+{
+  margin: 3em;
+}
+
+.empty a {
+  margin-top: 1em;
+  padding: 15px;
+  border-radius: 27px;
+}
+
+/*********************************
+1. Items
+*********************************/
+
+.items
+{
+	width: 100%;
+	padding: 3em 0;
+}
+
+/*********************************
+1.1 Items Grid
+*********************************/
+
+.items_grid
+{
+	width: 100%;
+	margin-top: 66px;
+}
+.items_item
+{
+	width: 100%;
+	margin-bottom: 46px;
+}
+.items_item:last-child
+{
+	margin-bottom: 0px;
+}
+.items_image img
+{
+	width: 100%;
+}
+.items_image_container
+{
+	width: 100%;
+	height: 100%;
+}
+.items_image_background
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+}
+.item_name
+{
+	position: absolute;
+	left: 0;
+	width: 200px;
+	height: 33px;
+	background: #fa9e1b;
+	overflow: hidden;
+}
+.item_name a
+{
+	display: block;
+	font-size: 16px;
+	font-weight: 700;
+	color: #FFFFFF;
+	text-transform: uppercase;
+	line-height: 35px;
+	padding-left: 22px;
+}
+.items_content
+{
+	
+}
+.items_price
+{
+	display: inline-block;
+	font-size: 36px;
+	font-weight: 700;
+	color: #eda84a;
+	line-height: 25px;
+}
+.items_price span
+{
+	font-size: 14px;
+	font-weight: 400;
+	color: #929191;
+	margin-left: 12px;
+}
+.items_rating
+{
+
+}
+.items_rating i::before
+{
+	font-size: 13px;
+	margin-right: 2px;
+}
+.items_text
+{
+	font-size: 14px;
+	font-weight: 400;
+	color: #929191;
+	margin-top: 16px;
+	margin-bottom: 0px;
+}
+.items_icons
+{
+	margin-top: 21px;
+}
+.items_icons_item
+{
+	display: inline-block;
+	margin-right: 15px;
+}
+.items_icons_item:last-child
+{
+	margin-right: 0px;
+}
+.item_quantity
+{
+	margin-top: 30px;
+	margin-bottom: -5px;
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+.item_quantity_select
+{
+  width: 50px;
+  margin-right: 10px;
+}
+.remove_button
+{
+	background: #31124b;
+  margin-top: 39px;
+  margin-right: 4em;
+	margin-bottom: -5px;
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+.remove_button:hover
+{
+	opacity: 0.8;
+}
+.item_remove
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
