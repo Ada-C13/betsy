@@ -24,6 +24,11 @@ class ApplicationController < ActionController::Base
       Merchant.find_by(id: session[:merchant_id])
   end
 
+  def current_product 
+    @current_product ||= params[:product_id] &&
+      Product.find_by(id: params[:product_id])
+  end
+
   def require_login
     if current_merchant.nil?
       redirect_to root_path
