@@ -38,4 +38,18 @@ order_item8:
   product: product6
   order: shipped_order
   status: shipped
-  
+order_item9:
+  quantity: 2
+  product: product1
+  order: paid_order
+  status: paid
+order_item10:
+  quantity: 5
+  product: product4
+  order: paid_order
+  status: cancelled
+order_item11:
+  quantity: 10
+  product: product2
+  order: paid_order
+  status: cancelled
