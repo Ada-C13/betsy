@@ -1,30 +1,29 @@
-<% if @merchant_products.length > 0 %> 
-  <%# <table style="width:70%">   %>
-  <h3><%= "#{@merchant.name.titleize}\'s Products"%></h3> 
-    <div class = "middle">
+
+<h3><%= "#{@merchant.name.titleize}\'s Products"%></h3> 
+ <br><br>
+
+<div class = "middle">
+  <% if @merchant_products.length > 0 %>
     <% @merchant_products.each do |product| %>
       <%if product.active%>
         <div class = "col-xs-6 col-md-4">
           <%= link_to(image_tag(product.photo, class: "show_images"), product_path(product)) %>
-          <p><%= link_to product.name.titleize, product_path(product) %></p>
-          <p><%= format_price(product.price) %></p>
+          <p><small><%= link_to product.name.titleize, product_path(product) %></small><p>
+          <small><%= format_price(product.price) %></small>
+          <br>
           <br>
         </div>
       <%end%>
-    <% end %>
-    <br>
-    
-    <div class="pagination">
-      <%= will_paginate @merchant_products %>
-    </div> 
-    </div>
-<% else %>
-  <h2><%= "#{@merchant.name} does not have any available products in their shop." %></h2>
-<% end %>
-<br>
-
-
-<p><%# page_entries_info @merchants %></p> 
+  <% end %>
+  <br>
+  <%# <p><%= page_entries_info @category_products %></p>
+  <div class="pagination">
+    <%= will_paginate @merchant_products %>
+  </div> 
+  <% else %>
+    <h2><%= "#{@merchant.name.titleize} does not have any available products in their shop." %></h2>
+  <% end %>
+</div> 
 
 
 
