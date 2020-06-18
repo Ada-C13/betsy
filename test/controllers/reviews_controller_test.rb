@@ -15,13 +15,13 @@ describe ReviewsController do
     # Ensure that there is at least one Categoty saved
     @review.save
     get product_reviews_path(@product.id)
-    must_respond_with :success
+    must_redirect_to root_path
   end
 
   it "responds with success when there are no reviews saved" do
     # Ensure that there are zero Categoty saved
     get product_reviews_path(@product.id)
-    must_respond_with :success
+    must_redirect_to root_path
   end
 
   describe "new" do
