@@ -2,79 +2,83 @@
   <div class="home_background" style="background: url(https://i.imgur.com/q7re6KG.jpg);"></div>
   <div class="home_content">
     <div class="home_title">
-      Shopping Cart
+      Magical Cart
     </div>
   </div>
 </div>
 
 <% if !@order_items || @order_items.empty? %>
-  <div class="empty">
-  <h2>Your cart is empty!</h2>
-  <%= link_to "Let's Add Some Products", products_path, class: "btn btn-primary" %>
-  </div>
+<div class="empty">
+<h2>Your cart is empty!</h2>
+<%= link_to "Let's Add Some Products", products_path, class: "btn cart_button" %>
+</div>
 <% else %>
   
-  <div class="items">
+<div class="items">
 
-      <!-- Order Items -->
+  <!-- Order Items -->
 
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-1 temp_col"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-1 temp_col"></div>
 
-          <div class="col-lg-12">
-            <!-- Order Items Grid -->
+      <div class="col-lg-12">
+        <!-- Order Items Grid -->
 
-            <div class="items_grid" style="position: relative; height: 1519px;">
+        <div class="items_grid">
 
-              <!-- Order Item -->
+          <!-- Order Item -->
 
-              <% @order_items.each do |item| %>
-                <div class="items_item rating_4" style="position: absolute; left: 0px; top: 0px;">
-                  <div class="row">
-                    <div class="col-lg-1 temp_col"></div>
-                    <div class="col-lg-3 col-1680-4">
-                      <div class="items_image_container">
-                        <div class="items_image_background"><%= link_to image_tag(item.product.photo_url, height: "200", :alt => "product photo"), product_path(item.product) %></div>
-                        <div class="item_name"><%= link_to item.product.title, product_path(item.product) %></div>
-                      </div>
-                    </div>
-                    <div class="col-lg-8">
-                      <div class="items_content">
-                        <div class="items_price"><%= number_to_currency(item.product.price) %><span>per item</span></div>
-                        <div class="rating_r rating_r_4 items_rating" data-rating="4">
-                          <i></i>
-                          <i></i>
-                          <i></i>
-                          <i></i>
-                          <i></i>
-                        </div>
-                        <p class="items_text"><%= item.product.description %></p>
-                        <div class="item_quantity align-items-end">
-                          <%= form_with model: item do |f| %>
+          <% @order_items.each do |item| %>
+          <div class="row">
+            <div class="col-lg-1 temp_col"></div>
+            <div class="col-lg-3 col-1680-4">
+              <div class="items_image_container">
+                <div class="items_image_background"><%= link_to image_tag(item.product.photo_url, height: "200", :alt => "product photo"), product_path(item.product) %></div>
+                <div class="item_name"><%= link_to item.product.title, product_path(item.product) %></div>
+              </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="items_content">
+                <div class="items_price"><%= number_to_currency(item.product.price) %><span>per item</span></div>
+                <div class="rating_r rating_r_4 items_rating" data-rating="4">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                </div>
+                <p class="items_text"><%= item.product.description %></p>
+                <div class="item_quantity align-items-end">
+                  <%= form_with model: item do |f| %>
 
-                            <%= f.label "Quantity", class: "text-hide" %>
-                            <%= f.select(:quantity, (1..item.product.stock).map(&:to_i), {}, { class: "custom-select item_quantity_select" }) %>
-                            <%= f.submit "Update Quantity", class: "button btn btn-primary" %>
-                            
-                          <% end %>
-                        </div>
-                        <div class="item_remove">
-                          <div class="button remove_button">
-                            <%= link_to "Remove", order_item_path(item), class: "btn-danger", method: "delete", data: { confirm: "Are you sure you want to remove #{item.product.title} from your cart?" } %>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <%= f.label "Quantity", class: "text-hide" %>
+                    <%= f.select(:quantity, (1..item.product.stock).map(&:to_i), {}, { class: "custom-select item_quantity_select" }) %>
+                    <%= f.submit "Update Quantity", class: "btn btn-outline-dark" %>
+                    
+                  <% end %>
+                </div>
+                <div class="item_remove">
+                  <div class="button remove_button">
+                    <%= link_to "Remove", order_item_path(item), class: "btn-danger", method: "delete", data: { confirm: "Are you sure you want to remove #{item.product.title} from your cart?" } %>
                   </div>
                 </div>
-              <% end %>
-              
+              </div>
             </div>
           </div>
-
+          <% end %>
+          
         </div>
-      </div>		
+      </div>
+
     </div>
+  </div>		
+</div>
+
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <%= link_to "Proceed to Checkout", order_checkout_path, class: "btn cart_button" %>
+  </li>
+</ul> 
 
 <% end %>
