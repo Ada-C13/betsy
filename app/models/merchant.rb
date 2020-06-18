@@ -22,6 +22,14 @@ class Merchant < ApplicationRecord
   def revenue 
     return orders.map { |order| order.status == "pending" ? 0 : order.total_cost }.sum 
   end
+
+  def orders_by_status(status)
+     return self.orders.where(status: status)
+  end
+
+  def revenue_by_status(status)
+    return orders_by_status(status).map { |order| order.total_cost }.sum
+  end
   
 end
 
