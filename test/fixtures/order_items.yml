@@ -50,6 +50,6 @@ order_item10:
   status: cancelled
 order_item11:
   quantity: 10
-  product: product2
+  product: product3
   order: paid_order
   status: cancelled
