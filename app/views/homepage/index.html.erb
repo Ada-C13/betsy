@@ -9,6 +9,7 @@
 
 <%= render partial: "shared/flash" %>
 
+<!-- 1st block with categories -->
 <div class="intro">
 		<div class="container">
 			<div class="row">
@@ -60,6 +61,9 @@
 		</div>
 	</div>
 </div>
+<!-- 1st block with categories -->
+
+<!-- 2nd block with text -->
 <div class="add">
   <div class="cta" style="background-image:url(https://i.imgur.com/ynP6xUf.png)">
       <div class="container">
@@ -75,4 +79,59 @@
 		</div>
 	</div>
 </div>
-<div class="bottom"></div>
+<!-- 2nd block with text -->
+
+<!-- 3rd block with featured products -->
+<div class="offers">
+		<div class="container">
+			<div class="row"></div>
+      <%# <div class="owl-item cta_item text-center">
+      <div class="cta_title">About Spellbound</div>
+      </div> %>
+      <div class="col text-center">
+					<h2 class="section_title2">Some of our trending products</h2>
+			</div>
+			<div class="row offers_items">
+      <% Product.all[0..3].each do |product| %>
+				<!-- Offers Item -->
+				<div class="col-lg-6 offers_col">
+					<div class="offers_item">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="offers_image_container">
+									<div class="offers_image_background" style="background-image:url(<%= product.photo_url %>)"></div>
+									<div class="offer_name"><%= link_to product.title, product_path(product.id) %></div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="offers_content">
+									<div class="offers_price"><%= product.stock %><span> products available</span></div>
+									<div class="rating_r rating_r_4 offers_rating">
+										<i></i>
+										<i></i>
+										<i></i>
+										<i></i>
+										<i></i>
+									</div>
+									<p class="offers_text"><%= product.description %></p>
+                  <p class="offers_text">$<%= product.price %></p>
+									<div class="offers_icons">
+										<ul class="offers_icons_list">
+											<li class="offers_icons_item"><img src="images/post.png" alt=""></li>
+											<li class="offers_icons_item"><img src="images/compass.png" alt=""></li>
+											<li class="offers_icons_item"><img src="images/bicycle.png" alt=""></li>
+											<li class="offers_icons_item"><img src="images/sailboat.png" alt=""></li>
+										</ul>
+									</div>
+									<div class="offers_link"><%= link_to "Details", product_path(product.id) %></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<% end %>
+
+			</div>
+		</div>
+	</div>
+  <!-- 3rd block with featured products -->
