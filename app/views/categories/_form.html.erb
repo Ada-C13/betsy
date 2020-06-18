@@ -1,4 +1,12 @@
-<section class="section">
+<% if @category.errors.any? %>
+  <ul class="errors">
+    <% @category.errors.each do |column, message| %>
+      <li>
+        <span><%= column.capitalize %></span>: <%= message %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
   <%= form_with model: @category, class: 'product-form' do |f| %>
     <div class='form-group'>
       <%= f.label :name %>
