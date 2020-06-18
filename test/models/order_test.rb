@@ -165,7 +165,7 @@ describe Order do
   describe "custom method: total_price" do 
     it "returns total price for cart with multiple items" do
       items = OrderItem.all.find_all {|item|
-        item.order = full_cart
+        item.order == full_cart
       }
       expected_total = items.sum { |item| 
         item.product.price * item.quantity
@@ -174,7 +174,7 @@ describe Order do
     end
     it "returns total price for complete order with multiple items" do
       items = OrderItem.all.find_all {|item|
-        item.order = paid_order
+        item.order == paid_order
       }
       expected_total = items.sum { |item| 
         item.product.price * item.quantity
