@@ -16,40 +16,35 @@
   </div>
 
 
-
   <% if @merchant %>
-    <h2>Products by <%= @merchant.username %></h2>
+    <h2 class="category-names">Products by <%= @merchant.username %></h2>
   <% elsif @category %>
-    <h2><%= @category.title %>s</h2>
+    <h2 class="category-names"><%= @category.title %>s</h2>
   <% else %>
-    <h2>List of all Products</h2>
+    <h2 class="category-names">List of all Products</h2>
   <% end %>
+  
+
   <% if @products %>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Image</th>
-          <th>Title</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @products.each do |product| %>
-          <% if product.active %>
-            <tr>
-              <td><%= link_to image_tag(product.photo_url, height: "150", :alt => "product photo"), product_path(product) %></td>
-              <td><%= link_to product.title, product_path(product) %></td>
-              <td><%= product.price %></td>
-            </tr>
+    <div class="table-indentation">
+      <table class="table table-borderless">
+
+        <tbody>
+          <% @products.each do |product| %>
+            <% if product.active %>
+              <tr>
+                <td><%= link_to image_tag(product.photo_url, height: "250", width: "300", :alt => "product photo"), product_path(product) %></td>
+                <td><h2><%= link_to product.title, product_path(product), class: "item-names" %></h2></td>
+                <td><h2 class="item-names"><%= product.price%></h2></td>
+              </tr>
+            <% end %>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
+        </tbody>
+
+      </table>
+    </div>
   <% else %>
     <h3>There are currently no products over here</h3>
   <% end %>
-
-
-
 
 </body>
