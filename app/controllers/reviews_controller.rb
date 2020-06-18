@@ -13,7 +13,8 @@ class ReviewsController < ApplicationController
       return
     else
       flash[:status] = :failure
-      flash.now[:result_text] = "Could not create a review"
+      flash.now[:result_text] = "Could not create review!"
+      flash.now[:messages] = @review.errors.messages
       render :new, status: :bad_request
       return
     end
