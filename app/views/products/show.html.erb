@@ -1,52 +1,77 @@
-<main>
-<section>
-  <h2><%=@product.title.capitalize%></h2>
-  <p><%= image_tag(@product.photo_url, height: "350", :alt => "product photo") %></p>
-  <p><%= number_to_currency(@product.price) %></p>
-  <p><%= @product.stock > 0 ? 'In stock' : 'Out of stock' %></p>
-  <p>by <%= @product.merchant.username %></p>
-  <p>Description: <%= @product.description %></p>
-  <p>Available: <%= @product.stock %></p>
-  <p>Free Shipping & Returns</p>
-  <p>Status: <%= "#{@product.active ? "Active" : "Inactive"}" %></p>
+<body>
+
+  <div >
+    <div><img height="400" width="100%" src="https://i.imgur.com/HCWU4MU.jpg" alt="background" /></div>
+  </div> 
+
+
+  <section class="product-info">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          
+          <p><%= image_tag(@product.photo_url, height: "350", width: "400", :alt => "product photo") %></p>
+        </div>
+
+        <div class="col">
+          <h2 class="product-title"><%=@product.title.capitalize%></h2>
+          <p class="product-line">Price: <%= number_to_currency(@product.price) %></p>
+          <p class="product-line">Availability: <%= @product.stock > 0 ? 'In stock' : 'Out of stock' %></p>
+          <p class="product-line">By: <%= @product.merchant.username %></p>
+          <p class="product-line">Description: <%= @product.description %></p>
+          <p class="product-line">Items Available: <%= @product.stock %></p>
+          <p class="product-line">Free Shipping & Returns</p>
+          <p class="product-line">Product Status: <%= "#{@product.active ? "Active" : "Inactive"}" %></p>
+
+
+          <% if @product.categories.any?%>
+            <p class="product-line">Category: 
+              <% @product.categories.each do |cat| %>
+                <%= cat.title %>
+              <% end %>
+            </p>
+          <% end %>
+
+          <% if session[:merchant_id] && @product.merchant_id == session[:merchant_id] %>
+            <%= link_to "#{@product.active ? "Retire Product" : "Activate Product"}", retire_product_path(@product.id), method: :post, class: "btn btn-outline-dark" %>
+          <% end %>
+        </div>
+        
+      </div>
+    </div>
+  </section>
       
-    <% if session[:merchant_id] && @product.merchant_id == session[:merchant_id] %>
-      <%= link_to "#{@product.active ? "Retire" : "Activate"}", retire_product_path(@product.id), method: :post, class: "btn btn-primary" %>
-    <% end %>
-    
-    <% if @product.stock > 0 %>
-    
-    <%= form_with model: @order_item, url: {:action => "add_to_cart"} do |f| %>
+          
+  <section class="quantity-review">
 
-      <%= f.label "Quantity:" %>
-      <%= f.select(:quantity, (1..@product.stock).map(&:to_i)) %>
+    <div class="quantity">
+      <% if @product.stock > 0 %>  
+        <%= form_with model: @order_item, url: {:action => "add_to_cart"} do |f| %>
 
-      <%= f.submit "Add to Cart" %>
-    <% end %>
-  <% else %>
-    <p>Sorry, this item is out of stock.</p>
-  <% end %>
+          <%= f.label "Quantity:", class: "product-line" %>
+          <%= f.select(:quantity, (1..@product.stock).map(&:to_i)) %>
 
-  <% if @product.categories.any?%>
-    <p>Category: 
-      <% @product.categories.each do |cat| %>
-        <%= cat.title %>
+          <%= f.submit "Add to Cart", class: "btn btn-outline-dark" %>
+        <% end %>
+      <% else %>
+        <p>Sorry, this item is out of stock.</p>
       <% end %>
-    </p>
-  <% end %>
+    </div>
 
-  <% if @product.reviews.any?%>
-    <h3>Reviews: </h3>
-      <% @product.reviews.each do |review| %>
-        <p>Stars: <%= review.rating %></p>
-        <p>Feedback: <%= review.text %></p>
-      <% end %>
-    
-  <% else %>
-    <h3>This product has no reviews yet</h3>
-  <% end %>
-  <% if @product.merchant_id != session[:merchant_id]%>
-    <%= link_to "Write a customer review", new_review_path, class: "btn btn-primary"%>
-  <% end %>
-</section>
-</main>
+    <% if @product.reviews.any?%>
+      <h3>Reviews: </h3>
+        <% @product.reviews.each do |review| %>
+          <p>Stars: <%= review.rating %></p>
+          <p>Feedback: <%= review.text %></p>
+        <% end %>
+      
+    <% else %>
+      <h3 class="product-title">This product has no reviews yet</h3>
+    <% end %>
+    <% if @product.merchant_id != session[:merchant_id]%>
+      <%= link_to "Write a customer review", new_review_path, class: "btn btn-outline-dark"%>
+    <% end %>
+  </section>
+  
+</body>
+
