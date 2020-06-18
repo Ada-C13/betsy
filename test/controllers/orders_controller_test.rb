@@ -157,13 +157,11 @@ describe OrdersController do
       it "flashes/renders correctly after BAD submit (address), cart session is NOT reset" do  
         patch checkout_path, params: bad_submit_no_address
         expect(session[:cart_id]).must_equal @order.id
-        expect(flash[:error]).must_include "address"
-        expect(flash[:error]).must_include "can't be blank"
+        expect(flash[:error]).must_equal "A problem occurred: Could not submit order"
       end
       it "flashes/renders correctly after BAD submit (cc_num)" do  
         patch checkout_path, params: bad_submit_cc_num
-        expect(flash[:error]).must_include "cc_validation"
-        expect(flash[:error]).must_include "Credit card number must be 16 digits"
+        expect(flash[:error]).must_equal "A problem occurred: Could not submit order"
       end
     end
 
