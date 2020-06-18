@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :deactivate]
-  before_action :require_login, only: [:new, :edit, :update]
-  before_action :require_ownership, only: [:edit, :update]
+  before_action :require_login, only: [:new, :edit, :update, :deactivate]
+  before_action :require_ownership, only: [:edit, :update, :deactivate]
 
   # GET /products
   # GET /products.json
@@ -82,7 +82,12 @@ class ProductsController < ApplicationController
   end
 
   def deactivate
-
+    @product.active = !@product.active
+    if @product.save
+      redirect_to product_path(@product)
+    else
+      flash[:warning] = "Unable to #{!@product.active} product"
+    end
   end
 
   private
