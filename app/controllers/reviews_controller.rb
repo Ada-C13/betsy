@@ -2,26 +2,18 @@ class ReviewsController < ApplicationController
   before_action :merchant_reviews, only:[:new, :create]
 
   def new
-
-    if params[:product_id] && Product.find_by(id: params[:product_id])
-      # Nested route: /product/:product_id/reviews/new
-     
-      @review = Review.new
-    else 
-      redirect_to products_path
-      flash[:danger] = "Something went wrong with the reviewing process."
-    end
+    @review = Review.new
   end
 
 
   def create
 
   @review = Review.new(review_params)
-  @review.product_id = params[:product_id]
+  @review.product = @product
 
     if @review.save
       flash[:success] = "Thank you! Your review has been successfully added"
-      redirect_to product_path(params[:product_id])
+      redirect_to product_path(@product)
       return
     else
       flash.now[:danger] = request.params
@@ -36,17 +28,16 @@ class ReviewsController < ApplicationController
 
   def merchant_reviews
 
-    product = Product.find_by(id: merchant_review_params)
-    if !product
+    @product = Product.find_by(id: merchant_review_params)
+    unless @product
       flash[:warning] = "Product not found!"
       redirect_to products_path
       return
     end
     
-    # if there is a merchant logged in
-    if product&.merchant == @current_merchant
+    if @product&.merchant == @current_merchant
       flash[:warning] = "You can't review your own product!"
-      redirect_to product_path(product)
+      redirect_to product_path(@product)
     end
   end
 
