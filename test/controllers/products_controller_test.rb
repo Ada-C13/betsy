@@ -254,6 +254,23 @@ describe ProductsController do
         expect(session[:order_id]).must_equal new_order.id
         expect(new_order.status).must_equal "pending"
       end
+
+      it "adds quantity to the order item if the order item already exists" do
+        same_product = @product_2
+
+        expect {
+          post add_to_cart_path(same_product), params: order_item_params
+        }.must_differ "Order.count", 1
+
+        expect {
+          post add_to_cart_path(same_product), params: order_item_params
+        }.wont_differ "OrderItem.count"
+  
+        order_item = OrderItem.find_by(product_id: @product_2.id)
+        expect(order_item.quantity).must_equal 2
+  
+        must_redirect_to product_path(@product_2.id)
+      end
   
       it "does not create an order item if the product_id is invalid, and responds with a 404" do
         expect {
