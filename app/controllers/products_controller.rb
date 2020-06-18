@@ -34,10 +34,6 @@ class ProductsController < ApplicationController
         render :new, status: :bad_request
         return
       end
-    else
-      flash[:error] = "A problem occurred: You must log in to do that"
-      redirect_to root_path
-      return
     end
   end
 
@@ -64,14 +60,27 @@ class ProductsController < ApplicationController
   end
 
   def destroy
+    @product = Product.find_by(id: params[:id])
     if @product.nil?
       head :not_found
       return
-    else
-      @product.destroy
-      flash[:success] = "Successfully deleted #{@product.name}"
-      redirect_to products_path
-      return
+    end
+    if session[:merchant_id]
+      merchant = Merchant.find_by(id: session[:merchant_id])
+      # We can delete any product that is NOT in the cart and it has already been shipped
+      all_shipped_order_items = @product.order_items.select {|order_item| order_item.status != "shipped"}
+      all_products_ids = all_shipped_order_items.map {|order_item| order_item.product_id}
+    
+      if session[:merchant_id] == @product.merchant_id && !all_products_ids.include?(@product.id)
+        @product.destroy
+        flash[:success] = "Successfully deleted the product"
+        redirect_to account_path(merchant)
+        return
+      else 
+        flash[:warning] = "Sorry, You cannot delete for this product."
+        redirect_to account_path(merchant) 
+        return
+      end
     end
   end 
 
