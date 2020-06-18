@@ -165,4 +165,22 @@ describe Product do
     end
   end
 
+
+# Custom method 
+
+  describe "get average rating" do
+    before do 
+      @product1 = products(:product1)
+      @product0 = products(:product0)
+    end
+
+    it "get the average of rating for product" do
+      expect(Product.average_rating(@product1)).must_equal 2.7
+    end
+
+    it "return 0 if there is no rating" do
+      # product0 doesn't have any review
+      expect(Product.average_rating(@product0)).must_equal "There is no review for this product."
+    end
+  end
 end
