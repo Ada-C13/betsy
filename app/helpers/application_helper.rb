@@ -18,6 +18,7 @@ module ApplicationHelper
       sum += review.rating
       count += 1
     end
+    return 0 if count == 0
     return  sum / count
   end
 
