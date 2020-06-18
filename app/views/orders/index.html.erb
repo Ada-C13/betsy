@@ -40,14 +40,7 @@
             </div>
             <div class="col-lg-8">
               <div class="items_content">
-                <div class="items_price"><%= number_to_currency(item.subtotal) %><span>SUBTOTAL</span><span>(<%= number_to_currency(item.product.price) %> per item)</span></div>
-                <div class="rating_r rating_r_4 items_rating" data-rating="4">
-                  <i></i>
-                  <i></i>
-                  <i></i>
-                  <i></i>
-                  <i></i>
-                </div>
+                <div class="items_price items_price_border"><%= number_to_currency(item.subtotal) %><span>SUBTOTAL</span><span>(<%= number_to_currency(item.product.price) %> per item)</span></div>
                 <p class="items_text"><%= item.product.description %></p>
                 <div class="item_quantity align-items-end">
                   <%= form_with model: item do |f| %>
