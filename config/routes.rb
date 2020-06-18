@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root "pages#landing"
 
+  get "/team", to: "pages#team", as: "team"
+
   resources :orders, only: [:index, :show]
 
   # Index – List orders for a Merchant (Merchant only)
@@ -19,9 +21,9 @@ Rails.application.routes.draw do
 
   resources :order_items, only: [:edit, :update, :destroy]
   post "/order_items/:id/create", to: "order_items#create", as: "create_order_items"
-  get "/order_items/:id/", to: "order_items#update_quantity"
+  patch "/order_items/:id/", to: "order_items#update_quantity"
 
-  resources :products do
+  resources :products, except: [:destroy] do
     resources :reviews, only: [:new, :create]
   end
   post "/products/:id/deactivate", to: "products#deactivate", as: "product_deactivate"

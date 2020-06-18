@@ -1,0 +1,51 @@
+.merchants .dashboard {
+  .row:first-child{
+    height: 80vh;
+  }
+
+  .col-md-4 {
+    background: lighten($merchants-tertiary-color,1%);
+  }
+
+  .col-md-8 {
+    background: lighten($merchants-tertiary-color,2%);
+  }
+
+  li {
+    list-style: none;
+  }
+
+  .merchant-dashboard__action {
+    border-radius: 4px;
+    background: lighten($secondary-color, 1%);
+    width: 70%;
+    margin: 4vh auto;
+    padding: 3vh;
+
+    p {
+      text-align: center;
+      font-size: 1.5em;
+    }
+  }
+
+  h4 {
+    margin: 20px;
+    color: darken($merchants-tertiary-color,20%)
+  }
+}
+
+.merchant__stat-card {
+  max-width: 20%;
+  padding: 4% 2% 2%;
+  margin: 2% 5%;
+  text-align: center;
+
+  .stat {
+    font-size: 2em;
+    color: $highlight-color;
+  }
+
+  .stat-label {
+    color: lighten($secondary-color,2%);
+  }
+}

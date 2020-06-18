@@ -1,38 +1,68 @@
 <% content_for(:title) { "Merchant id: #{@current_merchant.id}" } %>
 <% content_for(:headline) { "Merchant Dashboard"} %>
 
-<div class="container">
-  <div class="row">
+<div class="dashboard">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <%= link_to manage_orders_url, class: "dashboard__link" do %>
+        <div class="merchant-dashboard__action">
+          <p>Manage my orders</p>
+        </div>
+      <% end %>
+
+      <%= link_to manage_products_url, class: "dashboard__link" do %>
+        <div class="merchant-dashboard__action">
+          <p>Manage my products</p>
+        </div>
+      <% end %>
+
+      <%= link_to new_product_path, class: "dashboard__link" do %>
+        <div class="merchant-dashboard__action">
+          <p>Create a product</p>
+        </div>
+      <% end %>
+
+      <%= link_to new_category_path, class: "dashboard__link" do %>
+        <div class="merchant-dashboard__action">
+          <p>Create a category</p>
+        </div>
+      <% end %>
+       
+    </div>
+
     <div class="col-md-8">
-      <h4>Stats at a glance</h4>
-      <ul>
-        <li><span>Username:</span> <%= @current_merchant.username %> </li>
-        <li><span>Orders awaiting shipment:</span> </li>
-        <li><span>Completed orders:</span> </li>
-        <li><span>Number of product listings:</span> </li>
-        <li><span>Products out of stock:</span> </li>
-        <li><span>Total revenue:</span> </li>
-      </ul>
-    </div>  
-     <div class="col-md-4">
-
-      <%= link_to manage_orders_url do %>
-        <div class="merchant-dashboard__action">
-        <p>Manage my orders</p>
+      <div class="container-fluid">
+      <h4>Stats at a glance for <%= @current_merchant.username %> </h4>
+      <div class="row">
+        <div class="col-md merchant__stat-card">
+          <p class="stat"><%= number_to_currency(@current_merchant.revenue)%></p>
+          <p class="stat-label">Revenue</p>
         </div>
-      <% end %>
-
-      <%= link_to manage_products_url do %>
-        <div class="merchant-dashboard__action">
-        <p>Manage my products</p>
+        <div class="col-md merchant__stat-card">
+          <p class="stat">0</p>
+          <p class="stat-label">Units Sold</p>
         </div>
-      <% end %>
-
-      <%= link_to new_product_path do %>
-        <div class="merchant-dashboard__action">
-        <p>Create a product</p>
+        <div class="col-md merchant__stat-card">
+          <p class="stat">0</p>
+          <p class="stat-label">Orders Shipped</p>
         </div>
-      <% end %>
-    </div>  
+      </div>
+
+      <div class="row">
+        <div class="col-md merchant__stat-card">
+          <p class="stat">0</p>
+          <p class="stat-label">Listings</p>
+        </div>
+        <div class="col-md merchant__stat-card">
+          <p class="stat">0</p>
+          <p class="stat-label">Out of Stock</p>
+        </div>
+        <div class="col-md merchant__stat-card">
+          <p class="stat">0</p>
+          <p class="stat-label">Awaiting Shipment</p>
+        </div>
+      </div>
+      </div>  
+    </div>
   </div>
 </div>

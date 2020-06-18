@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for?(:title) ? yield(:title) : "Evergreenery - bEtsy" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Agasalho - bEtsy" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <!-- Latest compiled and minified CSS -->
@@ -14,7 +14,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class=<%= action_name %>>
+  <body class="<%=controller_name%> <%=action_name%>">
     <%= render 'layouts/header' %>
     <% if content_for?(:headline) %>
       <h2 class="headline"><%= yield(:headline) %></h2>

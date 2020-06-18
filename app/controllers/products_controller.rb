@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :require_login, only: [:new, :edit, :update, :destroy]
-  before_action :require_ownership, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :deactivate]
+  before_action :require_login, only: [:new, :edit, :update, :deactivate]
+  before_action :require_ownership, only: [:edit, :update, :deactivate]
 
   # GET /products
   # GET /products.json
@@ -13,7 +13,7 @@ class ProductsController < ApplicationController
       params[:categories].each do |c|
         if Category.exists?(c)
           category = Category.find(c)
-          @products << category.products
+          @products << category.products.where(active: true)
           @filters << category.name
         end
       end
@@ -22,14 +22,14 @@ class ProductsController < ApplicationController
     if params[:merchants]
       params[:merchants].each do |m|
         if Merchant.exists?(m)
-          @products << Product.where(merchant: m)
+          @products << Product.where(merchant: m, active: true)
           @filters << Merchant.find(m).username
         end
       end
     end
 
-    if (!params[:categories] && !params[:merchants]) || (params[:categories].one? && params[:merchants].one?)
-      @products = Product.all
+    if @products.empty?
+      @products = Product.all.where(active: true)
     else
       @products.flatten!.uniq!
     end
@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
     @product.active = true
     if @product.save
       flash[:success] = "Successfully created #{@product.name}"
-      redirect_to @product
+      redirect_to product_path(@product)
     else
       flash.now[:warning] = "Unable to save product."
       flash.now[:details] = @product.errors.full_messages
@@ -69,11 +69,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
-
-    if @product.nil?
-      head :not_found
-      return
-    elsif @product.update(product_params)
+    if @product.update(product_params)
       redirect_to @product
       flash[:success] = "Successfully updated product."
       return
@@ -83,26 +79,28 @@ class ProductsController < ApplicationController
       render :edit, status: :bad_request
       return
     end
-
   end
 
-  # DELETE /products/1
-  # DELETE /products/1.json
-  def destroy
-    @product.destroy
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
+  def deactivate
+    @product.active = !@product.active
+    if @product.save
+      redirect_to manage_products_path(@current_merchant)
+    else
+      flash[:warning] = "Unable to #{!@product.active} product"
     end
   end
 
   private
 
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.find_by(id: params[:id])
+      if @product.nil?
+        head :not_found
+        return 
+      end
     end
 
     def product_params
-      # raise
       return params.require(:product).permit(:name, :description, :photo, :stock, :price, category_ids: [])
     end
 end

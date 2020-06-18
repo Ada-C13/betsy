@@ -1,4 +1,5 @@
 require "test_helper"
+require "json"
 
 describe ProductsController do
   let(:product) { products(:daisy) }
@@ -11,6 +12,42 @@ describe ProductsController do
   it "should show product" do
     get product_url(product)
     must_respond_with :success
+  end
+
+  describe 'filtering products' do
+    let(:vegetable) { categories(:vegetable) }
+    let(:flower) { categories(:flower) }
+    let(:herb) { categories(:herb) }
+    let(:annie) { merchants(:annie) }
+
+    it "can filter products by categories and merchants" do
+      get products_url, params: {categories: [vegetable.id, flower.id], merchants: [annie.id]}
+      must_respond_with :success
+      products = @controller.instance_variable_get(:@products)
+
+      expect(products.count).must_equal 4
+      expect(products).must_include products(:daisy)
+      expect(products).must_include products(:tulip)
+      expect(products).must_include products(:onion)
+      expect(products).must_include products(:mint)
+
+      expect(products).wont_include merchants(:angela)
+      expect(products).wont_include products(:cilantro)
+    end
+
+    it "can show only active products" do
+      get products_url, params: {categories: [vegetable.id, herb.id], merchants: [annie.id]}
+      must_respond_with :success
+      products = @controller.instance_variable_get(:@products)
+
+      expect(products.count).must_equal 2
+      expect(products).must_include products(:onion)
+      expect(products).must_include products(:mint)
+
+      expect(products).wont_include products(:tulip)
+      expect(products).wont_include merchants(:angela)
+      expect(products).wont_include products(:cilantro)
+    end
   end
 
   describe "managing products" do
@@ -27,7 +64,7 @@ describe ProductsController do
 
       before do
         perform_login
-        merchant = @current_merchant
+        @current_merchant = session[:merchant_id]
       end
 
       it "should get new product form" do
@@ -71,7 +108,33 @@ describe ProductsController do
         expect(updated_product.errors.messages[:stock]).must_equal ["must be greater than 0"]
       end
 
-      it "should respond with success when deactivating a product" do
+      it "should change active from true to false when deactivating a product" do
+        daisy = products(:daisy)
+        expect( daisy.active ).must_equal true
+
+        post product_deactivate_path(daisy)
+        must_redirect_to manage_products_path(@current_merchant)
+
+        daisy.reload
+        expect( daisy.active ).must_equal false
+      end
+
+      it "should change active from false to true when deactivating a product" do
+        daisy = products(:daisy)
+        daisy.active = false
+        daisy.save
+        expect( daisy.active ).must_equal false
+
+        post product_deactivate_path(daisy)
+        must_redirect_to manage_products_path(@current_merchant)
+        
+        daisy.reload
+        expect( daisy.active ).must_equal true
+      end
+
+      it "should respond with not found if product is not given" do
+        patch product_url(-1), params: { product: new_product }
+        must_respond_with :not_found
       end
     end
 
@@ -95,6 +158,15 @@ describe ProductsController do
       end
 
       it "should not deactivate a product the merchant does not own" do
+        onion = products(:onion)
+        expect( onion.active ).must_equal true
+
+        post product_deactivate_path(onion)
+        must_redirect_to root_path
+        
+        onion.reload
+        expect( onion.active ).must_equal true
+        expect(flash[:danger]).must_equal "Could not complete that request with invalid credentials."
       end
     end
 
@@ -125,6 +197,15 @@ describe ProductsController do
       end
 
       it "should not deactivate a product" do
+        onion = products(:onion)
+        expect( onion.active ).must_equal true
+
+        post product_deactivate_path(onion)
+        must_redirect_to root_path
+        
+        onion.reload
+        expect( onion.active ).must_equal true
+        expect(flash[:danger]).must_equal "Must be logged in as a merchant."
       end
     end
 

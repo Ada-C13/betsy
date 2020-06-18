@@ -1,17 +1,19 @@
 <% content_for(:title) { 'Evergreenery - Welcome' } %>
 <main>
-<div class="spotlight">
-<img src="https://i.imgur.com/sM6Rn9P.png" alt="plant" />
 
-</div>
 <div class="tagline">
-<p>We're definitely selling plants</p>
+  <p>Cozy sweaters for everything,<br>and we do mean everything.</p>
 </div>
-<%= link_to products_path, class: "btn btn-outline-primary browse" do %>Browse all products<% end %>
+
+<div class="spotlight">
+  <img src="https://i.imgur.com/UUM6HIw.png" alt="product_hero" />
+</div>
+
+<%= link_to "Browse all products", products_path, class: "btn btn-primary browse" %>
 </main>
 
 <footer class="footer">
   <div class="container">
-    <span class="text-muted">Meet the team</span>
+    <%= link_to raw("Meet the team &#10084;"), team_path %>
   </div>
 </footer>

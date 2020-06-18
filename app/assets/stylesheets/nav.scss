@@ -1,5 +1,9 @@
 nav {
-  background-color: lightslategray;
+  background-color: $tertiary-color;
+}
+
+.merchants nav {
+  background-color: $merchants-tertiary-color;
 }
 
 nav.landing {
@@ -23,4 +27,6 @@ nav.landing {
 .navbar-brand.landing {
   font-size: 2em;
   background-color: transparent;
+  letter-spacing: 4px;
+  color: #5C879F;
 }
