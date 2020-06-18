@@ -23,8 +23,10 @@ class ProductsController < ApplicationController
     if session[:merchant_id]
       merchant = Merchant.find_by(id: session[:merchant_id])
       @product = Product.new(product_params)
+      if @product.name
+        @product.name = @product.name.downcase.titleize  
+      end
       @product.merchant = merchant
-
       if @product.save
         flash[:success] = "Successfully created #{@product.name.titleize}"
         redirect_to account_path(merchant)

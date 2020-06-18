@@ -36,7 +36,7 @@ describe CategoriesController do
     before do
       @category_hash = {
         category: {
-          name: 'test'
+          name: 'Test'
         }
       }
     end

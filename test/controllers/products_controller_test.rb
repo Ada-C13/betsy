@@ -3,7 +3,7 @@ require "test_helper"
 describe ProductsController do
   before do
     @product = Product.new(
-      name: "XXXX", 
+      name: "Xxxx", 
       price: 20.00,
       stock: 20,
       active: false,
@@ -67,7 +67,7 @@ describe ProductsController do
     before do
       @product_hash = {
         product: {
-          name: "XXXX", 
+          name: "Xxxx", 
           price: 20.00,
           stock: 20,
           active: true,
@@ -96,6 +96,7 @@ describe ProductsController do
 
     it "does not create a product if name is not present, and responds with bad_request" do
       @product_hash[:product][:name] = nil
+  
       expect {
         post products_path, params: @product_hash
       }.wont_change "Product.count"
@@ -248,6 +249,7 @@ describe ProductsController do
     end
 
     it "Can toggle product to be active or de-active" do
+      p @product_one[:active]
       expect {
         patch product_active_path(@product_one.id), params: @edited_product_hash
       }.wont_change "Product.count"
