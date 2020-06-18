@@ -1,5 +1,9 @@
 nav {
-  background-color: #B6C1E7;
+  background-color: $tertiary-color;
+}
+
+.merchants nav {
+  background-color: $merchants-tertiary-color;
 }
 
 nav.landing {

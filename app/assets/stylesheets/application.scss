@@ -13,6 +13,23 @@
  */
 
 /* Custom bootstrap variables must be set or imported *before* bootstrap. */
+
+
+@import "config";
+
+// CUSTOMIZED BOOTSTRAP 
+//----------------
+
+.btn.btn-primary {
+  background: $primary-color;
+  border-color: $primary-color;
+  &:hover, &:focus, &:active {
+    background: darken($primary-color, 10%);
+    border-color: darken($primary-color, 10%);
+  }
+}
+
+
 @import "bootstrap";
 
 @import "**/*";
@@ -35,6 +52,10 @@ h2 {
   color: #fff;
   margin: 0 auto;
   padding: 80px 0 20px;
-  background-color: #B6C1E7;
+  background-color: $tertiary-color;
+}
+
+.merchants .headline {
+  background-color: $merchants-tertiary-color;
 }
 
