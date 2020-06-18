@@ -11,4 +11,22 @@ module ApplicationHelper
     (range).to_a.map{|r| [r,r]}
   end
 
+  def rating_average(reviews)
+    sum = 0
+    count = 0
+    reviews.each do |review|
+      sum += review.rating
+      count += 1
+    end
+    return  sum / count
+  end
+
+  def rating_count(reviews)
+    count = 0
+    reviews.each do |review|
+      count += 1
+    end
+    return count
+  end
+
 end
