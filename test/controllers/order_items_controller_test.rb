@@ -147,12 +147,12 @@ describe OrderItemsController do
       must_redirect_to cart_path
     end
 
-    it "fails to update quantity if item does not exist" do # ?????
+    it "fails to update quantity if item does not exist" do
       # Act & Assert
       expect {
         patch order_item_path(0), params: { order_item: { quantity: 3 } }
       }.wont_change "OrderItem.count"
-      must_respond_with :redirect
+      must_respond_with 304
       must_redirect_to cart_path
     end
 

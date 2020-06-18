@@ -24,9 +24,9 @@
             <tr>
               <td><%= link_to order_item.product.name, product_path(order_item.product) %></td>
               <td>
-              <%= link_to "+", order_item_path(id: order_item, quantity: order_item.quantity + 1)%>
+              <%= link_to "+", order_item_path(id: order_item, order_item: { quantity: order_item.quantity + 1 } ), method: "patch"%>
                   <%= order_item.quantity %>
-              <%= link_to "-", order_item_path(id: order_item, quantity: order_item.quantity - 1) %>
+              <%= link_to "-", order_item_path(id: order_item, order_item: { quantity: order_item.quantity - 1 } ), method: "patch" %>
               </td>
               <td><%= order_item.product.price %></td>
               <td><%= order_item.subtotal %></td>

@@ -18,10 +18,10 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-    @order_item = OrderItem.find_by(id: params[:id])
-    if @order_item
+    order_item = OrderItem.find_by(id: params[:id])
+    if order_item
       quantity = params[:order_item][:quantity].to_i
-      message = @order_item.update_item(quantity)
+      message = order_item.update_item(quantity)
       if message.nil?
         flash[:success] = "Product quantity updated"
       else
@@ -31,7 +31,7 @@ class OrderItemsController < ApplicationController
       redirect_to cart_path
     else
       flash[:warning] = "Item in cart does not exist"
-      redirect_to cart_path
+      redirect_to cart_path, :status => 304
     end
   end
 
