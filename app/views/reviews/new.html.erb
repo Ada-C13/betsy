@@ -1,0 +1,32 @@
+<div class="home">
+  <div class="home_background" style="background: url(https://i.imgur.com/HCWU4MU.jpg); background-size: 100%;"></div>
+  <div class="home_content">
+    <div class="home_title">
+      Create Review
+    </div>
+  </div>
+</div>
+
+<%= render partial: "shared/flash" %>
+          
+<div class="blog">
+  <div class="container">
+      <div class="sidebar_search">
+        <%= form_with model: @review do |f| %>
+
+          <div class="form-group">
+            <%= f.label "Write your review for #{session[:product]["title"]}:", class: "sidebar_title" %>
+            <%= f.text_field :text, class: "sidebar_search_input" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label "Choose rating: ", class: "sidebar_title" %>
+            <%= f.select :rating, (1..5), class: "dropdown_item_select search_input" %>
+          </div>
+          
+          <%= f.submit "Submit", class: "button search_button"%>
+        <% end %>
+      </div>
+  </div>
+</div>
+

@@ -1,0 +1,134 @@
+<div class="home">
+  <div class="home_background" style="background: url(https://i.imgur.com/HCWU4MU.jpg); background-size: 100%;"></div>
+  <div class="home_content">
+    <div class="home_title">
+      <center><%= @merchant.username %>'s Dashboard</center>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "shared/flash" %>
+
+  <section class="merchant-products__container">
+  <% if !@merchant.products.empty? %>
+    <h1 class="strong_orange">Total Revenue: <%= number_to_currency(@merchant.total_revenue) %></h1>
+
+    <h3 class="strong_orange">Total Revenue Breakdown</h3>
+
+    <table class="table table_dashboard">
+      <thead>
+        <tr>
+          <th>Order Status</th>
+          <th>Number of Orders</th>
+          <th>Total Revenue</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+      <% order_statuses = ["paid", "complete", "pending", "cancelled"] %>
+      <% order_statuses.each do |status| %>
+        <tr>
+          <td><%= status %></td>
+          <td> <%= @merchant.number_of_orders_for(status) %> </td>
+          <td><%= number_to_currency(@merchant.revenue_for(status)) %></td>
+        </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+
+
+    <h3 class="strong_orange">Products</h3>
+
+    <table class="table table_dashboard">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Price</th>
+          <th>Active</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+      <% products = @merchant.products %>
+      <% products.each do |product| %>
+        <tr>
+          <td><%= link_to product.title, product_path(product.id) %></td>
+          <td><%= product.price %></td>
+          <td><%= product.active == true ? "true" : "false"%></td>
+          <td><%= link_to "Edit", edit_product_path(product.id), class: "btn btn-outline-dark" %></td>
+        </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+    <div style="text-align: center; margin-bottom: 5em;"><%= link_to "Add a new product", new_product_path, class: "form_submit_button button trans_200" %></div>
+  </section>
+
+  <section class="merchant-orders__container">
+    <% if @merchant.existing_order_items_by_merchant.empty? %>
+
+      <h3 class="strong_orange">Orders</h3>
+      <h4>Sorry, no one has bought any of your products yet...</h4>
+    <% else %>
+    <%= form_tag(merchant_path(@merchant.id), method: :get) do %>
+      <h3 class="strong_orange">Orders <%= select_tag "Status", options_for_select(["pending", "paid", "complete", "cancelled"]), include_blank: "all orders", prompt: 'Select' %>
+        <%= submit_tag "Filter", class: "btn btn-outline-dark" %></h3>
+    <% end %>
+      <table class="table table_orders">
+        <thead>
+          <tr>
+            <th>Order number</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price per item</th>
+            <th>Subtotal</th>
+            <th>Placed</th>
+            <th>Order status</th>
+            <th>Shipment status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        
+        <% existing_order_items = @merchant.find_orders_by_status(params["Status"]) %>
+        <% if existing_order_items.empty? %>
+          <h4> No <%=params["Status"]%> orders </h4>
+        <% else %>
+        <% if params["Status"] && params["Status"] != "" %>
+          <h4> Orders filtered by status: <%=params["Status"]%> </h4>
+        <% elsif params["Status"] == "" %>
+          <h4> All orders </h4>
+        <% end %>
+          <% existing_order_items.each do |item| %>
+            <tr>
+              <td><%= link_to item.order.id, order_path(item.order.id) %></td>
+              <td><%= link_to item.product.title, product_path(item.product.id) %></td>
+              <td><%= item.quantity %></td>
+              <td><%= item.product.price %></td>
+              <td><%= item.subtotal %></td>
+              <td><%= item.created_at.to_s.to_time.strftime('%B %e, %Y, %T') %></td>
+              <td><%= item.order.status%></td>
+              <% if item.shipped %>
+                <td>Shipped</td>
+              <% elsif item.order.status == "pending" || !item.order.status %>
+                <td>Should be paid first</td>
+              <% else %>
+                <td><%= link_to "Ship", ship_item_path(item.id), method: :post, class: "btn btn-outline-dark" %></td>
+              <% end %>
+            </tr>
+            <% end %>
+          
+        <% end %>
+        </tbody>
+      </table>
+  <% end %>
+  
+  <% else %>
+  <h3>There are currently no products to sell. Let's add some!</h3>
+  <div style="text-align: center; margin-bottom: 5em;"><%= link_to "Add a new product", new_product_path, class: "form_submit_button button trans_200" %></div>
+  <% end %>
+</section>

@@ -1,0 +1,35 @@
+merchant_one:
+  id: 1
+  username: potter
+  uid: 12345
+  email: potter@gmail.com 
+  provider: github
+merchant1: 
+  username: Test merchant
+  uid: 1234567890
+  email: test@test.com
+  provider: github
+merchant_two:
+  id: 2
+  username: hermiona
+  uid: 33333
+  email: hermiona@gmail.com 
+  provider: github
+merchant_three:
+  id: 3
+  username: ron
+  uid: 454545
+  email: ron@gmail.com 
+  provider: github
+merchant_four:
+  id: 4
+  username: jim
+  uid: 7878787
+  email: jimn@gmail.com 
+  provider: github
+merchant_five:
+  id: 6
+  username: jack
+  uid: 787878743
+  email: jack@gmail.com 
+  provider: github

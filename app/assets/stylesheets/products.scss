@@ -1,0 +1,81 @@
+// Place all the styles related to the Products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.form-group {
+  color: white;
+}
+
+.custom-form-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-label {
+  width: 156.8px;
+  margin: 5px 10px 5px 0;
+}
+
+.checkbox {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.indentation {
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
+
+.quantity-review {
+  margin-left: 5rem;
+  margin-bottom: 5rem;
+}
+
+.product-title {
+  color: purple;
+}
+
+.product-info {
+  margin-top: 3rem;
+}
+
+.product-line {
+  color: black;
+  font-size: medium;
+}
+
+.quantity {
+  margin-bottom: 2rem;
+}
+
+.category-names {
+  font-size: 40px;
+  font-weight: 800;
+  color: purple;
+  text-transform: uppercase;
+  line-height: 1.5;
+  text-align: center;
+  margin: 3rem auto;
+}
+
+.item-names {
+  font-size: 20px;
+  font-weight: 800;
+  color: purple;
+  text-transform: uppercase;
+  line-height: 1.5;
+  margin-left: 2rem;
+}
+
+.table-indentation {
+  margin: 2em 4em;
+}
+.on_top {
+  z-index: 1;
+}
+.offers_products
+{
+  margin-top: -155px;
+}
+.offers_item {
+  margin-bottom: 50px;
+}

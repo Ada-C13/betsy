@@ -1,0 +1,33 @@
+<div class="home">
+  <div class="home_background" style="background: url(https://i.imgur.com/HCWU4MU.jpg);"></div>
+  <div class="home_content">
+    <div class="home_title">
+      <center>Order Search</center>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "shared/flash" %>
+
+<section class="order-ordersummary__container">
+
+<div class="col">
+    <div class="contact_form_container indentation">
+      <div class="contact_title text-center"></div>
+
+     <%= form_with url: orders_search_path do |f| %>
+        <div class="form-group">
+          <%= f.label :id, "ID:" %>
+          <%= f.text_field :id, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email, "Email:" %>
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <center><%= f.submit "Find Order", class: "form_submit_button button trans_200" %></center>
+        </div>
+        <% end %>
+        </section>

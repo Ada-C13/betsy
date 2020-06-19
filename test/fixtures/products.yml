@@ -1,0 +1,72 @@
+apple:
+  title: apple
+  price: 5.40
+  photo_url: https://i.imgur.com/z9U4xd6.jpg
+  description: red apple 
+  stock: 5
+  merchant_id: 1
+  active: true
+banana: 
+  title: banana
+  price: 4.40
+  photo_url: https://i.imgur.com/z9U4xd6.jpg
+  description: yellow banana
+  stock: 5
+  merchant_id: 1
+  active: false
+mango:
+  title: mango
+  price: 6.90
+  photo_url: https://i.imgur.com/uKCyFe5.jpg
+  description: yellow mango
+  stock: 5
+  merchant_id: 1
+  active: true
+crystal:
+  title: crystal
+  price: 15.50
+  photo_url: https://i.imgur.com/CwJFjPu.png
+  description: magic crystal
+  stock: 5
+  merchant_id: 2
+  active: true
+wand:
+  title: wand
+  price: 20.50
+  photo_url: https://i.imgur.com/CwJFjPu.png
+  description: magic wand
+  stock: 5
+  merchant_id: 2
+  active: true
+book:
+  title: book
+  price: 10
+  photo_url: https://i.imgur.com/CwJFjPu.png
+  description: magic book
+  stock: 5
+  merchant_id: 2
+  active: true
+plant:
+  title: plant
+  price: 8
+  photo_url: https://i.imgur.com/CwJFjPu.png
+  description: magic plant
+  stock: 5
+  merchant_id: 2
+  active: true
+ball:
+  title: ball
+  price: 3.50
+  photo_url: https://i.imgur.com/CwJFjPu.png
+  description: magic ball
+  stock: 5
+  merchant_id: 3
+  active: true
+butterfly:
+  title: butterfly
+  price: 40
+  photo_url: https://i.imgur.com/CwJFjPu.png
+  description: magic butterfly
+  stock: 5
+  merchant_id: 5
+  active: true

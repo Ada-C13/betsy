@@ -1,0 +1,37 @@
+pending_order:
+  email: magic@store.com
+  status: pending
+complete_order:
+  name: Test name
+  email: something@something.com
+  mailing_address: address
+  cc_number: 1234567890123456
+  cc_exp: Wed, 16 Jun 3020
+  cvv: 123
+  zipcode: 12345
+  purchase_date: Wed, 16 Jun 2020
+  status: complete
+paid_order:
+  name: Test name
+  email: something@something.com
+  mailing_address: address
+  cc_number: 1234567890123456
+  cc_exp: Wed, 16 Jun 3020
+  cvv: 123
+  zipcode: 12345
+  purchase_date: Wed, 16 Jun 2020
+  status: paid
+cancelled_order:
+  status: cancelled
+order_pending: 
+  status: pending
+complete_order2:
+  name: order2 complete
+  email: some@something.com
+  mailing_address: address
+  cc_number: 123456789012312
+  cc_exp: Wed, 16 Jun 3020
+  cvv: 123
+  zipcode: 12345
+  purchase_date: Wed, 16 Jun 2020
+  status: complete
