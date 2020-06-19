@@ -1,0 +1,17 @@
+
+<%= render "shared/sidebar"%>
+
+<section class="main_w_sidebar container-fluid m5">
+  <%= render "shared/flash"%>
+
+  <h2 id="top">List of Merchants</h2>
+  <section data-spy='scroll' class="sticky-top text-right p-2 products__sticky">
+    <%= link_to "Jump to top", href="#top", class: "login_button"%></span>
+  </section>
+
+  <div class="card-columns">
+    <% @merchants.each do |merchant| %>
+      <%= render partial: "merchant", locals: {merchant: merchant} %>
+    <% end %>
+  </div>
+</section>

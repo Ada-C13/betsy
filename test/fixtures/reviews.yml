@@ -1,0 +1,12 @@
+review_1:
+  rating: 1
+  description: that's an ugly piece of art
+  product: product_1
+review_2:
+  rating: 5
+  description: it is so beautiful 
+  product: product_1
+review_3:
+  rating: 3
+  description: alright 
+  product: product_2

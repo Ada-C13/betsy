@@ -1,0 +1,53 @@
+<%= render "shared/sidebar"%>
+
+
+
+<section class="product container main_w_sidebar container-fluid m5">
+  <%= render "shared/flash"%>
+
+  <h1>Leave a review for <%= @product.name %></h1>
+  <p><%= link_to "Back to product page", product_path(@product.id), class: "products__all" %></p>
+  <div class="row">
+    <section class="col-8 product__image">
+      <div class="text-center">
+        <% if @product.image %>
+          <%= image_tag(@product.image, class: "img-fluid product__image") %>
+        <% else %>
+          <%= image_tag('https://www.colonialkc.org/wp-content/uploads/2015/07/Placeholder.png', class: "img-fluid") %>
+        <% end %>
+      </div>
+    </section>
+
+    <section class="col product__info p-3">
+      <h2 class="product__name"><%= @product.name %></h2>
+      <h3 class="product__artist font-weight-bold"><%= @product.artist %></h3>
+      <p>Sold by <%= link_to "#{@product.merchant.username}", merchant_path(@product.merchant), class: "text__hyperlink" %></p>
+      <% if @review.errors.any? %>
+        <ul class="errors">
+            <% @review.errors.each do |column, message| %>
+            <li>
+                <strong><%= column.capitalize %></strong> <%= message %>
+            </li>
+            <% end %>
+        </ul>
+      <% end %>
+
+      <%= form_with model: [@product, @review] do |f| %>      
+        <div class="form-group">
+            <%= f.label :rating %>
+            <%= f.select :rating, [5, 4, 3, 2, 1] %>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :comments %>
+            <%= f.text_area :description, :size => 500, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+            <%= f.submit "Submit review", class: "btn btn-custom" %>
+        </div>
+      <% end %>
+    </section>
+  </div>
+</section>
+

@@ -1,0 +1,14 @@
+<div class="product text-center">
+  <%= link_to merchant_path(merchant.id) do %>
+    <% if merchant.profile_img == nil || merchant.profile_img == "" %>
+      <%= image_tag "art.jpg", alt: "#{merchant.username}", class: "img-fluid merchant__image mb-3" %>
+    <% else %>
+      <%= image_tag merchant.profile_img, class: "img-fluid merchant__image mb-3", alt: "#{merchant.username}" %>
+    <% end %>
+  <% end %>
+
+  <h3 class="product__name product__link"><%= link_to merchant.username, merchant_path(merchant.id) %></h3>
+  <h4 class="product__artist">Joined <%= merchant.created_at.strftime("%b %d, %Y") %></h4>
+  <p class="font-weight-bold"><span class="font-italic"><%= merchant.products.where('inventory > ?', 0).where(active: true).length %> products</span></p>
+
+</div>

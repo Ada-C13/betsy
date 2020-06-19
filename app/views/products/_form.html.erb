@@ -1,0 +1,61 @@
+<section class="form__container mt-4">
+  <% if @product.errors.any? %>
+    <ul class="errors">
+        <% @product.errors.each do |column, message| %>
+        <li>
+            <strong><%= column.capitalize %></strong> <%= message %>
+        </li>
+        <% end %>
+    </ul>
+  <% end %>
+
+  <%= form_with model: @product do |f| %>
+    <div class="form-group row">
+        <%= f.label :title, class: "col-3" %>
+        <%= f.text_field :name, class: "form-control col" %>
+    </div>
+
+    <div class="form-group row">
+        <%= f.label :artist, class: "col-3" %>
+        <%= f.text_field :artist, class: "form-control col" %>
+    </div>
+
+    <div class="form-group row">
+        <%= f.label :price, class: "col-3" %>
+        <%= f.text_field :price, class: "form-control col" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :inventory, class: "col-3" %>
+      <%= f.text_field :inventory, class: "form-control col" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :image, class: "col-3" %>
+      <%= f.text_field :image, class: "form-control col" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :categories, class: "col-3" %>
+      <div class="col">
+        <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) do |b| %>
+          <div class="form-check row">    
+            <%= b.check_box(class: "form-check-input") %>
+            <%= b.label(class: "form-check-label") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  <div class="form-group row">
+      <%= link_to "Link to add new category", new_category_path%>
+  </div>
+
+    <div class="form-group text-center">
+      <%= f.submit "#{action_name} product", class: "btn square_btn" %>
+    </div>
+  <% end %>
+  <p class="text-center"><%= link_to "Back to dashboard", current_merchant_path, class: "btn square_btn" %></p>
+</section>
+
+

@@ -1,0 +1,74 @@
+<%= render "shared/sidebar"%>
+<section class="main_w_sidebar container-fluid m5">
+
+  <%= render "shared/flash"%>
+
+  <% if @order.errors.any? %>
+    <ul class="errors">
+        <% @order.errors.each do |column, message| %>
+        <li>
+            <strong><%= column.capitalize %></strong> <%= message %>
+        </li>
+        <% end %>
+    </ul>
+  <% end %>
+
+  <section class="cart-summary__container">
+    <h3 class="cart-summary__header"> Total Cost: $ <%= '%.2f' % @order.order_cost %></h3>
+    <table class="table">
+      <thead class="thead-table">
+      <tr>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Item Total</th>
+      </tr>
+    </thead>
+
+      <tbody>
+        <% @order.order_items.each do |item| %>
+          <tr>
+            <td><%= item.product.name %></td>
+            <td>$<%= '%.2f' % item.product.price %></td>
+            <td><%= item.quantity %></td>
+            <td>$<%='%.2f' % item.total_per_item %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+  <h3> User information for Order</h3>
+  <%= form_with model: @order do |f| %>
+    <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :address %>
+        <%= f.text_field :address, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :credit_card %>
+        <%= f.text_field :credit_card, class: "form-control" %>
+    </div>
+
+      <div class="form-group">
+        <%= f.label :credit_card_exp %>
+        <%= f.date_field :credit_card_exp, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "Confirm Order",  class: "btn square_btn" %>
+    </div>
+  <% end %>
+
+
+</section>
+

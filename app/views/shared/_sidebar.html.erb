@@ -1,0 +1,28 @@
+
+  <section class="sidebar">
+    <div class="btn-group pull-right right-nav">
+      <button type="button" class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+        <span class="carat"></span>
+        <span clas="sr-only">Browse by Merchant</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <% @merchants = Merchant.all %>
+        <% @merchants.each do |merchant|%>
+          <li><%=link_to "#{merchant.username}", merchant_path(merchant)%></li>
+        <%end%>
+      <ul>
+    </div>
+    
+    <div class="btn-group pull-right right-nav"> 
+      <button type="button" class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+        <span class="carat"></span>
+        <span clas="sr-only">Browse by Category</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <% @categories = Category.all%>
+        <% @categories.each do |category|%>
+          <li><%=link_to "#{category.name}", category_path(category.id)%></li>
+        <%end%>
+      <ul>
+    </div>
+  </section>

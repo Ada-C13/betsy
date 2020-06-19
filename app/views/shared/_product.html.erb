@@ -1,0 +1,13 @@
+<div class="product text-center">
+  <%= link_to product_path(product.id) do %>
+    <% if product.image == nil || product.image == "" %>
+      <%= image_tag "art.jpg", alt: "#{product.name}", class: "img-fluid product__image mb-3" %>
+    <% else %>
+      <%= image_tag product.image, class: "img-fluid product__image mb-3", alt: "#{product.name}" %>
+    <% end %>
+  <% end %>
+
+  <h3 class="product__name product__link"><%= link_to product.name, product_path(product.id) %></h3>
+  <h4 class="product__artist"><%= product.artist ? product.artist : "Unknown artist" %></h4>
+  <p class="font-weight-bold"><span class="font-italic"><%= product.inventory %> in stock</span><br/>$<%= '%.2f' % product.price %></p>
+</div>

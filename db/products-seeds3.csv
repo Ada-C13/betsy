@@ -1,0 +1,21 @@
+name,price,inventory,artist,merchant_id,active,image
+The Great Wave of Kanagawa,1000.99,5,Katsushika Hokusai,1,true,https://i.imgur.com/LSBbieY.jpg
+Wind God and Thunder God,1000,5,Ogata Korin,4,true,https://i.imgur.com/cJ6JWml.jpg
+Cosmic Girl,2999,5,Japan Person,3,true,https://i.imgur.com/OD5ZH74.jpg
+Earth,599,5,John Martin,4,true,https://i.imgur.com/B6JTvPW.jpg
+Mona Lisa,5000,5,Leonardo da Vinci,1,true,https://i.imgur.com/TW25XjJ.jpg
+Venus de Milo,4999,5,Alexandros of Antioch,1,true,https://i.imgur.com/0a4AZf0.jpg
+The Raft of the Medusa,3899,5,Théodore Géricault,2,true,https://i.imgur.com/BBFTwdK.jpg
+Liberty Leading the People,4000,5,Eugène Delacroix,2,true,https://i.imgur.com/UORMLRa.jpg
+Starry Night,5999,5,Van Gogh,2,true,https://i.imgur.com/ROAR8r0.jpg
+Potato Eaters,3999,5,Van Gogh,4,true,https://i.imgur.com/txMqYzr.jpg
+Sunflowers,2000,5,Van Gogh,4,true,https://i.imgur.com/eTgDXOQ.jpg
+Irises,3999,5,Van Gogh,2,true,https://i.imgur.com/wQADH1q.jpg
+Music Pink and Blue No 2,850,2,Georgia O'Keefe,3,true,https://i.imgur.com/d9y0JfP.jpg
+Blue Flower,500,5,Georgia O'Keefe,3,true,https://i.imgur.com/5aCGTOg.png
+Myojakdo,345,2,Byeon Sang-byeok,1,true,https://i.imgur.com/31vJAb9.png
+Camille Monet and a Child in the Artist’s Garden at Argenteuil,200,3,Claude Monet,4,true,https://i.imgur.com/NtjHyr0.jpg
+"Impression, Sunrise",155,6,Claude Monet,3,true,https://i.imgur.com/NdfT5Tg.png
+Yellow Pumpkin,650,2,Yayoi Kusama,1,true,https://i.imgur.com/VQor3on.png
+Blue Flowers and Skulls,222,8,Takashi Murakami,2,true,https://i.imgur.com/r58f87Q.png
+Still Life with Three Puppies,345,3,Paul Gauguin,4,true,https://i.imgur.com/gFAlwDj.png

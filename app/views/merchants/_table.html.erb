@@ -1,0 +1,45 @@
+
+<h4><%= header %> </h4>
+<p><%= number %> Orders. Total: $ <%= total %></p>
+<table class="table">
+<%if number > 0 %>
+  <thead class="thead-table">
+    <tr>
+      <th>Order Number</th>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Item total</th>
+      <th>Order placement date</th>
+      <th>Purchaser</th>
+      <th>Order Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% order_items.each do |order_item| %>
+      <tr>
+        <td><%= link_to order_item.order.id, orders_manage_path(order_item.order.id) %></td>
+        <td><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
+        <td><%= order_item.quantity %></td>
+        <td><%= '%.2f' % order_item.total_per_item%></td>
+        <td><%= order_item.order.created_at.strftime("%b %d, %Y") %></td>
+        <td><%= order_item.order.name %></td>
+        <td>
+          <% if order_item.order.status == "paid" %>
+            <a class="dropdown-toggle" href="#" id="DropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Paid
+            </a>
+            <div class="dropdown-menu" aria-labelledby="DropdownMenuLink">
+            <%= link_to "Cancelled",cancel_order_path(order_item.order.id), method: :patch, data: {confirm: "Are you sure you want to cancel the order?"}, class: "dropdown-item" %>
+            <%= link_to "Completed",complete_order_path(order_item.order.id), method: :patch, data: {confirm: "Are you sure you want to complete the order?"}, class: "dropdown-item" %>
+            </div>
+            <% else %>
+            <%= order_item.order.status.capitalize %>
+            <% end %>
+          </td>
+      </tr>
+    <%end%>
+  </tbody>
+<%else%>
+  <p></p>
+<%end%>
+</table>

@@ -1,0 +1,85 @@
+<%= render "shared/sidebar"%>
+<section class="main_w_sidebar container-fluid m5">
+  <%= render "shared/flash"%>
+  
+  <header>
+    <h1>
+      <%= @product.name %> by <%= @product.artist ? @product.artist : "Unknown artist" %>
+    </h1>
+    <p><%= link_to "Back to all products", products_path, class: "products__all" %></p>
+  </header>
+  
+  <div class="row align-items-start">
+    <section class="col-8">
+      <% if @product.image == nil || @product.image == "" %>
+        <p><%= image_tag "art.jpg", alt: "#{@product.name}", class: "img-fluid product__image" %></p>
+      <% else %>
+        <p><%= image_tag @product.image, class: "img-fluid product__image", alt: "#{@product.name}" %></p>
+      <% end %>
+    </section>
+
+    <section class="col product__info p-3">
+      <h2 class="product__name"><%= @product.name %></h2>
+      <h3 class="product__artist font-weight-bold"><%= @product.artist ? @product.artist : "Unknown artist" %></h3>
+      <p><%= @product.average_rating %> <%= link_to "(#{@product.reviews_length})", href="#reviews", class: "text__hyperlink" %></p>
+      
+      <p class="product__details product__price">$<%= '%.2f' % @product.price %></p>
+      
+      <% if !@product.active || @product.inventory == 0 %>
+        <p>This product is no longer available</p>
+      <% else %>
+        <p class="font-italic product__details"><%= @product.inventory <= 3 ? "Limited stock! Only #{@product.inventory} left" : "#{@product.inventory} in stock" %></p>
+
+        <%= form_with model: @order_items, class: "row p-3", url: product_order_items_path(@product.id) do |f| %>
+          <%= f.select :quantity, (1..@product.inventory) %>
+          <%= f.submit "ADD TO CART", class: "btn btn-custom ml-2" %>
+        <%end%>
+      <% end %>
+
+
+      <p class="font-italic">
+        <% @product.categories.each do |category| %>
+          <%= link_to "#{category.name}", category_path(category.id), class:"" %>
+        <% end  %>
+      </p>
+
+      <p>Sold by <%= link_to "#{@product.merchant.username}", merchant_path(@product.merchant), class:"" %></p>
+
+      <% if session[:merchant_id] == @product.merchant_id %>
+        <hr/>
+        <h4>Manage Product</h4>
+        <div class="row justify-content-end p-3">
+          <p><%= link_to "Edit", edit_product_path(@product.id), class:"btn btn-primary m-1" %></p>
+          <p><%= link_to "Retire", retire_product_path(@product.id), method: :patch, data: { confirm: "Are you sure you want to retire this product?"}, class:"btn btn-custom m-1" %></p>
+          <p><%= link_to "Delete", product_path(@product.id) ,method: :delete, data: { confirm: "Are you sure you want to delete this product?"} ,class:"btn btn-danger m-1"%></p>
+        </div>
+      <% end %>
+    </section>
+  </div>
+  
+  <section id="reviews" class="row reviews p-3">
+    <div class="col-3 justify-content-between">
+      <h2 class="reviews__header">Rating</h2>
+      <p><%= @product.average_rating %></p>
+      <%= link_to "Leave a review", new_product_review_path(@product.id), class: "btn btn-custom" %>
+    </div>
+    <div class="col">
+      <h2 class="reviews__header">Reviews</h2>
+      <% if @product.reviews.length == 0 %>
+        <p>No reviews for this product yet. Be the first one to leave a review!</p>
+      <% else %>
+        <% @product.reviews.each do |review| %>
+          <p>
+            <% review.rating.times do %>
+              <%= image_tag("paint-palette.png", class: "img-fluid review__icon") %>
+            <% end %>
+          </p>
+          <p>Reviewed <%= review.created_at.strftime("%b %d, %Y") %></p>
+          <p><%= review.description %></p>
+          <hr/>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+
+</section>

@@ -1,0 +1,40 @@
+order_item_1:
+  quantity: 5
+  order: order_1
+  product: product_2
+order_item_2:
+  quantity: 1
+  order: order_2
+  product: product_3
+order_item_3:
+  quantity: 80
+  order: order_3
+  product: product_1
+order_item_4:
+  quantity: 2
+  order: order_1
+  product: product_1
+order_item_5:
+  quantity: 1
+  order: paid_order
+  product: product_1
+order_item_6:
+  quantity: 1
+  order: paid_order2
+  product: product_1
+order_item_7:
+  quantity: 1
+  order: cancel_order1
+  product: product_1 
+order_item_8:
+  quantity: 1
+  order: cancel_order2
+  product: product_1 
+duplicate_order_item_order_item:
+  quantity: 3
+  order: duplicate_order_item_order
+  product: duplicate_order_item_product
+cancel_order_order_item:
+  quantity: 1
+  order: cancel_order_paid
+  product: product_1 

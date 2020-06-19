@@ -1,0 +1,58 @@
+<%= render "shared/sidebar"%>
+<section class="main_w_sidebar container-fluid m5">
+  <%= render "shared/flash"%>
+  
+  <section class="cart-summary__container">
+  <h3 class="cart-summary__header">Order ID: <%= @order.id %></h3>
+  <table class="table">
+    <thead class="thead-table">
+    <tr>
+      <th>Order ID</th>
+      <th>Total Cost</th>
+      <th>Purchaser</th>
+      <th>Order Status</th>
+      <th>Date Created</th>
+      <th>Last Updated</th>
+    </tr>
+  </thead>
+
+    <tbody>
+        <tr>
+          <td><%= @order.id %></td>
+          <td>$<%= '%.2f' % @order.order_cost %></td>
+          <td><%= @order.name%></td>
+          <td><%= @order.status%></td>
+          <td><%= @order.created_at.strftime("%b %d, %Y")%></td>
+          <td><%= @order.updated_at.strftime("%b %d, %Y")%></td>
+
+        </tr>
+    </tbody>
+  </table>
+  </section>
+
+
+  <section class="cart-summary__container">
+    <h3 class="cart-summary__header"> Order Details</h3>
+    <table class="table">
+      <thead class="thead-table">
+      <tr>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Item Total</th>
+      </tr>
+    </thead>
+
+      <tbody>
+        <% @order.order_items.each do |item| %>
+          <tr>
+            <td><%= link_to item.product.name, product_path(item.product.id)  %></td>
+            <td>$<%= '%.2f' % item.product.price %></td>
+            <td><%= item.quantity%></td>
+            <td>$<%='%.2f' % item.total_per_item %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</section>

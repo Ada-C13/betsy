@@ -1,0 +1,12 @@
+<div class="full_page_main container-fluid m5">
+    <%= render "shared/flash"%>
+    
+    <% if session[:merchant_id]%>
+        <h3>Edit <%= @product.name %></h3>
+        <%= render partial: "form", locals: {action_name: "Update"}%>
+    <% else %>
+        <h3>Seems that your are not logged in?</h3>
+        <h3>Login with your user account and try again</h3>
+        <h3>Thanks!</h3>
+    <% end %>
+</div>

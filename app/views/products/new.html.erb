@@ -1,0 +1,14 @@
+<div class="full_page_main container-fluid m5">
+
+  <%= render "shared/flash"%>
+  
+  <% if session[:merchant_id]%>
+    <div class="main container-fluid">
+      <header>
+        <h3>Add a Product</h3>
+      </header>
+      
+      <%= render partial: "form", locals: {action_name: "Add"} %>
+    </div>
+  <% end %>
+</div>

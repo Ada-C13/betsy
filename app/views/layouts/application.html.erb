@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Momasy</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+  
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+  </head>
+
+  <body class="grid">
+    
+  
+    <header class="app-header__header">
+    <div class="home__header">
+      <h1>
+        <%=link_to "Momasy", root_path, :class => "app-header__title"%>
+      </h1>
+      <span class="fas fa-shopping-cart fa-2x">
+        <% if session[:order_id]%>
+          <%=link_to "Cart", order_path(session[:order_id]), class: "cart__link"%>
+        <%else%>
+          <%=link_to "Cart", orders_path, class: "cart__link"%>
+        <%end%>
+      </span> 
+    </div>
+
+      <nav class="app-header__nav">
+        <ul class="nav app-header__site-nav-container">  
+          <li class="nav-item app-header__nav_item"><%=link_to "View All Art", products_path%></li>
+          <li class="nav-item app-header__nav_item">|</li>
+          <li class="nav-item app-header__nav_item"><%=link_to "View All Merchants", merchants_path%></li> 
+        </ul>
+
+        <ul class="nav app-header__user-nav-container">
+        
+          <% if session[:merchant_id]%>
+            <li class="nav-item app-header__nav_item"><%=button_to "#{Merchant.find(session[:merchant_id]).username}'s Dashboard", current_merchant_path, method: :get, class: "btn login_button"%></li>
+            <li class="nav-item app-header__nav_item"><%=button_to "Logout", logout_path, method: :delete, class: "btn login_button"%></li>
+          <%else%>
+            </li class="nav-item app-header__nav_item"><%=button_to "Merchant Login", github_login_path, method: :get, class: "btn login_button"%></li>
+          <%end%>
+        </ul>
+      </nav>
+    </header>
+
+
+
+      <%= yield %>
+      
+
+
+    <footer class="app-footer__footer m5">
+      <%= link_to "About Momasy", about_path %>
+    </footer> 
+
+  </body>
+
+</html>
+

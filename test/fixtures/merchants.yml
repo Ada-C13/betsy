@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+merchant_1:
+  username: "vera"
+  uid: 6789865
+  provider: github
+  email: testuser1@gmail.com
+merchant_2:
+  username: "verawang"
+  uid: 9876578
+  provider: github
+  email: testuser2@gmail.com
+merchant_3:
+  username: "wang"
+  uid: 67898790
+  provider: github
+  email: testuser3@gmail.com
+duplicate_order_item_merchant:
+  username: "duplicate_order_item_merchant"
+  uid: 167898790
+  provider: github
+  email: duplicate_order_item_merchant@gmail.com

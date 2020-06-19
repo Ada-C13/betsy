@@ -1,0 +1,21 @@
+<div class="full_page_main container-fluid m5">
+  <%= render "shared/flash"%>
+  <h3>Add New Category</h3>
+  <p> Current Categories: 
+    <ul>
+      <% @categories.each do |category| %>
+        <li><%= category.name %></li>
+      <% end %>
+    </ul>
+  </p>
+
+  <%= form_with model: @category do |f| %>
+    <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+  <div class="form-group">
+      <%= f.submit "Create New Category", class: "btn square_btn" %>
+  </div>
+<% end %>

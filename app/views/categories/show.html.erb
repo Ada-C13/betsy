@@ -1,0 +1,26 @@
+
+<%= render "shared/sidebar"%>
+<section class="main_w_sidebar container-fluid m5">
+  <%= render "shared/flash"%>
+  
+  <h1 id="top" class="product__all__header">
+    <%= @category.name %> <span class="product__count">(<%= @category.products.where('inventory > ?', 0).length %> products)</span>
+  </h1>
+
+  <section data-spy='scroll' class="sticky-top text-right p-2 products__sticky">
+    <%= link_to "Jump to top", href="#top", class: "login_button"%></span>
+  </section>
+
+  <section>
+    <% if @products.where('inventory > ?', 0).empty? %>
+        <p>Sorry, there are currently no products in this category.</p>
+    <% else %>
+      <div class="card-columns">
+        <% @products.where('inventory > ?', 0).where(active: true).each do |product| %>
+          <%= render partial: "./shared/product", locals: {product: product} %>
+        <% end %>
+      </div>
+    <% end %>  
+  </section>
+
+</section>

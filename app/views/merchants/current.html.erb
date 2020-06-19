@@ -1,0 +1,107 @@
+<div class="full_page_main">
+  <%= render "shared/flash"%>
+  <h2 style="padding-bottom: 20px;">Hello <%= @merchant.username %>!
+  <small>Member since: <%= @merchant.created_at.strftime("%b %d, %Y") %></small>
+  </h2>
+
+  <section data-spy='scroll' style="padding-bottom: 20px;" class="sticky-top">
+    <span><%= link_to "Add New Product", new_product_path, class: "square_btn" %></span>
+    <span><%= link_to "Add New Category", new_category_path, class: "square_btn"%></span>
+    <span><%= link_to "Jump to My Sales", href="#hello", class: "square_btn"%></span>
+    <span><%= link_to "Jump to My Products", href="#products", class: "square_btn"%></span>
+  </section>
+  
+  <section id="sales" class="merchant-sales__container">
+    <h3 class="merchant-sales__header"><%= @status ? @status.capitalize : "All" %> Sales</h3>
+    
+    <% if !@merchant.products %>
+      <p> There are no orders for your products.</p>
+    <% else %>
+      <p>Revenue: $ <%= @merchant.total_by_status(@status) %></p>
+      <p>Number of Orders: <%= @merchant.num_orders(@status) %></p>
+
+      <%= form_with url: current_merchant_path, method: :get do |f| %>
+        <%= f.label :filter_by_status %>
+        <%= f.select :status, options_for_select(['all', 'paid', 'pending', 'complete', 'cancelled'], :selected => @status), {}, onChange: "this.form.submit()"  %>
+      <% end %>
+
+      <table class="table table-hover">
+        <thead class="thead-table">
+          <tr>
+            <th>Order #</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Order placed</th>
+            <th>Purchaser</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order_items.each do |order_item| %>
+              <tr>
+                <td><%= link_to order_item.order.id, orders_manage_path(order_item.order.id) %></td>
+                <td><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
+                <td><%= order_item.quantity %></td>
+                <td>$<%= order_item.total_per_item %></td>
+                <td><%= order_item.order.created_at.strftime("%b %d, %Y") %></td>
+                <td><%= order_item.order.name %></td>
+                <td>
+                  <% if order_item.order.status == "paid" %>
+                    <a class="dropdown-toggle" href="#" id="DropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Paid
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="DropdownMenuLink">
+                    <%= link_to "Cancelled",cancel_order_path(order_item.order.id), method: :patch, data: {confirm: "Are you sure you want to cancel the order?"}, class: "dropdown-item" %>
+                    <%= link_to "Completed",complete_order_path(order_item.order.id), method: :patch, data: {confirm: "Are you sure you want to complete the order?"}, class: "dropdown-item" %>
+                    </div>
+                  <% else %>
+                    <%= order_item.order.status.capitalize %>
+                  <% end %>
+                </td>
+              </tr>
+          <%end%>
+        </tbody>
+      </table>
+    <%end%>
+  </section>
+
+  <section id="products" class="merchant-products__container">
+    <h3 class="merchant-products__header">My Products</h3>
+    <table class="table table-hover">
+      <thead class="thead-table">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Inventory</th>
+          <th>Category</th>
+          <th>Created</th>
+          <th>Status</th>
+          <th class="text-center">Manage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Product.where(merchant_id: @merchant.id).each do |product| %>
+          <tr>
+            <td><%= link_to product.id, product_path(product.id) %></td>
+            <td><%= link_to product.name, product_path(product.id) %></td>
+            <td>$<%= '%.2f' % product.price %></td>
+            <td><%= product.inventory %></td>
+            <td>
+              <% product.categories.each do |category| %>
+                <%= category.name %>
+              <% end %>
+            </td>
+            <td><%= product.created_at.strftime("%b %d, %Y") %></td>
+            <td><% if product.active %>Active<% else %>Retired<% end %></td>
+            <td class="text-center">
+              <%= link_to "", edit_product_path(product.id), class: "far fa-edit btn btn-custom" %>	
+              <%= link_to "", product_path(product.id), method: :delete, data: {confirm: "Are you sure you want to delete this product?"}, class: "fas fa-trash btn btn-danger"%>	
+            </td>
+            
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</div>

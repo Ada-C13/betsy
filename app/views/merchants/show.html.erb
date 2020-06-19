@@ -1,0 +1,28 @@
+
+<%= render "shared/sidebar"%>
+<section class="main_w_sidebar container-fluid m5">
+  <%= render "shared/flash"%>
+
+  <header>
+    <h1 id="top" class="product__all__header">
+      <%= @merchant.username %> <span class="product__count">(<%= @merchant.products.where('inventory > ?', 0).length %> products)</span>
+    </h1>
+    <p>Joined Momasy <%= @merchant.created_at.strftime("%B %d, %Y") %></p>
+  </header>
+
+  <section data-spy='scroll' class="sticky-top text-right p-2 products__sticky">
+    <%= link_to "Jump to top", href="#top", class: "login_button"%></span>
+  </section>
+
+  <section>
+    <% if @merchant.products.where('inventory > ?', 0).empty? %>
+        <p>Sorry, this merchant currently does not have any products for sale.</p>
+    <% else %>
+      <div class="card-columns">
+        <% @merchant.products.where('inventory > ?', 0).where(active: true).each do |product| %>
+          <%= render partial: "./shared/product", locals: {product: product} %>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+</section>

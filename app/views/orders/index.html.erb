@@ -1,0 +1,18 @@
+
+<%= render "shared/sidebar"%>
+<section class="main_w_sidebar container-fluid m5">
+  <%= render "shared/flash"%>
+
+    <h1>Oh no!</h1>
+
+    <h3>Sad. It looks like you don't have any items on your cart.</h3>
+    <h3>But don't worry! Momasy Squad can fix that!</h3>
+
+    <nav class="navbar navbar-expand-md">
+      <span>
+        <p><%= link_to "Home", root_path, class:"btn btn-custom" %></p>
+        <p><%= link_to "View all Art", products_path, class:"btn btn-custom" %></p>
+      </span>
+    </nav>
+  </section>
+

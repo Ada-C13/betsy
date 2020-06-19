@@ -1,0 +1,79 @@
+order_1:
+  name: jessica
+  email: jessica@jessica.jessica
+  address: 1234 road
+  credit_card: 3312345
+  credit_card_exp: '2001-01-01 00:00:00'
+  status: pending
+order_2:
+  name: stephanie
+  email: stephanie@stephanie.stephanie
+  address: 4567 road
+  credit_card: 44
+  credit_card_exp: '2021-02-01 00:00:00'
+  status: pending
+order_3:
+  name: vicki
+  email: vicki@vicki.vicki
+  address: 3546 street
+  credit_card: 55
+  credit_card_exp: '2021-03-01 00:00:00'
+  status: pending
+order_4:
+  name: vera
+  email: vera@vera.vera
+  address: 6537 ave
+  credit_card: 12
+  credit_card_exp: '2021-04-01 00:00:00'
+  status: pending
+paid_order:
+  name: bob
+  email: bob@vera.vera
+  address: 6537 ave
+  credit_card: 12
+  credit_card_exp: '2021-05-01 00:00:00'
+  status: paid
+order_with_no_items:
+  name: amy
+  email: amy@amy.veras
+  address: 6537 ave
+  credit_card: 12
+  credit_card_exp: '2021-07-01 00:00:00'
+  status: pending
+paid_order2:
+  name: bob1
+  email: bob@vera.vera
+  address: 6537 ave
+  credit_card: 12
+  credit_card_exp: '2021-08-01 00:00:00'
+  status: complete
+cancel_order1:
+  name: bob
+  email: bob1@vera.vera
+  address: 6537 ave
+  credit_card: 12
+  credit_card_exp: '2021-02-02 00:00:00'
+  status: cancelled
+cancel_order2:
+  name: bob2
+  email: bob2@vera.vera
+  address: 6537 ave
+  credit_card: 121234567
+  credit_card_exp: '2021-02-04 00:00:00'
+  status: cancelled
+duplicate_order_item_order:
+  status: pending
+update_order:
+  name: bob2
+  email: bob2@vera.vera
+  address: 6537 ave
+  credit_card: 123456798
+  credit_card_exp: '2001-01-01 00:00:00'
+  status: pending
+cancel_order_paid:
+  name: bob21
+  email: cancel_order@vera.vera
+  address: 653 ave
+  credit_card: 123456798
+  credit_card_exp: '2001-02-01 00:00:00'
+  status: paid

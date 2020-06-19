@@ -1,0 +1,53 @@
+<div class='full_page_main mx-auto'>
+
+<%= render "shared/flash"%>
+  
+<div class="container mx-auto">
+  <div class="w-75 h-75 mx-auto">
+    <div class="carousel slide mx-auto" id="homeCarousel" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+
+      <div class="carousel-inner">
+        <%feature_selection = Product.featured%>
+        <div class="carousel-item active">
+          <%product = Product.find_by(id: feature_selection[0].id) %>
+          <img src="<%=product.image%>" alt="<%=product.name%>" class="d-block carousel-image mx-auto">
+          <div class="carousel-caption">
+            <h3><%=link_to product.name, product_path(id: product.id)%>
+            </h3>
+            <p>$<%= '%.2f' % product.price %></p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <%product2 = Product.find_by(id: feature_selection[1].id) %>
+          <img src="<%=product2.image%>" alt="<%=product2.name%>" class="d-block carousel-image mx-auto">
+          <div class="carousel-caption">
+            <h3><%=link_to product2.name, product_path(id: product2.id)%></h3>
+            <p>$<%= '%.2f' % product2.price %></p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <%product3 = Product.find_by(id: feature_selection[2].id) %>
+          <img src="<%=product3.image%>" alt="<%=product3.name%>" class="d-block carousel-image mx-auto">
+          <div class="carousel-caption">
+            <h3><%=link_to product3.name, product_path(id: product3.id)%></h3>
+            <p>$<%= '%.2f' % product3.price %></p>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control-next" href="#homeCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+</div>
+
