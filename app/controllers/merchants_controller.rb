@@ -15,7 +15,7 @@ class MerchantsController < ApplicationController
   end
 
   def shop
-    @merchant_products = @merchant.products.paginate(page: params[:page], per_page: 9)
+    @merchant_products = @merchant.products.where(active: true).paginate(page: params[:page], per_page: 9)
   end
 
   def orders
@@ -26,7 +26,7 @@ class MerchantsController < ApplicationController
     merchant = Merchant.find_by(uid: auth_hash[:uid],
       provider: params[:provider])
     if merchant # merchant exists
-      flash[:notice] = "Logged in as returning merchant #{merchant.name.titleize}"
+      flash[:success] = "Logged in as returning merchant #{merchant.name.titleize}"
     else # merchant doesn't exist yet (new merchant)
       merchant = Merchant.build_from_github(auth_hash)
       if merchant.save
