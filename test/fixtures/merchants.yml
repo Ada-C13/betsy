@@ -1,0 +1,20 @@
+merchantaaa:
+  name: aaa
+  email: aaa@ada.org
+  provider: github
+  uid: 123450
+merchantbbb:
+  name: bbb
+  email: bbb@ada.org
+  provider: github
+  uid: 123451
+merchantccc:
+  name: ccc
+  email: ccc@ada.org
+  provider: github
+  uid: 123452
+merchantddd:
+  name: ddd
+  email: ddd@ada.org
+  provider: github
+  uid: 123453

@@ -1,0 +1,30 @@
+<h3> Your Order </h3>
+<br>
+<table class="table table-hover">
+  <%@order.order_items.each do |item|%>
+    <tr >
+      <td class = "left"><%= link_to(image_tag(item.product.photo, class: "item_cart_images"), product_path(item.product)) %></td>
+      <td><%= link_to item.product.name.titleize, product_path(item.product) %> |
+        <%= link_to "Edit Quantity", order_item_path(item) %> | 
+        <%= link_to "🗑Remove", order_item_path(item), method: :delete%>
+      </td>
+      <td>
+        <%= format_price(item.product.price)%> x
+        <%= item.quantity%>
+      </td>
+    </tr>
+  <% end %>
+
+  <tr class = "order-table">
+    <td> </td>
+    <td><strong>Total Price</strong> </td>
+    <td> <%=format_price(@order.total_price)%> </td>
+  </tr>
+</table>
+<br>
+<% if !@order.order_items.empty? %>
+  <%= link_to "Clear Cart", cart_path, method: :patch, class: "btn btn-danger btn pull-right" %>
+  <%= link_to "Checkout", checkout_path, :class=> "btn btn-primary btn pull-right" %>
+<% else %>
+  <p>There are no items in your cart yet!</p>
+<% end %>

@@ -1,0 +1,49 @@
+<section class="section">
+  <img class = "images", src="<%=@product.photo %>", alt="<%=@product.name %>">
+  <h2><%= @product.name.titleize %></h2> 
+  <p><strong>Price: </strong><%= format_price(@product.price) %></p>
+  <p><strong>In Stock: </strong><%= @product.stock %></strong></p>
+  <p><strong>Description: </strong><%= @product.description %></p>
+  <p><strong>Categories:</strong> 
+    <% @product.categories.each do |category| %>
+      <%= category.name.titleize %> |
+    <% end %>
+  </p>
+
+  <%= render partial: "order_items/order_item_form", locals: {product: @product, action_name: "Add To Cart"} %>
+  <br>
+  
+  <div>
+    <%= link_to "Review Now!", create_review_path(@product), class: "btn btn-secondary"%>
+  </div>
+
+  <br>
+  
+  <%# Display all reviews %> 
+
+  <% if @product.reviews.length > 0 %>
+    <h4><strong>Rating Summary</strong></h4>
+    <p><%= Product.average_rating(@product)%></p>
+    <% @product.reviews.each do |review| %>
+    <li class = "list">
+      <% if review.rating == 1 %>
+          <span> ⭐</span>
+      <% elsif review.rating == 2 %>
+        <span> ⭐⭐</span>
+      <% elsif review.rating == 3 %>
+        <span> ⭐⭐⭐</span>
+      <% elsif review.rating == 4 %>
+        <span> ⭐⭐⭐⭐</span>
+      <% elsif review.rating == 5 %>
+        <span> ⭐⭐⭐⭐⭐</span>
+      <% end %>
+      <p><%= review.feedback %> </p>
+    <% end %>
+    </li>
+  <% else %>
+    <p> There is no review for this product. </p>
+  <% end %>
+</section>
+
+
+

@@ -1,0 +1,55 @@
+order_item1:
+  quantity: 1
+  product: product1
+  order: full_cart
+  status: pending
+order_item2:
+  quantity: 3
+  product: product1
+  order: paid_order
+  status: shipped
+order_item3:
+  quantity: 5
+  product: product3
+  order: paid_order
+  status: paid
+order_item4:
+  quantity: 5
+  product: product4
+  order: full_cart
+  status: pending
+order_item5:
+  quantity: 5
+  product: product4
+  order: shipped_order
+  status: shipped
+order_item6:
+  quantity: 5
+  product: product1
+  order: shipped_order
+  status: shipped
+order_item7:
+  quantity: 5
+  product: product6
+  order: shipped_order
+  status: shipped
+order_item8:
+  quantity: 5
+  product: product6
+  order: shipped_order
+  status: shipped
+order_item9:
+  quantity: 2
+  product: product1
+  order: paid_order
+  status: paid
+order_item10:
+  quantity: 5
+  product: product4
+  order: paid_order
+  status: cancelled
+order_item11:
+  quantity: 10
+  product: product3
+  order: paid_order
+  status: cancelled

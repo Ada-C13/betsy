@@ -1,0 +1,422 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+
+/* Custom bootstrap variables must be set or imported *before* bootstrap. */
+@import "bootstrap";
+
+@import "**/*";
+@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
+.profile-img {
+  border-radius: 50%;
+  max-width: 15%;
+  border: solid gray 2px;
+  margin-bottom: 2em;
+  margin-top: 2em;
+}
+
+.brand-img {
+  border-radius: 50%;
+  max-width: 5%;
+  border: solid gray 2px;
+  margin-bottom: 2em;
+  margin-top: 2em;
+}
+
+.section {
+  margin: 5em;
+  margin-left: 10em;
+  margin-right: 10em;
+  // padding-right:  5em;
+  display:center;
+  font-family:Arial, Helvetica, sans-serif;
+}
+.dropdown-item{
+  color: black;
+}
+
+ /* Footer height */
+.footer {
+  position: absolute;
+  background-color: lightgray;
+  width: 100%;
+  color: black;
+  font-family:Arial, Helvetica, sans-serif;
+  text-align: center;
+  padding: 2rem;
+  bottom: 0;         
+}
+
+#font{
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+table {
+  margin: auto;
+  margin-top: 1em;
+  // border: solid 1px;
+  table-layout: fixed;
+  width: 800px;
+}
+
+table th {
+  // border: solid 1px;
+  font-family:Arial, Helvetica, sans-serif;
+  background-color: gray;
+  color: white;
+  text-align: center;
+}
+
+table tr {
+  // border: solid 1px;
+  text-align: right;
+}
+
+table td {
+  // border: solid 1px;
+  padding: 1px;
+  // text-align: center;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+h3 {
+  text-align: center;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+nav {
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+// // rating
+// .rating {
+//   display: flex;
+//   flex-direction: row-reverse;
+//   justify-content: right;
+// }
+
+// .rating>input {
+//   display: none
+// }
+
+// .rating>label {
+//   position: relative;
+//   width: 1em;
+//   font-size: 2vw;
+//   color: #FFD600;
+//   cursor: pointer
+// }
+
+// .rating>label::before {
+//   content: "\2605";
+//   position: absolute;
+//   opacity: 0
+// }
+
+// .rating>label:hover:before,
+// .rating>label:hover~label:before {
+//   opacity: 1 !important
+// }
+
+// .rating>input:checked~label:before {
+//   opacity: 1
+// }
+
+// .rating:hover>input:checked~label:before {
+//   opacity: 0.4
+// }
+
+// .nav li {
+//   float: left;
+//   padding: 12px;
+//   color: white;
+//   text-decoration: none;
+//   font-size: 17px;
+// }
+
+.images {
+  max-width: 50%;
+  border:gray 1px solid;
+  image-rendering: center;
+  margin: 5px
+}
+
+.show_images {
+  max-width: 90%;
+  max-height: 200px;
+  height: 70%;
+  border:gray 1px solid;
+  image-rendering: center;
+  margin: 5px
+}
+
+.merchant_images {
+  max-width: 4%;
+  border:gray 1px solid;
+  image-rendering: center;
+  margin: 5px;
+  border-radius: 50%;
+}
+
+
+//pagination
+//Resource:http://mislav.github.io/will_paginate/pagination.css
+.pagination {
+  background: white;
+  cursor: default;
+  /* self-clearing method: */ }
+  .pagination a, .pagination span, .pagination em {
+    padding: 0.2em 0.5em;
+    display: block;
+    float: left;
+    margin-right: 1px; }
+  .pagination .disabled {
+    color: #999999;
+    border: 1px solid #dddddd; }
+  .pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    background:gray;
+    color: white;
+    border: 1px solid gray; }
+  .pagination a {
+    text-decoration: none;
+    color: #105cb6;
+    border: 1px solid #9aafe5; }
+    .pagination a:hover, .pagination a:focus {
+      color: #000033;
+      border-color: #000033; }
+  .pagination .page_info {
+    background: #2e6ab1;
+    color: white;
+    padding: 0.4em 0.6em;
+    width: 22em;
+    margin-bottom: 0.3em;
+    text-align: center; }
+    .pagination .page_info b {
+      color: #000033;
+      background: #6aa6ed;
+      padding: 0.1em 0.25em; }
+  .pagination:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  * html .pagination {
+    height: 1%; }
+  *:first-child + html .pagination {
+    overflow: hidden; }
+
+  // .order-table {
+  //   border-bottom: solid 1px gray;
+  //   padding: 1px;
+  //   font-family:Arial, Helvetica, sans-serif;
+  // }
+
+.item_images {
+  max-width: 35%;
+  border:gray 1px solid;
+  image-rendering: center;
+  margin: 5px
+}
+
+.item_cart_images {
+  max-width: 25%;
+  border:gray 1px solid;
+  image-rendering: center;
+  margin: 5px
+}
+// th, td {
+//   border-bottom: 1px solid #dddddd;
+// }
+
+// tr:hover {background-color: #f5f5f5;}
+
+
+.middle {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+
+li {
+  list-style: none;
+  text-decoration: none;
+}
+
+.topnav-right {
+  float: right;
+}
+
+.slide {
+  max-width: 100%;
+  image-rendering: center;
+  margin: 5px
+}
+
+.product-image-homepage{
+  max-width: 80%;
+  border:gray 1px solid;
+  image-rendering: center;
+  margin: 5px
+}
+
+.line-height {
+  line-height:80%;
+}
+
+
+// alert
+.alert {
+  margin: 0;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.alert-error {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.alert-alert {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.alert-notice {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+.alert {
+  position: relative;
+  padding: 0.7rem 1.2rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert__container {
+  margin: 2rem 0 1rem 0;
+}
+ 
+
+.my_class_name { 
+  border:2px solid #ccc;
+  width: 1000px;
+  overflow-y: scroll;
+  padding: 5px;
+}
+
+#box-height {
+  height: 75px;
+}
+
+
+/* Footer */
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+#footer {
+    background:orange !important;
+}
+#footer h5{
+	padding-left: 10px;
+    border-left: 3px solid #eeeeee;
+    padding-bottom: 2px;
+    margin-bottom: 20px;
+    color:black;
+}
+#footer a {
+    color:black;
+    text-decoration: none !important;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+#footer ul.social li{
+	padding: 3px 0;
+}
+#footer ul.social li a i {
+    margin-right: 5px;
+	font-size:25px;
+	-webkit-transition: .5s all ease;
+	-moz-transition: .5s all ease;
+	transition: .5s all ease;
+}
+#footer ul.social li:hover a i {
+	font-size:30px;
+	margin-top:-10px;
+}
+#footer ul.social li a {
+	color:#eeeeee;
+}
+#footer ul.quick-links li a{
+	color:black;
+}
+#footer ul.social li a:hover{
+	color:black;
+}
+#footer ul.quick-links li{
+	padding: 3px 0;
+	-webkit-transition: .5s all ease;
+	-moz-transition: .5s all ease;
+	transition: .5s all ease;
+}
+#footer ul.quick-links li:hover{
+	padding: 3px 0;
+	margin-left:5px;
+	font-weight:700;
+}
+#footer ul.quick-links li a i{
+	margin-right: 5px;
+}
+#footer ul.quick-links li:hover a i {
+    font-weight: 700;
+}
+
+@media (max-width:767px){
+	#footer h5 {
+    padding-left: 0;
+    border-left: transparent;
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+  }
+}
+
+

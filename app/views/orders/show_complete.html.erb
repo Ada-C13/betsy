@@ -1,0 +1,44 @@
+<h3>THANKS FOR SHOPPING WITH US! ORDER COMPLETE</h3>
+<p class = "middle" ><strong>Hi <%= @order.name %>, we've recieved order #<%= @order.id %> and are working on it now.
+We'll email you an update when we've shipped it.</strong></p>
+<h3>Order Details</h3>
+
+<br>
+<br>
+<p><strong>Order#:</strong> <%= @order.id%></p>
+<p><strong>Customer name:</strong> <%= @order.name %>
+<p><strong>Purchased On:</strong> <%= @order.updated_at.strftime("%B %e, %Y") %></p>
+<p><strong>Purchased Status:</strong> <%= @order.status %></p>
+<p><strong>Shipping Address:</strong> <%= @order.address %></p>
+<p><strong>Email:</strong> <%= @order.email %>
+<p><strong>Credit card ending in </strong> <%= @order.cc_last_four%> was billed for <%=format_price(@order.total_price)%></p>
+
+<br>
+<br>
+<h3>PRODUCTS</h3>
+<table class="table table-hover">
+  <%@order.order_items.each do |item|%>
+    <tr >
+      
+      <td class = "left"><%= image_tag item.product.photo, alt:"image", class: "item_images" %></td>
+      <td><%= item.product.name.titleize %></td>
+      <td>
+        <%= format_price(item.product.price)%> x
+        <%= item.quantity%>
+      </td>
+    </tr>
+  <% end %>
+
+<tr class = "order-table">
+<td> </td>
+<td><strong>Total Price</strong> </td>
+<td> <%=format_price(@order.total_price)%> </td>
+</tr>
+</table>
+<br>
+<br>
+<%= link_to "Cancel Order", complete_order_path(@order), method: :post, class: "btn btn-danger btn pull-right", data: {confirm: "Are you sure?"}%> 
+<%= link_to "Continue Shopping", products_path, class: "btn btn-primary btn pull-right" %>
+
+
+
