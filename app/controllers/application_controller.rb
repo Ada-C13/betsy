@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    if current_merchant.nil?
+    unless current_merchant
       redirect_to root_path
       flash[:danger] = "Must be logged in as a merchant."
       return

@@ -23,9 +23,8 @@ describe MerchantsController do
 
       perform_login(invalid_merchant)
       invalid_merchant.valid?
-      expect(invalid_merchant.errors.messages[:username]).must_equal ["can't be blank"]
-      expect(flash[:error]).must_equal "Could not create new merchant account: #{invalid_merchant.errors.messages}"
-      must_redirect_to root_path
+      expect(flash[:danger]).must_equal "Could not create new merchant account."
+      expect(flash[:details][:username]).must_equal ["can't be blank"]
     end
   end
 
