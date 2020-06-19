@@ -20,6 +20,7 @@ class Order < ApplicationRecord
       format: { with: /\d{4}/, message: "year exp must be in YYYY format" }
     submitted.validates :cc_cvv, presence: true, 
       format: { with: /\d{3,4}/, message: "invalid cvv" }
+    submitted.validates_with Datevalidator
   end
 
 
