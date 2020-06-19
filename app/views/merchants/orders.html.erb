@@ -1,4 +1,10 @@
-
+<%= form_with model: @order_item, class: 'status-filter-form' do |f| %>
+<div class='form-group'>
+    <%= f.label :status %>
+    <% f.select :status, ["paid", "cancelled", "shipped"] , {}, class: "form-control" %>
+</div>
+  <% f.submit "Filter", class: "btn btn-primary", url: merchant_orders_path(merchant_id: @merchant, :status) method: :get %>
+<% end %>
 <table style="width:80%">  
   <h3>Your Orders</h3> 
   <tr> 
@@ -11,9 +17,10 @@
       <th>Status</th>
       <th></th>
   </tr>
-  <%@merchant.products.each do |product|%>
+​
+  <% @merchant.products.each do |product|%>
     <%product.order_items.each do |item|%>
-    <%if item.status != "pending"%>
+      <% if item.status == "all orders"%>
         <tr class = "middle"> 
           <td><%= link_to(image_tag(product.photo, class: "item_images", id: "small_image"), product_path(product.id)) %></td>
           <td><%= item.order.id %></td>
@@ -28,9 +35,48 @@
             <%end%>
           </td>
         </tr>
-        <%end%>
+      <% elsif item.status == "paid" %>
+        <tr class = "middle"> 
+          <td><%= link_to(image_tag(product.photo, class: "item_images", id: "small_image"), product_path(product.id)) %></td>
+          <td><%= item.order.id %></td>
+          <td><%= link_to product.name.titleize, product_path(product.id) %></td>
+          <td><%= item.order.cc_last_four %></td>
+          <td><%= item.quantity %></td>
+          <td><%= format_price(item.product.price)%></td>
+          <td><%= item.status%></td>
+          <td>
+            <%if item.status == "paid"%>
+              <%= link_to "Ship Item", ship_path({:id => item.id}), method: :patch%>
+            <%end%>
+          </td>
+        </tr>
+      <% elsif item.status == "cancelled" %>
+        <tr class = "middle"> 
+          <td><%= link_to(image_tag(product.photo, class: "item_images", id: "small_image"), product_path(product.id)) %></td>
+          <td><%= item.order.id %></td>
+          <td><%= link_to product.name.titleize, product_path(product.id) %></td>
+          <td><%= item.order.cc_last_four %></td>
+          <td><%= item.quantity %></td>
+          <td><%= format_price(item.product.price)%></td>
+          <td><%= item.status%></td>
+          <td>
+        </tr>
+      <% elsif item.status == "shipped"%>
+        <tr class = "middle"> 
+          <td><%= link_to(image_tag(product.photo, class: "item_images", id: "small_image"), product_path(product.id)) %></td>
+          <td><%= item.order.id %></td>
+          <td><%= link_to product.name.titleize, product_path(product.id) %></td>
+          <td><%= item.order.cc_last_four %></td>
+          <td><%= item.quantity %></td>
+          <td><%= format_price(item.product.price)%></td>
+          <td><%= item.status%></td>
+          <td>
+        </tr>
+      <%end%>
     <%end%>
   <%end%>
+​
+​
 </table>
 <div class="revenue">
   <div class="left-label">
@@ -39,4 +85,3 @@
   <div class="right-value">
     <%=format_price(@merchant.calculate_revenue)%>
   </div>
-</div>
