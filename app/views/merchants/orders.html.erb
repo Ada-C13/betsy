@@ -1,44 +1,53 @@
-<%["pending", "paid", "shipped", "cancelled"].each do |item_status| %>
-  <%= button_to item_status, merchant_orders_status_path(@merchant, {:status => item_status}), method: :get, class:"btn btn-info"%>
-<%end%>
-<%= button_to "all items", merchant_orders_path(@merchant), method: :get, class:"btn btn-info"%>
-
-<table style="width:80%">  
-  <h3>Your Orders</h3> 
-  <tr> 
-      <th>Item</th>
-      <th>Order ID</th>
-      <th>Name</th>
-      <th>CC</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Status</th>
-      <th></th>
-  </tr>
-  <%#@merchant.products.each do |product|%>
-    <%@order_items.each do |item|%>
-        <tr class = "middle"> 
-          <td><%= link_to(image_tag(item.product.photo, class: "item_images", id: "small_image"), product_path(item.product.id)) %></td>
-          <td><%= item.order.id %></td>
-          <td><%= link_to item.product.name.titleize, product_path(item.product.id) %></td>
-          <td><%= item.order.cc_last_four %></td>
-          <td><%= item.quantity %></td>
-          <td><%= format_price(item.product.price)%></td>
-          <td><%= item.status%></td>
-          <td>
-            <%if item.status == "paid"%>
-              <%= link_to "Ship Item", ship_path({:id => item.id}), method: :patch%>
-            <%end%>
-          </td>
-        </tr>
-        <%end%>
-  <%#end%>
-</table>
-<div class="revenue">
-  <div class="left-label">
-    <strong>Total Revenue:</strong>
+<h3> Your Orders </h3> 
+<br>
+<div class="filter middle">
+  <%["pending", "paid", "shipped", "cancelled"].each do |item_status| %>
+    <div class="filter-button">
+      <%= button_to item_status.titleize, merchant_orders_status_path(@merchant, {:status => item_status}), method: :get, class:"btn btn-info"%>
+    </div>
+  <%end%>
+  <div class="filter-button">
+    <%= button_to "All Items", merchant_orders_path(@merchant), method: :get, class:"btn btn-info"%>
   </div>
-  <div class="right-value">
-    <%=format_price(@merchant.calculate_revenue)%>
+</div>
+<br>
+<div class="table">
+  <table>  
+    <tr> 
+        <th>Item</th>
+        <th>Order ID</th>
+        <th>Name</th>
+        <th>CC</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    <%#@merchant.products.each do |product|%>
+      <%@order_items.each do |item|%>
+          <tr class = "middle"> 
+            <td><%= link_to(image_tag(item.product.photo, class: "item_images", id: "small_image"), product_path(item.product.id)) %></td>
+            <td><%= item.order.id %></td>
+            <td><%= link_to item.product.name.titleize, product_path(item.product.id) %></td>
+            <td><%= item.order.cc_last_four %></td>
+            <td><%= item.quantity %></td>
+            <td><%= format_price(item.product.price)%></td>
+            <td><%= item.status%></td>
+            <td>
+              <%if item.status == "paid"%>
+                <%= link_to "Ship Item", ship_path({:id => item.id}), method: :patch%>
+              <%end%>
+            </td>
+          </tr>
+          <%end%>
+    <%#end%>
+  </table>
+  <div class="revenue">
+    <div class="left-label">
+      <strong>Total Revenue:</strong>
+    </div>
+    <div class="right-value">
+      <%=format_price(@merchant.calculate_revenue)%>
+    </div>
   </div>
 </div>
