@@ -4,20 +4,18 @@
 <div class = "middle">
   <% if @category_products.length > 0%>
     <% @category_products.each do |product|%>
-      <%if product.active%>
-        <div class = "col-xs-6 col-md-4">
-          <%= link_to(image_tag(product.photo, class: "show_images"), product_path(product)) %>
-          <p><small><%= link_to product.name.titleize, product_path(product) %></small></p>
-          <small><%= format_price(product.price) %></small>
-          <br>
-          <br>
-        </div>
-      <% end %>
+      <div class = "col-xs-6 col-md-4">
+        <%= link_to(image_tag(product.photo, class: "show_images"), product_path(product)) %>
+        <p><small><%= link_to product.name.titleize, product_path(product) %></small></p>
+        <small><%= format_price(product.price) %></small>
+        <br>
+        <br>
+      </div>
     <% end %>
     <br>
     <%# <p><%= page_entries_info @category_products %></p>
 
-    <div class="pagination">
+    <div class="pagination_container" style="width: 100%;overflow:auto;">
       <%= will_paginate @category_products %>
     </div>  
   <% else %>
