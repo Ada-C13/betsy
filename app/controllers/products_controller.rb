@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
   before_action :require_login, only: [:new, :edit, :update, :deactivate]
   before_action :require_ownership, only: [:edit, :update, :deactivate]
 
+
   # GET /products
   # GET /products.json
   def index
@@ -33,6 +34,12 @@ class ProductsController < ApplicationController
   end
 
   def create
+    unless session[:merchant_id]
+      flash[:danger] = "Only merchants can create a new product."
+      head :forbidden
+      return
+    end
+
     @product = Product.new(product_params)
     @product.merchant_id = session[:merchant_id]
     @product.photo = 'https://i.imgur.com/OR9WgUb.png' if @product.photo == ''
@@ -41,8 +48,8 @@ class ProductsController < ApplicationController
       flash[:success] = "Successfully created #{@product.name}"
       redirect_to product_path(@product)
     else
-      flash.now[:warning] = "Unable to save product."
-      flash.now[:details] = @product.errors.full_messages
+      flash.now[:danger] = "Unable to save product."
+      flash.now[:danger] = @product.errors.full_messages
       render :new, status: :bad_request
       return
     end
