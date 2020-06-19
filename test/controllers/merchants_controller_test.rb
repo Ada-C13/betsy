@@ -50,6 +50,13 @@ describe MerchantsController do
         expect(flash[:error]).must_equal  "You don't have access to that account!"
         must_redirect_to account_path(@merchant.id)
       end
+
+      it "logs in for diff user" do
+        merchant_with_inactive = merchants(:merchantccc)
+        perform_login(merchant_with_inactive)
+        get account_path(merchant_with_inactive)
+        must_respond_with :success
+      end
     end
 
     describe "shop" do

@@ -248,13 +248,21 @@ describe ProductsController do
      must_respond_with :not_found
     end
 
-    it "Can toggle product to be active or de-active" do
-      p @product_one[:active]
+    it "Can toggle product to be active or de-active (active product)" do
       expect {
         patch product_active_path(@product_one.id), params: @edited_product_hash
       }.wont_change "Product.count"
       @product_one.reload
       expect(@product_one.active).must_equal @edited_product_hash[:product][:active]
+      must_redirect_to account_path(@merchant)
+    end
+    it "Can toggle product to be active or de-active (unactive)" do
+    inactive = products(:product_inactive)
+      expect {
+        patch product_active_path(inactive.id)
+      }.wont_change "Product.count"
+      inactive.reload
+      #expect(inactive.active).must_equal @edited_product_hash[:product][:active]
       must_redirect_to account_path(@merchant)
     end
   end
