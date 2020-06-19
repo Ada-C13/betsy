@@ -2,34 +2,11 @@
 
 
 <div class="container">
-  <div class="row">
-        <div class="col-md merchant__stat-card">
-          <p class="stat"><%= @current_merchant.orders.count %></p>
-          <p class="stat-label">Total Orders</p>
-          <p class="stat-sm"><%= number_to_currency(@current_merchant.revenue)%></p>
-        </div>
-        <div class="col-md merchant__stat-card">
-          <p class="stat"><%= @current_merchant.orders_by_status(:pending).count%></p>
-          <p class="stat-label">Orders Pending</p>
-          <p class="stat-sm <%= "muted" if @current_merchant.orders_by_status(:pending).count > 0%>"><%= number_to_currency(@current_merchant.revenue_by_status(:pending)) %></p>
-        </div>
-        <div class="col-md merchant__stat-card">
-          <p class="stat"><%= @current_merchant.orders_by_status(:paid).count%></p>
-          <p class="stat-label">Orders Paid</p>
-          <p class="stat-sm"><%= number_to_currency(@current_merchant.revenue_by_status(:paid)) %></p>
-        </div>
-        <div class="col-md merchant__stat-card">
-          <p class="stat"><%= @current_merchant.orders_by_status(:complete).count%></p>
-          <p class="stat-label">Orders Shipped</p>
-          <p class="stat-sm"><%= number_to_currency(@current_merchant.revenue_by_status(:complete)) %></p>
-        </div>
-      </div>
-
-</div>
-<div class="container">
-  <% if @current_merchant.orders.count == 0 %>
-    <p>No orders to display.</p>
+  <% if @current_merchant.orders.empty? %>
+    <h1>You have no orders to manage</h1>
+    <br>
   <% else %>
+    <%= render "orders_stats" %>
     <%= render "orders_table" %>
   <% end %>
 </div>

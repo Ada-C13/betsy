@@ -5,9 +5,9 @@
 <% if @current_merchant.products.empty? %>
   <h1>You have no products to manage</h1>
   <br>
-  <%= button_to "Create Product", new_product_path, method: :get, class: 'btn btn-secondary btn-md'%>
+  <%= button_to "Create New Product", new_product_path, method: :get, class: 'btn btn-primary btn-md'%>
 <% else %>
-  <table class='table'>
+  <table class='table table-light'>
     <thead class='thead-light'>
       <tr>
         <th class='text-center'>Image</th>
@@ -19,7 +19,13 @@
     <tbody>
       <% @current_merchant.products.each do |item| %>
         <tr>
-          <td class='text-center'><%= image_tag(item.photo, class: "thumbnail img-thumbnail") %></td>
+          <td class='text-center'>
+            <% if item.photo == "" %>
+              <%= image_tag("no_photo.png", class: "thumbnail img-thumbnail") %>
+            <% else %>
+              <%= image_tag(item.photo, class: "thumbnail img-thumbnail") %>
+            <% end %>
+          </td>
           <td class='text-center align-middle'><%= link_to item.name, product_path(item) %></td>
           <td class='text-center align-middle'><%= item.stock %></td>
           <td class='align-middle'>

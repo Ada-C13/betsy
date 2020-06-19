@@ -4,7 +4,11 @@
   <div class="row">
 
     <div class="col-md-6">
-    <%= image_tag(@product.photo, class: "img-fluid") %>
+      <% if @product.photo == "" %>
+        <%= image_tag("no_photo.png", class: "img-fluid") %>
+      <% else %>
+        <%= image_tag(@product.photo, class: "img-fluid") %>
+      <% end %>
     </div>
 
     <div class="col-md-6">
@@ -33,7 +37,8 @@
 
     <% @product.reviews.each do |review| %>
       <div class="review">
-        <p><%= rating_as_stars(review.rating) %> on <%= review.created_at.strftime('%-d %B %Y') %> <%= review.comment %> </p>
+        <p><%= rating_as_stars(review.rating) %> from Guest User on <%= review.created_at.strftime('%B %-d, %Y') %></p> 
+        <p> <%= review.comment %> </p>
       </div>
     <% end %> 
   </div>
