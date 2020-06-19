@@ -14,11 +14,13 @@ class Product < ApplicationRecord
   def destock(quantity) 
     if self.stock > quantity 
       self.stock -= quantity
+      self.save
     end
   end
 
   def restock(quantity)
     self.stock += quantity
+    self.save
   end
 
   def enough_stock?(quantity)

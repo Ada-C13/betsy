@@ -20,6 +20,7 @@ class Order < ApplicationRecord
       format: { with: /\d{4}/, message: "year exp must be in YYYY format" }
     submitted.validates :cc_cvv, presence: true, 
       format: { with: /\d{3,4}/, message: "invalid cvv" }
+    submitted.validates_with Datevalidator
   end
 
 
@@ -54,10 +55,17 @@ class Order < ApplicationRecord
     if self.status != "pending"
       return false
     end
-    # 16 dig cc > 4 dig cc
     self.status = "paid"
-    self.save
     return change_items(:destock)
+  end
+
+  def cc_num_is_correct(cc_num)
+    if /\d{16}/.match?(cc_num)
+      return true
+    else
+      errors.add(:cc_validation, "Credit card number must be 16 digits")
+      return false
+    end
   end
 
   private

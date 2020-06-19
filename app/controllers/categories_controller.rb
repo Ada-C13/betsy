@@ -21,18 +21,19 @@ class CategoriesController < ApplicationController
   def create
     if find_user
       @category = Category.new(category_params)
+      if @category.name
+        @category.name = @category.name.downcase.titleize
+      end
+    
       if @category.save
-        # flash[:status] = :success
-        flash[:result_text] = "Successfully created #{@category.name.titleize}"
+        flash[:result_text] = "Successfully created #{@category.name}"
         redirect_to account_path(find_user.id)
         return
       else
-        flash[:status] = :failure
-        flash[:result_text] = "Could not create a category"
-        flash[:messages] = @category.errors.messages
+        flash.now[:error] = "A problem occurred: Could not create category"
         render :new, status: :bad_request
         return
-      end
+      end  
     end   
   end
 

@@ -25,13 +25,13 @@ class OrdersController < ApplicationController
 
   def submit_order
     @order.submit_order
-    if @order.update(order_params)
+    if filter_cc && @order.update(order_params)
       session[:cart_id] = nil
       flash[:success] = "Your order has been submitted!"
       redirect_to complete_order_path(@order)
       return
     else
-      flash.now[:error] = "Woops, #{@order.errors.messages}"
+      flash.now[:error] = "A problem occurred: Could not submit order"
       render :checkout
       return
     end
@@ -63,6 +63,15 @@ class OrdersController < ApplicationController
     if @order.nil?
       head :not_found
       return
+    end
+  end
+
+  def filter_cc
+    if @order.cc_num_is_correct(params[:order][:cc_last_four])
+      params[:order][:cc_last_four] = params[:order][:cc_last_four][-4..-1]
+      return true
+    else
+      return false
     end
   end
 

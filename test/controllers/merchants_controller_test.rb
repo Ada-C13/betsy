@@ -102,7 +102,7 @@ describe MerchantsController do
         expect(Merchant.last.name).must_equal valid_merchant[:name]
         expect(Merchant.last.email).must_equal valid_merchant[:email]
         expect(Merchant.last.avatar).must_equal valid_merchant[:avatar]
-        expect(flash[:notice]).must_equal "Logged in as a new merchant #{valid_merchant[:name]}"
+        expect(flash[:notice]).must_equal "Logged in as a new merchant #{valid_merchant[:name].titleize}"
         must_respond_with :redirect
         must_redirect_to root_path
       end

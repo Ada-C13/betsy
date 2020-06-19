@@ -70,7 +70,7 @@ describe OrderItemsController do
       post add_order_item_path(product), params: good_qty_hash
       item = OrderItem.last
       post add_order_item_path(product), params: good_qty_hash
-      expect(flash[:redirect]).must_equal "#{product.name} already in cart. Edit quantity here:"
+      expect(flash[:redirect]).must_equal "#{product.name.titleize} already in cart. Edit quantity here:"
       must_redirect_to order_item_path(item)
     end
   end
@@ -112,7 +112,7 @@ describe OrderItemsController do
     it "successfully ships item" do
       perform_login(@merchant)
       patch ship_path({merchant_id: @merchant.id, id: @item.id})
-      expect(flash[:success]).must_equal "Notified customer that #{@item.product.name} has been shipped."
+      expect(flash[:success]).must_equal "Notified customer that #{@item.product.name.titleize} has been shipped."
       must_redirect_to merchant_orders_path(merchant_id: @merchant.id)
     end
     it "returns 404 when not found" do
