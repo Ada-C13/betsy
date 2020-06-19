@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :deactivate]
-  before_action :require_login, only: [:new, :edit, :update, :deactivate]
+  before_action :require_login, only: [:new, :create, :edit, :update, :deactivate]
   before_action :require_ownership, only: [:edit, :update, :deactivate]
 
 
@@ -62,7 +62,7 @@ class ProductsController < ApplicationController
       redirect_to @product
       flash[:success] = "Successfully updated product."
       return
-    else 
+    else
       flash.now[:warning] = "Product update failed"
       flash.now[:details] = @product.errors.full_messages
       render :edit, status: :bad_request
@@ -81,15 +81,15 @@ class ProductsController < ApplicationController
 
   private
 
-    def set_product
-      @product = Product.find_by(id: params[:id])
-      if @product.nil?
-        head :not_found
-        return 
-      end
+  def set_product
+    @product = Product.find_by(id: params[:id])
+    if @product.nil?
+      head :not_found
+      return
     end
+  end
 
-    def product_params
-      return params.require(:product).permit(:name, :description, :photo, :stock, :price, category_ids: [])
-    end
+  def product_params
+    return params.require(:product).permit(:name, :description, :photo, :stock, :price, category_ids: [])
+  end
 end

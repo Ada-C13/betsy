@@ -1,14 +1,8 @@
 class ApplicationController < ActionController::Base
-
   protect_from_forgery with: :exception
 
   before_action :find_cart
   before_action :current_merchant
-
-  # def render_404
-  #   # DPR: this will actually render a 404 page in production
-  #   raise ActionController::RoutingError.new("Not Found")
-  # end
 
   def find_cart
     if session[:order_id]
@@ -21,12 +15,12 @@ class ApplicationController < ActionController::Base
 
   def current_merchant
     @current_merchant ||= session[:merchant_id] &&
-      Merchant.find_by(id: session[:merchant_id])
+                          Merchant.find_by(id: session[:merchant_id])
   end
 
-  def current_product 
+  def current_product
     @current_product ||= params[:product_id] &&
-      Product.find_by(id: params[:product_id])
+                         Product.find_by(id: params[:product_id])
   end
 
   def require_login
@@ -42,7 +36,7 @@ class ApplicationController < ActionController::Base
       requester = params[:id].to_i # when params id references a merchant
     else
       requester = Product.find_by(id: params[:id]).merchant.id # when params id references a product
-    end 
+    end
 
     if requester != current_merchant.id
       if request.get? # merchant trying to GET ownership-locked resources

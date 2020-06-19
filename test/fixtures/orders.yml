@@ -18,8 +18,10 @@ order_paid:
   credit_card_cvv: 429
   address: 8691 East Fulton Street
   city: Casselberry
+  time_submitted: 2020-06-19 02:59:11
   state: FL 
   zip: 32707-237
+
   customer_email: barbara@gmail.com
   
 order_complete:
