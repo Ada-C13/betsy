@@ -29,7 +29,7 @@
             <div class = "line-height middle">
               <p><small><%= link_to product.name.titleize, product_path(product) %></small></p>
               <p><small><%= format_price(product.price) %></small></p>
-              <p><%= button_to "Add to Cart", product_path(product), class:"btn btn-danger" %></p>
+              <p><%= button_to "Add to Cart", product_path(id: product.id,  quantity: 1), class:"btn btn-danger" %></p>
               <br>
             </div>
             <br>
