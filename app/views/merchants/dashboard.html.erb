@@ -50,15 +50,15 @@
 
       <div class="row">
         <div class="col-md merchant__stat-card">
-          <p class="stat">0</p>
+          <p class="stat"><%= @current_merchant.products.count%></p>
           <p class="stat-label">Listings</p>
         </div>
         <div class="col-md merchant__stat-card">
-          <p class="stat">0</p>
+          <p class="stat"><%= @current_merchant.products_out_of_stock%></p>
           <p class="stat-label">Out of Stock</p>
         </div>
         <div class="col-md merchant__stat-card">
-          <p class="stat">0</p>
+          <p class="stat"><%= @current_merchant.orders_by_status(:paid).count%></p>
           <p class="stat-label">Awaiting Shipment</p>
         </div>
       </div>

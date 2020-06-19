@@ -22,7 +22,7 @@
         <tr>
           <td><%= link_to order_item.product.name, product_path(order_item.product) %></td>
           <td><%= order_item.quantity %></td>
-          <td><%= order_item.product.price %> | owner is <%= order_item.product.merchant.username %></td>
+          <td><%= order_item.product.price %></td>
           <td><%= order_item.subtotal %></td>
         </tr>
       <% end %>
