@@ -38,7 +38,13 @@ class OrderItemsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    order = Order.find_by(id: session[:cart_id])
+    if !order.order_items.find_by(id: @order_item.id)
+      flash[:error] = "This item is not in your cart!"
+      redirect_to cart_path
+    end   
+  end
 
   def update
     qty = order_item_params[:quantity].to_i
