@@ -25,9 +25,8 @@ class OrdersController < ApplicationController
         render :edit, status: :bad_request
       end
     else
-      flash.now[:status] = :failure
-      flash.now[:result_text] = "Please enter required info before checkout."
-      flash.now[:messages] = @shopping_cart.errors.full_messages
+      flash.now[:warning] = "Please enter required info before checkout."
+      flash.now[:details] = @shopping_cart.errors.full_messages
       render :edit, status: :bad_request
     end
   end
@@ -36,8 +35,8 @@ class OrdersController < ApplicationController
     # Empties cart (User)
     @shopping_cart.destroy
     session[:order_id] = nil
-    flash[:result_text] = "Successfully emptied shopping cart."
-    redirect_to root_path
+    flash[:success] = "Successfully emptied shopping cart."
+    redirect_to cart_path
   end
 
   def complete
