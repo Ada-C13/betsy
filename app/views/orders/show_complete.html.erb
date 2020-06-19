@@ -19,8 +19,7 @@ We'll email you an update when we've shipped it.</strong></p>
 <table class="table table-hover">
   <%@order.order_items.each do |item|%>
     <tr >
-      
-      <td class = "left"><%= image_tag item.product.photo, alt:"image", class: "item_images" %></td>
+      <td class = "left"><%= image_tag item.product.photo, alt:"image", class: "item_images", id: "small_image"%></td>
       <td><%= item.product.name.titleize %></td>
       <td>
         <%= format_price(item.product.price)%> x
