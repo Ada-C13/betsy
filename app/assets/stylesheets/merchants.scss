@@ -1,0 +1,45 @@
+// Place all the styles related to the Merchants controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.current {
+  margin: 50px auto;
+}
+
+.dashboard-container {
+  background-color: white;
+}
+
+.btm-bump-down {
+  padding-bottom: 40px;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.profile {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: 3px 3px 5px 6px #ccc;
+}
+
+.merchant-page {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.merchant-card {
+  margin-right: 20px;
+}
+
+.image-container {
+  margin: auto;
+  padding-top: 10px;
+}

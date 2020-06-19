@@ -1,0 +1,56 @@
+<h1 class='title'>You might regret this...</h1>
+<div class='single-product-container'>
+<div class='card horiz' style="max-width: 1000px;">
+  <div class='row no-gutters'>
+  <div class='col-sm-5' style="background: #868e96;">
+  <%= image_tag(@product.photo_url, class: "card-img-top h-100") %>
+  </div>
+  
+    <div class="col-sm-7">
+      <div class="card-body">
+        <h2 class="card-title"><%= @product.name %></h5>
+       <div class='product-info-container'>
+          <p class="card-text text-left"><strong>Description: </strong><%= @product.description %></p>
+          <p class="card-text text-left"><strong>Price: </strong><%= sprintf("$%2.2f", @product.price) %></p>
+          <p class="card-text text-left"><strong>In Stock: </strong><%= @product.stock %></p>
+          <p class="card-text text-left"><strong>Sold by: </strong><%= link_to "#{@product.merchant.name} (ID: #{@product.merchant.uid})", merchant_path(@product.merchant.id) %> </p>
+          <p class="card-text text-left"><strong>Category:</strong> 
+            <% @product.category_ids.each do |category_id| %>
+                <% category = Category.find_by(id: category_id) %>
+                <%= link_to category.category, category_path(category.id), class: "btn btn-sm btn-outline-secondary" %> 
+            <% end %>
+            </p>
+          </div>
+  
+          <div class='btn-container'>
+          <%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :patch, class: "btn btn-info btn-lg" %>
+          <% if session[:merchant_id] != @product.merchant.id %>
+            <%= link_to "Review Product", new_product_review_path(@product.id), method: :get, class: "btn btn-info btn-lg" %>
+          <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<hr/>
+
+<div class='reviews'>
+  <h1 class='subtitle2'>Product Reviews</h1>
+  <div class='reviews-container'>
+  <%= render partial: "shared/reviews", locals: { review_set: @product.reviews } %>
+  </div>
+</div>
+
+<hr/>
+
+<div class='reviews'>
+<h1 class='subtitle2'>Other Products You May Regret Buying!</h1>
+  <div class='reviews-container'>
+    <div class='card-columns'>
+      <%= render partial: "shared/card", locals: { product_set: @featured_products } %>
+    </div>
+  </div>
+</div>
+

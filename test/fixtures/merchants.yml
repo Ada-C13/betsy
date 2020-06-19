@@ -1,0 +1,36 @@
+faker:
+  name: faker
+  uid: 1111111
+  provider: github
+  email: faker@lol.com
+  avatar: https://i.imgur.com/JWfZcrG.jpg
+greentye:
+  name: greentye
+  uid: 2222222
+  provider: github
+  email: greentye@lol.com
+  avatar: https://i.imgur.com/JWfZcrG.jpg
+dancingrain:
+  name: dancingrain
+  uid: 3333333
+  provider: github
+  email: dancingrain@lol.com
+  avatar: https://i.imgur.com/JWfZcrG.jpg
+order_total_merchant_1:
+  name: order_total_merchant_1
+  uid: 03171989
+  provider: github
+  email: mary@icloud.com
+  avatar: https://i.imgur.com/JWfZcrG.jpg
+order_status_merchant:
+  name: liya
+  uid: 08052005
+  provider: github
+  email: liya@icloud.com
+  avatar: https://i.imgur.com/JWfZcrG.jpg
+order_total_merchant_2:
+  name: order_total_merchant_2
+  uid: 1111187
+  provider: github
+  email: youwish@lol.com
+  avatar: https://i.imgur.com/JWfZcrG.jpg

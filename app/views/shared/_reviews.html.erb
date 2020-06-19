@@ -1,0 +1,21 @@
+<div class='card-deck'>
+    <% review_set.each do |review| %>
+    <div class="card review">
+        <div class="card-body">
+            <h5 class="card-title">Unbiased Product Review:</h5>
+            <p class='card-text'><%= review.review_text %></p>
+            <p class='card-text'>Rating: <tr>
+                    <% if review.rating %>
+                    <td><%= render_rating(review.rating) %></td>
+                    <%else%>
+                    <%= link_to "Be First to Review", new_product_review_path(@product.id), method: :get, class: "btn btn-info btn-lg" %>
+                    <%end%>
+                </tr>
+            </p>
+        </div>
+        <div class="card-footer text-muted">
+            <p class="card-text">Reviewed on <%= review.created_at.strftime("%b %d, %Y") %> </p>
+        </div>
+    </div>
+    <% end %>
+</div>

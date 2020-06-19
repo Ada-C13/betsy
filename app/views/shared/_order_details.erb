@@ -1,0 +1,52 @@
+<div class='container-lg d-flex flex-column justify-content-center'>
+  <div class="card details" style="width: 70rem;">
+    <div class="card-body">
+        <h5 class="card-title subtitle3">Customer Details:</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><strong>Customer Name: </strong><%= @order.buyer_name %></li>
+      <li class="list-group-item"><strong>Email Address: </strong><%= @order.email_address %></li>
+      <li class="list-group-item"><strong>Mail Address: </strong><%= @order.mail_address %></li>
+      <li class="list-group-item"><strong>Last Four Digits of Credit Card: </strong><%= @order.cc_num %></li>
+      <li class="list-group-item"><strong>Credit Card Expiration: </strong><%= "#{@order.cc_exp[0..1]}/#{@order.cc_exp[2..3]}" %></li>
+    </ul>
+  </div>
+
+
+  <div class="card details" style="width: 70rem">
+    <div class="card-body">
+        <h5 class="card-title subtitle3">Order Details:</h5>
+        
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><strong>Order Date: </strong><%= "#{@order.created_at.strftime("%B %d, %Y")}" %></li>
+      <li class="list-group-item"><strong>Order Status: </strong><%= @order.status.capitalize %></li>
+      <li class="list-group-item"><strong>Order Revenue: </strong><%= sprintf("$%2.2f", @order_revenue) %></li>
+      <li class="list-group-item"><strong>Shipping Status: </strong><%= ship_status ? "Shipped" : "Not Shipped" %></li>
+    </ul>
+  </div>
+
+  <div class="card details" style="width: 70rem">
+    <h2 class='subtitle3'>Product Details</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% item_set.each do |order_item| %>
+        <tr>
+          <td><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
+          <td><%= "Quantity: #{order_item.quantity}" %></td>
+          <td><%= "Price: #{sprintf("$%2.2f", order_item.product.price)}" %></td>
+          <td><%= sprintf("$%2.2f", order_item.product.price * order_item.quantity) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

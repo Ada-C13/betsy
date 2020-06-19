@@ -1,0 +1,99 @@
+<% if @order.errors.any? %>
+  <ul class="errors">
+    <% @order.errors.each do |column, message| %>
+      <div class="alert alert-danger" role="alert">
+        <%= "Order #{column} #{message}. Please enter a valid #{column}." %>
+      </div>
+    <% end %>
+  </ul>
+<% end %>
+
+<h1 class='title'> Review Your Order </h2>
+
+<div class='container-md'>
+  <h2 class='subtitle3'><i class="fas fa-shopping-cart"></i> Items in Your Cart</h3>
+    <% total = 0 %>
+    <% session[:shopping_cart].each do |product_id, quantity| %>
+      <% product = Product.find_by(id: product_id) %>
+      <% subtotal = quantity * product.price %>
+      <% total += subtotal %>
+
+      <table class="table table-hover">
+      <thead class='text-center'>
+        <tr>
+          <th>Product Image</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Change Quantity</th>
+        </tr>
+      <thead>
+      <tbody class='text-center'>
+          <tr class="clickable-tr" >
+            <td><%= link_to image_tag(product.photo_url, class: 'img-thumbnail', size: '200x200'), product_path(product.id) %></td>
+            <td><%= link_to product.name, product_path(product.id) %></td>
+            <td><%= quantity %></td>
+            <td><%= sprintf("$%2.2f", product.price) %></td>
+            <td class='btns'><%= link_to " + Add Quantity", add_to_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-sm" %>
+            <%= link_to " - Decrease Quantity", remove_from_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-sm" %>
+            <%= link_to " Remove from Cart", delete_from_cart_path(product.id), method: :patch, class: "btn btn-info inline btn-sm" %></td>
+          </tr>
+      </tbody>
+    </table>
+<% end %>
+</div>
+
+<div class=container-sm>
+  <h1 class='subtitle2 text-right'>Your Order Total: <%= sprintf("$%2.2f", total) %></h1>
+</div>
+
+
+<hr/>
+
+<div class="container-sm customer-info">
+  <h3 class='subtitle3'>Please enter your billing & shipping information:</h3>
+  <h4 class='subtitle4 text-muted'>(But remember this is a student project, so please don't give us your real info... <i class="fas fa-laugh-wink"></i>) </h4>
+
+  <%= form_with model: @order, class: "user-form" do |f| %>
+   
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :buyer_name, class: "form-control form-control-lg", placeholder: "Name on Credit Card" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :mail_address %>
+      <%= f.text_field :mail_address, class: "form-control form-control-lg", placeholder: "Mailing Address" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :zip_code %>
+      <%= f.text_field :zip_code, :maxlength => 5, class: "form-control form-control-lg", placeholder: "Zip" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email_address %>
+      <%= f.text_field :email_address, class: "form-control form-control-lg", placeholder: "Email Address" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :Credit_Card_Number %>
+      <%= f.text_field :cc_one, :maxlength => 4, class: "form-control-lg" %> -
+      <%= f.text_field :cc_two, :maxlength => 4, class: "form-control-lg" %> -
+      <%= f.text_field :cc_three, :maxlength => 4, class: "form-control-lg" %> -
+      <%= f.text_field :cc_four, :maxlength => 4, class: "form-control-lg" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :Credit_Card_CVV %>
+      <%= f.text_field :cc_cvv, :maxlength => 3, class: "form-control form-control-lg", placeholder: "Credit Card CVV (security code)" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :Credit_Card_Expiration %>
+      <%= f.label :month %>
+      <%= f.select :month, [""] + (1..12).to_a, class: "form-control" %>
+
+      <%= f.label :year %>
+      <%= f.select :year, [""] + (20..25).to_a, class: "form-control" %>
+    </div>
+
+    <%= f.submit action_name == "New" ? "Review Order" : "Update Order", class: "btn btn-info btn-lg" %>
+  <% end %>
+</div>

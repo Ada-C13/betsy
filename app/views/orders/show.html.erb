@@ -1,0 +1,13 @@
+
+<h1 class='title'>Nice Job Suckering in Some Cash ;)</h1>
+<div class="jumbotron">
+  <h1 class="display-4">Order Details (Order #<%= @order.id %>)</h1>
+  <hr class="my-4">
+
+<%= link_to "Return to Dashboard", dashboard_path, method: :get, class: "btn btn-info" %>
+<% order_items = OrderItem.items_by_order_merchant(@order.id, session[:merchant_id]) %>
+<% if !order_items[0].is_shipped && @order.status == "paid" %>
+  <%= link_to "Ship Products", ship_path(@order.id), method: :patch, class: "btn btn-info" %>
+<% end %>
+
+<%= render partial: "shared/order_details", locals: { item_set: @order_items, ship_status: order_items[0].is_shipped } %>

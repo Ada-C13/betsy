@@ -1,0 +1,79 @@
+// Place all the styles related to the products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+// all products - product index
+
+// from https://stackoverflow.com/questions/36487389/bootstrap-4-card-deck-table-cell-columns-responsive-based-on-viewport
+.card-deck {
+    margin: 0 -15px;
+    justify-content: space-around;
+  }
+  
+  .card-deck .card {
+    margin: 0 0 1rem;
+  }
+  
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .card-deck .card {
+      -ms-flex: 0 0 48.7%;
+      flex: 0 0 48.7%;
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .card-deck .card {
+      -ms-flex: 0 0 32%;
+      flex: 0 0 32%;
+    }
+  }
+  
+  @media (min-width: 992px)
+  {
+    .card-deck .card {
+      -ms-flex: 0 0 24%;
+      flex: 0 0 24%;
+    }
+  }
+
+
+// individual product - product show
+
+.horiz {
+    margin: 30px auto
+}
+
+.card-columns {
+    column-count: 5;
+}
+
+.single-product-container {
+    padding-bottom: 20px;
+}
+
+.all-prods-container {
+    padding: 0px 20px;
+}
+
+.reviews-container {
+    padding: 0px 20px;
+}
+
+.product-info-container {
+    padding-left: 80px;
+    padding-bottom: 60px;
+}
+
+// .img {
+//     float: left;
+//     width:  262px;
+//     height: 262px;
+//     max-height: 100%;
+//     max-width: 100%;
+//     object-fit: fill;
+// }
+
+.img {
+    box-shadow: 0 8px 6px -6px black;
+}
+

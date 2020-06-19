@@ -1,0 +1,7 @@
+<ul class='list-group'>
+    <% category_set.each do |category| %>
+        <% if category.category %>
+            <li class='list-group-item'><%= link_to category.category, category_path(category.id), method: :get %></li>
+        <% end %>    
+    <% end %>
+</ul>
