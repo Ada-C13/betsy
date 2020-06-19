@@ -23,6 +23,14 @@ describe ReviewsController do
     get product_reviews_path(@product.id)
     must_redirect_to root_path
   end
+
+  describe "new" do
+    it "responds with success" do
+      get new_product_review_path(@product.id)
+      expect(@review1.product_id).must_equal @product.id
+      must_respond_with :success
+    end
+  end
   
   describe "create" do
     before do
