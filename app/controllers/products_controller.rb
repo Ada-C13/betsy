@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
       @products = results[:products]
       @filters = results[:filters]
     else
-      @products = Product.active_products
+      @products = Product.active_products.order("id")
     end
   end
 
