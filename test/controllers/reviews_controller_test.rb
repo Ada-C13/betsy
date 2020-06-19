@@ -52,9 +52,9 @@ describe ReviewsController do
       perform_login(@merchant)
       # Product1 is created by merchant :merchantaaa in fixture, so this user can not review the own product
       expect { 
-        post create_review_path(@product.id), params: @review_hash
+        post create_review_path(@product1.id), params: @review_hash
       }.wont_change "Review.count"
-#      expect(flash[:warning]).must_equal "Sorry, You cannot a review for your own product."
+      expect(flash[:warning]).must_equal "Sorry, You cannot add review for your own product."
       must_redirect_to product_path(@product1.id)
     end
 
