@@ -2,47 +2,50 @@
 
 <div class="container product-list">
 
-  <h1><%= "No products to view" if @current_merchant.products.empty? %></h1>
-
-
-<table class='table'>
-  <thead class='thead-light'>
-    <tr>
-      <th>Image</th>
-      <th>Name</th>
-      <th>Inventory</th>
-      <th><th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @current_merchant.products.each do |item| %>
+<% if @current_merchant.products.empty? %>
+  <h1>You have no products to manage</h1>
+  <br>
+  <%= button_to "Create Product", new_product_path, method: :get, class: 'btn btn-secondary btn-md'%>
+<% else %>
+  <table class='table'>
+    <thead class='thead-light'>
       <tr>
-        <td><%= image_tag(item.photo, class: " thumbnail img-thumbnail img-fluid") %></td>
-        <td class='align-middle'><%= link_to item.name, product_path(item) %></td>
-        <td class='align-middle'><%= item.stock %></td>
-        <td class='align-middle'>
-          <%= button_to 'Edit', 
-                edit_product_path(item), 
-                method: :get, 
-                class: 'btn btn-info btn-md' 
-              %>
-        </td>
-        <td class='align-middle'>
-          <% if item.active %>
-            <%= button_to 'Deactivate', 
-                  product_deactivate_path(item), 
-                  method: :post, 
-                  class: 'btn btn-danger btn-md' 
+        <th>Image</th>
+        <th>Name</th>
+        <th>Inventory</th>
+        <th><th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @current_merchant.products.each do |item| %>
+        <tr>
+          <td><%= image_tag(item.photo, class: " thumbnail img-thumbnail img-fluid") %></td>
+          <td class='align-middle'><%= link_to item.name, product_path(item) %></td>
+          <td class='align-middle'><%= item.stock %></td>
+          <td class='align-middle'>
+            <%= button_to 'Edit', 
+                  edit_product_path(item), 
+                  method: :get, 
+                  class: 'btn btn-info btn-md' 
                 %>
-          <% else %>
-            <%= button_to 'Activate', 
+          </td>
+          <td class='align-middle'>
+            <% if item.active %>
+              <%= button_to 'Deactivate', 
                     product_deactivate_path(item), 
                     method: :post, 
-                    class: 'btn btn-info btn-md' 
+                    class: 'btn btn-danger btn-md' 
                   %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+            <% else %>
+              <%= button_to 'Activate', 
+                      product_deactivate_path(item), 
+                      method: :post, 
+                      class: 'btn btn-info btn-md' 
+                    %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
