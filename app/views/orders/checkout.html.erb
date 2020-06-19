@@ -1,7 +1,7 @@
 <% if @order.errors.any? %>
   <ul class="errors">
     <% @order.errors.each do |column, message| %>
-      <%if column != "cc_last_four"%>
+      <%if column != :cc_last_four%>
         <li>
           <span><strong><%= column.capitalize %></strong></span>: <%= message %>
         </li>
