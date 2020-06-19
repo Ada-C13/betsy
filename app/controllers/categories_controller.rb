@@ -26,7 +26,7 @@ class CategoriesController < ApplicationController
       end
     
       if @category.save
-        flash[:result_text] = "Successfully created #{@category.name}"
+        flash[:success] = "Successfully created #{@category.name}"
         redirect_to account_path(find_user.id)
         return
       else
