@@ -33,7 +33,9 @@ class OrderItemsController < ApplicationController
   def ship
     if !@order_item.shipped
       @order_item.update(shipped: true)
-      @order_item.order.update(status: "complete")
+      if @order_item.order.order_items.all? { |item| item.shipped == true }
+        @order_item.order.update(status: "complete")
+      end
       flash[:status] = :success
       flash[:result_text] = "Successfully shipped #{@order_item.product.title}!"
       redirect_to merchant_path(@order_item.product.merchant.id)
