@@ -27,7 +27,6 @@ describe Merchant do
   end
 
 
-
   describe "relationships" do
     it "has/responds to products" do
       expect(new_merchant.respond_to?(:products)).must_equal true
