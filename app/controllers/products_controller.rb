@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :deactivate]
-  before_action :require_login, only: [:new, :edit, :update, :deactivate]
+  before_action :require_login, only: [:new, :create, :edit, :update, :deactivate]
   before_action :require_ownership, only: [:edit, :update, :deactivate]
 
   # GET /products
@@ -43,8 +43,8 @@ class ProductsController < ApplicationController
     else
       flash.now[:warning] = "Unable to save product."
       flash.now[:details] = @product.errors.full_messages
-      render :new, status: :bad_request
-      return
+      # render :new, status: :bad_request
+
     end
   end
 

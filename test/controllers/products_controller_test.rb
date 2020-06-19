@@ -184,10 +184,9 @@ describe ProductsController do
       end
 
       it "should not create new product" do
-        assert_no_difference("Product.count") do
-          post products_url, params: { product: new_product }
-        end
-        must_respond_with :bad_request
+        post products_url, params: { product: new_product }
+        must_redirect_to root_path
+        expect(flash[:danger]).must_equal "Must be logged in as a merchant."
       end
 
       it "should not edit a product" do
