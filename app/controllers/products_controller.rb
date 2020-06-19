@@ -1,25 +1,19 @@
 class ProductsController < ApplicationController
-  before_action :find_product, except: [:index, :new]
+  before_action :find_product, except: [:index, :new, :create]
   skip_before_action :require_login, only: [:index, :show]
 
-  
   def index
     @products = Product.where(active: true).paginate(page: params[:page], per_page: 9)
   end
 
-  def show
-    if @product.nil?
-      redirect_to products_path
-      return
-    end
-  end
+  def show; end
 
   def new
     @product = Product.new
   end
 
   def create
-    # byebug  
+    @product = Product.find_by(id: params[:id])
     if session[:merchant_id]
       merchant = Merchant.find_by(id: session[:merchant_id])
       @product = Product.new(product_params)
@@ -39,18 +33,10 @@ class ProductsController < ApplicationController
     end
   end
 
-  def edit
-    if @product.nil?
-      redirect_to products_path
-      return
-    end
-  end
+  def edit; end
 
   def update
-    if @product.nil?
-      head :not_found
-      return
-    elsif @product.update(product_params)
+    if @product.update(product_params)
       flash[:success] = "Successfully updated #{@product.name.titleize}"
       redirect_to product_path(@product)
       return
@@ -62,11 +48,6 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find_by(id: params[:id])
-    if @product.nil?
-      head :not_found
-      return
-    end
     if session[:merchant_id]
       merchant = Merchant.find_by(id: session[:merchant_id])
       # We can delete any product that is NOT in the cart and it has already been shipped
@@ -87,10 +68,6 @@ class ProductsController < ApplicationController
   end 
 
   def toggle_active
-    if @product.nil?
-      head :not_found
-      return
-    end
     @product.change_active
     flash[:success] = "#{@product.name.titleize} active status changed."
     redirect_to account_path(session[:merchant_id])
@@ -105,6 +82,11 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find_by(id: params[:id])
+    if @product.nil?
+      flash[:error] = "Product not found."
+      redirect_to products_path
+      return
+    end
   end
 
 end

@@ -23,7 +23,7 @@ class ReviewsController < ApplicationController
     end
     
     if session[:merchant_id] == @product.merchant_id
-        flash[:warning] = "Sorry, You cannot a review for your own product."
+        flash[:warning] = "Sorry, You cannot add review for your own product."
         redirect_to product_path(@product.id)
         return
     else

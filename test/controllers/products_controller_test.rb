@@ -174,7 +174,8 @@ describe ProductsController do
       expect{
         patch product_path(-1), params: @edited_product_hash
       }.wont_change "Product.count"
-      must_respond_with :not_found
+      expect(flash[:error]).must_equal "Product not found."
+      must_redirect_to products_path
     end
 
     it "does not update a product if the form data violates Product validations, and responds with a 400 error" do
@@ -228,7 +229,8 @@ describe ProductsController do
       expect {
         delete product_path(-1)
       }.wont_change "Product.count"
-      must_respond_with :not_found
+      expect(flash[:error]).must_equal "Product not found."
+      must_redirect_to products_path
     end
 
     it "A merchant cannot destory other's merchants' products" do
@@ -245,7 +247,8 @@ describe ProductsController do
       expect {
         patch product_active_path(-1), params: @edited_product_hash
       }.wont_change "Product.count"
-     must_respond_with :not_found
+      expect(flash[:error]).must_equal "Product not found."
+      must_redirect_to products_path
     end
 
     it "Can toggle product to be active or de-active (active product)" do

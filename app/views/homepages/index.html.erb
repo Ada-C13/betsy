@@ -25,11 +25,11 @@
       <% Product.all.max_by(6) {|product| product.created_at}.each do |product| %>
         <%if product.active%>
           <div class = "col-xs-6 col-md-4">
-            <%= link_to(image_tag(product.photo, class: "product-image-homepage"), product_path(product)) %>
+            <%= link_to(image_tag(product.photo, class: "product-image-homepage", id: "image-max-width"), product_path(product)) %>
             <div class = "line-height middle">
               <p><small><%= link_to product.name.titleize, product_path(product) %></small></p>
               <p><small><%= format_price(product.price) %></small></p>
-              <p><%= button_to "Add to Cart", product_path(product), class:"btn btn-danger" %></p>
+              <p><%= button_to "Add to Cart", product_path(id: product.id,  quantity: 1), class:"btn btn-danger" %></p>
               <br>
             </div>
             <br>

@@ -15,10 +15,19 @@ class MerchantsController < ApplicationController
   end
 
   def shop
-    @merchant_products = @merchant.products.where(active: true).paginate(page: params[:page], per_page: 9)
+    if @merchant.nil?
+      flash[:error] = "This merchant doesn't exist!"
+      redirect_to root_path
+    else
+      @merchant_products = @merchant.products.where(active: true).paginate(page: params[:page], per_page: 9)
+    end
   end
 
   def orders
+    if @merchant.nil? || session[:merchant_id] != @merchant.id
+      flash[:error] = "You don't have access to that account!"
+      redirect_to root_path
+    end
   end
 
   def create
