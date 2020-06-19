@@ -4,34 +4,32 @@
     background-color: $salmon;
   }
   .col-md-6 {
-    padding: 5% 5%;
+    padding: 2% 5%;
   }
 
   img {
-    border: 1px solid darken($salmon,30%);
+    border: 4px solid whitesmoke;
     border-radius: 100%;
   }
 
   //Nikki box
   .top-left {
-    background-color: darken($secondary-color, 10%);
+    background-color: #E15D41;
+    
   }
 
   //Suely box
   .top-right {
     background-color: #cce6ff;
   }
-  .top-right img {
-    border-color: whitesmoke;
-  } 
 
   //Haben box
   .bottom-left {
-    background-color: darken($secondary-color, 20%);
+    background-color: #386C78;
   }
 
   //Angela box
   .bottom-right {
-    background-color: lighten($secondary-color, 2%);
+    background-color: #ff9563;
   }
 }
