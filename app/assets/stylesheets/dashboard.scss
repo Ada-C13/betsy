@@ -1,8 +1,13 @@
 .merchants {
   background-color: lighten($merchants-tertiary-color, 2%);
+   
 }
 
+
 .merchants .dashboard {
+
+
+
   .col-md-4 {
     background: lighten($merchants-tertiary-color, 1%);
   }
@@ -27,7 +32,7 @@
   h4 {
     text-align: center;
     margin: 20px;
-    color: darken($merchants-tertiary-color,20%)
+    color: $lilac;
   }
 }
 
@@ -45,4 +50,8 @@
   .stat-label {
     color: lighten($secondary-color,2%);
   }
+}
+
+h4 {
+  color: $lilac;
 }
