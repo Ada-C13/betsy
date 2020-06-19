@@ -23,32 +23,26 @@ describe ReviewsController do
     get product_reviews_path(@product.id)
     must_redirect_to root_path
   end
-
-  describe "new" do
-    it "responds with success" do
-      get new_product_review_path(@product.id)
-      must_respond_with :success
-    end
-  end 
   
   describe "create" do
     before do
       @review_hash = {
         review: {
           rating: 1,
-          feedback: 'Very nice product',
-          product_id:@product1.id
+          feedback: 'Very nice product'
         }
       }
     end
     it "can create a new review with valid information accurately" do
-      # Ensure that there is a change of 1 in Category.count
+      # Ensure that there is a change of 1 in Review.count
+      post create_review_path(@product.id), params: @review_hash
+      expect(Review.last.rating).must_equal @review_hash[:review][:rating]
+      expect(Review.last.feedback).must_equal @review_hash[:review][:feedback]
       expect { 
         post create_review_path(@product.id), params: @review_hash
       }.must_differ "Review.count", 1
 
-      expect(Review.last.rating).must_equal @review_hash[:review][:rating]
-      expect(Review.last.feedback).must_equal @review_hash[:review][:feedback]
+      
 
       must_redirect_to product_path(@product.id)
     end
