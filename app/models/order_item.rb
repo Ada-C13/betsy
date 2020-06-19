@@ -39,6 +39,12 @@ class OrderItem < ApplicationRecord
     return true
   end
 
+  def self.filter_status(order_items, status)
+    return order_items.map { |item|
+      item.status == status
+    }
+  end
+
 
 
 end

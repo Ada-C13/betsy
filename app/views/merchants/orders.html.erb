@@ -1,3 +1,7 @@
+<%["pending", "paid", "shipped", "cancelled"].each do |item_status| %>
+  <%= button_to item_status, merchant_orders_status_path(@merchant, {:status => item_status}), method: :get, class:"btn btn-info"%>
+<%end%>
+<%= button_to "all items", merchant_orders_path(@merchant), method: :get, class:"btn btn-info"%>
 
 <table style="width:80%">  
   <h3>Your Orders</h3> 
@@ -11,13 +15,12 @@
       <th>Status</th>
       <th></th>
   </tr>
-  <%@merchant.products.each do |product|%>
-    <%product.order_items.each do |item|%>
-    <%if item.status != "pending"%>
+  <%#@merchant.products.each do |product|%>
+    <%@order_items.each do |item|%>
         <tr class = "middle"> 
-          <td><%= link_to(image_tag(product.photo, class: "item_images", id: "small_image"), product_path(product.id)) %></td>
+          <td><%= link_to(image_tag(item.product.photo, class: "item_images", id: "small_image"), product_path(item.product.id)) %></td>
           <td><%= item.order.id %></td>
-          <td><%= link_to product.name.titleize, product_path(product.id) %></td>
+          <td><%= link_to item.product.name.titleize, product_path(item.product.id) %></td>
           <td><%= item.order.cc_last_four %></td>
           <td><%= item.quantity %></td>
           <td><%= format_price(item.product.price)%></td>
@@ -29,8 +32,7 @@
           </td>
         </tr>
         <%end%>
-    <%end%>
-  <%end%>
+  <%#end%>
 </table>
 <div class="revenue">
   <div class="left-label">
