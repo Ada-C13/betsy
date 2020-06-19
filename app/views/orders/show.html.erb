@@ -1,0 +1,44 @@
+<h2>Order History</h2>
+
+<% if @merchant_items.length == 0%>
+
+  <strong>You do not have permission to view this order.</strong>
+
+<% else %>
+
+  <ul>
+    <li><strong>Guest Name: </strong><%= @order[:guest_name] %></li>
+    <li><strong>Email: </strong><%= @order[:email] %></li>
+    <li><strong>Address: </strong><%= @order[:address] %></li>
+    <li><strong>City: </strong><%= @order[:city] %></li>
+    <li><strong>Zip Code: </strong><%= @order[:zip_code] %></li>
+    <li><strong>Card Number: </strong>**** **** **** <%= @order[:card_number][11..14] %></li>
+    <li><strong>Card Exp. Date: </strong><%= @order[:card_expiration_date] %></li>
+  </ul>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Product</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @merchant_items.each do |merchant_item|  %>
+        <tr>
+          <td><%= merchant_item.id %></td>
+          <td><%= merchant_item.name %></td>
+          <td><%= merchant_item.price %></td>
+          <td><%= merchant_item.quantity %></td>
+          <td><%= merchant_item.product.name %></td>
+          <td><%= merchant_item.fulfillment_status.capitalize %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+<% end %>

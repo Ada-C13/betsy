@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Plantsy</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <h1>Plantsy</h1>
+
+      <section class="navigation-bar">
+
+        <nav>
+          <%= link_to "Home", root_path %>
+          <%= link_to "Shop Plants", products_path %>
+          <%= link_to "Categories", categories_path %>
+          <%= link_to "Merchants", merchants_path %>
+        </nav>
+
+        <section class="navigation-bar--right-side">
+          <% if session[:user_id] %>
+            <%= link_to "Dashboard", dashboard_path %>
+            |
+            <%= link_to "Log out", logout_path, method: "delete" %>
+          <% else %>
+            <%= link_to "Login with Github", github_login_path %>
+          <% end %>
+            |
+          <%= link_to "Cart (#{ Order.cart_item_count(session) })", cart_path %>
+        </section>
+
+      </section>
+    </header>
+    <section class="flash">
+      <% flash.each do |name, message| %>
+        <div class="alert alert-<%= name %>">
+          <%= message %>
+        </div>
+      <% end %>
+    </section>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer>
+      <small>
+        2020 - Emily Cowan, Jessica Liang, Kate Mangubat, Nora Robertson // Background from <%= link_to 'Csaba Ruman', "https://flic.kr/p/Kpu3Sw" %>
+      </small>
+    </footer>
+
+  </body>
+</html>

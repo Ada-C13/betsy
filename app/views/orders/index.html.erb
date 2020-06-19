@@ -1,0 +1,37 @@
+<h2>List of Orders</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Guest Name</th>
+      <th>Card Number</th>
+      <th>Card Exp. Date</th>
+      <th>Card CVV</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>Zip Code</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Cart Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order|  %>
+      <tr>
+        <td><%= link_to order[:id], order_path(order.id), method: :get  %></td>
+        <td><%= order[:guest_name] %></td>
+        <td><%= order[:card_number] %></td>
+        <td><%= order[:card_expiration_date] %></td>
+        <td><%= order[:card_cvv] %></td>
+        <td><%= order[:address] %></td>
+        <td><%= order[:city] %></td>
+        <td><%= order[:zip_code] %></td>
+        <td><%= order[:email] %></td>
+        <td><%= order[:phone_num] %></td>
+        <td><%= order[:cart_status] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back to Plantsy", root_path, method: :get, class:"btn btn-primary" %>

@@ -1,0 +1,110 @@
+<section class="product-show">
+  <section class="product-image">
+    <% if @product.photo_url == nil  || @product.photo_url.length < 1  %>
+      <%= image_tag("https://www.creativefabrica.com/wp-content/uploads/2019/10/01/Plant-Flower-Leaf-Agriculture-Icon-by-Hoeda80-11-580x386.jpg", :alt => "generic plant silhouette", class: "product-image") %>
+    <% else %>
+      <%= image_tag(@product.photo_url, :alt => @product.name, class:"product-image") %>
+    <% end %>   
+  </section>
+
+  <section class="product-show-info">
+    <h2>
+      <%= @product.name %>
+    </h2>
+
+    <ul>
+      <li>
+        <h3><%= number_to_currency(@product.price) %></h3>
+      </li>
+      <li>
+        <strong>Stock: </strong>
+        <% if @product.inventory == 0 %>
+          SOLD OUT
+        <% else %>
+          <%= @product.inventory %>
+        <% end %>
+      </li>
+      <li>
+        <%= @product.description %>
+      </li>
+    </ul>
+    <% if @product.inventory > 0 %>
+      <%= form_for :order_item, url: product_order_items_path(@product.id) do |f| %>
+        <div class="product-submit-quantity">
+          <section>
+            <strong><%= f.label :quantity %></strong><br>
+            <%= f.text_field :quantity %>
+          </section>
+          <%= f.hidden_field :name, :value => @product.name %>
+          <%= f.hidden_field :price, :value => @product.price %>
+          <%= f.hidden_field :photo_url, :value => @product.photo_url %>
+          <section>
+            <%= f.submit 'Add to Cart', class:"btn btn-info" %>
+          </section>
+        </div>
+      <% end %>  
+    <% else %>
+      <p>
+        <br />
+        Please check back, or see what else <%= link_to @product.merchant.username, merchant_path(@product.merchant.id)  %> has available.
+      </p>
+    <% end %>
+    <% if @product.merchant_id == session[:user_id] %>
+      <p> 
+        <%= link_to "Edit this product listing", edit_product_path(@product.id) %> 
+      </p>
+    <% end %>
+  </section>
+
+  <section class="product-reviews">
+    <h3>Reviews</h3>
+    
+    <% if @product.reviews.length > 0 %>
+      <% @product.reviews.each do |review| %>
+        <ul>
+          <li>
+            <h5><%= review.title %></h5>
+          </li>
+          <li>
+            <% review.rating.times do %>
+              ★
+            <% end %>
+          </li>
+          <li>
+            <%= review.description %>
+          </li>
+        </ul>
+      <% end %>
+    <% else %>
+      No reviews yet!
+    <% end %>
+
+    <h4>Leave a Review</h4>
+    <%= form_for :review, url: product_reviews_path(@product.id) do |f| %>
+      <section>
+        <strong><%= f.label :title %></strong><br>
+        <%= f.text_field :title %>
+      </section>
+      <section>
+        <strong><%= f.label :rating %></strong><br>
+        <%= select(:review, :rating, 
+          [
+            ['Select', 0],
+            ['1', 1], 
+            ['2', 2], 
+            ['3', 3], 
+            ['4', 4], 
+            ['5', 5]
+          ]) %>
+      </section>
+      <section>
+        <strong><%= f.label :description %></strong><br>
+        <%= f.text_area :description %>
+      </section>
+      <section>
+        <%= f.submit 'Submit', class:"btn btn-info" %>
+      </section>
+    <% end %>
+  </section>
+
+</section>

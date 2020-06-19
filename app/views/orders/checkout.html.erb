@@ -1,0 +1,85 @@
+<div class="checkout-page-container">
+	<div>
+		<h2>Checkout</h2>
+		<section class="checkout-form">
+			<%= form_with model: @cart, url: order_path(@cart), method: :patch do |f| %>
+				
+				<section class='form-group'>
+					<%= f.label :guest_name %>
+					<%= f.text_field :guest_name, class: 'form-control' %>
+				</section>
+
+				<section class='form-group'>
+					<%= f.label :email %>
+					<%= f.text_field :email, class: 'form-control' %>
+				</section>
+
+				<section class='form-group'>
+					<%= f.label :phone_num %>
+					<%= f.text_field :phone_num, class: 'form-control' %>
+				</section>
+
+				<section class='form-group'>
+					<%= f.label :address %>
+					<%= f.text_field :address, class: 'form-control' %>
+				</section>
+
+				<section class='form-group'>
+					<%= f.label :city %>
+					<%= f.text_field :city, class: 'form-control' %>
+				</section>
+
+				<section class='form-group'>
+					<%= f.label :state %>
+					<%= f.text_field :state, class: 'form-control' %>
+				</section>
+
+				<section class='form-group'>
+					<%= f.label :zip_code %>
+					<%= f.text_field :zip_code, class: 'form-control' %>
+				</section>
+
+				<section class='form-group'>
+					<%= f.label :card_number %>
+					<%= f.text_field :card_number, class: 'form-control' %>
+				</section>
+
+				<section class='form-group'>
+					<%= f.label :card_expiration_date %>
+					<%= f.text_field :card_expiration_date, class: 'form-control' %>
+				</section>
+
+				<section class='form-group'>
+					<%= f.label :card_cvv %>
+					<%= f.text_field :card_cvv, class: 'form-control' %>
+				</section>
+				
+				<section class='form-group'>
+					<%= f.submit "Place Order", class: "btn btn-primary" %>
+				</section>
+
+			<% end %>
+		</section>
+	</div>
+
+	<div>
+		<h2>Your Cart</h2>
+		<section>
+		<% @cart_items.each do |item| %>
+			<section class="cart-item">
+				<section class="cart-item-info">
+					<h3><%= item.name %></h3>
+					<ul>
+						<li><strong>Cost: </strong><%= number_to_currency(item.price) %></li>
+						<li><strong>Quantity: </strong><%= item.quantity %></li>
+					</ul>
+				</section>
+			</section>
+		<% end %>
+		</section>
+
+		<section>
+			<h3>Total: <%= number_to_currency(@cart.total_price) %></h3>
+		</section>
+	</div>
+</div>

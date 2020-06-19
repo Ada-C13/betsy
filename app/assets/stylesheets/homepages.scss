@@ -1,0 +1,22 @@
+// Place all the styles related to the Homepages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+#homepage {
+	background-image: url('https://live.staticflickr.com/8589/28489093226_5cdcc9b809_o.jpg');
+	background-size: cover;
+	color: #eff7df;
+	margin: -2em;
+	min-height: 80vh;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 3em;
+}
+
+#homepage p {
+	font-family: 'Nunito', sans-serif;
+	font-weight: 700;
+	font-size: 3.5em;
+	line-height: 1em;
+}

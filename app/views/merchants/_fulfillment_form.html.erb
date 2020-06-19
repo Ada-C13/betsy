@@ -1,0 +1,6 @@
+<h2><%= title %></h2>
+  <section>
+    <%= form_for(item, url: order_items_update_status_path(id: item.id), method: :patch) do |f| %>
+      <%= select_tag "fulfillment_status", options_for_select([["Pending", "pending"], ["Paid", "paid"], ["Complete", "complete"], ["Cancelled", "cancelled"]]), :selected => item.fulfillment_status, onchange: "this.form.submit();" %>
+    <% end %>
+  </section>

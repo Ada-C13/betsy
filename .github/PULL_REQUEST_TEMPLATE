@@ -7,12 +7,20 @@ Congratulations! You're submitting your assignment. Please reflect on the assign
 Prompt | Response
 --- | ---
 Each team member: what is one thing you were primarily responsible for that you're proud of? | 
+Kate: I was in charge of completing all the model validations, custom mode methods testing. I helped Jessica with order and order_item controller testing as well as doing parts of the crud for these controllers. Most proud of writing tests to pass getting simplecov to 90-100% for these controllers and models.
+Nora: I made all the product display pages, including for category and merchant. I also did all the related controller testing. The thing I’m most proud of though is finally realizing how simple controller filters can be and actually using one.
+Jessica:I worked primarily on the cart and checkout process. I am most proud that I was able to make it function! I also did the styling and my team thinks it looks very Pinterest worthy!!
+Emily: I am proud of how the merchant dashboard turned out because I added several features that were outside of my knowledge. I learned a lot of new tools that will be helpful for future projects. | 
 Each team member: what is one thing you were primarily responsible for that you would like targeted feedback on? | 
-How did your team break up the work to be done? | 
-How did your team utilize git to collaborate? | 
-What did your group do to try to keep your code DRY while many people collaborated on it? | 
-What was a technical challenge that you faced as a group? | 
-What was a team/personal challenge that you faced as a group? | 
-What was your application's ERD? (upload this to Google Drive, change the share settings to viewable by everyone with a link, and include a link) | 
-What is your Trello URL? | 
-What is the Heroku URL of your deployed application? | 
+Kate: Since I mostly worked on tests, I would like feedback on how to do tests for sessions as that was one that was a difficult to wrap my head around. I understood what was happening in the methods that were written in the controllers but wasn't able to get that last 10% coverage in the order controller.
+Jessica: The check out process. 
+Emily: Styling for the merchant dashboard. 
+Nora: Product controller testing. |
+How did your team break up the work to be done? | We made an ERD first, then we went through the user stories to develop our Trello board. We pretty much just started grabbing parts that we thought were interesting to us and ran with tasks related to those parts. We were committed to daily standups to share our progress, what we were going to work on next, and any help we needed. |
+How did your team utilize git to collaborate? | We were really amazing honestly at being diligent about creating branches when we worked on a feature. We had great communication when we submitted a PR and another team member quickly came in to check and merge. We then were great at pulling from the master and using branches for each new feature. In the grand scheme of git hygeine, we did well but sometimes we got caught up and did not commit as frequently. There was an incident where there was a merge conflict but Jessica and Nora were able to quickly mend the issue. |
+What did your group do to try to keep your code DRY while many people collaborated on it? | Because we were able to work on our parts "seperately" and were great about continually meeting and merging, we managed to keep the code DRY throughout. However, we did our DRY-ing and cleaning up at the end. The code production was deliberately careful and thought out as much as possible. With our testing, we were able to consistently use the fixtures we created. |
+What was a technical challenge that you faced as a group? | Deploying to Heroku was much more involved than we initially thought! DEPLOY EARLY, DEPLOY OFTEN! |
+What was a team/personal challenge that you faced as a group? | This project was enormous and at different parts of the project, it felt like one or two people were getting doing the brunt of the work. Then towards the middle, things picked up for all of us, and at the end, we all came together to wrap things up really nicely. Our team was available for help, someone was there to jump in to help at all times even super late into the night. Couldn't have asked for a better team, we really did it! |
+What was your application's ERD? (upload this to Google Drive, change the share settings to viewable by everyone with a link, and include a link) | https://drive.google.com/file/d/1RNkK9Z238OJaRnywiimgJSBKwnno-Mz1/view?usp=sharing |
+What is your Trello URL? | https://trello.com/b/moXn53QI/plantsy|
+What is the Heroku URL of your deployed application? | https://plantsy-2020.herokuapp.com/|

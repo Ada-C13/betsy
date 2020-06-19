@@ -1,0 +1,48 @@
+<h2>Shopping Cart</h2>
+<section class="cart-page">
+	<section class="cart-items-display">
+		<% if @cart_items %>
+			<% @cart_items.each do |item| %>
+				<section class="cart-item">
+					<%= image_tag(item.photo_url, alt: "photo of the cart item") %>
+					<section class="cart-item-info">
+						<h3><%= item.name %></h3>
+						<ul>
+							<li><strong>Cost: </strong><%= number_to_currency(item.price) %></li>
+							<li>
+								<%= form_for :order_item, url: order_item_path(item), method: :patch do |f| %>
+								<div class="cart-item-change-quantity">
+									<section>
+										<strong><%= f.label :quantity %>:</strong>
+										<%= f.text_field :quantity, value: item.quantity %>
+									</section>
+									<section>
+										<%= f.submit 'Change?' %>
+									</section>
+								</div>
+								<% end %>
+							</li>
+							<li>
+								<%= link_to 'Delete Item', order_item_path(item), method: :delete, data: {confirm: "Are you sure?"} %>
+							</li>
+						</ul>
+					</section>
+				</section>
+			<% end %>
+		<% else %>
+			<p>
+				Cart is empty.
+			</p>
+		<% end %>
+	</section>
+	<section class="checkout-info">
+		<h3>Total: 
+		<% if @open_order %>
+			<%= number_to_currency(@open_order.total_price) %>
+		<% else %>
+			$0.00
+		<% end %>
+		</h3>
+		<%= button_to "Checkout", checkout_path, :method => "get", class:"btn btn-primary" %>
+	</section>
+</section>

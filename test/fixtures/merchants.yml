@@ -1,0 +1,10 @@
+merchant_1:
+  username: merchant_1
+  email: email@email.com
+  uid: 1
+  provider: github
+merchant_2:
+  username: merchant_2
+  email: email@webmail.net
+  uid: 2
+  provider: github

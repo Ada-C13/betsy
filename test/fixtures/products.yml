@@ -1,0 +1,27 @@
+product_1:
+  name: "Product 1"
+  price: 10.01
+  description: "This is a product that merchant_1 sells."
+  inventory: 5
+  merchant: merchant_1
+  status: true
+  photo_url: "https://www.goodfreephotos.com/albums/plants/phyllotaxis-plant-spiral.jpg"
+  categories: category1, category2
+product_2:
+  name: "Product 2"
+  price: 5.00
+  description: "Merchant 2 sells this product."
+  inventory: 5
+  merchant: merchant_2
+  status: true
+  photo_url: "https://cdn.pixabay.com/photo/2019/04/16/02/40/plant-4130769_960_720.png"
+  categories: category4, category5
+product_3:
+  name: "Product 3"
+  price: 8.99
+  description: "This is also a product that merchant_1 sells."
+  inventory: 1
+  merchant: merchant_1
+  status: false
+  photo_url: "https://p1.piqsels.com/preview/5/143/671/fittonia-variegated-leaves-indoor-plant-mottled-home-flower-house-plant.jpg"
+  categories: category3

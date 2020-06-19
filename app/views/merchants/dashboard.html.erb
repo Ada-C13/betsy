@@ -1,0 +1,58 @@
+<h2><strong><%= @merchant.username %>'s Dashboard</strong></h2>
+
+<section>
+  <% unless @merchant.nil? %>
+  <section>
+    <button type="button" class="btn btn-primary"><%= link_to "Add a product", new_product_path %></button>
+    <button type="button" class="btn btn-primary"><%= link_to "Add a category", new_category_path %></button>
+  </section>
+  <br />
+  </section>
+    <h5>Total Earnings: $ <%= @merchant.total_revenue %></h5>
+    <div>
+    <h3>Your Orders:</h3>
+
+    <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Product</th>
+        <th>Status</th>
+        <th>Change Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @merchant.order_items.each do |item|  %>
+        <tr>
+          <td><%= link_to item[:id], order_path(item.order.id), method: :get  %></td>
+          <td><%= item.name %></td>
+          <td><%= item.price %></td>
+          <td><%= item.quantity %></td>
+          <td><%= item.product.name %></td>
+          <td><%= item.fulfillment_status.capitalize %></td>
+          <td>
+          <%= render partial: "fulfillment_form", locals: { item: item, title: ''} %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <h3>Your Products:</h3>
+
+    <% if @merchant.products.length > 0 %>
+      <ul>
+      <% @merchant.products.each do |product| %>
+        <li>Name: <%=link_to product.name, product_path(product.id) %></li>
+      <% end %>
+      </ul>
+    <% end %>
+    </div>
+
+  </section>
+
+  <% end %>
+</section>

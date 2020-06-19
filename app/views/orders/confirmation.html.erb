@@ -1,0 +1,33 @@
+<h2>Confirmation: Order placed!</h2>
+<ul>
+	<li>
+		<strong>Order Placed At: </strong><%= @cart.updated_at.strftime('%a %b %d %H:%M:%S %Z %Y').in_time_zone("Pacific Time (US & Canada)") %>
+	</li>
+	<li>
+		<strong>Order Status: </strong>
+		<% if @cart.cart_status == false %>
+			Paid
+		<% end %>
+	</li>
+</ul>
+
+<div>
+	<h3>Your Items</h3>
+	<section>
+	<% @cart_items.each do |item| %>
+		<section class="cart-item">
+			<section class="cart-item-info">
+				<h3><%= link_to item.name, product_path(item.product_id) %></h3>
+				<ul>
+					<li><strong>Cost: </strong><%= number_to_currency(item.price) %></li>
+					<li><strong>Quantity: </strong><%= item.quantity %></li>
+				</ul>
+			</section>
+		</section>
+	<% end %>
+	</section>
+
+	<section>
+		<h3>Total: <%= number_to_currency(@cart.total_price) %></h3>
+	</section>
+</div>

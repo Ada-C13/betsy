@@ -1,0 +1,8 @@
+<h2>Shop by Category</h2>
+<section>
+  <%@categories.each do |category| %>
+    <li>
+      <%= link_to category.name.upcase, category_path(category.id)%>
+    </li>
+  <%end%>
+</section>

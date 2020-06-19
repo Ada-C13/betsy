@@ -1,0 +1,99 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+/* Custom bootstrap variables must be set or imported *before* bootstrap. */
+@import "bootstrap";
+@import "**/*";
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+body {
+	color: #254118;
+	font-family: 'Roboto', sans-serif;
+}
+
+header, h1, h2, h3, h4, h5 {
+	font-family: 'Nunito', sans-serif;
+}
+
+h2 {
+	color: #6E6658;
+}
+
+header {
+	min-height: 15vh;
+	padding: 1em 1.5em 0.75em;
+}
+
+footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-style: italic;
+	height: 5vh;
+}
+
+header h1 {
+	font-size: 3em;
+	margin: 0.7em;
+	text-shadow: -3px 3px 0px #254118;
+}
+
+header, footer {
+	text-align: center;
+	background: rgb(134,169,91);
+	background: linear-gradient(90deg, rgba(134,169,91,1) 0%, rgba(37,65,24,1) 100%);
+}
+
+h1 {
+	color: #C3D99A;
+	font-weight: 800;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+}
+
+main {
+	min-height: 80vh;
+	padding: 2em;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	width: 50vw;
+}
+
+a {
+	color: #86A95B;
+}
+
+a:hover {
+	color: #93C441;
+	text-decoration: none;
+}
+
+.navigation-bar {
+	display: flex;
+	font-size: 1.25em;
+	justify-content: space-between;
+}
+
+.navigation-bar a {
+	color: #ddedbe;
+}
+
+.navigation-bar a:hover {
+	color: #eff7df;
+	text-decoration: none;
+}

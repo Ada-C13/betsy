@@ -1,0 +1,6 @@
+
+  <% if session[:user_id] %>
+    <%= render partial: "form", locals: { action_name: "Add Product", title: 'Add a new product'} %>
+  <% else %>
+    You do not have permission to do that.
+  <% end %>

@@ -1,0 +1,4 @@
+card_number,card_expiration_date,card_cvv,address,city,zip_code,guest_name,email,phone_num,cart_status
+"123456","01/20","123","15 Main Street","Seattle","98010","Tyron Jenkins","tyrone@gmail.com","456-123-1234",false
+"987654","10/22","456","120 Seneca Road","Los Angeles","90010","Captain America","capusa@gmail.com","206-253-7777",false
+"732904","12/25","777","2020 Boeing Field Street","New York","10074","Seymour Gloots","sgloots@gmail.com","975-619-2100",false
