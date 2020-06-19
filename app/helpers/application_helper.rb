@@ -19,4 +19,9 @@ module ApplicationHelper
     end
     sum / reviews.count
   end
+
+  def pretty_date(date)
+    return "[unknown]" unless date
+    return content_tag(:span, date.strftime("%b %d, %Y"), class: 'date', title: date.to_s)
+  end
 end
