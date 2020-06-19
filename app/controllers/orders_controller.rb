@@ -36,7 +36,6 @@ class OrdersController < ApplicationController
     # Empties cart (User)
     @shopping_cart.destroy
     session[:order_id] = nil
-    flash[:status] = :success
     flash[:result_text] = "Successfully emptied shopping cart."
     redirect_to root_path
   end
