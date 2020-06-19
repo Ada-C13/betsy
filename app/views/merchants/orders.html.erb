@@ -1,22 +1,24 @@
 
 <table style="width:80%">  
   <h3>Your Orders</h3> 
-  <tr>
+  <tr> 
       <th>Item</th>
+      <th>Order ID</th>
       <th>Name</th>
       <th>Quantity</th>
-      <th>Order ID</th>
+      <th>Price</th>
       <th>Status</th>
       <th></th>
   </tr>
   <%@merchant.products.each do |product|%>
     <%product.order_items.each do |item|%>
     <%if item.status != "pending"%>
-        <tr class = "middle">
+        <tr class = "middle"> 
           <td><%= link_to(image_tag(product.photo, class: "item_images", id: "small_image"), product_path(product.id)) %></td>
+          <td><%= item.order.id %></td>
           <td><%= link_to product.name.titleize, product_path(product.id) %></td>
           <td><%= item.quantity %></td>
-          <td><%= item.order.id %></td>
+          <td><%= format_price(item.product.price)%></td>
           <td><%= item.status%></td>
           <td>
             <%if item.status == "paid"%>
