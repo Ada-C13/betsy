@@ -10,18 +10,18 @@
   <table class='table'>
     <thead class='thead-light'>
       <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Inventory</th>
+        <th class='text-center'>Image</th>
+        <th class='text-center'>Name</th>
+        <th class='text-center'>Inventory</th>
         <th><th>
       </tr>
     </thead>
     <tbody>
       <% @current_merchant.products.each do |item| %>
         <tr>
-          <td><%= image_tag(item.photo, class: " thumbnail img-thumbnail img-fluid") %></td>
-          <td class='align-middle'><%= link_to item.name, product_path(item) %></td>
-          <td class='align-middle'><%= item.stock %></td>
+          <td class='text-center'><%= image_tag(item.photo, class: "thumbnail img-thumbnail") %></td>
+          <td class='text-center align-middle'><%= link_to item.name, product_path(item) %></td>
+          <td class='text-center align-middle'><%= item.stock %></td>
           <td class='align-middle'>
             <%= button_to 'Edit', 
                   edit_product_path(item), 
