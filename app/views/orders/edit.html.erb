@@ -37,7 +37,7 @@
                       <%= link_to "-", order_item_path(id: order_item, order_item: { quantity: order_item.quantity - 1 } ), method: "patch" %>
                     <% end %>
                   </td>
-                  <td class='text-center align-middle'><%= order_item.product.price %></td>
+                  <td class='text-center align-middle'><%= number_to_currency(order_item.product.price) %></td>
                   <td class='text-center align-middle'><%= order_item.subtotal %></td>
                   <td class='text-center align-middle'><%= link_to 'Delete', order_item_path(order_item), class: 'btn btn-danger', method: 'delete' %></td>
                 </tr>
