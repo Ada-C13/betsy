@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :merchants, only: [:index]
   get "merchants/:merchant_id", to: "merchants#account", as: "account"
   get '/merchants/:merchant_id/orders', to:  'merchants#orders', as: 'merchant_orders'
-  get '/merchants/:merchant_id/orders/:status', to:  'merchants#orders', as: 'merchant_orders'
+  get '/merchants/:merchant_id/orders/:status', to:  'merchants#orders', as: 'merchant_orders_status'
   patch '/merchants/:merchant_id/orders/:id', to: 'order_items#ship', as: "ship"
   get '/merchants/:merchant_id/products', to: 'merchants#shop', as: 'merchant_shop'
   
