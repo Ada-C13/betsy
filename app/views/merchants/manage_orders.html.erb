@@ -4,49 +4,32 @@
 <div class="container">
   <div class="row">
         <div class="col-md merchant__stat-card">
-          <p class="stat"><%= number_to_currency(@current_merchant.revenue)%></p>
+          <p class="stat"><%= @current_merchant.orders.count %></p>
           <p class="stat-label">Total Orders</p>
+          <p class="stat-sm"><%= number_to_currency(@current_merchant.revenue)%></p>
         </div>
         <div class="col-md merchant__stat-card">
-          <p class="stat">0</p>
+          <p class="stat"><%= @current_merchant.orders_by_status(:pending).count%></p>
           <p class="stat-label">Orders Pending</p>
+          <p class="stat-sm <%= "muted" if @current_merchant.orders_by_status(:pending).count > 0%>"><%= number_to_currency(@current_merchant.revenue_by_status(:pending)) %></p>
         </div>
         <div class="col-md merchant__stat-card">
-          <p class="stat">0</p>
+          <p class="stat"><%= @current_merchant.orders_by_status(:paid).count%></p>
           <p class="stat-label">Orders Paid</p>
+          <p class="stat-sm"><%= number_to_currency(@current_merchant.revenue_by_status(:paid)) %></p>
         </div>
         <div class="col-md merchant__stat-card">
-          <p class="stat">0</p>
+          <p class="stat"><%= @current_merchant.orders_by_status(:complete).count%></p>
           <p class="stat-label">Orders Shipped</p>
+          <p class="stat-sm"><%= number_to_currency(@current_merchant.revenue_by_status(:complete)) %></p>
         </div>
       </div>
 
 </div>
 <div class="container">
-  <table class="table table-light">
-    <thead>
-      <tr>
-        <th>Order Number</th>
-        <th>Order Time</th>
-        <th>Items Count</th>
-        <th>Total $</th>
-        <th>Status</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-       <% @current_merchant.orders.uniq.each do |order| %>
-        <tr>
-          <td><%= link_to order.id, orders_path(order) %></td>
-          <td><%= order.time_submitted %></td>
-          <td><%= order.order_items.count %>
-          <td><%= order.total_cost %></td>
-          <td><%= order.status %></td>
-          <% if order.status == 'paid' %>
-            <td><%= button_to "Complete Order", order_complete_path(order) %></td>
-          <% end %>
-        </tr>
-      <% end %> 
-    </tbody>
-  </table>
+  <% if @current_merchant.orders.count == 0 %>
+    <p>No orders to display.</p>
+  <% else %>
+    <%= render "orders_table" %>
+  <% end %>
 </div>

@@ -2,6 +2,10 @@ class OrdersController < ApplicationController
   
   before_action :find_order, only: [:show, :complete, :cancel, :confirmation]
 
+
+  def show 
+  end 
+  
   def edit
     # Shows cart, updates credit card/address/email and confirms checkout (User)
   end
@@ -82,7 +86,7 @@ class OrdersController < ApplicationController
     if !@order
       flash[:status] = :failure
       flash[:result_text] = "Could not find order." 
-      redirect_to orders_path      
+      redirect_to orders_path       
     end
   end
 

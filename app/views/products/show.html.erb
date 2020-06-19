@@ -15,25 +15,24 @@
         <%= button_to 'Leave a Review', new_product_review_path(@product), method: :get, class: 'btn btn-secondary btn-md' %>
       </div>
       <br>
-      <%= button_to 'Back to Products', products_path, class: 'btn btn-outline-secondary btn-md' %>
-      
+      <%= button_to 'Back to Products', products_path, method: :get, class: 'btn btn-outline-secondary btn-md' %>
     </div>
-
   </div>
 
-<div class="review_container">
-  <% unless product_owned_by_merchant?(@product) %> 
-    <p>
-      <%= rating_as_stars(rating_average(@product.reviews)) %>
-      (<%= rating_count(@product.reviews) %>)
-      <%= rating_count(@product.reviews) == 0 ? "No reviews for " : "Reviews for "%><%= @product.name %> 
-    </p>
-  <% end %>
+  <div class="review_container">
+    <% unless product_owned_by_merchant?(@product) %> 
+      <p>
+        <% if @product.reviews.count >= 1 %>
+          <%= rating_as_stars(rating_average(@product.reviews)) %>
+          (Average of <%= @product.reviews.count %> reviews)
+        <% end %>
+      </p>
+    <% end %>
 
-  <% @product.reviews.each do |review| %>
-    <div class="reviews">
-      <p><%= rating_as_stars(review.rating) %> on <%= review.created_at.strftime('%-d %B %Y') %> <%= review.comment %> </p>
-    </div>
+    <% @product.reviews.each do |review| %>
+      <div class="review">
+        <p><%= rating_as_stars(review.rating) %> on <%= review.created_at.strftime('%-d %B %Y') %> <%= review.comment %> </p>
+      </div>
     <% end %> 
   </div>
 </div>
