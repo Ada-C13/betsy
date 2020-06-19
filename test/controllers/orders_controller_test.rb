@@ -196,7 +196,7 @@ describe OrdersController do
       # Assert
       expect(old_cart.id).wont_equal new_cart.id
       must_respond_with :redirect
-      must_redirect_to root_path
+      must_redirect_to cart_path
     end
   end # describe "destroy"
 

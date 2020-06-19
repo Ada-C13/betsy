@@ -18,12 +18,16 @@
   align-items: flex-end;
 }
 
-.btn-secondary {
-  border-color: $secondary-color;
-  background-color: $secondary-color;
-}
+// .btn-secondary {
+//   border-color: $secondary-color;
+//   background-color: $secondary-color;
+// }
 
-.btn-secondary:hover {
-  border-color: darken($secondary-color, 10%);
-  background-color: darken($secondary-color, 5%);
+// .btn-secondary:hover {
+//   border-color: darken($secondary-color, 10%);
+//   background-color: darken($secondary-color, 5%);
+// }
+
+.payment_form {
+  border-left: $soft-salmon 2px solid;
 }

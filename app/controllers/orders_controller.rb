@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
     @shopping_cart.destroy
     session[:order_id] = nil
     flash[:success] = "Successfully emptied shopping cart."
-    redirect_to root_path
+    redirect_to cart_path
   end
 
   def complete

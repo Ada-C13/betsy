@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :deactivate]
-  before_action :require_login, only: [:new, :edit, :update, :deactivate]
+  before_action :require_login, only: [:new, :create, :edit, :update, :deactivate]
   before_action :require_ownership, only: [:edit, :update, :deactivate]
 
 
