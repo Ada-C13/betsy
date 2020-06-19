@@ -56,6 +56,7 @@ class Order < ApplicationRecord
       return false
     end
     self.status = "paid"
+    self.save
     return change_items(:destock)
   end
 
