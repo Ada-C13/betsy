@@ -74,6 +74,25 @@ describe OrderItemsController do
       must_redirect_to order_item_path(item)
     end
   end
+
+
+  describe "edit" do
+    before do
+      @p1 = products(:product1)
+      @quantity_hash = {
+        quantity: 1
+      }
+    end
+
+    it "can't edit the quantity if the item is not in your cart" do
+      post add_order_item_path(@p1), params: @quantity_hash
+      expect(session[:cart_id]).must_equal Order.last.id
+      order_exist = Order.last.id
+      get order_item_path(order_items(:order_item1))
+      expect(flash[:error]).must_equal "This item is not in your cart!"
+    end
+  end
+
   describe "update" do
     before do
       post add_order_item_path(product), params: good_qty_hash
