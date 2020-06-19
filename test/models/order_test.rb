@@ -171,7 +171,7 @@ describe Order do
       )
       item1.save!
       # Act
-      total = pending_order.total_cost
+      total = pending_order.total_cost(nil)
       # Assert
       expect(total).must_be_kind_of Numeric
       expect(total).must_equal 200
@@ -204,7 +204,7 @@ describe Order do
       )
       item2.save!
       # Act
-      total = pending_order.total_cost
+      total = pending_order.total_cost(nil)
       # Assert
       expect(total).must_be_kind_of Numeric
       expect(total).must_equal 240
@@ -214,7 +214,7 @@ describe Order do
       # Arrange
       paid_order.save!
       # Act
-      total = paid_order.total_cost
+      total = paid_order.total_cost(nil)
       # Assert
       expect(total).must_be_kind_of Numeric
       expect(total).must_equal 0

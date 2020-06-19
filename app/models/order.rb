@@ -43,10 +43,14 @@ class Order < ApplicationRecord
     return self.save ? nil : "Error saving the order"
   end
 
-  def total_cost
+  # returns total cost per merchant OR
+  # overall cost if merchant is nil
+  def total_cost(current_merchant)
     total = 0
     self.order_items.each do |item|
-      total += item.subtotal
+      if !current_merchant || item.product.merchant.id == current_merchant.id
+        total += item.subtotal
+      end
     end
     return total
   end
@@ -55,10 +59,9 @@ class Order < ApplicationRecord
     return order_items.count == 0 
   end
 
-
-  # this method should return a list of Order Items in this Order 
-  # where the Order Item contains a Product that belongs to the current_merchant
+  # returns list of order items in this order from a specified merchant
   def order_items_by_merchant(current_merchant)
-    # return self.order_items.where(product inside that Order_Item belongs to current_merchant)
+    return self.order_items.select { |item| item.product.merchant.id == current_merchant.id }
   end
+
 end

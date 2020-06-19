@@ -15,7 +15,8 @@
         <td><%= link_to order.id, order_path(order) %></td>
         <td><%= order.status %></td>
         <td><%= order.customer_email %></td>
-        <td><%= order.total_cost %></td>
+        <td><%= order.total_cost(nil) %></td> 
+        <%# we might need to pass the merchant instead of nil above %>
       </tr>
     <% end %>
   </tbody>

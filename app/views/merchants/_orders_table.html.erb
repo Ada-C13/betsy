@@ -20,8 +20,8 @@
         <td>pending still</td>
       <% end %>
       <td><%= order.time_submitted %></td>
-      <td><%= order.order_items.count %> </td>
-      <td><%= number_to_currency(order.total_cost) %></td>
+      <td><%= order.order_items_by_merchant(@current_merchant).count %> </td>
+      <td><%= number_to_currency(order.total_cost(@current_merchant)) %></td>
       <td><%= order.status %></td>
       <% if order.status == 'paid' %>
         <td><%= button_to "Complete Order", order_complete_path(order) %></td>

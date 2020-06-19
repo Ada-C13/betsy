@@ -15,7 +15,7 @@
         <br>
         Status: <%= @order.status.capitalize %>
         <br>
-        Total: <%= number_to_currency(@order.total_cost) %>
+        Total: <%= number_to_currency(@order.total_cost(nil)) %>
       </p>
         Items purchased: 
         <table class='table'>

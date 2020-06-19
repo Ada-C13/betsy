@@ -1,4 +1,5 @@
 class OrderItemsController < ApplicationController
+
   def create
     product_id = params[:id]
     order_item_params = params[:order_item]
@@ -51,4 +52,5 @@ class OrderItemsController < ApplicationController
     end
     redirect_back fallback_location: cart_path
   end
+  
 end
