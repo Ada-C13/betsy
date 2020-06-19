@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   # Products + Review
   resources :products do
-    resources :reviews
+    resources :reviews, only: [:index, :create]
   end
   # toggle to product's active status
   patch "/products/:id/toggle_active", to: "products#toggle_active", as: "product_active"
