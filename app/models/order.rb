@@ -64,4 +64,8 @@ class Order < ApplicationRecord
     return self.order_items.select { |item| item.product.merchant.id == current_merchant.id }
   end
 
+  def all_items_count 
+    return self.order_items.map { |order_item| order_item.quantity }.sum
+  end
+
 end

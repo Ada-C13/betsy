@@ -45,9 +45,16 @@ navbar structure based on https://stackoverflow.com/questions/19733447/bootstrap
         <%# cart link %>
 
         <% unless action_name == "landing" %>
-        <li class="nav-item app-header__nav_item cart">
-          <%= link_to 'Cart', cart_path, class:'nav-link' %>
+        <%= link_to cart_path do %>
+          <li class="nav-item app-header__nav_item cart nav-link">
+            <div class="cart-icon">
+              <% unless @shopping_cart.empty? %>
+                <span class="cart-dot"><%= @shopping_cart.all_items_count %></span>
+              <% end %>
+            </div>
+          <%# link_to 'Cart', cart_path, class:'nav-link' %>
         </li>
+        <% end %>
         <% end %>
 
       </ul>

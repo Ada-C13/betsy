@@ -31,5 +31,9 @@ class Merchant < ApplicationRecord
     return orders_by_status(status).map { |order| order.total_cost(self) }.sum
   end
   
+  def products_out_of_stock
+    return self.products.where(stock: 0).count
+  end
+  
 end
 
