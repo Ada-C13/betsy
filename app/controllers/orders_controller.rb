@@ -1,11 +1,9 @@
 class OrdersController < ApplicationController
-  
   before_action :find_order, only: [:show, :complete, :cancel, :confirmation]
 
+  def show
+  end
 
-  def show 
-  end 
-  
   def edit
     # Shows cart, updates credit card/address/email and confirms checkout (User)
   end
@@ -48,7 +46,7 @@ class OrdersController < ApplicationController
       flash[:danger] = "Failed to complete order #{@order.id}: #{result}"
       flash[:details] = @order.errors.full_messages
     end
-    redirect_back fallback_location: order_path(@order)      
+    redirect_back fallback_location: order_path(@order)
   end
 
   def cancel
@@ -59,7 +57,7 @@ class OrdersController < ApplicationController
     else
       flash[:danger] = "Failed to cancel order: #{result}"
     end
-    redirect_back fallback_location: order_path(@order)      
+    redirect_back fallback_location: order_path(@order)
   end
 
   def confirmation
@@ -84,5 +82,4 @@ class OrdersController < ApplicationController
       redirect_to orders_path       
     end
   end
-
 end
