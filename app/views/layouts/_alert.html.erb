@@ -1,8 +1,15 @@
+<div class="flash container">
+
 <% flash.each do |type, message| %>
   <% next if type == 'details' %>
     <div class="alert alert-<%= type %> container">
       <strong><%= message %></strong>
+
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+    </button>
       <% if flash[:details] %>
+      <hr>
       <ul>
         <% flash[:details].each do |msg| %>
           <% msg %>
@@ -13,16 +20,9 @@
       </ul>
     <% end %>
 
-    <% if flash[:errors] %>
-      <ul>
-        <% flash[:errors].each do |error| %>
-        <li><%= error %></li>
-        <% end %>
-      </ul>
-    <% end %>
-
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-     <span aria-hidden="true">&times;</span>
-    </button>
+  
     </div>
 <% end %>
+      
+</div>
+
