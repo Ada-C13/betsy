@@ -1,10 +1,14 @@
 require "test_helper"
 
 describe Order do
-
+  
   let (:pending_order) { orders(:order_pending) }
   let (:paid_order) { orders(:order_paid) }
   let (:complete_order) { orders(:order_complete) }
+  let (:merchant1) { merchants(:suely) }
+  let (:merchant2) { merchants(:annie) }
+  let (:product1) { products(:tulip) }
+  let (:product2) { products(:daisy) }
 
   describe "relations" do
     it "has a list of order_items" do
@@ -153,10 +157,6 @@ describe Order do
   end # describe "cancel_order!"
 
   describe "total_cost" do
-    let (:merchant1) { merchants(:suely) }
-    let (:product1) { products(:tulip) }
-    let (:product2) { products(:daisy) }
-
     it "calculates the cost for a one product order" do
       # Arrange
       pending_order.save!
@@ -210,6 +210,43 @@ describe Order do
       expect(total).must_equal 240
     end
 
+    it "calculates the cost per merchant" do
+      # Arrange
+      pending_order.save!
+      merchant1.save!
+      product1.merchant_id = merchant1.id
+      product1.price = 100
+      product1.save!
+
+      item1 = OrderItem.new(
+        order_id: pending_order.id,
+        product_id: product1.id,
+        quantity: 2
+      )
+      item1.save!
+
+      merchant2.save!
+      product2.merchant_id = merchant2.id
+      product2.price = 10
+      product2.save!
+
+      item2 = OrderItem.new(
+        order_id: pending_order.id,
+        product_id: product2.id,
+        quantity: 4
+      )
+      item2.save!
+      # Act
+      total1 = pending_order.total_cost(merchant1)
+      total2 = pending_order.total_cost(merchant2)
+
+      # Assert
+      expect(total1).must_be_kind_of Numeric
+      expect(total1).must_equal 200
+      expect(total2).must_be_kind_of Numeric
+      expect(total2).must_equal 40
+    end
+
     it "calculates the cost for an empty order" do
       # Arrange
       paid_order.save!
@@ -220,5 +257,83 @@ describe Order do
       expect(total).must_equal 0
     end
   end # describe "total_cost"
+
+  describe "empty?" do
+    it "returns true if there are no order items" do
+      # Arrange
+      pending_order.save!
+      # Act
+      empty = pending_order.empty?
+      # Assert
+      expect(empty).must_equal true
+    end
+
+    it "returns false if there are order items" do
+      # Arrange
+      pending_order.save!
+      merchant1.save!
+      product1.merchant_id = merchant1.id
+      product1.save!
+      item1 = OrderItem.new(
+        order_id: pending_order.id,
+        product_id: product1.id,
+        quantity: 2
+      )
+      item1.save!
+      # Act
+      empty = pending_order.empty?
+      # Assert
+      expect(empty).must_equal false
+    end
+  end # describe "empty?"
+
+  describe "order_items_by_merchant" do
+    it "returns all order_items for a merchant" do
+      # Arrange
+      pending_order.save!
+      merchant1.save!
+      product1.merchant_id = merchant1.id
+      product1.save!
+      item1 = OrderItem.new(
+        order_id: pending_order.id,
+        product_id: product1.id,
+        quantity: 2
+      )
+      item1.save!
+
+      merchant2.save!
+      product2.merchant_id = merchant2.id
+      product2.save!
+      item2 = OrderItem.new(
+        order_id: pending_order.id,
+        product_id: product2.id,
+        quantity: 3
+      )
+      item2.save!
+      # Act
+      items = pending_order.order_items_by_merchant(merchant1)
+      # Assert
+      expect(items.count).must_equal 1
+      expect(items.first.product_id).must_equal product1.id
+    end
+
+    it "returns no order_items if merchant has none" do
+      # Arrange
+      pending_order.save!
+      merchant1.save!
+      product1.merchant_id = merchant1.id
+      product1.save!
+      item1 = OrderItem.new(
+        order_id: pending_order.id,
+        product_id: product1.id,
+        quantity: 2
+      )
+      item1.save!
+      # Act
+      items = pending_order.order_items_by_merchant(merchant2)
+      # Assert
+      expect(items.count).must_equal 0
+    end
+  end # describe "order_items_by_merchant"
 
 end # describe Order
