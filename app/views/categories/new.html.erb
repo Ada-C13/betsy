@@ -2,7 +2,7 @@
 
 <div class="container">
   <%= form_with(model: @category, local: true) do |form| %>
-    <p>Please enter folliwng data for a new category</p>
+    <p>Please enter following data for a new category</p>
     <div class='form-group'>
       <%= form.label :name, class: 'control-label' %>
       <%= form.text_field :name, class: 'form-control', placeholder: "Category Name" %>

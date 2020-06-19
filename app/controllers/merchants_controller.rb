@@ -6,7 +6,7 @@ class MerchantsController < ApplicationController
     auth_hash = request.env["omniauth.auth"]
     merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
     if merchant
-      flash[:success] = "Welome back #{merchant.username}!"
+      flash[:success] = "Welcome back #{merchant.username}!"
     else
       merchant = Merchant.build_from_github(auth_hash)
      
