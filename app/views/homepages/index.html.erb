@@ -1,0 +1,43 @@
+<section id="homepage-hero-image">
+    <div class="hero-image">
+        <img src="https://i.imgur.com/ACNTG1b.jpg" />
+        <div class="hero-text">
+            <h1>Only the Best for Your Best Friend</h1>
+        </div>
+    </div>
+</section>
+
+<section id="homepage-products" class ="padded-container">
+    <h2>Discover Paw-mazing Deals</h2>
+    <p>blah blah blah buy some pet stuff</p>
+    <%= link_to "All Products", products_path, class: "btn btn-primary" %>
+</section>
+<hr>
+
+<section id="homepage-featured" class ="padded-container featured">
+   
+        <h2 class="center-text">Featured Product</h2>
+        <% if !@products.empty?%>
+            <div class ="center">
+                <% featured = Product.spotlight(@products)%>
+                <%= render partial: "layouts/product_card", locals:{product:featured}%>
+            </div>
+        <% else%>
+            <h3>Coming Soon</h3>
+        <% end%>
+   
+</section>
+<hr>
+
+<section id="homepage-top-rated" class ="padded-container">
+    <h2>Top Rated Products</h2>
+    <% if !@products.empty?%>
+        <div class="flex-container">
+            <% Product.top_rated(@products).each do |product|%>
+                <%= render partial: "layouts/product_card", locals:{product:product}%>
+            <% end%>
+        </div>
+    <% else%>
+        <h3>Coming Soon</h3>
+    <% end%>
+</section>

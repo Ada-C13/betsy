@@ -1,0 +1,210 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+
+/* Custom bootstrap variables must be set or imported *before* bootstrap. */
+@import "bootstrap";
+
+@import "**/*";
+
+// Nav
+
+nav {
+    background: white;
+}
+nav a {
+    color: #333333;
+}
+
+nav a:hover { 
+    color: grey;
+}
+
+// Body
+
+body { 
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 3rem;
+    color: #333333;
+}
+
+.padded-container {
+    padding: 4rem;
+}
+
+.center {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.center h2 {
+    text-align: center;
+}
+
+h1, h2 {
+    font-size: 3rem;
+    font-family: 'Lato', sans-serif;
+}
+
+// Hero Image
+
+.hero-image {
+    width: 100%;
+    display: inline-block;
+}
+
+.hero-image img {
+    width: 100vw;
+}
+
+.hero-text h1{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    text-align: center;
+
+    color: white;
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    font-size: 7vw;
+    text-shadow: 2px 2px #2d3142;
+}
+
+// Products
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-container {
+  
+    width: 18rem;
+    border: 1px solid rgba(0,0,0,0.125);
+}
+
+.product-container-large {
+    width: 25rem;
+}
+
+.product-image-small {
+    width: 17.9rem;
+    height: 18rem;
+}
+
+.product-container img {
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+    margin: auto;
+}
+
+.product-container-large img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.product-container-details {
+    padding: 1.25rem;
+    padding-bottom: 2rem;
+}
+
+
+//my account 
+
+.merchant_name {
+    padding-bottom: 0;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+.merchant_date {
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+    padding-bottom: 5rem;
+}
+.merchant_buttons ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style-type: none;
+    margin-bottom: 1rem;
+}
+
+// Footer
+
+footer {
+    margin-top: 10rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    width: 100%;
+    background-color: #4f5d75;
+    color: #fff;
+    // TODO: get footer to stick to bottom of window
+}
+
+.copyright p {
+    text-align: center;
+}
+
+
+.team-member {
+    margin: 0, auto;
+}
+
+.meet-the-team-page {
+    margin: 0, auto;
+    text-align: center;
+}
+
+.team-header {
+    background-color: pink;
+    color: whitesmoke;
+    margin: 0 200px;
+    margin-top: 30px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+
+.team-members img {
+    width:300px;
+    height:300px;
+    object-fit:cover;
+
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    // background-color: rgb(235, 234, 229);
+    padding: 10px 80px;
+    margin: 0 auto;
+    width: 800px;
+
+  }
+
+  .meet-team-footer a{
+    color: white;
+  }
+  
+  .meet-team-footer{
+    text-align: center;
+  }
+  

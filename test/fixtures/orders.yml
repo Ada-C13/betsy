@@ -1,0 +1,18 @@
+order1:
+  order_status: paid
+  email_address: katie@gmail.com
+  mailing_address: 1234 Hello Dr.
+  name_on_credit_card: Katie Vandervoort
+  credit_card_number: 1234123412341234
+  credit_card_expiration: 01/21
+  credit_card_CVV: 123
+  billing_zip_code: 10001
+order2:
+  order_status: complete
+  email_address: louie@gmail.com
+  mailing_address: 52 Main St.
+  name_on_credit_card: Louie Vandervoort
+  credit_card_number: 4321432143214321
+  credit_card_expiration: 03/22
+  credit_card_CVV: 321
+  billing_zip_code: 12321

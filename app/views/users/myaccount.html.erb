@@ -1,0 +1,43 @@
+<main>
+	<section id="user-dashboard" class="padded-container">
+		<h1 class="merchant_name"><%=@logged_user.name%></h1>
+		<div class="merchant_date">
+			<h3> Date Joined: 
+				<span><%=@logged_user.created_at.strftime("%B %d, %Y")%></span>
+			</h3>
+		</div>
+		<div class="merchant_buttons">
+			<ul>
+				<li><%= link_to "Add Product", new_product_path, class: "btn btn-primary" %></li>
+				<li><%= link_to "Add Category", new_category_path, class: "btn btn-primary" %></li>
+				<li><%= link_to "Manage Orders", myorders_path, class: "btn btn-primary" %></li>
+			</ul>
+	
+		<section class="order-items-table">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Product</th>
+						<th>Name</th>
+						<th>Price</th>
+						<th>Stock</th>
+						<th>Edit</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @products.each do |product| %>
+						<tr>
+							<td class="product-container"><%= image_tag product.photo_url, alt: "products packaging appearance" %></td>
+							<td><%= link_to(product.name, product_path(product.id)) %></td>
+							<td><%= product.price %></td>
+							<td><%= product.stock %></td>
+							<td><%= link_to("Edit", edit_product_path(product.id)) %></td>
+							<td><%= link_to(product.product_status == "active" ? "Inactivate" : "Activate", change_product_status_path(product.id), method: :patch) %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</section>
+	</section>
+</main>

@@ -1,0 +1,44 @@
+<section class="padded-container">
+	<h2>Order fulfillment for Merchant: <%=@logged_user.name%></h2>
+	<br>
+	<main>
+		<%# <h2>List of Order Items</h2> %>
+		<p><strong>Filter by:</strong> <%=link_to "all", myorders_path %> | <%=link_to "paid", myorders_path(:filter => "paid") %> |	<%=link_to "shipped", myorders_path(:filter => "shipped") %> </p>
+		<section class="order-items-table">
+			<table class="table">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Purchase Date</th>
+						<th>Product Name</th>
+						<th>Quanity</th>
+						<th>Order Status</th>
+						<th>Item Price</th>
+						<th>Item Revenue</th>
+						<th>Shipment Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @order_items.each do |order_item| %>
+						<tr>
+							<td class="product-container"><%= image_tag order_item.product.photo_url, alt: "products packaging appearance" %></td>
+							<td><%= link_to(order_item.order.updated_at.strftime("%B %d, %Y"), confirm_order_path(order_item.order_id)) %></td>
+							<td><%= link_to(order_item.product.name, product_path(order_item.product.id)) %></td>
+							<td><%= order_item.quantity %></td>
+				<td><%= order_item.order.order_status %></td>
+							<td><%= order_item.product.price %></td>
+							<td><%= order_item.calculate_total %></td>
+							<td>
+								<% if order_item.order_item_status == "shipped" %>
+									shipped
+								<%else%>
+									<%= link_to("Ship Order Item", change_order_item_status_path(order_item.id), method: :patch, class: "btn btn-primary" ) %>
+								<%end%>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</section>
+	</main>
+</section>

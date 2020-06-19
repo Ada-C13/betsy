@@ -1,0 +1,27 @@
+<section class="padded-container">
+	<h2><%= @category.name.capitalize%></h2>
+	<section class="media-table">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Price</th>
+					<th>Description</th>
+					<th>Photo</th>
+					<th>Stock</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @category.products.each do |product| %>
+					<tr>
+						<td><%= link_to(product.name, product_path(product.id)) %></td>
+						<td><%= product.price %></td>
+						<td><%= product.description %></td>
+						<td><%= image_tag product.photo_url, alt: "products packaging appearance" %></td>
+						<td><%= product.stock %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</section>
+</section>

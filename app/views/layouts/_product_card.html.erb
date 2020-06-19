@@ -1,0 +1,15 @@
+<div class="product-container">
+    <div class="product-image-small">
+        <%= image_tag product.photo_url, alt: "products packaging appearance" %>
+    </div>
+
+    <div class="product-container-details">
+        <h3><%= link_to(product.name, product_path(product.id)) %></h3>
+
+        <h6>$<%= product.price %></h6>
+
+        <h6>Average Rating: <%= product.average_rating %>/5 </h6>
+
+        <%= product.description %>
+    </div>
+</div>

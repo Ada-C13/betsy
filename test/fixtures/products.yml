@@ -1,0 +1,62 @@
+leash:
+  name: leash
+  price: 5.99
+  stock: 10
+  description: small blue leash
+  photo_url: https://dogtime.com/assets/uploads/2011/03/puppy-development-1280x720.jpg
+  user: grace
+  product_status: active
+
+collar:
+  name: collar
+  price: 15.00
+  stock: 1
+  description: small blue collar
+  photo_url: https://dogtime.com/assets/uploads/2011/03/puppy-development-1280x720.jpg
+  user: ada
+  product_status: inactive
+  
+doghouse:
+  name: doghouse
+  price: 15.00
+  stock: 1
+  description: small blue doghouse
+  photo_url: https://dogtime.com/assets/uploads/2011/03/puppy-development-1280x720.jpg
+  user: ada
+  product_status: active
+
+bowl:
+  name: bowl
+  price: 15.00
+  stock: 1
+  description: small blue bowl
+  photo_url: https://dogtime.com/assets/uploads/2011/03/puppy-development-1280x720.jpg
+  user: ada
+  product_status: active
+
+bones:
+  name: bones
+  price: 15.00
+  stock: 1
+  description: small blue bones
+  photo_url: https://dogtime.com/assets/uploads/2011/03/puppy-development-1280x720.jpg
+  user: ada
+  product_status: active
+
+dish:
+  name: dish
+  price: 15.00
+  stock: 1
+  description: small blue dish
+  photo_url: https://dogtime.com/assets/uploads/2011/03/puppy-development-1280x720.jpg
+  user: ada
+  product_status: active
+
+rubber_duck:
+  name: rubber duck
+  price: 20.00
+  stock: 20
+  description: lil rubber duck
+  photo_url: https://dogtime.com/assets/uploads/2011/03/puppy-development-1280x720.jpg
+  user: ada
+  product_status: active

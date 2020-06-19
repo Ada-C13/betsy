@@ -1,0 +1,51 @@
+<main>
+	<section id="product-info">
+		<div class="flex-container">
+			<div id="product-image" class="product-container-large padded-container">
+				<%= image_tag @product.photo_url, alt: "products packaging appearance" %>
+			</div>
+			<div id="product-details" class="padded-container">
+				<h2> <%= @product.name%>
+					<h2>
+						<h6>  <%= @product.description %> </h6>
+						<p> $<%= @product.price%> </p>
+						<p> <%= @product.stock %> currently in stock</p>
+						<p> <strong>Status:</strong> <%= @product.product_status %> </p>
+					</div>
+				</div>
+			</section>
+			<section id="add-to-cart" class="padded-container">
+				<%= form_with model: @order_item, url: product_order_items_path(@product.id), class: 'order_item-form' do |f| %>
+					<section class = "product-container-large">
+						<%= f.select :quantity, options_for_select(make_range(@product.stock)) %>
+					</section>
+					<%= f.submit "Add to Cart" , class: "btn btn-primary" %>
+				<% end %>
+			</section>
+			<br>
+			<section id="reviews" class="padded-container">
+				<%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %>
+				<br>
+				<h4> Average Rating: <%= @product.average_rating %> / 5 </h4>
+				<br>
+				<h4>Reviews</h4>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Rating</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @product.reviews.each do |review| %>
+							<tr>
+								<td><%= review.created_at.strftime("%D") %></td>
+								<td><%= review.rating%></td>
+								<td><%= review.text %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</section>
+		</main>

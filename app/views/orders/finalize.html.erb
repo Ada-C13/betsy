@@ -1,0 +1,52 @@
+<main>
+	<section id="order-summary" class="padded-container">
+		<h2>Here is your order summary:</h2>
+		<section class="order-table">
+			<h2>Order Items Summary</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Product Name</th>
+						<th>Item Price</th>
+						<th>Quantity</th>
+						<th>Item Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @order_items.each do |order_item| %>
+						<%product = Product.where(id: order_item.product_id)[0]%>
+						<tr>
+							<td><%= link_to(product.name, product_path(product.id)) %></td>
+							<td><%= product.price %></td>
+							<td> <%= order_item.quantity %> </td>
+							<td> <%= order_item.calculate_total %> </td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</section>
+		<section class="order-table">
+			<h2>Order Summary</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Order Total</th>
+						<th>Email Address</th>
+						<th>Name on Card</th>
+						<th>Mailing Address</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><%=@current_order.calculate_order_total %></td>
+						<td><%= @current_order.email_address %></td>
+						<td><%= @current_order.name_on_credit_card %></td>
+						<td><%= @current_order.mailing_address %></td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+		<p><%= link_to "Cancel order", cancel_order_path(@current_order), method: :patch, class: "btn btn-primary" %></p>
+		<p><%= link_to "Place order", place_order_path(@current_order), method: :patch, class: "btn btn-primary" %></p>
+	</section>
+</main>

@@ -1,0 +1,48 @@
+<section class="padded-container">
+	<h2>Here is your order summary:</h2>
+	<main>
+		<section class="order-table">
+			<h2>Confirmation Summary</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Product Name</th>
+						<th>Quantity</th>
+						<th>Item Total</th>
+						<th>Order Item Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @order_items.each do |order_item| %>
+						<%product = Product.where(id: order_item.product_id)[0]%>
+						<tr>
+							<td><%= link_to(product.name, product_path(product.id)) %></td>
+							<td> <%= order_item.quantity %> </td>
+							<td> <%= order_item.calculate_total %> </td>
+							<td> <%= order_item.order_item_status %> </td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</section>
+		<section class="order-table">
+			<h2>Order Summary</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Order Total</th>
+						<th>Date of Order</th>
+						<th>Order Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><%=@order.calculate_order_total %></td>
+						<td><%= @order.updated_at.strftime("%B %d, %Y %H:%M")  %></td>
+						<td><%= @order.order_status %></td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+	</main>
+</section>

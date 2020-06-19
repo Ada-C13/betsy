@@ -1,0 +1,12 @@
+collar_order_item:
+  product: collar
+  order: order2
+  quantity: 1
+leash_order_item:
+  product: leash
+  order: order1
+  quantity: 3
+bowl_order_item:
+  product: bowl
+  order: order1
+  quantity: 1

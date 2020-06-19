@@ -1,0 +1,12 @@
+<main>
+	<section id="category-products" class="padded-container">
+		<h2>Products under: <%= @category.name.capitalize%></h2>
+		<br>
+		<div class="flex-container">
+			<% @category.products.each do |product|%>
+				<%= render partial: "layouts/product_card", locals:{product:product}%>
+			<% end%>
+		</div>
+	</section>
+</main>
+
