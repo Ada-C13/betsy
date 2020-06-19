@@ -11,7 +11,7 @@ class CategoriesController < ApplicationController
       redirect_to categories_path
       return
     end
-    @category_products = @category.products.paginate(page: params[:page], per_page: 9)
+    @category_products = @category.products.where(active: true).paginate(page: params[:page], per_page: 9)
   end
 
   def new
