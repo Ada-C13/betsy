@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.merchant_id = session[:merchant_id]
-    @product.photo = 'https://i.imgur.com/OR9WgUb.png' if @product.photo = ''
+    @product.photo = 'https://i.imgur.com/OR9WgUb.png' if @product.photo == ''
     @product.active = true
     if @product.save
       flash[:success] = "Successfully created #{@product.name}"
