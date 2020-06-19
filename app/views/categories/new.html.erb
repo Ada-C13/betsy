@@ -13,8 +13,9 @@
       <%= form.text_area :description, class: 'form-control', placeholder: "Description of Category" %>
     </div>
 
-    <div class="actions">
-      <%= form.submit %>
-    </div>
+  <div class="top_buttons actions">
+    <%= form.submit class: "btn btn-primary btn-md" %>
+    <%= button_to "Cancel", merchant_path(@current_merchant), class:"btn btn-danger btn-md"%>
+  </div>
   <% end %>
 <div>

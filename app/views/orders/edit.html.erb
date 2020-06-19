@@ -4,7 +4,11 @@
   <div class="container">
     <p>Status: <%= @shopping_cart.status %></p>
     <p>Items: <%= @shopping_cart.order_items.size %></p>
+<<<<<<< HEAD
     <p>Total Cost: <%= @shopping_cart.total_cost(nil) %></p>
+=======
+    <p>Total Cost: $<%= @shopping_cart.total_cost %></p>
+>>>>>>> a8659e7f521c0b1bafdf04a5d28aebf15dafb07b
 
 
     <section class="order-order_items__container">
@@ -12,27 +16,27 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Subtotal</th>
-            <th>Delete</th>
+            <th class='text-center'>Product Name</th>
+            <th class='text-center'>Quantity</th>
+            <th class='text-center'>Price</th>
+            <th class='text-center'>Subtotal</th>
+            <th class='text-center'>Delete</th>
           </tr>
         </thead>
         <tbody>
           <% @shopping_cart.order_items.each do |order_item| %>
             <tr>
-              <td><%= link_to order_item.product.name, product_path(order_item.product) %></td>
-              <td>
+              <td class='text-center align-middle'><%= link_to order_item.product.name, product_path(order_item.product) %></td>
+              <td class='text-center align-middle'>
                 <%= link_to "+", order_item_path(id: order_item, order_item: { quantity: order_item.quantity + 1 } ), method: "patch"%>
                 <%= order_item.quantity %>
                 <% if order_item.quantity > 1 %>
                   <%= link_to "-", order_item_path(id: order_item, order_item: { quantity: order_item.quantity - 1 } ), method: "patch" %>
                 <% end %>
               </td>
-              <td><%= order_item.product.price %></td>
-              <td><%= order_item.subtotal %></td>
-              <th><%= link_to 'Delete', order_item_path(order_item), class: 'btn btn-danger', method: 'delete' %></th>
+              <td class='text-center align-middle'><%= order_item.product.price %></td>
+              <td class='text-center align-middle'><%= order_item.subtotal %></td>
+              <td class='text-center align-middle'><%= link_to 'Delete', order_item_path(order_item), class: 'btn btn-danger', method: 'delete' %></td>
             </tr>
           <% end %>
         </tbody>
