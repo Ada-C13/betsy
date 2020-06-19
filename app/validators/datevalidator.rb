@@ -1,8 +1,12 @@
-class DateValidator < ActiveModel::Validator
+class Datevalidator < ActiveModel::Validator
   def validate(order)
-    exp_date = Date.new(order.cc_exp_year, order.cc_exp_month)
-    unless exp_date > Date.now
-      order.errors[:exp_date] << 'The card must not be expired.'
+    if order.cc_exp_year && order.cc_exp_month
+      exp_date = Date.new(order.cc_exp_year.to_i, order.cc_exp_month.to_i)
+      unless exp_date > Date.today
+        order.errors[:expiration] << 'The card must not be expired.'
+      end
+    else
+      order.errors[:expiration] << 'Dates must be entered.'
     end
   end
 end

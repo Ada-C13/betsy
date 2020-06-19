@@ -165,6 +165,13 @@ describe OrdersController do
         expect(flash[:error]).must_include "cc_validation"
         expect(flash[:error]).must_include "Credit card number must be 16 digits"
       end
+      it "flashes/renders for expired card" do
+        good_submit[:order][:cc_exp_year] = "1999"
+        patch checkout_path, params: good_submit
+        # actual test, collab with Jeta on new flash config
+        expect(flash[:error]).must_include "expiration"
+        expect(flash[:error]).must_include 'The card must not be expired.'
+      end
     end
 
     describe "show_complete" do
