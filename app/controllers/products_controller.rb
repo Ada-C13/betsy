@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.merchant_id = session[:merchant_id]
-    @product.photo = 'https://i.imgur.com/OR9WgUb.png' if @product.photo = ''
+    @product.photo = "https://i.imgur.com/OR9WgUb.png" if @product.photo = ""
     @product.active = true
     if @product.save
       flash[:success] = "Successfully created #{@product.name}"
@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
       redirect_to @product
       flash[:success] = "Successfully updated product."
       return
-    else 
+    else
       flash.now[:warning] = "Product update failed"
       flash.now[:details] = @product.errors.full_messages
       render :edit, status: :bad_request
@@ -74,15 +74,15 @@ class ProductsController < ApplicationController
 
   private
 
-    def set_product
-      @product = Product.find_by(id: params[:id])
-      if @product.nil?
-        head :not_found
-        return 
-      end
+  def set_product
+    @product = Product.find_by(id: params[:id])
+    if @product.nil?
+      head :not_found
+      return
     end
+  end
 
-    def product_params
-      return params.require(:product).permit(:name, :description, :photo, :stock, :price, category_ids: [])
-    end
+  def product_params
+    return params.require(:product).permit(:name, :description, :photo, :stock, :price, category_ids: [])
+  end
 end
