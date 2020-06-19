@@ -1,0 +1,63 @@
+<section class="section-name padding-y-sm">
+    <div class="container">
+        <%if @category.products.empty? %>
+        <header class="section-heading">
+            <h3 class="section-title">Sorry, there are no products in this categories</h3>
+        </header>
+        <%else%>
+        <div class="row">
+            <% @category.products.each do |product| %>
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div href="#" class="card card-product-grid" style="font-weight:300;">
+                    <%= image_tag product.image, alt: "product's image", class: 'img-fluid' %>
+                    <figcaption class="info-wrap">
+                        <div style="text-align:center;">
+                          <%= link_to product.name, product_path(product.id), class: "card-title" %>
+                        </div>
+                        
+                        <p><%= truncate product.description, length: 50 %></p>
+                  
+                        <div class="price mt-1">$ <%= sprintf("%.2f",product.price)%></div>
+                  
+                        <p class="mb-0">
+                          <%= product.stock %> left in stock!
+                          <% if product.stock < 10 %>
+                            <span class="badge badge-info">Low in stock</span>
+                          <% end %>
+                        </p>
+                        <% if product.find_average_rating.nil? %>
+                        <p class="mt-2" style="font-size:0.8rem;"> No review for this product yet!</p>
+                        <%else%>
+                        <p class="text-warning mt-0">
+                            <% product.find_average_rating.times do  %>
+                            ★
+                            <%end%>
+                            <% (5-product.find_average_rating).times do%>
+                            ☆
+                            <%end%>
+                        </p>
+                          <% if product.find_average_rating >= 4 %>
+                            <span class="notify-badge">HOT ITEM</span>
+                          <% end %>
+                        <%end%>
+
+                      <div style="text-align:center;">
+                          <%= form_tag(add_to_cart_path(product.id), { class: 'addproduct-form'}) do%>
+                            <%=hidden_field_tag(:quantity, 1)%>
+                            <%=submit_tag "Add to cart", class: 'btn btn-outline-secondary btn-sm'%>
+                          <% end %>
+                      </div>
+
+                  </figcaption>
+                </div>
+            </div>
+            <% end %>
+            <%end%>
+        </div>
+        
+        <div style="text-align:center">
+          <%= link_to "Back to Categories", categories_path, class: "btn btn-info" %>
+          <%= link_to "All Products", products_path, class: "btn btn-info" %>
+          <%= link_to "Add a new product", new_product_path, class: "btn btn-info" %>
+        </div
+</section>

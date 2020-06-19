@@ -1,0 +1,51 @@
+<header class="app-header" style="background-image: url(<%= asset_path("header_image.jpg") %>);">
+  <h1 class="app-header__header">
+    <%= link_to "Well Etsy", root_path, class: "" %>
+  </h1>
+
+  <nav class="navbar navbar-expand-lg app-header__nav">
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      MENU
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <%= link_to "All Products", products_path, class: "nav-link app-header__nav__item" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "By Category", categories_path, class: "nav-link app-header__nav__item" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "By Merchant", merchants_path, class: "nav-link app-header__nav__item" %>
+        </li>  <% if session[:order_id] %>
+        <div class="widget-header mr-3"><a><%= link_to cart_path, class: "icon icon-sm rounded-circle border" do %>
+        
+          <i class="fa fa-shopping-cart"></i> </a> <span class="badge badge-pill badge-danger notify"><%= Order.find_by(id: session[:order_id]).all_cart_items %></span>
+            <% end %>
+          <% end %>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav">
+        <% if session[:merchant_id] %>
+
+          <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle btn btn-outline-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Portal
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "Dashboard", dashboard_path, class: "dropdown-item" %>
+              <%= link_to "Add Product", new_product_path, class: "dropdown-item" %>
+            </div>
+          </li>
+
+          <%= link_to "Log Out", logout_path, method: :post, class: "btn btn-outline-light app-header__nav__button" %>    
+        <% else %>
+          <%= link_to "Log In", github_login_path, class: "btn btn-outline-light app-header__nav__button" %>    
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</header>

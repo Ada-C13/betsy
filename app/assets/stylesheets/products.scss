@@ -1,0 +1,95 @@
+// Place all the styles related to the products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+form {
+  display: block;
+  margin-top: 0em;
+  padding: 50px;
+  margin: 100px 100px 100px 100px;
+}
+
+.addproduct-form {
+  padding:0;
+  margin:0 0 1rem 0;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.products-list {
+  padding: 50px;
+}
+
+.product-item{
+  padding: 50px;
+  margin: 0 -1rem;
+  max-width: 1000px;
+  width: auto;
+}
+.products-imgs{
+  height: 200px;
+  width: 70%;
+}
+
+.product-img {
+  height: 300px;
+  width: 70%;
+}
+
+.btn.btn-md {
+  padding: .7rem 1.6rem;
+  font-size: .7rem;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #4285f4 !important;
+}
+
+main .btn {
+  margin: .375rem;
+  color: inherit;
+  text-transform: uppercase;
+  word-wrap: break-word;
+  white-space: normal;
+  cursor: pointer;
+  border: 0;
+  border-radius: .125rem;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  -webkit-transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+  padding: .84rem 2.14rem;
+  font-size: .81rem;
+}
+
+.waves-effect {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mb-0, .my-0 {
+  margin-bottom: 0!important;
+}
+
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.productView {
+  max-width: none;
+  width: auto;
+  margin: 0;
+}

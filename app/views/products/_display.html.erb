@@ -1,0 +1,59 @@
+<section class="section-name padding-y-sm">
+  <div class="container">
+    <header class="section-heading">
+      <% if product_list == @products%>
+        <h3 class= "section-title">All Products</h3>
+      <% else %>
+        <h3 class= "section-title">Popular Products</h3>
+      <% end %>
+    </header>
+    <div class= "row">
+        <% product_list.each do |product|%>
+          <div class="col-xl-3 col-lg-4 col-md-6">
+          <div href="#" class="card card-product-grid" style="font-weight:300;">
+          <%= image_tag product.image, alt: "product's image", class: 'img-fluid' %>
+          <figcaption class="info-wrap">
+            <div style="text-align:center;">
+              <%= link_to product.name, product_path(product.id), class: "card-title" %>
+            </div>
+          <% if product_list == @products%>
+            <p><%= truncate product.description, length: 50 %></p>
+          <% end %>
+          <% if product_list == @products%>
+          <p class="mb-0">
+            <%= product.stock %> left in stock!
+            <% if product.stock < 10 %>
+              <span class="badge badge-info">Low in stock</span>
+            <% end %>
+          </p>
+              <% if product.find_average_rating.nil? %>
+                  <p class="mt-2" style="font-size:0.8rem;"> No reviews for this product yet!</p>
+              <%else%>
+                <p class="text-warning mt-0">
+                    <% product.find_average_rating.times do  %>
+                          ★
+                    <%end%>
+                    <% (5-product.find_average_rating).times do%>
+                          ☆
+                    <%end%>
+                </p>
+                <% if product.find_average_rating >= 4 %>
+                  <span class="notify-badge">HOT ITEM</span>
+                <% end %>
+              <%end%>
+              <%= form_tag(add_to_cart_path(product.id), { class: 'addproduct-form'}) do%>
+                <%=hidden_field_tag(:quantity, 1)%>
+                <div style="text-align:center;">
+                  <%=submit_tag "Add to cart", class: 'btn btn-outline-info btn-sm'%>
+                </div>
+              <% end %>
+
+          <% else %>
+            <div class="mt-2 float-right">$ <%= sprintf("%.2f",product.price)%></div>
+          <% end %>
+          </figcaption>
+        </div>
+        </div>
+    <%end%>
+  </div>
+  </section>
