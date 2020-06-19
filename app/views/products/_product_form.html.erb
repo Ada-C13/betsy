@@ -2,11 +2,12 @@
   <ul class="errors">
     <% @product.errors.each do |column, message| %>
       <li>
-        <span><%= column.capitalize %></span>: <%= message %>
+        <span><strong><%= column.capitalize %></strong></span>: <%= message %>
       </li>
     <% end %>
   </ul>
 <% end %>
+<h3>Add Category</h3>
 <%= form_for @product, class: 'product-form' do |f| %>
   <div class='form-group'>
     <%= f.label :name %>
@@ -36,7 +37,7 @@
 
   
     <%= f.label :category %>
-  <div class='my_class_name'>
+  <div class='my_class_name form-control' , id = "box-height">
     <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
     <div >
       <%= b.check_box %>
@@ -46,5 +47,5 @@
   </div>
   
   <br>
-  <%= f.submit "#{action_name} Product", class: "btn btn-primary" %>
+  <%= f.submit "#{action_name.capitalize} Product", class: "btn btn-primary" %>
 <% end %>

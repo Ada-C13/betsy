@@ -13,13 +13,19 @@
   <div class="page-container">
   <div class="content-wrap">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a href="#" class="navbar-brand">Brand</a>
+      
+      <%= image_tag "https://www.creativefabrica.com/wp-content/uploads/2019/02/Monogram-CH-Logo-by-Greenlines-Studios.jpg", 
+      alt: "logo", 
+      class: "brand-img" 
+      %>
+     
       <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
           <span class="navbar-toggler-icon"></span>
       </button>
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <div class="navbar-nav">
+            
             <li><%= link_to "Home", root_path, class:"nav-item nav-link active fa fa-home mr-sm-4" %></li>
             <li class="nav-item dropdown">
               <a data-toggle="dropdown"  class="nav-link dropdown-toggle mr-sm-4" href="/products" role="button" aria-haspopup="true" aria-expanded="false">Products
@@ -69,20 +75,72 @@
     </div>
     <br>
     <section class="section">
-      <section class="flash-msg__section">
-        <% flash.each do |name, message| %>
-          <strong class="<%= name %>">
-            <%= message %>
-          </strong>
+      <section class="alert__container section">
+        <% flash.each do |key, value| %>
+          <div class="<%= flash_class(key) %>">
+            <%= value %>
+          </div>
         <% end %>
       </section>
+      <main>
       <%= yield %>
+      </main>
     </section>
   </body>
 
-  <footer class = "footer" >
-    <p><strong>Copyright Ada C13 2020</strong></p>
-  </footer>
-  </div>
+ <%# Resource: https://bootsnipp.com/snippets/rlXdE %>
+  <!-- Footer -->
+	<section class = "middle", id="footer">
+		<div class="container">
+			<div class="row text-center text-xs-center text-sm-left text-md-left">
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5>Company</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Home</a></li>
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>About Us</a></li>
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Carrer</a></li>
+            <li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Blog</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5>Customer Service</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Help</a></li>
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Contact Us</a></li>
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Shipping & Returns</a></li>
+						
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5>Last News</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="http://www.global-events.com/na/"><i class="fa fa-angle-double-right"></i>Global Event</a></li>
+						<li><a href="https://coronavirus.wa.gov/?gclid=EAIaIQobChMIpb-RzsaM6gIVFBLnCh1E_wljEAAYASAAEgLqNvD_BwE"><i class="fa fa-angle-double-right"></i>Covid 19 Updates</a></li>
+						<li><a href="https://www.weather.gov/alerts"><i class="fa fa-angle-double-right"></i>Emergency Annoucement</a></li>
+						<li><a href= "https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Policy</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+					<ul class="list-unstyled list-inline social text-center">
+						<li class="list-inline-item"><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="http://twitter.com/"><i class="fa fa-twitter"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></li>
+						<li class="list-inline-item"><a href="https://accounts.google.com/ServiceLogin/signinchooser?service=accountsettings&passive=1209600&osid=1&continue=https%3A%2F%2Fmyaccount.google.com%2Fprofile%3Fauthuser%3D0&followup=https%3A%2F%2Fmyaccount.google.com%2Fprofile%3Fauthuser%3D0&authuser=0&flowName=GlifWebSignIn&flowEntry=ServiceLogin"><i class="fa fa-google-plus"></i></a></li>
+						<li class="list-inline-item"><a href="https://accounts.google.com/signout/chrome/landing?continue=https://mail.google.com/mail&oc=https://mail.google.com/mail&hl=en" target="_blank"><i class="fa fa-envelope"></i></a></li>
+					</ul>
+				</div>
+				<hr>
+			</div>	
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+					<p class="h6">© All right Reversed.<a class="text-green ml-2" href="https://adadevelopersacademy.org/" target="_blank">Ada C13 2020</a></p>
+				</div>
+				<hr>
+			</div>	
+		</div>
+	</section>
 </div>
 </html>
