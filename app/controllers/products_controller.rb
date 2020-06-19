@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, except: [:index, :new]
+  before_action :find_product, except: [:index, :new, :create]
   skip_before_action :require_login, only: [:index, :show]
 
   def index
@@ -13,6 +13,7 @@ class ProductsController < ApplicationController
   end
 
   def create
+    @product = Product.find_by(id: params[:id])
     if session[:merchant_id]
       merchant = Merchant.find_by(id: session[:merchant_id])
       @product = Product.new(product_params)
