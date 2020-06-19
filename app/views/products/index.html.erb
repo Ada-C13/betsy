@@ -14,9 +14,8 @@
   <br>
   <br>
   <div>
-    <%# <p><%= page_entries_info @product %></p> 
-
-    <div class="pagination">
+    <%# <p><%= page_entries_info @product %></p>
+    <div class="pagination_container" style="width: 100%;overflow:auto;">
       <%= will_paginate @products %>
     </div>
   </div>
