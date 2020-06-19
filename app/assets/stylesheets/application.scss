@@ -170,10 +170,21 @@ nav {
 }
 
 .show_images {
-  height: 70%;
+  width: 100px;
+  height: 100px;
   border:gray 1px solid;
   image-rendering: center;
   margin: 5px
+}
+
+#project_images {
+  width: 300px;
+  height: 200px;
+}
+
+#slide_images {
+  width: 600px;
+  height: 470px;
 }
 
 .merchant_images {
