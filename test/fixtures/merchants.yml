@@ -1,0 +1,17 @@
+merchant0:
+  username: merchant0
+  email: merch@merch.com
+  uid:  0
+  provider: github
+
+merchant1:
+  username: testmerchant
+  email: tm@merch.com
+  uid:  1
+  provider: github
+
+merchant2:
+  username: merchant2
+  email: merchant@merch.com
+  uid:  2
+  provider: github

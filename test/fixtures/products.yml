@@ -1,0 +1,35 @@
+product1:
+  name: Mask
+  price: 2.99
+  img_url: https://live.staticflickr.com/65535/49992513867_b7f9f8ffb0_m.jpg,
+  description: Watch out for germs
+  qty: 10
+  categories: category1, category3
+  merchant: merchant1
+  
+product2:
+  name: poster
+  price: 9.99
+  img_url: https://live.staticflickr.com/65535/49991751098_c017304fc3_m.jpg,
+  description: Show where you stand
+  qty: 3
+  categories: category1, category4, category6, category14
+  merchant: merchant1
+  
+product3:
+  name: marker
+  price: 1.99
+  img_url: https://live.staticflickr.com/65535/49991751098_c017304fc3_m.jpg,
+  description: Make a sign
+  qty: 50
+  categories: 
+  merchant: merchant1
+
+product4:
+  name: hat
+  price: 5.99
+  img_url: https://live.staticflickr.com/65535/49991751098_c017304fc3_m.jpg,
+  description: wear it
+  qty: 50
+  categories: 
+  merchant: merchant2

@@ -1,0 +1,11 @@
+id,name,credit_card,status,street_address,city_state_zip
+1,Faezeh Ashtiani,1234567890123456,paid,120 Republican St. - Apt 536,Seattle-WA-98109
+2,Sadat Miraei,1234567890123456,paid,5455 N Sheridan Rd. - Apt 1605,Chicago-IL-60640
+3,Chelsea Dallal,1234567890123456,paid,120 Republican St. - Apt 536,Seattle-WA-9810
+4,Quin Quin,1234567890123456,paid,5455 N Sheridan Rd. - Apt 1605,Chicago-IL-60640
+5,Yesenia,1234567890123456,paid,120 Republican St. - Apt 536,Seattle-WA-9810
+6,Faezeh Ashtiani,1234567890123456,complete,120 Republican St. - Apt 536,Seattle-WA-98109
+7,Sadat Miraei,1234567890123456,complete,5455 N Sheridan Rd. - Apt 1605,Chicago-IL-60640
+8,Chelsea Dallal,1234567890123456,complete,120 Republican St. - Apt 536,Seattle-WA-9810
+9,Quin Quin,1234567890123456,complete,5455 N Sheridan Rd. - Apt 1605,Chicago-IL-60640
+10,Yesenia,1234567890123456,complete,120 Republican St. - Apt 536,Seattle-WA-9810

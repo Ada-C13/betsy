@@ -1,0 +1,82 @@
+// Place all the styles related to the Products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.product-index {
+  width: 90%;
+  padding: 5% 0 0 10%;
+  display: grid;
+  grid-template: 1fr 1fr  1fr /  1fr 1fr 1fr;
+  grid-gap: 5%;
+  margin: 0;
+}
+
+.all-products {
+  display: grid; 
+  grid-template-rows: 150px auto;
+}
+
+.products-header {
+  text-align: center;
+  padding: 5%;
+}
+
+a.product-name {
+  color: black;
+}
+
+.product_square {
+  display: grid;
+  grid-template-rows: 200px 30px 30px;
+}
+
+.product-image {
+  align-self: end;
+}
+
+.form-check {
+  display: grid;
+  grid-template: 1fr 1fr 1fr 1fr /15px 125px 15px 125px 15px 125px 15px 125px;
+  align-items: center;
+
+}
+
+.form-check > input {
+  margin-top: 20%;
+}
+.form {
+  margin-left: 25%;
+}
+
+input {
+  width: 60%;
+}
+
+.show-header{
+  margin: 5%;
+  text-align: center;
+}
+
+.reviews{
+  width: 60%;
+}
+
+.show-content {
+  margin-left: 20%;
+  width: 60%;
+  display: grid;
+  grid-template-columns: 60% 40%;
+
+}
+.form-group {
+  width: 610px;
+}
+
+.form-group-product > input, .form-group-product > textarea{
+  width: 90%;
+
+}
+.form-group-product  {
+  margin-left: 0;
+  margin-bottom: 2%;
+}

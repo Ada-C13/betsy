@@ -1,0 +1,14 @@
+review1:
+  rating: 4
+  description: awesome
+  product: product1
+
+review2:
+  rating: 3
+  description: Amazing product
+  product: product1
+
+review3:
+  rating: 4
+  description: You need this
+  product: product1

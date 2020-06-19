@@ -1,0 +1,24 @@
+
+<div class="new-order-header">
+  <h2> Thank you for shopping with Forever 2020! Your order has been placed. </h2>
+  <section class="order-info">
+    <h4> STATUS: <%= @order.status.upcase %> </h4>
+    <h4>  TOTAL: <%= "$#{'%.2f' % Order.total(@order.id)}" %></h4> 
+    <h4> <%= Time.now.strftime("%m-%d %H:%M %p") %> </h4>
+  </section>
+  <p><%= link_to "Cancel Order?", order_path(@order), method: :patch %> </p>
+</div>
+
+<div class="order-cards">
+   
+  <% @order.order_items.each do |item| %>
+      <div class="order-card">
+        <% product = Product.find_by(id: item.product_id)%>
+        <p class="card-text"><%= link_to product.name.upcase, product_path(product.id) %> </p>
+        <%= image_tag product.img_url, alt: product.description %>
+        <p class="card-text"><%= product.description %></p>
+        <p class="card-text"><%= "$#{'%.2f' % product.price}" %></p>
+      </div>
+  <% end %>
+</div>
+

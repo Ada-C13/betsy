@@ -1,0 +1,14 @@
+<div class="products-header"> 
+  <h2><%= list_name.upcase %></h2>
+  <h4><%= "#{variable.count} product(s)" %></h4>
+</div> 
+
+<main class='product-index'> 
+  <% variable.each do |product| %>
+    <section class="product_square">
+      <%= image_tag product.img_url, alt: product.description %>
+      <h4><%= link_to product.name.upcase, product_path(product.id) %></h4>
+      <h6>$<%= sprintf('%.2f', product.price) %></h6>
+    </section>
+  <% end %>
+</main> 

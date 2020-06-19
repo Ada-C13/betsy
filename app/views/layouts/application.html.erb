@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Betsy</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+  </head>
+
+<header> 
+  <h1 class='main-header'><%= link_to "FOREVER 2020", root_path %></h1>
+  
+  <nav class="dropdown">
+      <% if !@current_merchant %>
+          <li class="navbar-item"><%= link_to "LOGIN / SIGN UP", github_login_path, class: "nav-link" %> </li> 
+        <%else %>
+          <li class="navbar-item"><%= link_to "LOGGED IN AS #{@current_merchant.username}", merchant_dashboard_path, class: "nav-link" %> </li> 
+      <% end %>
+    <li class="navbar-item dropdown-toggle main-drop" type="button" data-toggle="dropdown">PRODUCTS<span class="caret"></span></li>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a class="test" tabindex="-1" href="#">CATEGORIES <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <% Category.all.each do |category| %>
+              <li><%= link_to category.name.upcase, category_products_path(category.id) %></li>
+            <% end %>
+        </ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a class="test" tabindex="-1" href="#">MERCHANTS <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <% Merchant.all.each do |merchant| %>
+              <li><%= link_to merchant.username, merchant_products_path(merchant.id) %></li>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
+      <li class="navbar-item"><%= link_to "CART", cart_path, class: "nav-link" %> </li> 
+      <% if @current_merchant%>
+        <li class="navbar-item"><%= link_to "NEW PRODUCT", new_product_path, class: "nav-link" %> </li> 
+        <li class="navbar-item"><%= link_to "LOGOUT", logout_path, method: :delete, class: "nav-link" %> </li> 
+      <%end %>
+  </nav>
+
+
+    <script>
+    $(document).ready(function(){
+      $('.dropdown-submenu a.test').on("click", function(e){
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+      });
+    });
+    </script>
+
+  </header>
+  <div>
+    <% if flash %>
+      <% flash.each do |key, val| %>
+        <p class="alert alert-<%= key.to_s == "error" ? 'warning' : 'success' %>"><%= val %></p>
+      <%end %>
+    <%end %>
+  </div>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

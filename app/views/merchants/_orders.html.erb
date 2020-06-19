@@ -1,0 +1,37 @@
+<% if variable.length == 0 %>
+  <h2>No orders yet!</h2>
+<% else %>
+  
+  <h3 class="title">- <%=variable.length%> total -</h3>
+  
+    <%variable.each do |order|%>
+    <div class="merch-order-square">
+      <h3> <%= link_to "Order: #{order.id}", order_path(order.id) %> • Status: <%= order.status %> • Total Earned: $<%= merchant.earnings_per_order(order) %> </h3> 
+      <h5> Placed On: <%= format_datetime(order.created_at)%> </h5>
+
+      <% my_order_items = merchant.find_my_order_items(order) %> 
+      <table class="table">
+        <thead>
+          <tr class="table-head">
+            <th>Item Name</th>
+            <th>Quantity Ordered</th>
+            <th>Subtotal</th>
+            <th>Shipment Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% my_order_items.each do |item| %>
+            <tr>
+              <td><%= link_to item.product.name, product_path(item.product.id) %></td>
+              <td><%= item.qty %></td>
+              <td>$<%= (item.product.price * item.qty).round(2) %></td>
+              <td><%= order.status == "complete" ? "Shipped" : "Not Shipped" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%end%>
+  
+
+<% end %>

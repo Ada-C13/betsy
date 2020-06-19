@@ -1,0 +1,32 @@
+<div class="cart"> 
+  <div class="cart-header"> 
+    <div> 
+      <h2> Your Cart </h2> 
+      <h3> Order Total: <%= "$#{'%.2f' % Order.order_total(@cart)}" %>  </h3>
+    <div> 
+    <div class='checkout-button'> 
+      <%= link_to "Check Out", new_order_path, action: 'new', controller: 'orders', class: 'btn button-style' %>
+    </div>   
+  </div>
+  <div class="cards">
+    <% @cart.each do |product, val|%>
+      <div class="card">
+          <div class="card-body">
+            <p class="card-title"><%= product.name.upcase %> </p>
+          </div>
+          <%= image_tag product.img_url, alt: product.description, class: 'cart-image' %>
+          <div class="card-body">
+            <p class="card-text"><%= "$#{'%.2f' % (product.price.to_f * val.to_i)}"%> (<%=val %> x <%= "$#{'%.2f' % product.price}" %>) </p>
+            <div class="edit-links">
+              <%= link_to 'REMOVE', remove_from_cart_path(product.id), method: :post %>
+              <%= link_to "EDIT", product_path(product.id) %>
+            </div>
+          </div>
+      </div>
+    <% end %>
+  </div>
+</div> 
+
+
+
+

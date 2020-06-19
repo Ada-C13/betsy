@@ -1,0 +1,16 @@
+<div class="all-products"> 
+  <div class='products-header'>
+    <h2><%= list_name %></h2>
+    <h4><%= "#{variable.count} product(s)" %></h4>
+  </div>
+
+  <main class='product-index'> 
+    <% variable.each do |product| %>
+      <section class="product_square">
+        <%= image_tag product.img_url, alt: product.name, class: "product-image" %>
+        <h4><%= link_to product.name, product_path(product.id), class: "product-name" %></h4>
+        <h6><%= format_currency(product.price) %></h6>
+      </section>
+    <% end %>
+  </main> 
+</div>
