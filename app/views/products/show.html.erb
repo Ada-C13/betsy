@@ -12,7 +12,7 @@
       <p><%= @product.description %></p>
       <div class='top_buttons'>
         <%= button_to 'Add to cart', create_order_items_path(@product), class: 'btn btn-primary btn-lg' %>
-        <% if @product.merchant_id != @current_merchant.id %>
+        <% if @current_merchant.nil? || @product.merchant_id != @current_merchant.id %>
           <%= button_to 'Leave a Review', new_product_review_path(@product), method: :get, class: 'btn btn-secondary btn-md' %>
         <% end %>
       </div>

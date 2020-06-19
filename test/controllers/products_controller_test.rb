@@ -187,7 +187,7 @@ describe ProductsController do
         assert_no_difference("Product.count") do
           post products_url, params: { product: new_product }
         end
-        must_respond_with :bad_request
+        must_respond_with :forbidden
       end
 
       it "should not edit a product" do
