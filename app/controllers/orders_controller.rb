@@ -25,9 +25,8 @@ class OrdersController < ApplicationController
         render :edit, status: :bad_request
       end
     else
-      flash.now[:status] = :failure
-      flash.now[:result_text] = "Please enter required info before checkout."
-      flash.now[:messages] = @shopping_cart.errors.full_messages
+      flash.now[:warning] = "Please enter required info before checkout."
+      flash.now[:details] = @shopping_cart.errors.full_messages
       render :edit, status: :bad_request
     end
   end
@@ -36,7 +35,7 @@ class OrdersController < ApplicationController
     # Empties cart (User)
     @shopping_cart.destroy
     session[:order_id] = nil
-    flash[:result_text] = "Successfully emptied shopping cart."
+    flash[:success] = "Successfully emptied shopping cart."
     redirect_to root_path
   end
 
@@ -46,7 +45,7 @@ class OrdersController < ApplicationController
     if result.nil?
       flash[:success] = "Successfully completed order #{@order.id}"
     else
-      flash[:warning] = "Failed to complete order #{@order.id}: #{result}"
+      flash[:danger] = "Failed to complete order #{@order.id}: #{result}"
       flash[:details] = @order.errors.full_messages
     end
     redirect_back fallback_location: order_path(@order)      
@@ -56,11 +55,9 @@ class OrdersController < ApplicationController
     # Cancels the order, changes status to “cancelled” (Merchant only)
     result = @order.cancel_order!
     if result.nil?
-      flash[:status] = :success
-      flash[:result_text] = "Successfully cancelled order #{@order.id}"
+      flash[:success] = "Successfully cancelled order #{@order.id}"
     else
-      flash[:status] = :failure
-      flash[:result_text] = "Failed to cancel order: #{result}"
+      flash[:danger] = "Failed to cancel order: #{result}"
     end
     redirect_back fallback_location: order_path(@order)      
   end
@@ -83,8 +80,7 @@ class OrdersController < ApplicationController
   def find_order
     @order = Order.find_by(id: params[:id])
     if !@order
-      flash[:status] = :failure
-      flash[:result_text] = "Could not find order." 
+      flash[:danger] = "Could not find order." 
       redirect_to orders_path       
     end
   end
