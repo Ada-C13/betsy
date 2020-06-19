@@ -12,10 +12,10 @@
   </head>
   <div class="page-container">
   <div class="content-wrap">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark changeFont", id = "font">
       
       <%= image_tag "https://www.creativefabrica.com/wp-content/uploads/2019/02/Monogram-CH-Logo-by-Greenlines-Studios.jpg", 
-      alt: "logo", 
+      alt: "Logo Ride Share, Photo by Barcelona Metro", 
       class: "brand-img" 
       %>
      
@@ -25,10 +25,9 @@
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <div class="navbar-nav">
-            
-            <li><%= link_to "Home", root_path, class:"nav-item nav-link active fa fa-home mr-sm-4" %></li>
+            <li><%= link_to "Home", root_path, class:"nav-item nav-link active fa fa-home mr-sm-4"%></li>
             <li class="nav-item dropdown">
-              <a data-toggle="dropdown"  class="nav-link dropdown-toggle mr-sm-4" href="/products" role="button" aria-haspopup="true" aria-expanded="false">Products
+              <a data-toggle="dropdown"  class="nav-link dropdown-toggle mr-sm-4 active" href="/products" role="button" aria-haspopup="true" aria-expanded="false">Products
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a>
@@ -44,25 +43,25 @@
               </div>
             </li>
 
-            <li><%= link_to "Merchants", merchants_path, class:"nav-link mr-sm-4" %></li>
-            <li><%= link_to "Contact", root_path, class: "nav-link fa fa-envelope mr-sm-4" %></li>
-            <li><%= link_to "Cart", cart_path, class: "nav-link fa fa-shopping-cart mr-sm-4" %></li>
+            <li><%= link_to "Merchants", merchants_path, class:"nav-link mr-sm-4 active" %></li>
+            <li><%= link_to "Contact", root_path, class: "nav-link fa fa-envelope mr-sm-4 active" %></li>
+            <li><%= link_to "Cart", cart_path, class: "nav-link fa fa-shopping-cart mr-sm-4 active" %></li>
 
             <% if session[:merchant_id] %>
             <li class="nav-item dropdown">
-              <a data-toggle="dropdown"  class="nav-link dropdown-toggle fa fa-user mr-sm-4" href="/products" role="button" aria-haspopup="true" aria-expanded="false">My Account
+              <a data-toggle="dropdown"  class="nav-link dropdown-toggle fa fa-user mr-sm-4 active" href="/products" role="button" aria-haspopup="true" aria-expanded="false">My Account
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a>
                   <%= link_to "Log out", logout_path, class: "dropdown-item fa fa-sign-out", method: :put %>
                 </a>
                 <a>
-                  <%= link_to "Account Summary", account_path(session[:merchant_id]), class: "dropdown-item" %>
+                  <%= link_to "Account Summary", account_path(session[:merchant_id]), class: "dropdown-item fa fa-vcard-o" %>
                 </a>
               </div>
             </li>
           <% else %>
-        <li><%= link_to "Login with Github", github_login_path, class: "nav-link fa fa-sign-in" %></li>
+        <li><%= link_to "Login with Github", github_login_path, class: "nav-link fa fa-sign-in active" %></li>
       <% end %>
   </nav>
 
