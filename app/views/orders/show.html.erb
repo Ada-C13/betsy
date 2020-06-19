@@ -3,7 +3,7 @@
 <h2>Order: <%= link_to @order.id, order_path(@order) %></h2>
 <p>Status: <%= @order.status %></p>
 <p>Items: <%= @order.order_items_by_merchant(@current_merchant).size %></p>
-<p>Total Cost: <%= @order.total_cost(@current_merchant) %></p>
+<p>Total Cost: <%= number_to_currency(@order.total_cost(@current_merchant)) %></p>
 <p>Current merchant: <%= @current_merchant.username %></p>
 <section class="order-order_items__container">
   <h3 class="order-order_items__header">Items</h3>

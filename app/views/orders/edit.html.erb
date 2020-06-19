@@ -11,7 +11,7 @@
       <div class="container">
         <p>Status: <%= @shopping_cart.status %></p>
         <p>Items: <%= @shopping_cart.order_items.size %></p>
-        <p>Total Cost: <%= @shopping_cart.total_cost(nil) %></p>
+        <p>Total Cost: <%= number_to_currency(@shopping_cart.total_cost(nil)) %></p>
 
 
         <section class="order-order_items__container">
