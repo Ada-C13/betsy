@@ -1,0 +1,49 @@
+order_pending:
+  status: pending
+  name: Julia Lovelace
+  credit_card_num: 378282246310005
+  credit_card_exp: 12/20
+  credit_card_cvv: 432
+  address: 1215 4th Ave - 1050
+  city: Seattle
+  state: WA
+  zip: 98161-000
+  customer_email: julia@gmail.com
+
+order_paid:
+  status: paid
+  name: Barbara Lovelace
+  credit_card_num: 5610591081018250
+  credit_card_exp: 12/22
+  credit_card_cvv: 429
+  address: 8691 East Fulton Street
+  city: Casselberry
+  time_submitted: 2020-06-19 02:59:11
+  state: FL 
+  zip: 32707-237
+
+  customer_email: barbara@gmail.com
+  
+order_complete:
+  status: complete
+  name: Martha Lovelace
+  credit_card_num: 371449635398431
+  credit_card_exp: 12/21
+  credit_card_cvv: 431
+  address: 635 7th Ave SW
+  city: Seattle
+  state: WA
+  zip: 98126-567
+  customer_email: martha@gmail.com
+
+order_cancelled:
+  status: cancelled
+  name: Monica Lovelace
+  credit_card_num: 378734493671000
+  credit_card_exp: 12/21
+  credit_card_cvv: 430
+  address: 367 Delaware Street
+  city: Sarasota
+  state: FL
+  zip: 34231-020
+  customer_email: monica@gmail.com

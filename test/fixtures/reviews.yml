@@ -1,0 +1,9 @@
+review_one:
+  rating: 5
+  comment: very beautiful flower
+  product_id: 2
+
+review_two:
+  rating: 3
+  comment: very smelly onion
+  product_id: 3

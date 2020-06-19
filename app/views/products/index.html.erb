@@ -1,0 +1,26 @@
+<% content_for(:title) { 'Browse Products' } %>
+<% content_for(:headline) { @filters.count > 0 ? "Showing Products for #{@filters.join(', ')}" : "Some Really Great Sweaters" } %>
+
+<div class="product-show-page__container container">
+
+  <div class="row">
+<div class="col-lg-3 filter-box">
+      <%= render 'select' %>
+    </div>
+
+    <div class="col-md-9 product-list">
+        <% if @products.empty? %>
+      <h5>No products to view.</h5>
+    <% else %>
+      <% @products.in_groups_of(4).each do |group| %>
+        <div class="product-grid__row row">
+          <% group.each do |product| %>
+            <%= render partial: "shared/product", locals: { product: product } %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+      
+  </div>
+</div>
+

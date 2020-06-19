@@ -1,0 +1,68 @@
+<% content_for(:title) { "Merchant id: #{@current_merchant.id}" } %>
+<% content_for(:headline) { "Merchant Dashboard"} %>
+
+<div class="dashboard">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <%= link_to manage_orders_url, class: "dashboard__link" do %>
+        <div class="merchant-dashboard__action">
+          <p>Manage my orders</p>
+        </div>
+      <% end %>
+
+      <%= link_to manage_products_url, class: "dashboard__link" do %>
+        <div class="merchant-dashboard__action">
+          <p>Manage my products</p>
+        </div>
+      <% end %>
+
+      <%= link_to new_product_path, class: "dashboard__link" do %>
+        <div class="merchant-dashboard__action">
+          <p>Create a product</p>
+        </div>
+      <% end %>
+
+      <%= link_to new_category_path, class: "dashboard__link" do %>
+        <div class="merchant-dashboard__action">
+          <p>Create a category</p>
+        </div>
+      <% end %>
+       
+    </div>
+
+    <div class="col-md-8">
+      <div class="container-fluid">
+      <h4>Stats at a glance for <%= @current_merchant.username %> </h4>
+      <div class="row">
+        <div class="col-md merchant__stat-card">
+          <p class="stat"><%= number_to_currency(@current_merchant.revenue)%></p>
+          <p class="stat-label">Revenue</p>
+        </div>
+        <div class="col-md merchant__stat-card">
+          <p class="stat">0</p>
+          <p class="stat-label">Units Sold</p>
+        </div>
+        <div class="col-md merchant__stat-card">
+          <p class="stat">0</p>
+          <p class="stat-label">Orders Shipped</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md merchant__stat-card">
+          <p class="stat"><%= @current_merchant.products.count%></p>
+          <p class="stat-label">Listings</p>
+        </div>
+        <div class="col-md merchant__stat-card">
+          <p class="stat"><%= @current_merchant.products_out_of_stock%></p>
+          <p class="stat-label">Out of Stock</p>
+        </div>
+        <div class="col-md merchant__stat-card">
+          <p class="stat"><%= @current_merchant.orders_by_status(:paid).count%></p>
+          <p class="stat-label">Awaiting Shipment</p>
+        </div>
+      </div>
+      </div>  
+    </div>
+  </div>
+</div>

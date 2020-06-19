@@ -1,0 +1,19 @@
+.product-grid__product {
+  margin: 0 auto 6vh;
+
+  h5 {
+    margin-top: 10px;
+  }
+}
+
+.top_buttons {
+  max-width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.payment_form {
+  border-left: $salmon 1px solid;
+}

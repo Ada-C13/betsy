@@ -1,0 +1,21 @@
+<% content_for(:title) { "Write A Review" } %>
+<% content_for(:headline) { "Write A Review" } %>
+
+<div class="container">
+<%= form_with(model: @review, url: product_reviews_path(@product)) do |form| %>
+  <p>Please enter your review for product: <%= @product.name %>  </p>
+  <div class='form-group'>
+    <%= form.label :rating, class: 'control-label' %>
+    <%= form.select :rating, generate_select_options(1..5), {selected:5}, class: 'form-control' %>
+  </div>
+
+  <div class='form-group'>
+    <%= form.label :comment, class: 'control-label' %>
+    <%= form.text_area :comment, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class:'btn btn-primary'%>
+  </div>
+<% end %>
+</div>

@@ -1,0 +1,29 @@
+annie:
+  provider: github
+  uid: 4455
+  username: Annie Easley
+  email: aeasley@email.com
+
+katherine: 
+  provider: github
+  uid: 5588
+  username: Katherine Johnson
+  email: kjohnson@email.com
+
+melba: 
+  provider: github
+  uid: 1234
+  username: Melba Mouton
+  email: melmou@email.com
+
+angela:
+  provider: github
+  uid: 2244
+  email: angela@adadevelopers.org
+  username: angie
+
+suely:
+  provider: github
+  uid: 6464
+  email: suely.adadevelopers.org
+  username: zuelly

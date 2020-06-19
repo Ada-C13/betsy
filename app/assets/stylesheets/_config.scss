@@ -1,0 +1,39 @@
+// Primary colors
+//-----------------------------
+// $salmon: #F2B4AB;
+$salmon: #EF7564;
+$soft-salmon: #F2B4AB;
+$dusk: #535769;
+$lilac: #D0D7EE;
+$strawberry: #D91720;
+$blue: #4586AB;
+$electric: #0DD7F2;
+
+// Derivative colors
+//-----------------------------    
+$light-dusk:           lighten($dusk, 50%); //#B6C1E7
+$light-strawberry: saturate($strawberry, 20%);
+
+
+
+// Color palette
+//-----------------------------
+$primary-color: $blue ;
+$secondary-color: $soft-salmon;
+$tertiary-color: $lilac;
+
+$highlight-color: $electric;
+$highlight-warning-color: $light-strawberry;
+
+$merchants-tertiary-color: $dusk;
+
+
+// // Font information
+// //-----------------------------
+// $header-font-family: "Georgia", "Times New Roman", serif;
+// $default-font-family: "HelveticaNeue", "Helvetica Neue", Helvetica,
+// Arial, sans-serif;
+// $default-browser-size: 16;
+// $default-font-size: 14px;
+// $font-color:    $darker-gray;
+// $anchor-color: $darker-gray;

@@ -1,0 +1,28 @@
+// Place all the styles related to the Reviews controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+span.rating-stars {
+  color: orange;
+}
+
+span.rating-empty-stars {
+  color: rgb(141, 135, 135);
+}
+
+.review_container {
+  border-radius: 1em;
+  padding: 1em;
+}
+
+.review {
+  background-color: lightgray;
+  padding: 1em;
+  border-radius: 1em;
+  margin-bottom: 1em;
+
+}
+
+form.button_to {
+  display: inline;
+}

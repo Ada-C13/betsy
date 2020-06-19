@@ -1,0 +1,11 @@
+<% content_for(:headline) { "Manage Orders"} %>
+
+
+<div class="container">
+  <% if @current_merchant.orders.empty? %>
+    <h1>You have no orders to manage</h1>
+    <br>
+  <% else %>
+    <%= render "orders_table" %>
+  <% end %>
+</div>

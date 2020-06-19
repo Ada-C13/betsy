@@ -1,0 +1,11 @@
+flower: 
+  name: flower
+  description: very pretty plants much beloved by bumblebees
+
+herb: 
+  name: herb
+  description: plants with a multitude of culinary and health uses
+
+vegetable: 
+  name: vegetable
+  description: chock full of nutrients and delicious to boot

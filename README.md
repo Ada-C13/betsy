@@ -12,7 +12,7 @@
 
 ## Learning Goals
 
-- Core comprehension of:
+- Core comprehension of
   - Routes
   - Controllers
   - Models

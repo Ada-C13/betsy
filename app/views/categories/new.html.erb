@@ -1,0 +1,22 @@
+<% content_for(:headline) { "New Category"} %>
+
+<div class="container">
+  <%= form_with(model: @category, local: true) do |form| %>
+    <p>Please enter following data for a new category</p>
+    <div class='form-group'>
+      <%= form.label :name, class: 'control-label' %>
+      <%= form.text_field :name, class: 'form-control', placeholder: "Category Name" %>
+    </div>
+
+    <div class='form-group'>
+      <%= form.label :description, class: 'control-label' %>
+      <%= form.text_area :description, class: 'form-control', placeholder: "Description of Category" %>
+    </div>
+
+  <div class="top_buttons actions">
+    <%= form.submit class: "btn btn-primary btn-md" %>
+  </div>
+  <% end %>
+  <br>
+  <%= button_to "Cancel", dashboard_merchant_path(@current_merchant), method: :get, class:"btn btn-danger btn-md"%>
+<div>

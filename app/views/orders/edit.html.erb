@@ -1,0 +1,60 @@
+<% content_for(:headline) { "Shopping Cart"} %>
+
+
+<div class='container'>
+  <% if @shopping_cart.order_items.size == 0 %>
+    <h1>Shopping cart is empty</h1>
+    <br>
+    <%= button_to "View products", products_path, method: :get, class:"btn btn-primary"%>
+  <% else %>
+    <div class='container shopping-cart'>
+      <div class="container">
+        <p>Status: <%= @shopping_cart.status %></p>
+        <p>Items: <%= @shopping_cart.order_items.size %></p>
+        <p>Total Cost: <%= number_to_currency(@shopping_cart.total_cost(nil)) %></p>
+
+
+        <section class="order-order_items__container">
+          <h3 class="order-order_items__header">Items</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th class='text-center'>Product Name</th>
+                <th class='text-center'>Quantity</th>
+                <th class='text-center'>Price</th>
+                <th class='text-center'>Subtotal</th>
+                <th class='text-center'>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @shopping_cart.order_items.each do |order_item| %>
+                <tr>
+                  <td class='text-center align-middle'><%= link_to order_item.product.name, product_path(order_item.product) %></td>
+                  <td class='text-center align-middle'>
+                    <%= link_to "+", order_item_path(id: order_item, order_item: { quantity: order_item.quantity + 1 } ), method: "patch"%>
+                    <%= order_item.quantity %>
+                    <% if order_item.quantity > 1 %>
+                      <%= link_to "-", order_item_path(id: order_item, order_item: { quantity: order_item.quantity - 1 } ), method: "patch" %>
+                    <% end %>
+                  </td>
+                  <td class='text-center align-middle'><%= number_to_currency(order_item.product.price) %></td>
+                  <td class='text-center align-middle'><%= order_item.subtotal %></td>
+                  <td class='text-center align-middle'><%= link_to 'Delete', order_item_path(order_item), class: 'btn btn-danger', method: 'delete' %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </section>
+        <%= link_to "Empty Shopping Cart", cart_path, class: 'btn btn-danger', method: 'delete' %>
+        <%= button_to 'Back to main menu', products_path, method: :get, class:"btn btn-outline-primary" %>
+      </div>
+
+      <div class="container payment_form">
+        <%= render 'payment_form' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+

@@ -1,0 +1,57 @@
+<% content_for(:headline) { "Manage Products"} %>
+
+<div class="container product-list">
+
+<% if @current_merchant.products.empty? %>
+  <h1>You have no products to manage</h1>
+  <br>
+  <%= button_to "Create New Product", new_product_path, method: :get, class: 'btn btn-primary btn-md'%>
+<% else %>
+  <table class='table table-light'>
+    <thead class='thead-light'>
+      <tr>
+        <th class='text-center'>Image</th>
+        <th class='text-center'>Name</th>
+        <th class='text-center'>Inventory</th>
+        <th><th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @current_merchant.products.each do |item| %>
+        <tr>
+          <td class='text-center'>
+            <% if item.photo == "" %>
+              <%= image_tag("no_photo.png", class: "thumbnail img-thumbnail") %>
+            <% else %>
+              <%= image_tag(item.photo, class: "thumbnail img-thumbnail") %>
+            <% end %>
+          </td>
+          <td class='text-center align-middle'><%= link_to item.name, product_path(item) %></td>
+          <td class='text-center align-middle'><%= item.stock %></td>
+          <td class='align-middle'>
+            <%= button_to 'Edit', 
+                  edit_product_path(item), 
+                  method: :get, 
+                  class: 'btn btn-info btn-md' 
+                %>
+          </td>
+          <td class='align-middle'>
+            <% if item.active %>
+              <%= button_to 'Deactivate', 
+                    product_deactivate_path(item), 
+                    method: :post, 
+                    class: 'btn btn-danger btn-md' 
+                  %>
+            <% else %>
+              <%= button_to 'Activate', 
+                      product_deactivate_path(item), 
+                      method: :post, 
+                      class: 'btn btn-info btn-md' 
+                    %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

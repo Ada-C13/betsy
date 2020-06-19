@@ -1,0 +1,25 @@
+<h2>List of Orders</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Status</th>
+      <th>Email</th>
+      <th>Total Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= link_to order.id, order_path(order) %></td>
+        <td><%= order.status %></td>
+        <td><%= order.customer_email %></td>
+        <td><%= number_to_currency(order.total_cost(nil)) %></td> 
+        <%# we might need to pass the merchant instead of nil above %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back to Main Menu", root_path, class: "btn btn-primary" %>

@@ -1,0 +1,72 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+
+/* Custom bootstrap variables must be set or imported *before* bootstrap. */
+
+
+@import "config";
+
+// CUSTOMIZED BOOTSTRAP 
+//----------------
+
+.btn.btn-primary {
+  background: $primary-color;
+  border-color: $primary-color;
+  &:hover, &:focus, &:active {
+    background: darken($primary-color, 10%);
+    border-color: darken($primary-color, 10%);
+  }
+}
+
+
+@import "bootstrap";
+
+@import "**/*";
+
+* {
+  background: transparent;
+}
+
+body {
+  background-color: #fff ;
+}
+
+main {
+  margin-top: 7vh;
+}
+
+h2 {
+  color: #1a7d6b;
+  text-align: center;
+  margin: 20px 0 50px;
+}
+
+.headline {
+  color: #fff;
+  margin: 0 auto;
+  padding: 10px 0 20px;
+  background-color: $tertiary-color;
+}
+
+.merchants .headline {
+  background-color: $merchants-tertiary-color;
+}
+
+.team .headline {
+  background-color: $dusk;
+}
+
+.warning {
+  color: $highlight-warning-color;
+}

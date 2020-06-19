@@ -1,0 +1,46 @@
+<% content_for(:headline) { "Product Details"} %>
+
+<div class="show-product__details container">
+  <div class="row">
+
+    <div class="col-md-6">
+      <% if @product.photo == "" %>
+        <%= image_tag("no_photo.png", class: "img-fluid") %>
+      <% else %>
+        <%= image_tag(@product.photo, class: "img-fluid") %>
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <h3><%= @product.name %> - <span class="show-product__price"><%= number_to_currency(@product.price) %></span></h3>
+      <p><%= @product.description %></p>
+      <p><%= @product.stock %> in stock</p>
+      <div class='top_buttons'>
+        <%= button_to 'Add to cart', create_order_items_path(@product), class: 'btn btn-primary btn-lg' %>
+        <% if @current_merchant.nil? || @product.merchant_id != @current_merchant.id %>
+          <%= button_to 'Leave a Review', new_product_review_path(@product), method: :get, class: 'btn btn-secondary btn-md' %>
+        <% end %>
+      </div>
+      <br>
+      <%= button_to 'Back to Products', products_path, method: :get, class: 'btn btn-outline-secondary btn-md' %>
+    </div>
+  </div>
+
+  <div class="review_container">
+    <% unless product_owned_by_merchant?(@product) %> 
+      <p>
+        <% if @product.reviews.count >= 1 %>
+          <%= rating_as_stars(rating_average(@product.reviews)) %>
+          (Average of <%= @product.reviews.count %> reviews)
+        <% end %>
+      </p>
+    <% end %>
+
+    <% @product.reviews.each do |review| %>
+      <div class="review">
+        <p><%= rating_as_stars(review.rating) %> from Guest User on <%= review.created_at.strftime('%B %-d, %Y') %></p> 
+        <p> <%= review.comment %> </p>
+      </div>
+    <% end %> 
+  </div>
+</div>

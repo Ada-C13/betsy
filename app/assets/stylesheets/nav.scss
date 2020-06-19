@@ -1,0 +1,50 @@
+nav {
+  background-color: $tertiary-color;
+}
+
+.merchants nav {
+  background-color: $merchants-tertiary-color;
+}
+
+.team nav {
+  background-color: $dusk;
+}
+
+nav.landing {
+  background-color:  #fff;
+}
+
+.app-header__nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.cart {
+  margin: -5px 0 0 20px;
+  text-align: right;
+}
+
+.cart-icon {
+  width: 36px;
+  height: 36px;
+  background-image: image-url(asset_path("icons/shopping-cart.svg"));
+  background-repeat: no-repeat;
+}
+
+.cart-dot {
+  margin: 0px -12px 0 0;
+  padding: 0 6px;
+  background-color: white;
+  border: 2px solid $blue;
+  border-radius: 10px;
+  font-weight: 500;
+
+}
+
+.navbar-brand.landing {
+  font-size: 2em;
+  background-color: transparent;
+  letter-spacing: 4px;
+  color: #5C879F;
+}

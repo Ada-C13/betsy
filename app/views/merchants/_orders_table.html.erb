@@ -1,0 +1,32 @@
+<table class="table table-light">
+  <thead class='thead-light'>
+    <tr>
+      <th>Order Number</th>
+      <th>Customer</th>
+      <th>Order Time</th>
+      <th>Line Items</th>
+      <th>Total Cost</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @current_merchant.orders.uniq.each do |order| %>
+    <tr>
+      <td><%= link_to "##{order.id}", order_path(order) %></td>
+      <% if order.name %>
+        <td><%= order.name %></td>
+      <% else %>
+        <td>pending still</td>
+      <% end %>
+      <td><%= pretty_date(order.time_submitted) %></td>
+      <td><%= order.order_items_by_merchant(@current_merchant).count %> </td>
+      <td><%= number_to_currency(order.total_cost(@current_merchant)) %></td>
+      <td><%= order.status %></td>
+      <% if order.status == 'paid' %>
+        <td><%= button_to "Complete Order", order_complete_path(order) %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
