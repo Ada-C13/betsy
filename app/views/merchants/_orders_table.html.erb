@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th>Order Number</th>
+      <th>Customer</th>
       <th>Order Time</th>
       <th>Items Count</th>
       <th>Total Cost</th>
@@ -13,6 +14,11 @@
     <% @current_merchant.orders.uniq.each do |order| %>
     <tr>
       <td><%= link_to "##{order.id}", order_path(order) %></td>
+      <% if order.name %>
+        <td><%= order.name %></td>
+      <% else %>
+        <td>pending still</td>
+      <% end %>
       <td><%= order.time_submitted %></td>
       <td><%= order.order_items.count %> </td>
       <td><%= number_to_currency(order.total_cost) %></td>
