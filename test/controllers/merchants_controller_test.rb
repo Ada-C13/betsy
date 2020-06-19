@@ -74,8 +74,29 @@ describe MerchantsController do
         expect(all_products_merchant.length).must_equal 0
         must_respond_with :success
       end
+
+      it "if merchant doesn't existing, redirect to root" do
+        get merchant_shop_path(-1)
+        expect(flash[:error]).must_equal "This merchant doesn't exist!"
+        must_redirect_to root_path
+      end
     end
 
+    describe "order" do
+      it "if merchant doesn't exist can not access to order history" do
+        get merchant_orders_path(-1)
+        expect(flash[:error]).must_equal  "You don't have access to that account!"
+        must_redirect_to root_path
+      end
+
+      it "A merchant can't access other merchant's order history" do
+        get merchant_shop_path(@merchant.id)
+        get merchant_orders_path(@merchant4.id)
+        expect(flash[:error]).must_equal "You don't have access to that account!"
+        must_redirect_to root_path
+      end
+    end
+    
     describe "create(login as a merchant)" do
         let(:invalid_merchant) {
           Merchant.new(
