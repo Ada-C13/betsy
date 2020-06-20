@@ -1,0 +1,49 @@
+<%if @product.errors.any?%>
+  <section class="alert__container">
+    <div class="alert alert-warning">
+      <ul>
+        <%@product.errors.each do |column, message|%>
+          <li><p><%=column%>: <%=message%></p></li>
+        <%end%>
+      </ul>
+    </div>
+  </section>
+<%end%>
+
+<%= form_with model: @product, url: path, method: method, class: "form-group container pt-5 open-sans font-weight-bold" do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field(:name, placeholder: "What will your product be called?", class: "form-control") %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area(:description, placeholder: "What does it do? Does it smell? Does it nourish?", class: "form-control") %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :price %>
+    <%= f.text_field(:price, placeholder: "9.99", class: "form-control") %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :inventory %>
+    <%= f.number_field(:inventory, placeholder: "A number between 1 to 500", in: 0..500, class: "form-control") %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :img_url, "Image URL" %>
+    <%= f.text_field(:img_url, class: "form-control") %>
+  </div>
+
+  <% if @categories %>
+    <div class="form-group">
+      <%= f.label :category_ids, "Category" %>
+      <%= f.select :category_ids, options_for_select(Category.all.map {|c| [c.name, c.id] }), {}, class: "form-control", multiple: true %>
+    </div>
+  <% end %>
+
+  
+
+  <%= f.submit action_name, class: "button btn btn-success form-group" %>
+<% end %>

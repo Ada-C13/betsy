@@ -1,0 +1,59 @@
+<% if @order.errors.any? %>
+  <ul class="errors">
+    <% @order.errors.each do |column, message| %>
+      <li>
+        <strong><%= column.capitalize %></strong> <%= message %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<main class="container">
+  <h2 class="pt-3 text-center">Enter Shipping and Credit Card Information</h2>
+  <section>
+    <%= form_with model: @order, url: orders_path, method: "post", class: "form-group container pt-5 open-sans font-weight-bold" do |f| %>
+      <div class ="form-group">
+        <%= f.label :Name %>
+        <%= f.text_field :name, class:"form-control", placeholder: "Freddi Barks", required: true  %>
+      </div>
+      <div class ="form-group">
+        <%= f.label :Email %>
+        <%= f.text_field :email, class: "form-control", placeholder: "freddi_barks@email.com", required: true%>
+      </div>
+      <div class ="form-group">
+        <%= f.label :mailing_address, "Mailing Address" %>
+        <%= f.text_field :mailing_address, class: "form-control", placeholder: "1234 Bark St", required: true %>
+      </div>
+      <div class ="form-group">
+        <%= f.label :Zipcode %>
+        <%= f.text_field :zipcode, class: "form-control", placeholder: "12345", required: true %>
+      </div>
+      <div class ="form-group">
+        <%= f.label :cc_name, "Name on Credit Card" %>
+        <%= f.text_field :cc_name, class: "form-control", placeholder: "Freddi Barks", required: true %>
+      </div>
+      <div class ="form-group">
+        <%= f.label :cc_number, "Credit Card Number" %>
+        <%= f.text_field :cc_number, class: "form-control", placeholder: "1234567812345678", required: true %>
+      </div>
+      <div class ="form-group">
+        <%= f.label :cvv, "CVV Code"%>
+        <%= f.text_field :cc_cvv, class: "form-control", placeholder: "123", required: true %>
+      </div>
+      <div class ="form-group">
+        <%= f.label :cc_exp, "Credit Card Expiration Date" %>
+        <%# f.text_field :cc_exp, class: "", required: true %>
+        <div class="w-100">
+        </div>
+        <%= f.date_select :cc_exp, class: "form_control", required: true %>
+      </div>
+      <div class ="form-group">
+        <%= f.submit "Complete Order", class:"btn btn-success"%>
+      </div>  
+   <% end %>
+  </section> 
+</main>
+
+
+
+  

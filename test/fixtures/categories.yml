@@ -1,0 +1,5 @@
+food:
+  name: Food
+  products: pickles, inactive_pickles
+lifestyle:
+  name: Lifestyle
