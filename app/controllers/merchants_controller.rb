@@ -27,6 +27,7 @@ class MerchantsController < ApplicationController
     if @merchant.nil? || session[:merchant_id] != @merchant.id
       flash[:error] = "You don't have access to that account!"
       redirect_to root_path
+      return
     end
     if params[:status]
       @order_items = @merchant.order_items.find_all {|item| item.status == params[:status]}
