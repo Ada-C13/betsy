@@ -1,0 +1,17 @@
+<div>
+<p><strong>Select Quantity</strong></p>
+<%= form_with model: @order_item do |f| %>
+<div class = "row">
+  <div class = "col col-md-4">
+  <%if product.stock > 1%>
+    <%= f.select :quantity, 1..product.stock, {},class: "form-control" %>
+  <%else%>
+  <%= f.select :quantity, 1, {} ,class: "form-control" %>
+  <%end%>
+  </div>
+</div>
+  <br>
+  <br>
+  <%= f.submit "#{action_name}", class: "btn btn-primary" %>
+<% end %>
+</div>

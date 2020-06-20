@@ -1,0 +1,64 @@
+product1:
+  name: mask 95
+  price: 12.00
+  stock: 20
+  active: true
+  description: This the is great product. This the is greate product. This the is greate product. 
+  merchant: merchantaaa
+  categories: [category1, category2]
+product2:
+  name: yyy
+  price: 12.00
+  stock: 50
+  active: true
+  description: This the is great product. This the is greate product. This the is greate product. 
+  merchant: merchantaaa
+  categories: [category1]
+product3:
+  name: hand wash
+  price: 100.00
+  stock: 10
+  active: true
+  description: This the is great hand wash. This the is greate product. This the is greate hand wash. 
+  merchant: merchantbbb
+  categories: [category1]
+product4:
+  name: madical supplies
+  price: 120.00
+  stock: 5
+  active: true
+  description: This the is the best product. This the is greate product. This the is greate hand wash. 
+  merchant: merchantaaa
+  categories: [category1, category2]
+product5:
+  name: xxx
+  price: 50.00
+  stock: 40
+  active: true
+  description: This is xxx product is the most popular product that help protect form Covid 19.
+  merchant: merchantccc
+  categories: [category1]
+product0: 
+  name: xxx
+  price: 50.00
+  stock: 0
+  active: true
+  description: This is xxx product is the most popular product that help protect form Covid 19.
+  merchant: merchantccc
+  categories: [category2]
+product_inactive:
+  name: xxx
+  price: 50.00
+  stock: 0
+  active: false
+  description: This is xxx product is the most popular product that help protect form Covid 19.
+  merchant: merchantccc
+  categories: [category1]
+product6: 
+  name: yyy
+  price: 50.00
+  stock: 0
+  active: true
+  description: This is xxx product is the most popular product that help protect form Covid 19.
+  merchant: merchantaaa
+  categories: [category2]

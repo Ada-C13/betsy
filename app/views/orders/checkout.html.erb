@@ -1,0 +1,45 @@
+<% if @order.errors.any? %>
+  <ul class="errors">
+    <% @order.errors.each do |column, message| %>
+      <%if column != :cc_last_four%>
+        <li>
+          <span><strong><%= column.capitalize %></strong></span>: <%= message %>
+        </li>
+      <%end%>
+    <% end %>
+  </ul>
+<% end %>
+<h3>Checkout</h3>
+<%= form_with scope: :order, url: checkout_path, method: :patch do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, :class => "form-control" %>
+  <br>
+  <%= f.label :address %>
+  <%= f.text_field :address, :class => "form-control" %>
+  <br>
+  <%= f.label "Credit Card #" %>
+  <%= f.text_field :cc_last_four, :class => "form-control" %>
+  <br>
+  <p><strong>Credit Card Expiration Date</strong></p>
+  <div class = "row">
+    <div class = "col">
+      <%= f.label "Month" %>
+      <%= f.text_field :cc_exp_month, :class =>"form-control", placeholder: "mm", :calss => "field" %>
+    </div>
+    <div class = "col">
+      <%= f.label "Year" %>
+      <%= f.text_field :cc_exp_year, :class =>"form-control", placeholder: "yyyy" %>
+    </div>
+    <div class = "col">
+      <%= f.label "Card CVV"%>
+      <%= f.text_field :cc_cvv, :class => "form-control", placeholder: "3 digits at the back of the card" %>
+    </div>
+  </div>
+  <br>
+  <%= f.label :email %>
+  <%= f.text_field :email, :class => "form-control" %>
+  <br>
+  
+  <br>
+  <%= f.submit "Complete Order", class: "btn btn-primary" %>
+<% end %>

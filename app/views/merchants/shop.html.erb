@@ -1,0 +1,25 @@
+<h3><%= "#{@merchant.name.titleize}\'s Products"%></h3> 
+ <br>
+<div class = "middle">
+  <% if @merchant_products.length > 0 %>
+    <% @merchant_products.each do |product| %>
+      <div class = "col-xs-6 col-md-4">
+        <%= link_to(image_tag(product.photo, class: "show_images", id: "product_mini_pic"), product_path(product)) %>
+        <p><small><%= link_to product.name.titleize, product_path(product) %></small><p>
+        <small><%= format_price(product.price) %></small>
+        <br>
+        <br>
+      </div> 
+  <% end %>
+  <br>
+  <%# <p><%= page_entries_info @category_products %></p>
+  <div class="pagination_container" style="width: 100%;overflow:auto;">
+    <%= will_paginate @merchant_products %>
+  </div> 
+  <% else %>
+    <h2><%= "#{@merchant.name.titleize} does not have any available products in their shop." %></h2>
+  <% end %>
+</div> 
+
+
+

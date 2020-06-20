@@ -1,0 +1,25 @@
+<h3 class="middle"> All Products </h3>
+<br>
+<div class="middle">
+  <% @products.each do |product| %>
+    <%if product.active%>
+      <div class = "col-xs-6 col-md-4">
+        <%= link_to(image_tag(product.photo, class: "show_images", id: "product_mini_pic"), product_path(product)) %>
+        <p><%= link_to product.name.titleize, product_path(product) %></p>
+        <p><%= format_price(product.price) %></p>
+        <br>
+      </div>
+    <% end %>
+  <% end %>
+  <br>
+  <br>
+  <div>
+    <%# <p><%= page_entries_info @product %></p>
+    <div class="pagination_container" style="width: 100%;overflow:auto;">
+      <%= will_paginate @products %>
+    </div>
+  </div>
+</div>
+
+
+

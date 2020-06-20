@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Betsy</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <div class="page-container">
+  <div class="content-wrap">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark changeFont", id = "font">
+      
+      <%= image_tag "https://www.creativefabrica.com/wp-content/uploads/2019/02/Monogram-CH-Logo-by-Greenlines-Studios.jpg", 
+      alt: "Logo Ride Share, Photo by Barcelona Metro", 
+      class: "brand-img" 
+      %>
+     
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav">
+            <li><%= link_to "Home", root_path, class:"nav-item nav-link active fa fa-home mr-sm-4"%></li>
+            <li class="nav-item dropdown">
+              <a data-toggle="dropdown"  class="nav-link dropdown-toggle mr-sm-4 active" href="/products" role="button" aria-haspopup="true" aria-expanded="false">Products
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a>
+                  <%= link_to "All Products", products_path, class: "dropdown-item" %>
+                </a>
+                <% if Category.all.length > 0 %>
+                  <% Category.all.sort_by{|category| category.name.downcase}.each do |category| %>
+                  <a>
+                    <%= link_to category.name.titleize , category_product_path(category), class: "dropdown-item" %>
+                  </a>
+                  <% end %>
+                <% end %>
+              </div>
+            </li>
+
+            <li><%= link_to "Merchants", merchants_path, class:"nav-link mr-sm-4 active" %></li>
+            <li><%= link_to "Contact", root_path, class: "nav-link fa fa-envelope mr-sm-4 active" %></li>
+            <li><%= link_to "Cart", cart_path, class: "nav-link fa fa-shopping-cart mr-sm-4 active" %></li>
+
+            <% if session[:merchant_id] %>
+            <li class="nav-item dropdown">
+              <a data-toggle="dropdown"  class="nav-link dropdown-toggle fa fa-user mr-sm-4 active" href="/products" role="button" aria-haspopup="true" aria-expanded="false">My Account
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a>
+                  <%= link_to "Log out", logout_path, class: "dropdown-item fa fa-sign-out", method: :put %>
+                </a>
+                <a>
+                  <%= link_to "Account Summary", account_path(session[:merchant_id]), class: "dropdown-item fa fa-vcard-o" %>
+                </a>
+              </div>
+            </li>
+          <% else %>
+        <li><%= link_to "Login with Github", github_login_path, class: "nav-link fa fa-sign-in active" %></li>
+      <% end %>
+  </nav>
+
+  <body>
+    <div class = "btn pull-right" >
+      <form class="form-inline ml-auto">
+        <input type="text" class="form-control mr-sm-2" placeholder="Search">
+        <button type="submit" class="btn btn-secondary">Search</button>
+      </form>
+    </div>
+    <br>
+    <section class="section">
+      <section class="alert__container section">
+        <% flash.each do |key, value| %>
+          <div class="<%= flash_class(key) %>">
+            <%= value %>
+          </div>
+        <% end %>
+      </section>
+      <main>
+      <%= yield %>
+      </main>
+    </section>
+  </body>
+
+ <%# Resource: https://bootsnipp.com/snippets/rlXdE %>
+  <!-- Footer -->
+	<section class = "middle", id="footer">
+		<div class="container">
+			<div class="row text-center text-xs-center text-sm-left text-md-left">
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5>Company</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Home</a></li>
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>About Us</a></li>
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Carrer</a></li>
+            <li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Blog</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5>Customer Service</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Help</a></li>
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Contact Us</a></li>
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+						<li><a href="https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Shipping & Returns</a></li>
+						
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5>Last News</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="http://www.global-events.com/na/"><i class="fa fa-angle-double-right"></i>Global Event</a></li>
+						<li><a href="https://coronavirus.wa.gov/?gclid=EAIaIQobChMIpb-RzsaM6gIVFBLnCh1E_wljEAAYASAAEgLqNvD_BwE"><i class="fa fa-angle-double-right"></i>Covid 19 Updates</a></li>
+						<li><a href="https://www.weather.gov/alerts"><i class="fa fa-angle-double-right"></i>Emergency Annoucement</a></li>
+						<li><a href= "https://adadevelopersacademy.org/"><i class="fa fa-angle-double-right"></i>Policy</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5" id="pedding">
+					<ul class="list-unstyled list-inline social text-center">
+						<li class="list-inline-item"><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="http://twitter.com/"><i class="fa fa-twitter"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></li>
+						<li class="list-inline-item"><a href="https://accounts.google.com/ServiceLogin/signinchooser?service=accountsettings&passive=1209600&osid=1&continue=https%3A%2F%2Fmyaccount.google.com%2Fprofile%3Fauthuser%3D0&followup=https%3A%2F%2Fmyaccount.google.com%2Fprofile%3Fauthuser%3D0&authuser=0&flowName=GlifWebSignIn&flowEntry=ServiceLogin"><i class="fa fa-google-plus"></i></a></li>
+						<li class="list-inline-item"><a href="https://accounts.google.com/signout/chrome/landing?continue=https://mail.google.com/mail&oc=https://mail.google.com/mail&hl=en" target="_blank"><i class="fa fa-envelope"></i></a></li>
+					</ul>
+				</div>
+				<hr>
+			</div>	
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+					<p class="h6">© All right Reversed.<a class="text-green ml-2" href="https://adadevelopersacademy.org/" target="_blank">Ada C13 2020</a></p>
+				</div>
+				<hr>
+			</div>	
+		</div>
+	</section>
+</div>
+</html>
