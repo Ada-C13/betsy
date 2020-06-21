@@ -1,0 +1,67 @@
+<section class="inline-navigation">
+  <%# <h1 class="mb-0"><a href="#">Logo</a></h1> %>
+  <button class="navbar-toggler mt-1" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse flex-column align-items-start ml-lg-2 ml-0" id="navbarCollapse">
+      <div class="d-flex">
+        <div class="mr-auto p-2"><%= link_to "Outdoorsy", root_path, class: "header-logo" %>
+        <section class="header-byline">
+            <p class="lead">Shop for a piece of the outdoors regardless of your budget</p>
+        </section>  
+        </div>
+        <%# <div class="navbar-text d-flex col-1 justify-content-end">(00) 1234 5678</div> %>
+      </div>
+      <%# Navigation Links %>
+      <ul class="navbar-nav mb-auto mt-0 ml-auto mr-auto">
+          <li class="nav-item">
+            <i class="fa fa-custom fa-th">
+              <%= link_to "All products", products_path, class: "nav-link-custom py-0 text-uppercase mr-5 ml-1" %>                        
+            </i>
+          </li>
+          <li class="nav-item">
+            <i class="fa fa-custom fa-users">
+              <%= link_to "All merchants", merchants_path, class: "nav-link-custom py-0 text-uppercase mr-5 ml-1" %>                        
+            </i>
+          </li>
+          <li class="nav-item dropdown">
+          <i class="fa fa-custom fa-sitemap">
+            <a class="nav-link-custom text-uppercase dropdown-toggle mr-5 ml-1" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Categories
+            </a>
+          </i>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <% collection.each do |category| %>
+                <%= link_to category.category_name, products_path(category_name: category.category_name), class: "dropdown-item nav-link-custom text-uppercase"  %>
+              <% end %>
+
+            </div>
+          </li>
+          <% if session[:merchant_id] %>
+          <li class="nav-item">
+            <% @current_user = Merchant.find_by(id: session[:merchant_id]) %>
+            <i class="fa fa-custom fa-user-circle">
+              <%= link_to @current_user.username, merchant_path(session[:merchant_id]), class: "nav-link-custom py-0 text-uppercase mr-5 ml-1"  %>
+            </i>
+          </li>
+          <li class="nav-item">
+            <i class="fa fa-custom fa-arrow-circle-left">
+              <%= link_to "Logout", logout_path, method: :post, class: "nav-link-custom py-0 text-uppercase mr-5 ml-1"%>
+            </i>
+          </li>
+          <% else %>
+          <li class="nav-item">
+              <i class="fa fa-custom fa-arrow-circle-right">
+                <%= link_to "Sign-in", github_login_path, method: :post, class: "nav-link-custom py-0 text-uppercase mr-5 ml-1"%>
+              </i>
+          </li>
+          <% end %>
+          <li class="nav-item">
+            <i class="fa fa-custom fa-shopping-cart">
+              <%= link_to "Cart", cart_path(@order), class: "nav-link-custom py-0 text-uppercase mr-5 ml-1" %>
+            </i>
+          </li>
+          
+      </ul>
+  </div>
+</section>

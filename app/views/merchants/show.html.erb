@@ -1,0 +1,84 @@
+<section class="content">
+<%# Merchant Description Header %>
+<section class="px-5">
+  <h6><%= link_to "< HOME", root_path, class: "local-navigation" %></h6>
+  <h6><%= link_to "< ALL MERCHANTS", merchants_path, class: "local-navigation" %></h6>
+  
+  <% if @merchant.id == session[:merchant_id] %>
+    <h1 class="catalog__header"><%= @merchant.username %> Dashboard</h1>
+  <% else %>  
+    <h1 class="catalog__header"><%= @merchant.username %> Information</h1>
+  <% end %>
+  
+  <hr>
+</section>
+
+
+<%# Merchant Picture and Description %>
+<section class="container-fluid px-5">
+  <div class="row px-5">
+    <div class="col">
+      <div class="embed-responsive embed-responsive-1by1">
+        <img class="card-img-top embed-responsive-item rounded-0" src=<%= @url + "#{@merchant.id}" %> alt=<%= @merchant.username%>>
+      </div>
+    </div>
+    <div class="col">
+      <h2 class="catalog__description-text">On Outdoorsy since: <%= @merchant.created_at.strftime("%B %d, %Y") %></h2> <br>
+      <% if @merchant.id == session[:merchant_id] %>
+        <%= button_to "Add New Product", new_product_path, method: :get, class: "product__new-button" %> <br>
+        <%= button_to "Add New Category", new_category_path, method: :get, class: "product__new-button" %> <br>
+        <%= button_to "Order Fulfillment", orders_path, method: :get, class: "product__new-button" %>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<%# Merchant List of Products %>
+  <section class="album px-5">
+  <h1 class="catalog__header mt-5">Items</h1>
+  <h4 class="catalog__secondary-header"> <%= @merchant.products.count %> results</h4>
+  <hr>
+  <% if @merchant.products.length > 0 %>
+      <section class="container-fluid">
+          <div class="row">
+              <% @merchant.products.each do |product| %>
+                  <div class="col-md-3">
+                      <div class="card mb-3 rounded-0 border-0">
+                          <div class="embed-responsive embed-responsive-1by1">
+                              <img class="card-img-top embed-responsive-item rounded-0" src=<%= product.photo_url %> alt=<%= product.product_name%>>
+                                <% if product.retired %>
+                                  <h3 class="retired-product"> RETIRED </h3>
+                                <% end %>
+                          </div>
+
+                          <div class="card-title text-uppercase pt-3">
+                              <section class="catalog__card-title-container">
+                                  <h5> <%= button_to product.product_name, product_path(product.id), method: :get, class: "catalog__card-title-button text-left"%> </h5>
+                              </section>
+                          <div class="catalog__body-text">
+                            $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
+                          </div>
+                          <div class="catalog__body-text">
+                          Rating: ##/5 (<%= product.reviews.count %> reviews)
+                          <div> <br>
+                            <%= link_to "Edit product", edit_product_path(product.id), method: :get, class: "product__new-button" %>
+                          </div>
+                          </div> <br>
+                            <% if product.merchant_id == session[:merchant_id] %>
+                              <% if !product.retired %>
+                                <%= link_to "Retire Product", retired_product_path(product), method: :patch, data: {confirm: "Are you sure you want to retire #{product.product_name}?"}, class: "product__new-button" %>
+                              <% end %>
+                            <% end %>
+                          </div>
+                      </div>
+                  </div>
+              <% end %>
+          </div>
+      </section>
+  <% else %>
+      <h3 class="catalog__header">No items in the system!</h3>
+  <% end %>
+  </section>
+
+
+</section>

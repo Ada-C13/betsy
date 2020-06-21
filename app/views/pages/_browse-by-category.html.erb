@@ -1,0 +1,6 @@
+<div class="col-md-4 pb-4">
+  <div class="embed-responsive embed-responsive-1by1">
+    <img class="card-img-top embed-responsive-item rounded-0" src= <%= photo_url %> alt="category">
+    <%= link_to category_name, products_path(category_name: category_name), method: :get, class: "browse-by-category__link"  %>
+  </div>
+</div>

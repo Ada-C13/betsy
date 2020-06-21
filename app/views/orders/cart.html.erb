@@ -1,0 +1,69 @@
+<section class="content px-5 mx-5">
+  <section class='order'>
+  <h2 class="h-center-text cart__title">YOUR CART</h2>
+<% if @order.orderitems.empty? %>
+  <hr>
+  <h2 class="cart__text">Cart is empty </h1>
+  </section>
+  </section>
+<% else %>
+  <table class="table" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th scope="col", class="th-sm cart__text">Product</th>
+        <th scope="col", class="th-sm"></th>
+        <th scope="col", class="th-sm cart__text">Quantity</th>
+        <th scope="col", class="th-sm cart__text">Item Price</th>
+        <th scope="col", class="th-sm cart__text">Item Total</th>
+      </tr>
+    </thead>
+  <tbody>
+
+  <% @order.orderitems.each do |orderitem| %>
+  <tr>
+    <td width=10%>
+      <%= image_tag "#{orderitem.product.photo_url}", alt: "#{orderitem.product.product_name}", class: "img-fluid img-thumbnail rounded-0" %>
+    </td>
+
+    <td class="text-just-center cart">
+      <h4 class="cart__text"><%= link_to orderitem.product.product_name, product_path(orderitem.product.id), class: "text-dark, cart__text" %></h4>
+      <%= button_to "remove from cart", orderitem_path(orderitem.id), method: :delete, data: {confirm: "Are you sure?"}, class: "cart__remove-button"%>
+    </td>
+
+    <td width=10% class="mr-4 pr-4">
+    <div class = "form">
+      <%= form_with model: orderitem, method: :patch  do |f| %>
+        <%= f.select :quantity, options_for_select((1..orderitem.product.stock), orderitem.quantity), {}, { value: orderitem.quantity, onchange: "this.form.submit();", class: "form-control"}%>
+      <% end %>
+    </div>
+    </td>
+
+    <td class="text-just-center">
+      <p class="cart__text"><span class='text-bold cart__text'> $<%= number_with_precision(orderitem.product.price, :precision => 2, :delimiter => ',') %> </span></p>
+    </td>
+
+
+
+    <td class="text-just-center">
+      <p class="cart__text">$<%= number_with_precision(orderitem.subtotal, :precision => 2, :delimiter => ',') %></p>
+    </td>
+  </tr>
+  <% end %>
+
+  </tbody>
+  </table>
+
+  <hr class="hr-total">
+
+  <section class="d-flex align-items-end flex-column pl-5">  
+    <div class="mb-auto p-2">
+    <h4 class="cart__text">ORDER TOTAL: $<%= number_with_precision(@order.total, :precision => 2, :delimiter => ',') %></h4>
+    </div>
+
+    <p><%= button_to 'Checkout', edit_order_path(@order.id), method: :get, class:"cart__checkout-button" %></p>
+  </section>
+
+</section>
+<% end %>
+</section>
+

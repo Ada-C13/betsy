@@ -1,0 +1,75 @@
+
+
+  <table class="table" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <%# TODO: add column names %>
+      </tr>
+    </thead>
+  <tbody>
+
+  
+
+  <% collection.each do |order| %>
+  <tr>
+
+    <td class="order__info order__highlight">
+      <h2 class="cart__text"><span class='text-bold cart__text'> Order ID: <%= order.id %> </span></h2>
+      <%= link_to "order details", order_path(order), class: "catalog__add-to-cart-button" %> <br><br>
+      <p class="cart__text"><span class='text-bold cart__text'> Created: <%= order.created_at.strftime("%m/%d/%Y at %I:%M%p")  %> <br> Status: <%= order.status %> </span></p>
+    </td>
+
+    <tr>
+    <td>
+      <table cellspacing="0" width="100%">
+      <%# Orderitems Table Header %>
+      <thead>
+        <tr>
+          <th scope="col", class="th-sm cart__text">product name</th>
+          <th scope="col", class="th-sm cart__text">quantity</th>
+          <th scope="col", class="th-sm cart__text">subtotal</th>
+          <th scope="col", class="th-sm cart__text">Status</th>
+          <th scope="col", class="th-sm cart__text">Ship product</th>
+        </tr>
+      </thead>
+
+      <%# Orderitems Table Content %>
+      <% order.orderitems.each do |orderitem| %>
+      <% if orderitem.product.merchant_id == session[:merchant_id] %>
+        <tr>
+          <td class="text-just-center cart">
+            <h6 class="cart__text"><%= link_to orderitem.product.product_name, product_path(orderitem.product.id), class: "text-dark, cart__text" %></h6>
+          </td>
+          <td width=10% class="mr-4 pr-4">
+            <h6 class = "cart__text">
+              <%= orderitem.quantity %>
+            </h6>
+          </td>
+          <td class="text-just-center">
+            <h6 class="cart__text">$<%= number_with_precision(orderitem.subtotal, :precision => 2, :delimiter => ',') %></h6>
+          </td>
+          <td class="text-just-center cart">
+            <% if orderitem.shipped %>
+              <h6 class = "cart__text order__shipped">
+                shipped
+              </h6>
+            <% else %>
+              <h6 class = "cart__text order__not-shipped">
+                not shipped
+              </h6>
+            <% end %>
+          </td>
+          <td class="text-just-center cart">
+            <%= link_to "Ship Item", mark_shipped_path(orderitem), method: :patch, data: {confirm: "Are you sure you want to mark #{orderitem.product.product_name} as shipped?"}, class: "cart__remove-button" %>
+          </td>
+        <tr>
+        <% end %>
+      <% end %>
+       </table>
+    </td>
+  </tr>
+  </tr>
+  <% end %>
+
+  </tbody>
+  </table>

@@ -1,0 +1,69 @@
+<section class="content">
+  <h1 class="cart__text">Order Summary</h1>
+  <hr>
+
+  <% if @order.orderitems.empty? %>
+  <hr>
+  <h2 class="cart__text">Your order is empty. </h1>
+  </section>
+  </section>
+<% else %>
+  <h3 class="cart__text">Your Order's Current status: <%= @order.status %> </h2>
+  <h3 class="cart__text">Purchase made on: <%= @order.created_at.to_date  %></h2>
+  <table class="table" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th scope="col", class="th-sm cart__text">Product</th>
+        <th scope="col", class="th-sm"></th>
+        <th scope="col", class="th-sm cart__text">Quantity</th>
+        <th scope="col", class="th-sm cart__text">Item Price</th>
+        <th scope="col", class="th-sm cart__text">Item Total</th>
+      </tr>
+    </thead>
+  <tbody>
+
+  <% @order.orderitems.each do |orderitem| %>
+  <tr>
+    <td width=10%>
+      <%= image_tag "#{orderitem.product.photo_url}", alt: "#{orderitem.product.product_name}", class: "img-fluid img-thumbnail rounded-0" %>
+    </td>
+
+    <td class="text-just-center cart">
+      <h4 class="cart__text"><%= link_to orderitem.product.product_name, product_path(orderitem.product.id), class: "text-dark, cart__text" %></h4>
+    </td>
+
+    <td width=10% class="mr-4 pr-4">
+    <p class = "cart__text">
+      <%= orderitem.quantity %>
+    </p>
+    </td>
+
+    <td class="text-just-center">
+      <p class="cart__text"><span class='text-bold cart__text'> $<%= number_with_precision(orderitem.product.price, :precision => 2, :delimiter => ',') %> </span></p>
+    </td>
+
+
+    <td class="text-just-center">
+      <p class="cart__text">$<%= number_with_precision(orderitem.subtotal, :precision => 2, :delimiter => ',') %></p>
+    </td>
+  </tr>
+  <% end %>
+
+  </tbody>
+  </table>
+
+  <hr class="hr-total">
+
+  <section class="d-flex align-items-end flex-column pl-5">  
+    <div class="mb-auto p-2">
+    <h4 class="cart__text">ORDER TOTAL: $<%= number_with_precision(@order.total, :precision => 2, :delimiter => ',') %></h4>
+    </div>
+    <br>
+    <%= link_to "Cancel Order", cancel_path(@order), method: :patch, data: {confirm: "Are you sure you want to cancel this order?"}, class: "cart__remove-button" %>
+
+  </section>
+
+</section>
+<% end %>
+
+</section>

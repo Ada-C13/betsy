@@ -1,0 +1,87 @@
+<section class="content">
+<% if !@product.retired %>
+<%# Product Description Header %>
+<section class="px-5">
+  <h6><%= link_to "< HOME", root_path, class: "local-navigation" %></h6>
+  <h6><%= link_to "< ALL PRODUCTS", products_path, class: "local-navigation" %></h6>
+  <h1 class="catalog__header"><%= @product.product_name %></h1>
+  <h4 class="catalog__detail-header">RATING: <%= @product.average_rating%>/5 </h4>
+  <h4 class="catalog__detail-header">Reviews: <%= @product.reviews.count %></h4>
+  <h4 class="catalog__detail-header">Sold by: <span><%= link_to @product.merchant.username, merchant_path(@product.merchant), class: "catalog__detail-header" %></span></h4>
+  <h6 class="catalog__secondary-header">Categories: 
+  <% @product.categories.each do |category| %>
+    <%= category.category_name %> |
+   <% end %>
+  </h6>
+  
+  <hr>
+</section>
+<%# DANGEROUS TRICK BUT AMAZING: NIL CHECK &. %>
+<% if @order.orderitems.find_by(product_id: @product.id)&.errors&.any? %>
+  <ul class="errors alert alert-danger" role="alert">
+    <% @order.orderitems.find_by(product_id: @product.id).each do |column, message| %>
+      <li>
+        <strong><%= column.capitalize %></strong> <%= message %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<%# Product Picture and Description %>
+<section class="container-fluid px-5">
+  <div class="row px-5">
+    <div class="col">
+      <div class="embed-responsive embed-responsive-1by1">
+        <img class="card-img-top embed-responsive-item rounded-0" src=<%= @product.photo_url %> alt=<%= @product.product_name%>>
+      </div>
+    </div>
+    <div class="col">
+      <h2 class="catalog__description-title">$<%= number_with_precision(@product.price, :precision => 2, :delimiter => ',') %></h2>
+      <h2 class="text-uppercase catalog__description-title">Description</h2>
+      <div class="catalog__description-text"><%= @product.description %></div>
+
+      <div class="py-3">
+      <% if @product.stock == 0 %>
+        <h2 class="catalog__description-title">OUT OF STOCK </h2>
+      <% else %>
+      <%= form_with model: @orderitem, url: product_orderitems_path(@product.id) do |f| %>
+       <div class="form-group">
+        <h2>
+          <%= f.label :quantity, class: "catalog__description-title"%>
+        </h2>
+        <%= f.select :quantity, options_for_select(1..@product.stock), {}, {class: "form-control"} %>
+        </div>
+        <% if @product.retired %>
+        <br>
+          <h2 class="catalog__description-title">This product is retired, unable to purchase.</h2>
+            <% else %>
+          <%= f.submit "Add to Cart", class: "catalog__add-to-cart-button"%>
+        <% end %>
+      <% end %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+
+<%# Product Reviews %>
+<section class="container-fluid p-5 mb-5">
+  <h2 class="catalog__review-title">Reviews</h2>
+  <hr>
+  
+    <%= link_to "Review this product", new_review_path(product_id: @product.id), method: :get, class: "catalog__add-to-cart-button" %> <br> <br>
+    <% if !@product.reviews.empty? %>
+      <% @product.reviews.each do |review| %>
+        <h5 class="catalog__detail-header"> <%= review.created_at.strftime("%B %d, %Y") %></h5>
+        <h4 class="catalog__detail-header">Rating: <%= review.rating %></h4> 
+          <p class="catalog__review-text"><%= review.content %></p>
+        <hr>
+      <% end %>
+    <% else %>
+      <h6 class="catalog__review-text">No reviews yet</h6>
+    <% end %>  
+  
+</section>
+</section>
+<% end %>
+</section>

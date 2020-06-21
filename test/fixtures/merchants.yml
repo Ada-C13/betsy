@@ -1,0 +1,25 @@
+diana:
+  username: dnguye2
+  email: wowtestingissofun@nightowl.edu
+  uid: 2
+  provider: "github"
+bob:
+  username: Bob Hicok
+  email: bob@uva.com
+  uid: 5
+  provider: "github"
+greta:
+  username: Greta the Unstoppable
+  email: stike4climate@earth.org
+  uid: 4
+  provider: "github"
+no_products_merchant:
+  username: Lazy Lou
+  email: samIam@email.com
+  uid: 7
+  provider: "github"
+not_unique_email_merchant:
+  username: Someone
+  email: " "
+  uid: 1000
+  provider: "github"

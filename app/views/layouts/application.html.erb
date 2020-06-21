@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Outdoorsy</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag 'favicon.png' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+
+  <body class="wrapper">
+    <%# Header  %>
+    <header>
+      <nav class="navbar navbar-expand-md navbar bg">
+      <%# <section class="header-logo">
+      </section> %>
+       <%= render partial: "layouts/navigation-bar", locals: { collection: @categories } %>
+      </nav>
+    </header>
+
+    <%# Content %>
+    <section class="px-5 text-uppercase">
+          <% flash.each do |name, message| %>
+            <% if name == "success" %>
+              <div class="alert alert-success light-text rounded-0" role="alert">
+                  <strong class="<%= name %>">
+                    <%= message %>
+                  </strong>
+              </div>
+            <% elsif name == "result_text" %>
+              <div class="alert alert-warning light-text rounded-0" role="alert">
+                  <strong class="<%= name %>">
+                    <%= message %>
+                  </strong>
+              </div>
+            <% else %>
+              <div class="alert alert-danger light-text rounded-0" role="alert">
+                  <strong class="<%= name %>">
+                    <%= message %>
+                  </strong>
+              </div>
+            <% end %>
+          <% end %>
+    </section>
+    <%= yield %>
+
+    
+    
+    <%# Footer %>
+    <footer class="footer"><%= render partial: "layouts/footer" %></footer>
+  </body>
+
+
+</html>

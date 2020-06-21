@@ -1,0 +1,57 @@
+<section class="content">
+  <section class="order-forms">
+    <h2 class="h-center-text-no-pad cart__title">Checkout</h2>
+      <% if @order.errors.any? %>
+        <ul class="errors list-group list-group-flush" role="alert">
+          <% @order.errors.each do |column, message| %>
+              <li class="list-group-item list-group-item-danger">
+                <strong><%= column.capitalize %></strong> <%= message %>
+              </li>
+          <% end %>
+        </ul>
+      <% end %>
+    <section class='form-container'>
+      <%= form_with model: @order do |f| %>
+
+        <div class="form-group">
+        <%= f.label :cc_name, 'Name' %>
+        <%= f.text_field :cc_name, class:"form-control" %>
+        </div>
+
+        <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, class:"form-control" %>
+        </div>
+
+        <div class="form-group">
+        <%= f.label :address %>
+        <%= f.text_field :address, class:"form-control" %>
+        </div>
+
+        <div class="form-group">
+        <%= f.label :cc_num, 'Credit Card Number' %>
+        <%= f.text_field :cc_num, class:"form-control" %>
+        </div>
+
+        <div class="form-group">
+        <%= f.label :cc_exp, 'Expiration Date' %>
+        <%= f.text_field :cc_exp, class:"form-control" %>
+        </div>
+
+        <div class="form-group">
+        <%= f.label :cvv, 'CVV' %>
+        <%= f.text_field :cvv, class:"form-control" %>
+        </div>
+
+        <div class="form-group">
+        <%= f.label :zip, 'Billing Zip Code' %>
+        <%= f.text_field :zip, class:"form-control" %>
+        </div>
+
+        <div class="form-group submit">
+        <%= f.submit "Confirm", class:"cart__checkout-button" %>
+        </div>
+      <% end %>
+    </section>
+  </section>
+</section>

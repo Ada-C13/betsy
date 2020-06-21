@@ -1,0 +1,47 @@
+order1: 
+  email: nature@gmail.com
+  address: 1234 pine dr.
+  cc_name: squirrel pinenut
+  cc_num: 4140837365242638
+  cvv: 123
+  cc_exp: 02/22
+  zip: 90210
+  status: pending
+order2: 
+  email: cherry@gmail.com
+  address: 1234 central park street
+  cc_name: Pink Cherry
+  cc_num: 4140837365242639
+  cvv: 123
+  cc_exp: 02/23
+  zip: 90210
+  status: paid
+order3:
+  email: test@testing.com
+  address: 44 Lane St
+  cc_name: Bubblegum
+  cc_num: 285868584838333
+  cvv: 963
+  cc_exp: 11/26
+  zip: 73224
+  status: complete
+order4:
+  email: hello@fresh.prince
+  address: 377 Awesome Rd
+  cc_name: Pineapple Grapes
+  cc_num: 895848357788356
+  cvv: 995
+  cc_exp: 01/23
+  zip: 006434
+  status: cancelled
+order5:
+  email: lifeisgood@good.com
+  address: 47 Life Ave
+  cc_name: Angela Kinsey
+  cc_num: 58483828282
+  cvv: 564
+  cc_exp: 11/29
+  zip: 73999
+  status: complete
+pending_order:
+  status: pending

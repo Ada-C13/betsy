@@ -1,0 +1,50 @@
+<% if @product.errors.any? %>
+  <ul class="errors alert alert-danger" role="alert">
+    <% @product.errors.each do |column, message| %>
+      <li>
+        <strong><%= column.capitalize %></strong> <%= message %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @product, class: 'create-product' do |f| %>
+
+  <%= f.hidden_field :merchant_id, value: session[:merchant_id] %>
+
+  <div class = "form-group">
+    <%= f.label :product_name, class: "hidden"%>
+    <%= f.text_field :product_name, placeholder: "E.g. Mount Fuji", class: 'form-control'%>  
+  </div>
+
+  <div class = "form-group">  
+    <%= f.label :price, class: "hidden"%>
+    <%= f.text_field :price, placeholder: "E.g. 10000000.99", class: 'form-control', required: true%>
+  </div>
+
+    <div class = "form-group">  
+    <%= f.label :stock, class: "hidden"%>
+    <%= f.text_field :stock, placeholder: "E.g. 20", class: 'form-control', required: true%>
+  </div>
+
+  <div class = "form-group">  
+    <%= f.label :photo_url, class: "hidden"%>
+    <%= f.text_field :photo_url, placeholder: "www.somewebsite.com/better-have-image-rights.png", class: 'form-control', required: true%>
+  </div>
+
+  <div class = "form-group">
+    <%= f.label :description, "Description", class: "hidden" %>
+    <%= f.text_area :description, placeholder: "E.g. Air plant taiyaki tumblr williamsburg vegan mustache venmo man bun. Portland affogato bushwick, forage truffaut cold-pressed you probably haven't heard of them whatever. Subway tile echo park retro poutine church-key prism crucifix. Actually letterpress meditation fashion axe salvia. Schlitz man bun trust fund intelligentsia artisan, tattooed meggings skateboard echo park yr next level try-hard.", class: 'form-control', required: true %>
+  </div>
+
+  <div class = "form-group">
+    <%= f.label :categories %> <br>
+    <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :category_name) do |b| %>
+        <%= b.label class:"custom-control custom-checkbox" do%>
+         <%=b.check_box + b.text%>
+        <%end%>
+    <% end %>
+  </div>
+
+  <%= f.submit action_name, class: 'product__new-button'%>
+<% end %>

@@ -1,0 +1,12 @@
+review_one: 
+  rating: 5
+  content: "Great as a gift"
+  product_id: 1
+review2: 
+  rating: 4
+  content: "Amazing jerky"
+  product_id: 2
+review3: 
+  rating: 3
+  content: "Bananas for this banana bread granola"
+  product_id: 3

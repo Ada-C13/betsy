@@ -1,0 +1,21 @@
+
+<%# Jumbotron %>
+<section class="jumbotron jumbotron-custom jumbotron-fluid">
+  <div class="container justify-content-center">
+    <h1 class="display-3 jumbotron-text">Get Outdoorsy and shop our favorite summer picks</h1>
+    <%= button_to "Shop now", products_path, method: :get, class: "homepage__jumbotron-button"  %> <br>
+    <p class="lead jumbotron-disclaimer-text">DISCLAIMER: If you buy a piece of Mother Nature, you are obligated to life long service in protecting and preserving the piece of nature you own.</p>
+  </div>
+</section>
+
+<%# Browse by category %>
+<section class="container-fluid p-5">
+   <h1 class="browse-by-category__header text-center pb-5">Browse by category</h1>
+  <div class="row px-5">
+  <%= render partial: "browse-by-category", locals: {photo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Mount_Kita_from_Mount_Komatsu_1997-1-1.jpg/1200px-Mount_Kita_from_Mount_Komatsu_1997-1-1.jpg", category_name: "mountains"} %>
+  <%= render partial: "browse-by-category", locals: {photo_url: "https://images.unsplash.com/photo-1534868489953-ef37c20abb25?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60", category_name: "national parks"} %>
+  <%= render partial: "browse-by-category", locals: {photo_url: "https://images.unsplash.com/photo-1533977397732-47222b2dd81f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1402&q=80", category_name: "islands"} %>
+  <%= render partial: "browse-by-category", locals: {photo_url: "https://images.unsplash.com/photo-1485809052957-5113b0ff51af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60", category_name: "gear"} %>
+  <%= render partial: "browse-by-category", locals: {photo_url: "https://about.spud.com/wrdp/wp-content/uploads/2018/05/shutterstock_1027395040.jpg", category_name: "snacks"} %>
+  <%= render partial: "browse-by-category", locals: {photo_url: "https://images.unsplash.com/photo-1490264496899-99b4c9c3993b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60", category_name: "parking permits"} %>
+</section>

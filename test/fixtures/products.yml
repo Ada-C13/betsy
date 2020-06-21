@@ -1,0 +1,55 @@
+rx_bar:
+  product_name: RxBar
+  description: Simple ingredients
+  price: 2.45
+  photo_url:
+  stock: 3
+  retired: false
+  merchant: bob
+kind:
+  product_name: KIND bar
+  description: GF bar
+  price: 1.45
+  photo_url:
+  stock: 5
+  retired: true
+  merchant: bob
+nature_valley:
+  product_name: Nature Valley
+  description: Crunchy Granola Oats n Honey
+  price: 1.25
+  photo_url:
+  stock: 8
+  retired: false
+  merchant: bob
+rainier:
+  product_name: Mount Rainer
+  description: Volcano
+  price: 5000
+  photo_url:
+  stock: 1
+  retired: false
+  merchant: bob
+discover:
+  product_name: Discover Pass
+  description: Parking pass for local parks
+  price: 40
+  photo_url:
+  stock: 30
+  retired: false
+  merchant: bob
+snow_pass:
+  product_name: Snow Pass
+  description: Parking pass for local parks in winter
+  price: 25
+  photo_url:
+  stock: 15
+  retired: false
+  merchant: greta
+zero_stock_product:
+  product_name: Smores
+  description: Deliciousness in a cookie sandwich
+  price: 25
+  photo_url:
+  stock: 0
+  retired: false
