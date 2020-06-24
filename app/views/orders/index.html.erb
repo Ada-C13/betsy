@@ -1,0 +1,50 @@
+<h2 class="popular_products">MY ORDERS</h2>
+
+<div class="cart_view"> 
+  <table class="table">
+    <thead class="thead">
+      <tr>
+        <th></th>
+        <th>Customer Name</th>
+        <th>Order Total Amount</th>
+        <th>Purchase Date</th>
+        <th>Current Status</th>
+        <th>My Products from Order</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+
+
+        <% @merchant_orders.each do |order| %>
+          <tr>
+            <td></td>
+            <% order_items = order.order_items %>
+            <td><%= order.name %></td>
+            <td><%= order.total %></td>
+            <td><%= order.created_at.strftime("%m/%d/%Y") %> </td> 
+            <td><%= order.status %></td>
+            <td>
+            <% product_names = order_items.map { |item| Product.find_by(id: item.product_id).name } %>
+            <%= product_names.join(", ")%></td>
+          
+            <td>
+              <%= button_to 'Order Details', ordered_path(order), class: 'btn btn-primary', method: :get%>
+            </td>
+            <td>
+              <% if order.status != "shipped"%>
+                <%= button_to 'Mark Shipped', mark_shipped_path(order), class: 'btn btn-primary', method: :patch %>
+              <% else %>
+              <td></td>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= button_to 'Back to Dashboard', dashboard_path, class: 'btn btn-primary', method: :get %>
+

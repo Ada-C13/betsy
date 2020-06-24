@@ -1,0 +1,249 @@
+// Place all the styles related to the Products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+a {
+  color: #000;
+}
+
+.products__index_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.products__index_product-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: rgba(125, 78, 9, 0.5);
+  border: solid white 7px;
+  border-radius: 25px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.products__index_product-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.products__index_product-img { 
+  display: flex;
+  width: 150px;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.products__show_product-img { 
+  position: relative;
+  top: -50px;
+  display: flex;
+  width: 150px;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.products__show_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  max-width: 500px;
+  min-width: 400px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.products__show_detail-container {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: -30px;
+  display: flex;
+  flex-direction: column;;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.products__form-container {
+  margin: 30px;
+}
+
+.products__show-product-name {
+  font-size: 30px;
+}
+
+body {
+  background-color: #EDF1F3;
+}
+
+.bar {
+  color: #FFF;
+  background-color: #EFD679;
+  padding: 35px;
+  width: 400px;
+  margin: 50px auto 0;
+  font: 35px/50px 'Bree Serif', Courier, monospaced;
+  text-align: center;
+  position: relative;
+  text-transform: uppercase;
+  border: 2px transparent solid;
+  box-shadow: 0 10px 30px -10px gray;
+}
+
+.bar span {
+  position: absolute;
+}
+
+.bar span:nth-child(1),.bar span:nth-child(3) {
+  border-style: solid;
+  border-width: 15px;
+  z-index: -1;
+}
+.bar span:nth-child(1) {
+  border-color: #000 #000 transparent transparent;
+  top: 120px;
+  left: -2px;
+}
+.bar span:nth-child(3) {
+  border-color: #000 transparent transparent #000 ;
+  top: 120px;
+  left: 442px;
+}
+
+.bar span:nth-child(2), .bar span:nth-child(4) {
+  top: 30px;
+  border-style: solid;
+  border-width: 60px;
+  z-index: -2;
+}
+.bar span:nth-child(2) {
+  border-color: #E8BA85 #E8BA85 #E8BA85 transparent;
+  left: -90px;
+  box-shadow: 20px 20px 30px -10px grey;
+}
+
+.bar span:nth-child(4) {
+  border-color: #E8BA85 transparent #E8BA85 #E8BA85;
+  left: 440px;
+  box-shadow: -20px 19px 30px -10px grey;
+}
+
+.reviews__container {
+  margin-top: 25px;
+  min-height: 500px;
+  margin-bottom: 200px;
+}
+
+.reviews__form-container {
+  padding-bottom: 250px;
+}
+
+.review-stars {
+  font-size: 30px;
+  color: #fd9b07;
+}
+
+.review-comment {
+  font-size: 20px;
+}
+
+.average-rating-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.reviews-average-rating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.average-rating {
+  color: #fd9b07;
+  font-size: 50px;
+}
+
+.large-review {
+  font-size: 50px;
+}
+
+.small-review {
+  display: flex;
+  flex-direction: column;
+  max-width: 50px;
+  font-size: 15px;
+}
+
+.product__form-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  width: 500px;
+}
+
+.products__form-title {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 50px;
+}
+
+.search-result-container {
+  opacity: 0.5;
+  background: #fff;
+  border-radius: 10px;
+  padding-right: 20px;
+  list-style: none;
+  display: flex; 
+  flex-direction: row;
+  padding: 10px;
+}
+
+.search-result-container > li {
+  padding-left: 10px;
+}
+
+.search-result-container > li::after {
+  content: "|";
+  padding-left: 10px;
+}
+
+.search-result-container > li:last-child::after {
+  content: "";
+}
+
+.small-stars {
+  color: #fd9b07;
+}
+
+.yellow-font {
+  color: #FFDD88;
+  margin-top: 20px;
+}
+
+
+.search-result-title {
+  margin-bottom: 50px;
+}
+
+.review {
+  padding: 20px;
+}

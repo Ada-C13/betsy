@@ -1,0 +1,19 @@
+<div class="products__index_container">
+  <% @products.each do |product| %>
+    <% unless product.photo_url == "NA" %>
+    <div class="products__index_product-container item">
+      <%= link_to(image_tag(product.photo_url, :alt => "product", class: 'products__index_product-img'), product_path(product.id)) %>
+      
+      <div class="products__index_product-info-container">
+        <h6><%= link_to "#{product.name}", product_path(product) %></h6>
+        <p>🔔 <%= product.price %> Bells</p> 
+        <p><span class="small-stars"><%= Review.display_rating(product.average_rating) %></span>(<%= product.average_rating %>/ 5)</p> 
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="pages">
+  <%= will_paginate @products, :style => 'color:white', class: 'user_name' %>
+</div>

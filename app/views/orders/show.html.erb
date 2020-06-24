@@ -1,0 +1,91 @@
+<h3>Thank You for Your Order!</h3>
+
+<% order = Order.find_by(id: params[:id]) %>
+
+<div class="cart_view"> 
+  <h4>Order Summary</h4>
+  <table class="table">
+    <thead class="thead">
+      <tr>
+        <th></th>
+        <th>Order Total Amount</th>
+        <th>Purchase Date</th>
+        <th>Current Status</th>
+        <th></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr>
+        <td></td>
+        <td><%= order.total %></td> 
+        <td> <%= order.created_at.strftime("%m/%d/%Y") %> </td> 
+        <td><%= order.status %></td> 
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="cart_view"> 
+  <h4>Billing information</h4>
+  <table class="table">
+    <thead class="thead">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip code</th>
+        <th>Credit card number</th>
+        <th>Expiration Date</th>
+        <th></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr>
+        <td></td>
+        <td><%= order.name %></td> 
+        <td> <%= order.address %> </td> 
+        <td> <%= order.city %> </td> 
+        <td> <%= order.state %> </td> 
+        <td> <%= order.zipcode %> </td> 
+        <td> <%= order.cc_num %> </td> 
+        <td> <%= order.cc_exp_month %><%= order.cc_exp_year %> </td> 
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="cart_view"> 
+  <h4>Items information</h4>
+  <table class="table">
+    <thead class="thead">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Item Total</th>
+        <th></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% order.order_items.each do |item| %>
+      <% p = Product.find_by(id: item["product_id"]) %>
+      <tr>
+        <td></td>
+        <td><%= link_to p.name, product_path(p) %></td>
+        <td><%= p.price %></td> 
+        <td><%= item.quantity %></td>  
+        <td> <%= p.price * item.quantity %> Bells</td> 
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

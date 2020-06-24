@@ -1,0 +1,41 @@
+<h4 class="search-result-title">Search Result for "<%= @parameter %>"...</h4>
+
+<div class="products__index_container">
+  <% if @products.empty? && @categories.empty? && @users.empty? %>
+    <%= image_tag "https://hytsit.com/assets/frontend/images/noproduct.png" %>
+  <% else %>
+    <strong>
+      <ul class="search-result-container">
+        <li> Product name: <%= @products && @products.length  %></li>
+        <li> Category name: <%= Category.search_result(@parameter) && Category.search_result(@parameter) %></li>
+        <li> Merchant name: <%= @users && @users.length  %></li>
+      </ul>
+    </strong>
+  <% end %> 
+</div>
+  
+
+<div class="products__index_container">
+  <% if !@products.empty? %>
+    <% @products.each do |product| %>
+      <%= render partial: "search_result", locals: { product: product } %>
+    <% end %>
+  <% end %>
+
+  
+  <% if !@categories.empty? %>
+    <% @categories.each do |category| %>
+
+      <% category.products.each do |product| %>
+        <%= render partial: "search_result", locals: { product: product } %>
+      <% end %>
+      
+    <% end %>
+  <% end %>
+
+  <% if !@users.empty? %>
+    <% @users.each do |user| %>
+      <%= render partial: "/users/search_result", locals: { user: user } %>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,6 @@
+<h4>All Categories</h4>
+<div class="category_index-container">
+  <% @categories.each do |category| %>
+    <h5 class="btn btn-primary"><strong><%= link_to "#{category.name}", category_path(category.id) %></strong></h5>
+  <% end %>
+</div>

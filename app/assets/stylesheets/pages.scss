@@ -1,0 +1,286 @@
+// Place all the styles related to the pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.home_video {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  z-index: -2;
+}
+
+
+h1.home {
+  color: white;
+  padding-left: 50%;
+  padding-right: 50%;
+  align-self: center;
+}
+
+.welcome-link {
+  position: absolute;
+  bottom: 10px;
+  right: 25%;
+  left: 50%;
+  margin-left:-150px;
+}
+
+.frontpage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel {
+  padding-bottom: 80px;
+  // width:80%;
+  margin-top: 0;
+  padding-top: 0;
+  width: 100%;
+  height:auto;
+}
+
+.phone_app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //  align-items: space-evenly;
+  padding-top: 40px;
+  padding-left: 10%;
+}
+
+.frontpage_feature {
+  max-height: 400px;
+  // width: 600px;
+  max-width: 400px;
+  padding: 100px;
+  margin: 100px;
+  background: rgba(131,75,22,0.75);
+  border-radius: 25px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.frontpage_feature_title {
+  color: white;
+  font-size: 80px;
+  position: relative;
+  text-align: center;
+}
+
+.frontpage_feature_img {
+  border-radius: 25px;
+  box-sizing: border-box;
+  max-width: 350px;
+}
+
+.download_img {
+  height: 50px;
+  width: 80px;
+  // padding-left: 25px;
+}
+  
+  .spotlight {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 50px;
+    height: 500px;
+  }
+
+  .new_product {
+    background-color: rgba(131,75,22,0.75);
+    border-radius: 25px;
+    // margin-right: 10%;
+    border: solid white 5px;
+    box-sizing: border-box;
+    max-height: 255px;
+  }
+
+  .new_product > img {
+    width: 150px;
+  }
+
+  .featured_merchant_spotlight h4 {
+    padding: 20px;
+  }
+
+  .merchant_spotlight_card {
+    display: flex;
+    flex-direction: row;
+    padding-left: 80px;
+  }
+
+  .merchant_img {
+    // width: 125px;
+    width: 130px;
+  }
+
+  .merchant_details {
+    padding-left: 20px;
+    width: 300px;
+    margin-top: 30px;
+    margin-left: 10px;
+  }
+
+  .catchphrase {
+    font-size: 40px;
+    // margin-top: 40px;
+    margin-top: 20%;
+    // padding: 20px;
+    // background-color:#7a904d;
+    border-radius: 25px;
+    position: absolute;
+    color: #000;
+    // z-index: 3
+    font-size: 30px;
+    margin-left: 10px;
+  }
+
+  .slider {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    // width: 80vw;
+    width: 100%;
+    max-height: 350px;
+    overflow: scroll;
+    background-color: rgba(255,255,255, 0.5);
+    border-radius: 25px;
+  }
+
+  .popular_products {
+    display: flex;
+    font-size: 40px;
+    padding: 15px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    // width: 80vw;
+    width: 100%;
+    background-color: rgba(122, 144, 77, 0.6);
+    border-radius: 25px;
+  }
+
+  .slider_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 210px;
+    background-color: rgb(255,255,255);
+    padding: 25px;
+    margin: 25px;
+    border-radius: 25px;
+    height: 300px;
+  }
+
+
+  .slider_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    // padding-right: 25px;
+    padding-top: 25px;
+    text-align: center;
+  }
+
+
+.spotlight {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 50px;
+  height: 500px;
+}
+
+
+.newest_product_spotlight {
+  // background-color: rgba(84, 212, 252, 0.7);
+  background-color: #fff;
+  opacity: 0.9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  border-radius: 25px;
+  // width: 80%;
+  padding: 60px;
+  padding-top: 40px;
+  box-sizing: border-box;
+  max-width: 500px;
+  // margin-left: 40px;
+  text-align: center;
+}
+
+.newest_product_spotlight h4 {
+  padding: 20px;
+}
+
+.new_product_card {
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+
+
+.featured_merchant_spotlight {
+  // background-color: rgba(28, 124, 36, 0.7);
+  background-color: #fff;
+  width: 500px;
+  opacity: 0.9; 
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // color: white;
+  border-radius: 25px;
+  // width: fit-content;
+  padding: 60px;
+  padding-top: 40px;
+  box-sizing: border-box;
+  // width: 80%;
+  margin-left: 30px;
+  z-index: 1;
+}
+
+// .merchant_spotlight_card {
+//   display: flex;
+//   flex-direction: row;
+// }
+
+// .merchant_img {
+//   height: 200px;
+//   border-radius: 25px;
+//   margin-right: 20%;
+// }
+
+
+.slider_img {
+  height: 100px;
+  width: auto;
+  // padding-left: 25%;
+}
+
+
+.home-video-wrapper {
+  height: 100vh;
+  display: flex;
+}
+
+h1.home {
+  color: white;
+  padding-left: 50%;
+  padding-right: 50%;
+  align-self: center;
+}

@@ -1,0 +1,73 @@
+<div class="merchant_dashboard_page">
+  <div class="users__show_container">
+    <%= image_tag 'timmytommy.png', alt: "user image", class: 'user_image' %>
+    
+    <div class="users__show_detail-container">
+      <h1><%= @user.name %></h1>
+      <h2>Joined: <%= @user.created_at.strftime("%m/%d/%Y") %></h2>
+      <h2>Username: <%= @user.username %></h2>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <%= button_to 'Add Product', new_product_path, method: :get, class: "btn btn-primary" %>
+  <%= button_to 'Add Category', new_category_path, method: :get, class: "btn btn-primary" %>
+  <%= button_to 'Account Orders', orders_path, method: :get, class: "btn btn-primary" %>
+  <%= button_to 'My Merchant Page', user_path(@user), method: :get, class: "btn btn-primary" %>
+</div>
+
+<div class="merchant_stats">
+  </br>
+  <div class="total_revenue">
+    <h3>Total Revenue: </h3>
+    <h4><%= @revenue %> Bells</h4>
+  </div>
+  <div class="total_revenue">
+      <h3>Revenue by Order Status</h3>
+      <div class="revenue_section">
+        <div class="revenue_callout">
+          <h5>Paid Orders: </h5>
+          <p><%= @paid_revenue %> Bells </p>
+          <p>(<%= @paid_count %> Orders)</p>
+        </div>
+        <div class="revenue_callout">
+          <h5>Shipped Orders: </h5>
+          <p><%= @shipped_revenue %> Bells </p>
+          <p>(<%= @shipped_count %> Orders)</p>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+<div class="product_dashboard"> 
+  <table class="table">
+    <thead class="thead">
+      <tr>
+        <th>Product</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Inventory</th>
+        <th>Status</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @user.products.each do |product| %>
+        <tr>
+          <td><%= link_to(image_tag(product.photo_url, :alt => "logo", :title => "Home", class: 'dashboard_product_image'), product_path(product.id)) %></td>
+          <td><%= product.name %></td>
+          <td><%= product.price %> Bells</td>
+          <td><%= product.inventory %></td>
+          <td><%= product.active ? "active" : "inactive" %></td>
+          <td><%= button_to "Edit", edit_product_path(product.id), method: :get, class: "btn btn-primary" %></td>
+          <td>
+            <%= button_to product.active ? "Inactivate" : "Activate", toggle_status_path(product.id), class: "btn btn-primary", method: :patch, data: { confirm: '❗️ Would you like to update your status?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

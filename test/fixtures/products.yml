@@ -1,0 +1,80 @@
+amber:
+  name: amber
+  description: how about a c+
+  price: 400
+  inventory: 9
+  photo_url: https://villagerdb.com/images/items/thumb/sea-bass-model.7217621.png
+  active: true
+  user: user1
+t_rex_tail:
+  name: t. rex tail
+  description: tail of a t rex
+  price: 800
+  inventory: 3
+  photo_url: https://villagerdb.com/images/items/full/ninja-hood.84ef32d.png
+  active: true
+  user: pengsoo
+pachy_tail:
+  name: pachy skull
+  description: a place to hold all your accessories
+  price: 3824
+  inventory: 5
+  photo_url: https://villagerdb.com/images/items/thumb/accessories-stand.7707e11.png
+  active: true
+  user: pengsoo
+shirt:
+  name: shirt
+  description: delicious treat available on some islands
+  price: 500
+  inventory: 50
+  photo_url: https://villagerdb.com/images/items/thumb/apple.2b0f79c.png
+  active: true
+  user: user2
+pants:
+  name: pants
+  description: delicious treat available on some islands
+  price: 500
+  inventory: 50
+  photo_url: https://villagerdb.com/images/items/thumb/apple.2b0f79c.png
+  active: true
+  user: user3
+dog_nose:
+  name: dog nose
+  description: the best dog nose
+  price: 200
+  inventory: 10
+  photo_url: https://villagerdb.com/images/items/thumb/apple.2b0f79c.png
+  active: true
+  user: user1
+cat_nose:
+  name: cat nose
+  description: the best cat nose
+  price: 300
+  inventory: 20
+  photo_url: https://villagerdb.com/images/items/thumb/apple.2b0f79c.png
+  active: false
+  user: user1
+pengsoo_nose:
+  name: pengsoo nose
+  description: the best pengsoo nose
+  price: 150
+  inventory: 20
+  photo_url: https://villagerdb.com/images/items/thumb/apple.2b0f79c.png
+  active: true
+  user: pengsoo
+bunny_nose:
+  name: bunny nose
+  description: the best bunny nose
+  price: 150
+  inventory: 0
+  photo_url: https://villagerdb.com/images/items/thumb/apple.2b0f79c.png
+  active: true
+  user: bunny
+lion_nose:
+  name: lion nose
+  description: the best lion nose
+  price: 150
+  inventory: 5
+  photo_url: https://villagerdb.com/images/items/thumb/apple.2b0f79c.png
+  active: true
+  user: lion

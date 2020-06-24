@@ -1,0 +1,22 @@
+<div class="merchant_page">
+  <div class="users__show_container">
+    <% if user.photo_url.nil? %>
+      <%= image_tag 'timmytommy.png', alt: "user image", class: 'user_image' %>
+    <% else %>
+      <%= image_tag user.photo_url, alt: "user image", class: 'user_image' %>
+    <% end %>
+    <div class="users__show_detail-container">
+      <h1><%= user.name %></h1>
+      <h2>Joined: <%= user.created_at.strftime("%m/%d/%Y") %></h2>
+      <h2>Username: <%= user.username %></h2>
+    </div>
+  </div>
+
+  <div class="user_product-container">
+    
+    <div class="products__index_container">
+        <% user.products.each do |product| %>
+          <%= render partial: "/products/search_result", locals: { product: product } %>
+        <% end %>
+    </div>
+</div>

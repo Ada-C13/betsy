@@ -1,0 +1,15 @@
+<% if session[:cart].nil? %>
+  <h2 class="empty_cart">Your cart is empty</h2>
+<% else %>
+  <%= render "cart" %>
+
+
+  <div class="cart_total">
+    <% total = 0 %>
+    <% session[:cart].each do |product| %>
+      <% total += (Product.find_by(id: product['product_id']).price * product['quantity']) %>
+    <% end %>
+    <p class="total"><%= total %> Bells</p>
+      <%= button_to 'Checkout', new_order_path, class: 'btn btn-primary checkout-btn', method: :get %>
+  </div>
+<% end %>

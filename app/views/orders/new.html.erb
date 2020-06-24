@@ -1,0 +1,8 @@
+<div class="orders__form-container">
+  <h2 class="checkout">Checkout</h2>
+  <%= render "orderitems/cart" %>  
+  
+  <div class="sales_info">
+    <%= render partial: "form", locals: { action_name: "Submit Order" } %>
+  </div>
+</div>

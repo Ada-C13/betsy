@@ -1,0 +1,15 @@
+<h4>
+  <%= @category.products.length %> results for 
+  <strong><%= @category.name %> </strong>
+</h4>
+
+<div class="products__index_container">
+  <% if @category.products.empty? %> 
+    <%= image_tag "https://hytsit.com/assets/frontend/images/noproduct.png" %>
+  <% else %>
+  
+    <% @category.products.each do |product| %>
+      <%= render partial: "products/search_result", locals: { product: product } %>
+    <% end %>
+  <% end %>
+</div>

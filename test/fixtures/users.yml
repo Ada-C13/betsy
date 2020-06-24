@@ -1,0 +1,24 @@
+user1:
+  uid: 123
+  name: sterling
+  username: sterling
+  email_address: sterling@ajonisle.com
+  provider: github
+user2:
+  uid: 1234
+  name: marina
+  username: marina
+  email_address: marina@ajonisle.com
+  provider: github
+user3:
+  uid: 12345
+  name: roland
+  username: roland
+  email_address: roland@ajonisle.com
+  provider: github
+pengsoo:
+  uid: 5678
+  name: pengsoo
+  username: pengsoo
+  email_address: pengsoo@ada.com
+  provider: github

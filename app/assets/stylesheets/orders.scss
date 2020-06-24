@@ -1,0 +1,26 @@
+// Place all the styles related to the orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.checkout {
+  // text-align: center;
+  // align-self: center;
+  background-color: rgba(122, 144, 77,0.6);
+  border-radius: 25px;
+  width: fit-content;
+  padding: 20px;
+  margin-left: 45%;
+  margin-bottom: 25px;
+}
+
+.sales_info {
+  padding: 50px 200px;
+}
+
+.cart_view {
+  margin-top: 30px;
+  position: relative;
+}
+
+.ordered_product-img {
+  width: 50px;
+}

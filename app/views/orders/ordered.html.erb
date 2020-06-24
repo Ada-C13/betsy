@@ -1,0 +1,71 @@
+<h3>Final Order</h3>
+
+<% order = Order.find_by(id: params[:format]) %>
+
+<div class="cart_view"> 
+  <table class="table">
+    <thead class="thead">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Email Address</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip code</th>
+        <th>Card Information (Last Four)</th>
+        <th>Order Total Amount</th>
+        <th></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr>
+        <td></td>
+        <td><%= order.name %></td>
+        <td><%= order.email_address %></td>
+        <td> <%= order.address %> </td> 
+        <td> <%= order.city %> </td> 
+        <td> <%= order.state %> </td> 
+        <td> <%= order.zipcode %> </td> 
+        <td> ************<%= order.cc_num[-4..-1] %> </td> 
+        <td><%= order.total %> Bells</td> 
+        <td></td>
+      </tr>
+    </tbody>
+
+
+    <table class="table">
+      <h3>Purchased Items</h3>
+      <thead class="thead">
+        <tr>
+          <th></th>
+          <th>Product ID</th>
+          <th>Product Image</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Order qty</th>
+          <th></th>
+        </tr>
+      </thead>
+  
+      <% order.order_items.each do |order_item| %>
+      <tbody>
+        <tr>   
+          <td></td>
+          <td><%= order_item.product_id %></td>
+          <% product = Product.find_by(id: order_item.product_id) %>
+          <td><%= link_to(image_tag(product.photo_url, :alt => "product", class: 'ordered_product-img'), product_path(product.id)) %></td>
+          <td><%= product.name %></td>
+          <td><%= product.price %></td>
+          <td><%= order_item.quantity %></td>
+          <td></td>
+        </tr>
+      </tbody>
+    <% end %>
+    
+  </table>
+
+  <%= button_to 'Back to All Orders', orders_path, class: 'btn btn-primary', method: :get %>
+  <%= button_to 'Back to Dashboard', dashboard_path, class: 'btn btn-primary', method: :get %>
+</div>

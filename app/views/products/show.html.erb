@@ -1,0 +1,79 @@
+<div class="products__show_container">
+  <%= image_tag @product.photo_url, alt: "product image", class: "products__show_product-img" %>
+
+  <div class="products__show_detail-container">
+    <p class="products__show-product-name"><%= @product.name %></p>
+    <p>
+      Sold by 
+      <strong><%= link_to "#{User.find_by(id: @product.user_id).name}", user_path(@product.user_id) %></strong>
+    </p>
+
+    <p>Price: <strong>🔔<%= @product.price %> Bells</strong></p> 
+    
+    <p>Description: <%= @product.description %></p> 
+    <p>Categories: <%= @product.display_categories %></p>
+
+    <p>
+      <% if @product.active %>
+        <%= form_tag orderitems_path, method: :post do %>    
+          <%= label_tag :quantity, "Quantity" %>
+          <%= select_tag(:quantity, options_for_select((1..@product.inventory), 1))%>
+          <%= hidden_field_tag :product_id, @product.id %>
+          <%= submit_tag "Add To Cart", class: "btn btn-lg btn-primary"%>
+        <% end %> 
+        <h4 class="yellow-font">Only <strong><%= @product.inventory %> left</strong> in stock </h4> 
+        <% else %>
+          <h4 class="yellow-font"> currently unavailable </h4>
+      <% end %>
+    </p>
+  </div>
+</div>
+
+
+<section class="reviews__container">
+  <div>
+    <div class="reviews-average-rating">
+      <h3>Average rating</h3> 
+      <span>(<%= @product.num_of_ratings %> ratings)</span>
+    </div>
+
+    <div class="average-rating-container">
+      <h1 class="large-review"><%= @product.average_rating %></h1>
+      <span class="small-review">out of 5 stars</span>
+      <p class="average-rating"><%= Review.display_rating(@product.average_rating) %></p> 
+    </div>
+    <hr>
+    <br>
+      <% recent_reviews = @product.reviews.sort_by { |review| review.created_at }.reverse %>
+
+      
+        <div class="carousel review">
+          <h3>Reviews</h3>
+          <div class="slider">
+            <% if recent_reviews.length > 0 %>
+            
+              <% recent_reviews.each do |review| %>
+                <div class="slider_card">
+                  <div class="slider_details">
+                    <p class="review-stars"><%= Review.display_rating(review.rating) %></p>
+                    <p class="review-reviewer"><strong><%= review.reviewer %> - <%= review.created_at.strftime("%m/%d/%Y") %></strong></p>
+                    <p class="review-comment"><%= review.description %></p>
+                    <hr>
+                  </div>
+                </div>
+              <% end %>
+            <% else %> 
+              There aren't any reviews for this product yet!
+            <% end %>
+          </div>
+        </div>
+  </div>
+<section>
+<br>
+
+
+<div class="reviews__form-container">
+  <h3>Write a review</h3>
+  <%= render partial: "reviews/form", locals: { action_name: "Submit Review" } %>
+</div>
+

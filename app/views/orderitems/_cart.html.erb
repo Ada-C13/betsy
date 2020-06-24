@@ -1,0 +1,33 @@
+<div class="cart_view"> 
+  <table class="table">
+    <thead class="thead">
+      <tr>
+        <th></th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Sold By</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+    </thead>
+  
+    <tbody>    
+      <% if session[:cart] %>
+        <% session[:cart].each_with_index do |product, index| %>
+          <% p = Product.find_by(id: product["product_id"]) %>
+          <tr>
+            <td><%= link_to(image_tag(p.photo_url, :alt => "logo", class: 'dashboard_product_image'), product_path(p)) %></td> 
+            <td><%= p.name %></td>
+            <td class="row qty">
+              <%= button_to '-', subtract_path(p.id), method: :patch, class: 'btn btn-primary' %>
+              <%= session[:cart][index]["quantity"] %>
+              <%= button_to '+', add_path(p.id), method: :patch, class: 'btn btn-primary'%>
+            </td>
+            <td><%= User.find_by(id: p.user_id).name %></td>
+            <td><%= p.price %> Bells</td>
+            <td><%= button_to 'Product Page', product_path(p), method: :get, class: "btn btn-primary" %></td> 
+        <% end %>
+      <% end %>
+      </tr>
+    </tbody>
+  </table>

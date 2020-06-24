@@ -1,0 +1,33 @@
+<div class="merchant_page">
+  <div class="users__show_container">
+    <% if @user.photo_url.nil? %>
+      <%= image_tag 'timmytommy.png', alt: "user image", class: 'user_image' %>
+    <% else %>
+      <%= image_tag @user.photo_url, alt: "user image", class: 'user_image' %>
+    <% end %>
+    <div class="users__show_detail-container">
+      <h2><%= @user.name %></h2>
+      <h2>Joined: <%= @user.created_at.strftime("%m/%d/%Y") %></h2>
+      <h2>Username: <%= @user.username %></h2>
+    </div>
+  </div>
+
+  <div class="user_product-container">
+    <div class="products__index_container">
+        <% @user.products.each do |product| %>
+          <% unless product.photo_url == "NA" || product.active == false %>
+          <div class="products__index_product-container item">
+            <%= link_to(image_tag(product.photo_url, alt: "product", class: "products__index_product-img"), product_path(product)) %>
+            
+            <div class="products__index_product-info-container">
+              <h6><%= link_to "#{product.name}", product_path(product) %></h6>
+              <p><%= product.price %> Bells</p> 
+              <p><span class="small-stars"><%= Review.display_rating(product.average_rating) %></span>(<%= product.average_rating %>) | <%= product.num_of_ratings %> ratings</p> 
+
+              <p>Inventory: <%= product.inventory %></p>
+            </div>
+          </div>
+          <% end %>
+        <% end %>
+    </div>
+</div>

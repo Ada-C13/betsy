@@ -1,0 +1,498 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+/* Custom bootstrap variables must be set or imported *before* bootstrap. */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+* {
+  font-family: 'Balsamiq Sans', cursive;
+}
+
+.app-header__header {
+  width: 100%;
+  overflow: visible;
+  background-color: #f3f1d6;
+  box-shadow: -2px 2px 10px -4px rgba(26,26,26,1);
+  z-index: 1039;
+  box-sizing: border-box;
+}
+
+.header-nav {
+  box-sizing: border-box;
+  z-index: 1039;
+  width: 100%;
+  background-color: #f3f1d6;
+  border-radius: 10px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0,0,0,.5);
+}
+
+li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
+.nav-link {
+  color: #676764;
+  font-weight: 700;
+  padding: 0;
+}
+
+.nav-link {
+  outline: none;
+  text-decoration: none;
+}
+
+a {
+  background-color: transparent;
+}
+
+//BACKGROUND SOURCE: https://codepen.io/damsenviet/pen/NBzLKN
+.body {
+  margin: 20px;
+  min-height: 1em;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  background-color: #FFE0AF;
+  background-image:
+  linear-gradient(45deg, #FFDD88 25%, transparent 25%, transparent 75%, #FFDD88 75%, #FFDD88), 
+  linear-gradient(45deg, #FFDD88 25%, transparent 25%, transparent 75%, #FFDD88 75%, #FFDD88),
+  linear-gradient(45deg, transparent, transparent 50%, #FFC87F 50%, #FFC87F);
+  background-size: 100px 100px;
+  background-position: 0 0, 50px 50px, 50px 0px;
+  -webkit-animation: scroll 5s linear infinite;
+}
+
+@-webkit-keyframes scroll {
+  from { background-position: 0 0, 50px 50px, 50px 0; }
+  to { background-position: -100px -100px, -50px -50px, -50px -100px; }
+}
+
+// See application.js for resources used for scrolling pause
+.body.paused{
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;    
+}
+
+a.pause {
+    // background: url(/images/pointer.png) no-repeat;
+    background: url('https://i.ibb.co/MRT2wDL/pointer.png') no-repeat;
+    cursor:pointer;
+    border: none;
+}
+
+// a.btn{position:absolute;z-index:999999999999;white-space:nowrap;outline:0;text-decoration:none;cursor:pointer; :hidden;font:600 12px/18px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,sans-serif;height:20px;padding:0 5px;-webkit-font-smoothing:antialiased;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;-webkit-transition-property:padding;-moz-transition-property:padding;-ms-transition-property:padding;-o-transition-property:padding;transition-property:padding;-webkit-transition-duration:.1s;-moz-transition-duration:.1s;-ms-transition-duration:.1s;-o-transition-duration:.1s;transition-duration:.1s;-webkit-transition-timing-function:ease;-moz-transition-timing-function:ease;-ms-transition-timing-function:ease;-o-transition-timing-function:ease;transition-timing-function:ease}.btn{color:#fff;border:1px solid rgba(0,0,0,0.18);background:rgba(0,0,0,0.38);text-shadow:1px 1px 0 rgba(0,0,0,0.08)}a.btn,a.btn:hover{color:white!important}.btn{margin-bottom:5px;color:#fff;border:1px solid rgba(0,0,0,0.18);background:rgba(0,0,0,0.38);text-shadow:1px 1px 0 rgba(0,0,0,0.08);-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px}.btn:hover::after,.btn:focus::after{background:rgba(255,255,255,0.09);color:white}.btn:active::after{background:rgba(255,255,255,0.18); color:white}.btn_label.show{display:block}.btn::after{position:absolute;top:0;right:0;bottom:0;left:0;content:'';-webkit-border-radius:inherit;-moz-border-radius:inherit;border-radius:inherit}.btn.icon::before{display:block;content:'';position:absolute;top:0;left:0;bottom:0;width:20px;border-radius:inherit;background:url('http://static.tumblr.com/tpqedpr/cQ1mbwb60/de.png') 0 0 no-repeat}.btn.theme::before{background-position:0 -0px}.btn img{width:15px}.btn.icon{padding-left:20px}.btn:active::after {background:rgba(255,255,255,0.18)}.clear {clear: both;} #pagination {display: all;}
+
+@import "bootstrap";
+@import "**/*";
+
+nav > ul > li {
+  list-style-type: none;
+}
+
+.dropdown-menu {
+  height: 200px;
+  overflow: auto;
+  border: 0;
+}
+
+.right-btn {
+  position: absolute;
+  right: 10px;
+  font-size: 18px;
+}
+
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-bottom: 50px;
+  color: #fff;
+}
+
+
+.navbar {
+  background-color: #fff;
+  background-size: 25%;
+  height: 175px;
+}
+
+.nav-back {
+  background-color: rgba(255,255,255, 0.9);
+  border-radius: 25px;
+}
+
+.pause-button {
+  position: fixed;
+  top: 180px;
+  left: 50px;
+  z-index: 5;
+  background-image: url('https://i.ibb.co/MRT2wDL/pointer.png');
+  height: 60px;
+  width: 180px;
+  background-size: 100%;
+  margin-bottom: 50px;
+}
+
+.top-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flash-msg__section {
+  position: absolute;
+  top: 130px;
+  width: 100%;
+  text-align: center;
+  z-index: 6;
+}
+
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-top: 100px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  text-align: center;
+  z-index: 2;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-error {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+img:hover {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: 0.5;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.pointer { cursor: pointer; }
+
+.form-control-review {
+  width: 50%;
+  opacity: 0.7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  border: 0;
+  border-radius: 10px;
+  outline: none;
+}
+
+.form-control {
+  opacity: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+}
+
+.form-control-category {
+  align-items: flex-start;
+  width: 50%;
+  opacity: 0.8;
+  border: 0;
+} 
+
+// search - reference: https://codepen.io/code-district/pen/YzyvKPg
+input[type="search"] {
+  -webkit-appearance: none !important;
+  background-clip: padding-box;
+  background-color: white;
+  vertical-align: middle;
+  border-radius: 0.25rem;
+  border: 1px solid #e0e0e5;
+  font-size: 1rem;
+  width: 100%;
+  line-height: 2;
+  padding: 0.375rem 1.25rem;
+  -webkit-transition: border-color 0.2s;
+  -moz-transition: border-color 0.2s;
+  transition: border-color 0.2s;
+}
+
+input[type="search"]:focus {
+  transition: all 0.5s;
+  box-shadow: 0 0 40px #f9d442b9;
+  border-color: #f9d342;
+  outline: none;
+}
+
+form.search-form {
+  display: flex;
+  justify-content: center;
+}
+
+.search-label {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  margin-bottom: 0;
+  margin-right: 20px;
+  margin-left: 30px;
+  max-width: 180px;
+}
+
+input.search-field {
+  margin-bottom: 0;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  align-self: center;
+  height: 45px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  opacity: 0.8;
+}
+
+button.search-submit {
+  height: 45px;
+  margin: 0;
+  padding: 1rem 1.3rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  font-family: "Font Awesome 5 Free";
+  font-size: 1rem;
+}
+
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
+.button {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.8rem;
+  line-height: 1.15;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  background: #ffdd88;
+  color: #292826;
+  border: 1px solid transparent;
+  vertical-align: middle;
+  text-shadow: none;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.button:hover,
+.button:active,
+.button:focus {
+  cursor: pointer;
+  background: #d4b743;
+  color: #292826;
+  outline: 0;
+}
+
+.btn-primary:hover {
+  background-color: #947339;
+  border: 0;
+}
+
+.cart_img {
+  height: 60px;
+}
+
+.cart-container {
+  position: relative;
+  display: inline-block;
+}
+
+@media only screen and (min-width: 990px) {
+  .navbar-right {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+  }
+
+  .search-label {
+    // position: fixed;
+    position: absolute;
+    right: 20px; 
+    top: 100px;
+  }
+
+  .fixed-navbar {
+    // position: fixed;
+    position: absolute;
+    // top: 50px;
+    top: 30px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+  }
+}
+
+@media only screen and (max-width: 989px) {
+  .dropdown-menu {
+    border: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+  
+  .navbar-collapse {
+    padding: 20px;
+    z-index: -1;
+  }
+
+  .navbar {
+    margin: 0;
+    padding: 0;
+    height: 150px;
+  }
+
+  .nooksy {
+    padding-left: 15px;
+  }
+}
+
+.notify-badge {
+  position: absolute;
+  margin-left: 45px;
+  margin-bottom: 50px;
+  background: red;
+  text-align: center;
+  border-radius: 30px;
+  color:white;
+  padding: 5px 10px;
+  font-size: 9px;
+  font-weight: bold;
+}
+
+image {
+  cursor: pointer;
+}
+
+.nooksy {
+  position: absolute;
+  top: 0;
+}
+
+button.navbar-toggler {
+  border: solid red;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.margin-top {
+  margin-top: 100px;
+}
+
+.content_container {
+  padding-top: 250px;
+  min-height: 5em;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 170px;
+  color: white;
+  text-align: center;
+  background-color: rgb(58, 222, 178);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding-top: 30px;
+}
+
+.social_footer_img {
+  height: 30px;
+  width: auto;
+  margin: 5px;
+}
+
+.social_media_section {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  grid-column-start: 3;
+  padding-right: 35px;
+  align-items: center;
+}
+
+.social_imgs_row {
+  display: flex;
+  flex-direction: row;
+}
+
+.footer_headline_font {
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.learn_more_section {
+  grid-column-start: 2;
+}
+
+
+.nooksy-logo {
+  position: absolute;
+  top: 0px;
+  width: 200px;
+  z-index: 2;
+}

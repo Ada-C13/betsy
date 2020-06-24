@@ -1,0 +1,12 @@
+fossils:
+  name: fossils
+  products: [amber, t. rex tail, pachy skull, pachy_tail]
+tops:
+  name: tops
+  products: [shirt, pants, pachy_tail]
+furniture:
+  name: furniture
+  products: []
+bottoms:
+  name: bottoms
+  products: [pachy_tail, pants]

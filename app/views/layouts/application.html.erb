@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nooksy</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag 'https://i.ibb.co/Fzk7PdR/tom.png' %>
+    <%= stylesheet_link_tag 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'%>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@700&display=swap" rel="stylesheet">
+    
+  </head>
+  <%
+=begin%>
+ removes navigation and other styling for splash page 
+<%
+=end%>
+  <main>
+    <% unless action_name == "home" %>
+      <body class="body">
+        <header class="app-header app-header__header navbar navbar-light bg-light">
+          
+          <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-custom">
+  
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            
+            <%= link_to(image_tag("https://i.ibb.co/WzVkyyR/logo.png", alt: "nooksy-logo", class: "nooksy-logo"), root_path) %>
+
+            <div class="navbar-collapse collapse fixed-navbar nav-back" id="navbarSupportedContent">
+
+              <ul class="navbar-nav mr-auto margin-top">
+                
+                <li><%= link_to "Home", frontpage_path, class: "nav-link" %> </li>
+                <li><%= link_to "All Products", products_path, class: "nav-link" %> </li>
+                <li><%= link_to "All Merchants", users_path, class: "nav-link" %> </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Browse by Category
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <% Category.all.each do |category| %>
+                      <%= link_to category.name, category_path(category.id), class: "dropdown-item" %>
+                    <% end %>
+                  </div>
+                </li>
+      
+
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Browse by Merchant<b class="caret"></b></a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <% User.all.each do |user| %>
+                      <%= link_to user.name, user, class: "dropdown-item" %>
+                    <% end %>
+                  </div>
+                </li> 
+
+
+
+              </ul>
+
+
+              <ul class="navbar-nav mr-auto navbar-right">  
+                <% if @login_user %>
+                    <li class="nav-item">
+                      <%= link_to "My Dashboard", dashboard_path, class: "nav-link" %> 
+                    </li> 
+                    <li class="nav-item">
+                      <%= link_to "Log out from #{@login_user.name}", logout_path, method: "delete", class: "nav-link" %>
+                    </li>
+                  <% else %>
+                    <li class="nav-item">
+                      <%= link_to "Login with Github", github_login_path, class: "nav-link" %>
+                    </li>
+                  <% end %>
+                
+                <li class="cart-container">
+                  <span class="notify-badge"><%= session[:cart] ? OrderItem.cart_count(session) : 0 %></span>
+                  <%= link_to(image_tag("https://cdn2.iconfinder.com/data/icons/shop-retail-cartoon/512/a2081-512.png", alt: "cart image", class: "nav-link cart_img"), cart_path) %>
+                </li>
+
+                <li class="input-group search-label nav-item">
+                  <%= form_tag(search_path, method: :get, class: "search-form form") do %>
+                    <%= text_field_tag(:search, params[:search], type: "search", class: "search-field", placeholder: "Type something...") %>
+                    
+                    <%= button_tag(class: "search-submit button", type: "submit") do %>
+                      <i class="fa fa-search fa-1.5x" aria-hidden="true"></i>
+                    <% end %>          
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </header>
+      <% end %>
+
+
+      <% flash.each do |name, message| %>
+        <p class="flash-msg__section alert alert-<%= name %>">
+          <%= message %>
+        </p>
+      <% end %>
+
+
+        <% unless action_name == "home" %>
+          <a class="btn pause-button"></a> 
+        <% end %> 
+        <div class="content_container">
+          <%= yield %>
+        </div>
+    </main>
+  </body>
+</html>
+
+
+<%# button_tag - reference: https://stackoverflow.com/questions/16429542/how-do-i-add-an-i-to-the-text-of-a-submit-tag %>
+
+<%# https://stackoverflow.com/questions/22849913/ruby-on-rails-navigation-with-dynamic-content  %>
